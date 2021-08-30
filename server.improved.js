@@ -1,15 +1,13 @@
-import data from "./public/js/data";
-
 const http = require('http');
 const fs   = require('fs');
-const mime = require('mime');
+// const mime = require('mime');
 
 const dir = './public';
-const dataPath = `{dir}/js/data`;
+const dataPath = `{dir}/data.json`;
 const port = 3000;
-const routes = [
+const routes = {
   '/': '/index.html'
-];
+};
 
 http.createServer((req, res) => {
   if (req.method === 'GET') {
@@ -19,7 +17,7 @@ http.createServer((req, res) => {
   }
 }).listen(process.env.PORT || port);
 
-const GET = (req, res) => sendFile(res, routes[req.url] || req.url);
+const GET = (req, res) => sendFile(res, dir + (routes[req.url] || req.url));
 
 const POST = (req, res) => {
   let newData = {};
@@ -27,13 +25,14 @@ const POST = (req, res) => {
 
   req.on('end', () => {
     console.log(newData);
-    addData(newData);
-    resolve(res, 200);
+    const data = updateData(newData);
+    resolve(res, 200, JSON.stringify(data));
   });
 };
 
 const sendFile = (res, path) => {
-  fs.readFile(path, (err, data) => resolve(res, err ? 404: 200, err ? "File not found:" : data));
+  fs.readFile(path, (err, data) =>
+      resolve(res, err ? 404: 200, err ? "File not found:" : data));
 };
 
 const resolve = (res, code, data = null) => {
@@ -41,8 +40,11 @@ const resolve = (res, code, data = null) => {
   res.end(data);
 };
 
-const addData = (newData) => {
-  import(dataPath).then(data => {
-    fs.writeFile(dataPath, data + newData);
+const updateData = (newData) => {
+  import(dataPath).then(module => {
+    const data = JSON.parse(module.default) + newData;
+    console.log(data);
+    fs.writeFile(dataPath, JSON.stringify(data), null);
+    return data;
   });
 };
