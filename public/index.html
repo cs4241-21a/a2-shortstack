@@ -9,6 +9,9 @@
       <input type='text' id='yourname' value="your name here">
       <button>submit</button>
     </form>
+    <ul id="trackedForm">
+      <li>TestingText</li>
+    </ul>
   </body>
   <script>
 
@@ -20,13 +23,42 @@
           json = { yourname: input.value },
           body = JSON.stringify( json )
 
+    // console.log("This is the index.html")
+    // console.log("This is the input:")
+    // console.log(input)
+    // console.log("This is the json:")
+    // console.log(json)
+    // console.log("This is the body:")
+    // console.log(body)
+
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
+      // do something with the response 
+      console.log("response")
       console.log( response )
+      console.log("response body")
+      console.log(response.body)
+      console.log("JSON parsed response body")
+      console.log(JSON.parse(response.body))
+      // console.log(response)
+      // console.log("yourname")
+      // console.log(json.yourname)
+      return json.yourname
+      
+    })
+    .then( function (json) {
+      // const string_json = json
+      // console.log("new json")
+      // console.log(json)
+
+      const element = document.createElement('p')
+      // element.innerHTML = '<p><h1>text</h1></p>'
+      element.innerHTML = json
+      document.body.appendChild(element)
+
     })
 
     return false

@@ -12,6 +12,7 @@ const appdata = [
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
+
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -38,12 +39,25 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
+    console.log("\n\nNEW REQUEST")
+    console.log("dataString")
     console.log( JSON.parse( dataString ) )
-
+    appdata.push({ 'model': 'ford', 'year': 1987, 'mpg': 14})
+    console.log("appData")
+    console.log(appdata)
+    const string_app_data = JSON.stringify(appdata)
+    console.log("string appData")
+    console.log(string_app_data)
+    // let unordered_list = window.document.getElementById("trackedForm");
+    // let list_item = document.createElement("newListItem");
+    // list_item.innerText = dataString;
+    // unordered_list.appendChild(list_item);
     // ... do something with the data here!!!
 
+    // const json = JSON.parse(dataString)
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(string_app_data)
   })
 }
 
