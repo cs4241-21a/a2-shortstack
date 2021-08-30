@@ -12,9 +12,9 @@
   </body>
   <script>
 
-  const submit = function( e ) {
+  const submit = function( event ) {
     // prevent default form action from being carried out
-    e.preventDefault()
+    event.preventDefault()
 
     const input = document.querySelector( '#yourname' ),
           json = { yourname: input.value },
