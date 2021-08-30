@@ -23,7 +23,7 @@
     })
     .then( function( response ) {
       // do something with the reponse
-      console.log( response )
+      response.json().then(console.log)
     });
 
     return false
