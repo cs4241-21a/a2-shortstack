@@ -3,7 +3,7 @@ const fs   = require('fs');
 // const mime = require('mime');
 
 const dir = './public';
-const dataPath = `{dir}/data.json`;
+const dataPath = `${dir}/data.json`;
 const port = 3000;
 const routes = {
   '/': '/index.html'
@@ -22,12 +22,7 @@ const GET = (req, res) => sendFile(res, dir + (routes[req.url] || req.url));
 const POST = (req, res) => {
   let newData = {};
   req.on( 'data', data => newData = JSON.parse(data));
-
-  req.on('end', () => {
-    console.log(newData);
-    const data = updateData(newData);
-    resolve(res, 200, JSON.stringify(data));
-  });
+  req.on('end', () => resolve(res, 200, JSON.stringify(updateData(newData))));
 };
 
 const sendFile = (res, path) => {
@@ -40,11 +35,9 @@ const resolve = (res, code, data = null) => {
   res.end(data);
 };
 
-const updateData = (newData) => {
-  import(dataPath).then(module => {
-    const data = JSON.parse(module.default) + newData;
-    console.log(data);
-    fs.writeFile(dataPath, JSON.stringify(data), null);
-    return data;
-  });
+
+const updateData = async (newData) => {
+  const data = require(dataPath).concat([newData]);
+  fs.writeFile(dataPath, JSON.stringify(data), console.log);
+  return data;
 };
