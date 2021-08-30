@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 const http = require('http');
 const fs   = require('fs');
 // const mime = require('mime');
@@ -34,7 +36,8 @@ const sendFile = (res, path) => {
 
 // updates data by appending a new data object, returns updated data
 const updateData = async (newData) => {
-  const data = (JSON.parse(await fs.readFileSync(dataPath))).concat([newData]);
+  const data = JSON.parse(await fs.readFileSync(dataPath));
+  data.push({...newData, submitted: DateTime.utc(), admin: newData['username'] === 'Paradoxdotexe'})
   fs.writeFile(dataPath, JSON.stringify(data), () => null);
   return data;
 };
