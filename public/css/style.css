@@ -1,1 +1,30 @@
 /*Style your own assignment! This is fun! */
+body {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    background-color: #FAA2A2;
+}
+h1 {
+    font-family: "Impact";
+        text-transform: uppercase;
+        color: white;
+        font-size: 30pt;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+          -2px 2px 0 #000, 0px 2px 0 #000, 2px 0px 0 #000, 0px -2px 0 #000,
+          -2px 0px 0 #000, 2px 2px 5px #000;
+}
+form {
+    border: 1px solid #9a92e8;
+    border-radius: 5px;
+  }
+.centered {
+    display: flex;
+    justify-content: center;
+  }
+.page {
+    margin: 0;
+    width: 600px;
+    background-color: white;
+}
