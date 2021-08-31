@@ -15,8 +15,9 @@
     --font-size-sm: 0.875rem;
     --font-size-md: 1rem;
     --font-size-lg: 1.125rem;
-    --font-size-xl: 1.625rem;
-    --font-size-xxl: 4.5rem;
+    --font-size-xl: 1.25rem;
+    --font-size-xxl: 1.625rem;
+    --font-size-xxxl: 4.5rem;
 
     --shadow-intensity: 0.2;
     --shadow-offset: 4px;

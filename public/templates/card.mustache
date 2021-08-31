@@ -1,18 +1,22 @@
 {{#data}}
     <div class="card">
-        <div class="card__username">{{ userame }}</div>
+        <div class="card__username">{{ username }}</div>
         <div class="card__content">{{ content }}</div>
     </div>
 {{/data}}
 
 <style>
     .card {
-        max-width: 400px;
+        max-width: 320px;
+    }
+
+    .card .owned {
+        margin-left: 80px;
     }
 
     .card__username {
         font-family: var(--font-family-secondary);
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-xl);
         margin-bottom: 1rem;
     }
 </style>
