@@ -3,12 +3,11 @@
   <head>
     <title>pogchat.io</title>
     <meta charset="utf-8">
-
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/global.css">
   </head>
 
-  <body>
+  <body onload="onLoad()">
     <div id="texture"><img src="assets/texture.jpg" alt=""></div>
     <h1>pogchat.io</h1>
     <h2>a chat for all my pogchamps</h2>
@@ -25,16 +24,19 @@
   </body>
 
   <script>
+    import { parseUsername } from "./scripts/helpers";
+
+    function onLoad() {
+      getUsername();
+    }
+
     let username = undefined;
     const getUsername = () => {
       // enable transition only after initial username check
       if (username !== undefined) {
         document.body.classList.add('loaded');
       }
-
-      const usernameMatch = window.location.search.match('username=(.+?)(?:$|&)');
-      username = usernameMatch ? usernameMatch[1] : null;
-
+      username = parseUsername();
       if (username) {
         document.body.classList.add('joined');
       } else {
