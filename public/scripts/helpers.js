@@ -6,8 +6,8 @@ const parseUsername = () => {
     return usernameMatch ? usernameMatch[1] : null;
 }
 
-const fetchData = () => {
-    fetch('results').then(response => {
-
+const fetchData = async () => {
+    return await fetch('results').then(async response => {
+        return await response.json()
     });
 }

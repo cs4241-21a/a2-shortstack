@@ -3,9 +3,12 @@
   <head>
     <title>pogchat.io</title>
     <meta charset="utf-8">
+
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/index.css">
+
+    <script src="https://unpkg.com/mustache@latest"></script>
     <script src="scripts/helpers.js"></script>
 
     <script>
@@ -17,6 +20,7 @@
         username = parseUsername();
         if (username) {
           document.body.classList.add('joined');
+          renderChat();
         } else {
           document.body.classList.remove('joined');
         }
@@ -42,12 +46,14 @@
     <h1>pogchat.io</h1>
     <h2>a chat for all my pogchamps</h2>
 
-    <div id="join-box" class="card">
-      <div class="title">Join the chatroom</div>
-      <div class="subtitle">Enter your <strong>pogchat.io</strong> username to begin chatting!</div>
-      <small>Username</small>
-      <input type="text" id="username" placeholder="Enter a username">
-      <button onclick="join()">Join</button>
+    <div id="join">
+      <div class="join__card card">
+        <div class="title">Join the chatroom</div>
+        <div class="subtitle">Enter your <strong>pogchat.io</strong> username to begin chatting!</div>
+        <small>Username</small>
+        <input type="text" id="username" placeholder="Enter a username">
+        <button onclick="join()">Join</button>
+      </div>
     </div>
 
     <div id="chat">
@@ -57,10 +63,14 @@
 
   <script>
     getUsername();
-    
-    fetch('templates/card.mustache').then(response => response.text())
-            .then(template => {
-              renderTemplate(template, 'messages', data);
-            });
+
+    async function renderChat() {
+      const data = await fetchData();
+      console.log(data);
+      fetch('templates/card.mustache').then(response => response.text())
+              .then(template => {
+                renderTemplate(template, 'messages', data);
+              });
+    }
   </script>
 </html>

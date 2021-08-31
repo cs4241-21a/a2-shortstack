@@ -1,4 +1,5 @@
 body {
+    height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -46,6 +47,7 @@ h1 {
 .joined h1 {
     font-size: var(--font-size-xl);
     margin-top: var(--font-size-xxl);
+    margin-bottom: 0;
 }
 
 h2 {
@@ -60,40 +62,47 @@ h2 {
 }
 
 /* JOIN BOX */
-#join-box {
+#join {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#join .join__card {
+    position: absolute;
     width: 320px;
     display: flex;
     flex-direction: column;
 }
 
-#join-box .title {
+#join .join__card .title {
     font-family: var(--font-family-secondary);
     font-size: var(--font-size-xl);
     margin-bottom: 1rem;
 }
 
-#join-box .subtitle {
+#join .join__card .subtitle {
     margin-bottom: 1.5rem;
 }
 
-#join-box .subtitle strong {
+#join .join__card .subtitle strong {
     font-weight: 500;
 }
 
-#join-box small {
+#join .join__card small {
     font-size: var(--font-size-sm);
     margin-bottom: 0.25rem;
 }
 
-#join-box input {
+#join .join__card input {
     margin-bottom: 1.5rem;
 }
 
-#join-box button {
+#join .join__card button {
     margin-left: auto;
 }
 
-.joined #join-box {
+.joined #join .join__card {
     opacity: 0;
     margin-top: 100vh;
     transform: scale(0.33);
@@ -109,6 +118,6 @@ h2 {
 }
 
 /* TRANSITIONS */
-.loaded #texture, .loaded h1, .loaded h2, .loaded #join-box, .loaded #chat {
+.loaded #texture, .loaded h1, .loaded h2, .loaded #join .join__card, .loaded #chat {
     transition: all var(--transition-duration) var(--transition-timing-function);
 }
