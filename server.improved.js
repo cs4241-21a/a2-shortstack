@@ -6,11 +6,28 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const users = {
+  'federico' : {'password': 'abc123'},
+  'john' : {'password': 'aaa111'},
+  'amanda' : {'password': 'ab24'},
+  'sophia' : {'password': 'asdasd5'}
+}
+
+let matches = {
+  'federico' : ['amanda', 'sophia'],
+  'amanda' : ['john']
+}
+
+const setDefaults = function() {
+  for (const user in users) {
+    users[user].preferredTime = 'Morning'
+    users[user].major = 'Computer Science'
+    users[user].class = '2024'
+    users[user].leadership = 'Follower'
+    users[user].commitment = '1'
+    users[user].location = 'Online'
+  }
+}
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -25,9 +42,21 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if ( request.url === '/api/matches') {
+    sendData(response, matches[request.username])
+  } else {
     sendFile( response, filename )
   }
+}
+
+const login = function ( credentials ) {
+  if (credentials.username in users) {
+    let password = users[credentials.username].password
+    if (credentials.password === password) {
+      return true
+    }
+  }
+  return false
 }
 
 const handlePost = function( request, response ) {
@@ -38,12 +67,18 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    let data = JSON.parse( dataString )
+    console.log(data)
+    if (request.url === '/api/login') {
+      if (login(data)) {
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end()    
+        return
+      }
+      response.writeHead( 403, "Invalid login", {'Content-Type': 'text/plain' })
+      response.end()
+      return
+    }
   })
 }
 
@@ -59,7 +94,7 @@ const sendFile = function( response, filename ) {
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
 
-     }else{
+     } else {
 
        // file not found, error code 404
        response.writeHeader( 404 )
@@ -69,4 +104,5 @@ const sendFile = function( response, filename ) {
    })
 }
 
+setDefaults()
 server.listen( process.env.PORT || port )
