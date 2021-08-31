@@ -1,11 +1,12 @@
 {
   "name": "a2-shortstack",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Submission for Matthew Malone",
   "author": "Matthew7758",
   "scripts": {
     "start": "node server.improved.js"
   },
+  "repository": "https://github.com/Matthew7758/a2-shortstack.git",
   "dependencies": {
     "mime": "^2.4.4"
   }
