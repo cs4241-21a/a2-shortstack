@@ -102,6 +102,7 @@ h2 {
 
 /* CHAT */
 #chat {
+    min-width: 440px;
     opacity: 0;
     height: 100%;
     display: flex;

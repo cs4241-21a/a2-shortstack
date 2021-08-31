@@ -37,8 +37,19 @@
       }
     }
 
-    function send(event) {
-      console.log(event);
+    const send = (e) => {
+      e.preventDefault();
+
+      const message = document.getElementById('message');
+      const body = JSON.stringify({
+        username,
+        content: message.value
+      });
+      fetch(window.location.href, { method:'POST', body }).then(async data => {
+        renderChat(await data.json()).then();
+      });
+
+      message.value = null;
     }
 
     // check for username when location changes
@@ -63,20 +74,21 @@
 
 <div id="chat">
   <div class="chat__messages" id="messages"></div>
-  <div class="chat__input">
-    <form action="">
-      <input type="text" id="message" placeholder="Write a reply">
-      <button onclick="send()">Send</button>
-    </form>
-  </div>
+  <form class="chat__input" action="">
+    <input type="text" id="message" placeholder="Write a reply">
+    <button id="send" onclick="send()">Send</button>
+  </form>
 </div>
 </body>
 
 <script>
+  document.getElementById('send').onclick = send;
   getUsername();
 
-  async function renderChat() {
-    const data = await fetchData();
+  async function renderChat(data = null) {
+    if (!data) {
+      data = await fetchData();
+    }
     data.forEach(d => {
       d.class = d.username === username ? 'owned': '';
       d.timeString = getTimeString(d.submitted);

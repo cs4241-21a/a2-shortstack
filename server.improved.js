@@ -1,6 +1,6 @@
 const http = require('http');
 const fs = require('fs');
-const DateTime = require('luxon');
+const { DateTime } = require('luxon');
 // const mime = require('mime');
 
 const dir = './public';
