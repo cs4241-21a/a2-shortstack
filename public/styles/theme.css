@@ -10,11 +10,12 @@
     --background-secondary: #282828;
     --background-tertiary: #3A3A3A;
     --accent-primary: #651AC3;
+    --accent-secondary: #531b9d;
 
     --font-size-sm: 0.875rem;
     --font-size-md: 1rem;
     --font-size-lg: 1.125rem;
-    --font-size-xl: 1.5rem;
+    --font-size-xl: 1.625rem;
     --font-size-xxl: 4.5rem;
 
     --shadow-intensity: 0.2;
@@ -43,6 +44,16 @@ body {
 
 body, h1, h2, h3, pre {
     margin: 0;
-    line-height: 150%;
+    line-height: 135%;
     font-weight: normal;
+}
+
+button {
+    color: var(--color-primary);
+    font-family: var(--font-family-primary);
+    font-size: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }

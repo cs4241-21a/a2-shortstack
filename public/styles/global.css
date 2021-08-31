@@ -1,3 +1,10 @@
+body {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* TEXTURE */
 #texture {
     position: absolute;
@@ -20,7 +27,7 @@
     object-position: right;
 }
 
-.chat #texture {
+.joined #texture {
     width: 30%
 }
 
@@ -36,7 +43,7 @@ h1 {
     margin: calc(var(--font-size-xxl) * 2) 0 1rem;
 }
 
-.chat h1 {
+.joined h1 {
     font-size: var(--font-size-xl);
     margin-top: var(--font-size-xxl);
 }
@@ -44,13 +51,66 @@ h1 {
 h2 {
     text-align: center;
     font-size: var(--font-size-md);
+    margin-bottom: var(--font-size-xxl);
 }
 
-.chat h2 {
+.joined h2 {
     font-size: calc(var(--font-size-md) * 0.33);
     opacity: 0;
 }
 
-.loaded h1, .loaded h2 {
+/* JOIN BOX */
+#join-box {
+    width: 320px;
+    background: var(--background-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-down);
+    padding: 1.5rem 2rem;
+}
+
+#join-box .title {
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-size-xl);
+    margin-bottom: 1rem;
+}
+
+#join-box .subtitle {
+    margin-bottom: 2rem;
+}
+
+#join-box .subtitle strong {
+    font-weight: 500;
+}
+
+.joined #join-box {
+    opacity: 0;
+    margin-top: 100vh;
+    transform: scale(0.33);
+}
+
+/* CHAT */
+#chat {
+    opacity: 0;
+}
+
+.joined #chat {
+    opacity: 1;
+}
+
+/* TRANSITIONS */
+.loaded #texture, .loaded h1, .loaded h2, .loaded #join-box, .loaded #chat {
     transition: all var(--transition-duration) var(--transition-timing-function);
+}
+
+/* BUTTONS */
+button {
+    background: var(--accent-primary);
+    box-shadow: var(--box-shadow-down);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    float: right;
+}
+
+button:focus {
+    background: var(--accent-secondary);
 }

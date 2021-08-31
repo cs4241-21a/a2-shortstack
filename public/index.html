@@ -12,7 +12,14 @@
     <div id="texture"><img src="assets/texture.jpg" alt=""></div>
     <h1>pogchat.io</h1>
     <h2>a chat for all my pogchamps</h2>
-    <button onclick="onSubmit()">Join</button>
+
+    <div id="join-box">
+      <div class="title">Join the chatroom</div>
+      <div class="subtitle">Enter your <strong>pogchat.io</strong> username to begin chatting!</div>
+      <button onclick="join()">Join</button>
+    </div>
+
+    <div id="chat"></div>
   </body>
 
   <script>
@@ -22,17 +29,19 @@
       if (username !== undefined) {
         document.body.classList.add('loaded');
       }
+
       const usernameMatch = window.location.search.match('username=(.+?)(?:$|&)');
       username = usernameMatch ? usernameMatch[1] : null;
+
       if (username) {
-        document.body.classList.add('chat');
+        document.body.classList.add('joined');
       } else {
-        document.body.classList.remove('chat');
+        document.body.classList.remove('joined');
       }
     }
     getUsername();
 
-    function onSubmit() {
+    function join() {
       const path = window.location.href.split('?')[0] + '?username=Paradoxdotexe';
       window.history.pushState({ path }, '', path);
       getUsername();
