@@ -20,15 +20,37 @@
     object-position: right;
 }
 
+.chat #texture {
+    width: 30%
+}
+
+.loaded #texture {
+    transition: all var(--transition-duration) var(--transition-timing-function);
+}
+
 /* HEADINGS */
 h1 {
     font-family: var(--font-family-secondary);
-    font-size: var(--font-size-xxl);
     text-align: center;
+    font-size: var(--font-size-xxl);
     margin: calc(var(--font-size-xxl) * 2) 0 1rem;
+}
+
+.chat h1 {
+    font-size: var(--font-size-xl);
+    margin-top: var(--font-size-xxl);
 }
 
 h2 {
     text-align: center;
     font-size: var(--font-size-md);
+}
+
+.chat h2 {
+    font-size: calc(var(--font-size-md) * 0.33);
+    opacity: 0;
+}
+
+.loaded h1, .loaded h2 {
+    transition: all var(--transition-duration) var(--transition-timing-function);
 }

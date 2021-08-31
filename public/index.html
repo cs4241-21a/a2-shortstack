@@ -7,11 +7,38 @@
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/global.css">
   </head>
+
   <body>
     <div id="texture"><img src="assets/texture.jpg" alt=""></div>
     <h1>pogchat.io</h1>
     <h2>a chat for all my pogchamps</h2>
+    <button onclick="onSubmit()">Join</button>
   </body>
+
   <script>
+    let username = undefined;
+    const getUsername = () => {
+      // enable transition only after initial username check
+      if (username !== undefined) {
+        document.body.classList.add('loaded');
+      }
+      const usernameMatch = window.location.search.match('username=(.+?)(?:$|&)');
+      username = usernameMatch ? usernameMatch[1] : null;
+      if (username) {
+        document.body.classList.add('chat');
+      } else {
+        document.body.classList.remove('chat');
+      }
+    }
+    getUsername();
+
+    function onSubmit() {
+      const path = window.location.href.split('?')[0] + '?username=Paradoxdotexe';
+      window.history.pushState({ path }, '', path);
+      getUsername();
+    }
+
+    // check for username when location changes
+    window.addEventListener('popstate', getUsername);
   </script>
 </html>

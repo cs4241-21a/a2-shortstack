@@ -7,8 +7,7 @@ const dir = './public';
 const dataPath = `${dir}/data.json`;
 const port = 3000;
 const routes = {
-  '/': '/index.html',
-  '/chat': '/chat.html'
+  '/': '/index.html'
 };
 
 http.createServer((req, res) => {
