@@ -8,7 +8,8 @@ const dir = './public';
 const dataPath = `${dir}/data.json`;
 const port = 3000;
 const routes = {
-  '/': '/index.html'
+  '/': '/index.html',
+  '/chat': '/chat.html'
 };
 
 http.createServer((req, res) => {

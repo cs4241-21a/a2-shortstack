@@ -25,7 +25,7 @@ h1 {
     font-family: var(--font-family-secondary);
     font-size: var(--font-size-xxl);
     text-align: center;
-    margin: 7rem 0 1rem;
+    margin: calc(var(--font-size-xxl) * 2) 0 1rem;
 }
 
 h2 {

@@ -26,6 +26,10 @@
     --gap-sm: 8px;
     --gap-md: 16px;
 
+    --transition-duration: 500ms;
+    --transition-timing-function: ease;
+    --transition-delay: 250ms;
+
     --border-radius: var(--gap-sm);
     --framework-width: 1000px;
 }
