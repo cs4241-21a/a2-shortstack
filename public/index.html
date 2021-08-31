@@ -8,7 +8,6 @@
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
-    <script src="./js/scripts.js"></script>
 </head>
 <body>
 <div class="grid left">
@@ -26,7 +25,7 @@
 <div class="grid right">
     <div class="formData">
         <h2 id="rightHeader">Add New Information</h2>
-        <form>
+        <form action="">
             <label for='yourname'>Your Name: </label>
             <input id='yourname' placeholder="Your name here" type='text'><br>
             <label for='age'>Your Age: </label>
@@ -40,8 +39,9 @@
             </select><br>
         </form>
         <button id="submit">Submit</button>
-        <h3 id="warning"></h3>
+        <h3 id="warning">&nbsp;</h3>
     </div>
 </div>
+<script src="./js/scripts.js"></script>
 </body>
 </html>
