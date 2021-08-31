@@ -5,14 +5,44 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/helpers.js"></script>
+
+    <script>
+      let username = undefined;
+      const getUsername = () => {
+        if (username !== undefined) {
+          document.body.classList.add('loaded'); // enable transition only after initial username check
+        }
+        username = parseUsername();
+        if (username) {
+          document.body.classList.add('joined');
+        } else {
+          document.body.classList.remove('joined');
+        }
+      }
+
+      function join() {
+        const input = document.getElementById('username');
+        if (input.value) {
+          const path = window.location.href.split('?')[0] + `?username=${input.value}`;
+          window.history.pushState({ path }, '', path);
+          getUsername();
+          input.value = null;
+        }
+      }
+
+      // check for username when location changes
+      window.addEventListener('popstate', getUsername);
+    </script>
   </head>
 
-  <body onload="onLoad()">
+  <body>
     <div id="texture"><img src="assets/texture.jpg" alt=""></div>
     <h1>pogchat.io</h1>
     <h2>a chat for all my pogchamps</h2>
 
-    <div id="join-box">
+    <div id="join-box" class="card">
       <div class="title">Join the chatroom</div>
       <div class="subtitle">Enter your <strong>pogchat.io</strong> username to begin chatting!</div>
       <small>Username</small>
@@ -24,38 +54,6 @@
   </body>
 
   <script>
-    import { parseUsername } from "./scripts/helpers";
-
-    function onLoad() {
-      getUsername();
-    }
-
-    let username = undefined;
-    const getUsername = () => {
-      // enable transition only after initial username check
-      if (username !== undefined) {
-        document.body.classList.add('loaded');
-      }
-      username = parseUsername();
-      if (username) {
-        document.body.classList.add('joined');
-      } else {
-        document.body.classList.remove('joined');
-      }
-    }
     getUsername();
-
-    function join() {
-      const input = document.getElementById('username');
-      if (input.value) {
-        const path = window.location.href.split('?')[0] + `?username=${input.value}`;
-        window.history.pushState({ path }, '', path);
-        getUsername();
-        input.value = null;
-      }
-    }
-
-    // check for username when location changes
-    window.addEventListener('popstate', getUsername);
   </script>
 </html>

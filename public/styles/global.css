@@ -62,10 +62,6 @@ h2 {
 /* JOIN BOX */
 #join-box {
     width: 320px;
-    background: var(--background-secondary);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow-down);
-    padding: 1.5rem 2rem;
     display: flex;
     flex-direction: column;
 }
@@ -115,29 +111,4 @@ h2 {
 /* TRANSITIONS */
 .loaded #texture, .loaded h1, .loaded h2, .loaded #join-box, .loaded #chat {
     transition: all var(--transition-duration) var(--transition-timing-function);
-}
-
-/* BUTTONS */
-button {
-    width: min-content;
-    background: var(--accent-primary);
-    box-shadow: var(--box-shadow-down);
-    border-radius: var(--border-radius);
-    padding: 0.5rem 1rem;
-}
-
-button:focus {
-    background: var(--accent-secondary);
-}
-
-/* INPUT */
-input {
-    background: var(--background-tertiary);
-    border-radius: var(--border-radius);
-    padding: 0.5rem 1rem;
-    transition: box-shadow 150ms var(--transition-timing-function);
-}
-
-input:focus {
-    box-shadow: 0 3px var(--accent-primary);
 }

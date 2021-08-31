@@ -1,0 +1,40 @@
+/* BODY */
+body {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* BUTTONS */
+button {
+    width: min-content;
+    background: var(--accent-primary);
+    box-shadow: var(--box-shadow-down);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+}
+
+button:focus {
+    background: var(--accent-secondary);
+}
+
+/* INPUT */
+input {
+    background: var(--background-tertiary);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    transition: box-shadow 150ms var(--transition-timing-function);
+}
+
+input:focus {
+    box-shadow: 0 3px var(--accent-primary);
+}
+
+/* CARD */
+.card {
+    background: var(--background-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-down);
+    padding: 1.5rem 2rem;
+}
