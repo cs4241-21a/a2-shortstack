@@ -1,16 +1,16 @@
 {{#data}}
-    <div class="card">
-        <div class="card__username">{{ username }}</div>
+    <div class="card {{ class }}">
+        <div class="card__username">{{ owned }}</div>
         <div class="card__content">{{ content }}</div>
     </div>
 {{/data}}
 
 <style>
     .card {
-        max-width: 320px;
+        width: 320px;
     }
 
-    .card .owned {
+    .card.owned {
         margin-left: 80px;
     }
 
