@@ -54,7 +54,7 @@ function addRowToTable(dataString) {
 }
 
 function deleteRowFromTable(dataString) {
-    for (let i = 0; i < appdata.length - 1; i++) {
+    for (let i = 0; i < appdata.length; i++) {
         let row = appdata[i];
 		console.log("dataString = "+dataString.slice(5));
         if ((i + 1).toString() === dataString.slice(5)) appdata.splice(i,1);
