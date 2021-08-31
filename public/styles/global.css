@@ -1,0 +1,34 @@
+/* TEXTURE */
+#texture {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45%;
+    height: 100%;
+    background: var(--accent-primary);
+    z-index: -1;
+}
+
+#texture img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    object-fit: cover;
+    object-position: right;
+}
+
+/* HEADINGS */
+h1 {
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-size-xxl);
+    text-align: center;
+    margin: 7rem 0 1rem;
+}
+
+h2 {
+    text-align: center;
+    font-size: var(--font-size-md);
+}

@@ -15,6 +15,7 @@
     --font-size-md: 1rem;
     --font-size-lg: 1.125rem;
     --font-size-xl: 1.5rem;
+    --font-size-xxl: 4.5rem;
 
     --shadow-intensity: 0.2;
     --shadow-offset: 4px;
@@ -32,11 +33,12 @@
 body {
     font-family: var(--font-family-primary);
     font-size: 100%;
-    background: var(--background-secondary);
+    background: var(--background-primary);
     color: var(--color-primary);
 }
 
 body, h1, h2, h3, pre {
     margin: 0;
     line-height: 150%;
+    font-weight: normal;
 }
