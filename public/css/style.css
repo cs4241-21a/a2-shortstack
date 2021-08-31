@@ -91,6 +91,7 @@ h1 {
     display: flex;
     justify-content: center;
     color: red;
+    font-family: "Courier New", monospace;
 }
 
 .tableData {
