@@ -1,0 +1,36 @@
+{{#data}}
+    <div class="message {{ class }}">
+        <div class="message__card card">
+            <div class="message__username">{{ username }}</div>
+            <div class="message__content">{{ content }}</div>
+        </div>
+        <small>{{ timeString }}</small>
+    </div>
+{{/data}}
+
+<style>
+    .message.owned {
+        margin-left: 80px;
+    }
+
+    .message .message__card {
+        width: 320px;
+        padding: 1rem 1.25rem;
+    }
+
+    .message .message__username {
+        font-family: var(--font-family-secondary);
+        font-size: var(--font-size-xl);
+        margin-bottom: 1rem;
+    }
+
+    .message small {
+        font-size: var(--font-size-sm);
+        float: left;
+        margin: 0.25rem 0.25rem 0;
+    }
+
+    .message.owned small {
+        float: right;
+    }
+</style>

@@ -72,7 +72,7 @@
       d.timeString = getTimeString(d.submitted);
     });
     console.log(data);
-    fetch('templates/card.mustache').then(response => response.text())
+    fetch('templates/message.mustache').then(response => response.text())
             .then(template => {
               renderTemplate(template, 'messages', data);
             });
