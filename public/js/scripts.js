@@ -153,6 +153,10 @@ const makePost = function () {
         }).then(function (response) {
             console.log("Post from makePost sent to server: " + response);
             updatePage();
+            document.getElementById('yourname').value = "";
+            document.getElementById('age').value = "";
+            let genderSelect = document.getElementById('yourgender');
+            genderSelect[0].selected = true;
         });
     }
 };
