@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&family=Suez+One&display=swap');
+
+:root {
+    --font-family-primary: 'Rubik', sans-serif;
+    --font-family-secondary: 'Suez One', serif;
+
+    --color-primary: #fff;
+    --color-secondary: #bfbfbf;
+    --background-primary: #181818;
+    --background-secondary: #282828;
+    --background-tertiary: #3A3A3A;
+    --accent-primary: #651AC3;
+
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+
+    --shadow-intensity: 0.2;
+    --shadow-offset: 4px;
+    --shadow-blur: 16px;
+    --box-shadow-down: 0 var(--shadow-offset) var(--shadow-blur) rgb(0, 0, 0, var(--shadow-intensity));
+
+    --gap-xs: 4px;
+    --gap-sm: 8px;
+    --gap-md: 16px;
+
+    --border-radius: var(--gap-sm);
+    --framework-width: 1000px;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    font-size: 100%;
+    background: var(--background-secondary);
+    color: var(--color-primary);
+}
+
+body, h1, h2, h3, pre {
+    margin: 0;
+    line-height: 150%;
+}
