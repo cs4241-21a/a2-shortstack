@@ -110,7 +110,7 @@ const updatePage = function () {
             tableRow.className = rowNum;
             rowNum++;
             console.log("Count = "+count);
-            counterDisplayElem.innerHTML = count;
+            counterDisplayElem.innerHTML = count.toString();
         });
     });
 };
