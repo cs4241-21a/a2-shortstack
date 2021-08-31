@@ -55,12 +55,12 @@ const updatePage = function () {
         let rowNum = 1;
         appdata.map(function (row) {
             let tableRow = createNode('tr');
-            let td1 = createNode('th');
-            let td2 = createNode('th');
-            let td3 = createNode('th');
-            let td4 = createNode('th');
-            let td5 = createNode('th');
-            let td6 = createNode('th');
+            let td1 = createNode('td');
+            let td2 = createNode('td');
+            let td3 = createNode('td');
+            let td4 = createNode('td');
+            let td5 = createNode('td');
+            let td6 = createNode('td');
 
             let pencil = createNode('i');
             pencil.id = `pencil${rowNum}`;

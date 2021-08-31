@@ -46,34 +46,34 @@ function isAdult(data) {
 function addRowToTable(dataString) {
     let jsonApp = JSON.parse(dataString);
     //Derived attribute.
-    console.log("jsonApp:\n"+JSON.stringify(jsonApp))
+    console.log("jsonApp:\n" + JSON.stringify(jsonApp))
 
     jsonApp['adult'] = isAdult(jsonApp);
-    console.log("jsonApp:\n"+JSON.stringify(jsonApp))
+    console.log("jsonApp:\n" + JSON.stringify(jsonApp))
     appdata.push(jsonApp);
 }
 
 function deleteRowFromTable(dataString) {
     for (let i = 0; i < appdata.length; i++) {
         let row = appdata[i];
-		console.log("dataString = "+dataString.slice(5));
-        if ((i + 1).toString() === dataString.slice(5)) appdata.splice(i,1);
+        console.log("dataString = " + dataString.slice(5));
+        if ((i + 1).toString() === dataString.slice(5)) appdata.splice(i, 1);
     }
 }
 
 function modifyRowFromTable(dataString) {
-	let jsonApp = JSON.parse(dataString);
-	for(let i = 0; i < appdata.length; i++) {
-        console.log("i = "+i);
-        console.log("jsonApp = "+jsonApp['modifyIndex']);
-		if((i+1).toString().normalize() === (jsonApp['modifyIndex'].toString().normalize())) {
-			let row = appdata[i];
-			row['name'] = jsonApp['name'];
-			row['age'] = jsonApp['age'];
-			row['gender'] = jsonApp['gender'];
-			row['adult'] = isAdult(row);
-		}
-	}
+    let jsonApp = JSON.parse(dataString);
+    for (let i = 0; i < appdata.length; i++) {
+        console.log("i = " + i);
+        console.log("jsonApp = " + jsonApp['modifyIndex']);
+        if ((i + 1).toString().normalize() === (jsonApp['modifyIndex'].toString().normalize())) {
+            let row = appdata[i];
+            row['name'] = jsonApp['name'];
+            row['age'] = jsonApp['age'];
+            row['gender'] = jsonApp['gender'];
+            row['adult'] = isAdult(row);
+        }
+    }
 }
 
 const handlePost = function (request, response) {
@@ -90,7 +90,7 @@ const handlePost = function (request, response) {
         if (request.url === '/add') addRowToTable(dataString);
         else if (request.url === '/delete') deleteRowFromTable(dataString);
         else if (request.url === '/modify') modifyRowFromTable(dataString);
-        console.log("appdata:\n"+JSON.stringify(appdata));
+        console.log("appdata:\n" + JSON.stringify(appdata));
         response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
         response.end()
     })

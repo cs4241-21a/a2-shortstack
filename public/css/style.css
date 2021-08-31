@@ -1,1 +1,93 @@
 /*Style your own assignment! This is fun! */
+.grid {
+    top: 0;
+    padding-top: 25px;
+    z-index: 1;
+    height: 100%;
+    overflow-x: hidden;
+    position: fixed;
+}
+
+.left {
+    left: 0;
+    width: 75%;
+    background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    //background-size: 100% 100%;
+}
+
+.right {
+    right: 0;
+    width: 25%;
+    background-color: #729C65;
+}
+
+form {
+    font-family: 'Comic Neue', cursive;
+}
+
+.formData {
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+}
+
+#rightHeader {
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+}
+
+#leftHeader {
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+}
+
+#counter {
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#counterText {
+    font-family: 'Comic Neue', cursive;
+    font-size: 16px;
+}
+
+#dataTable {
+    width: 100%;
+    background-color: #5CDB95;
+}
+
+th {
+    font-family: 'Comic Neue', cursive;
+    background-color: #449432;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+td {
+    background-color: #5CDB95;
+    font-size: 18px;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    font-family: 'Comic Neue', cursive;
+}
+
+h1 {
+    justify-content: center;
+    font-family: "Courier New", monospace;
+    display: flex;
+}
+
+#warning {
+    display: flex;
+    justify-content: center;
+    color: red;
+}
+
+.tableData {
+    background-color: #8EE4AF;
+}
