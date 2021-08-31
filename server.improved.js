@@ -8,6 +8,7 @@ const dataPath = `${dir}/data.json`;
 const port = 3000;
 const routes = {
   '/': '/index.html',
+  '/chat': '/index.html',
   '/results': '/data.json'
 };
 
@@ -19,7 +20,10 @@ http.createServer((req, res) => {
   }
 }).listen(process.env.PORT || port);
 
-const GET = (req, res) => sendFile(res, dir + (routes[req.url] || req.url));
+const GET = (req, res) => {
+  const url = req.url.split('?')[0];
+  sendFile(res, dir + (routes[url] || url));
+};
 
 const POST = (req, res) => {
   let data = {};

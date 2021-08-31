@@ -30,7 +30,7 @@
     function join() {
       const input = document.getElementById('username');
       if (input.value) {
-        const path = window.location.href.split('?')[0] + `?username=${input.value}`;
+        const path = window.location.href.split('?')[0] + `chat?username=${input.value}`;
         window.history.pushState({ path }, '', path);
         getUsername();
         input.value = null;
