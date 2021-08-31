@@ -1,5 +1,6 @@
 /*This is an ID selector*/
-#happy-cake {
+form {
+    display: block;
 
 }
 
@@ -8,9 +9,14 @@
     
 }
 
+p {
+    font-family: 'Rubik', sans-serif;
+    font-weight: bold;
+}
+
 /*This is a Tag Selector */
 body {
-    background-image: url("https://images2.alphacoders.com/928/928887.jpg");
+    background-image: url("https://i.pinimg.com/originals/a3/11/53/a311536cc9efba6f2f4a549148f0d504.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -19,4 +25,20 @@ button {
     outline: none;
     border: none;
     background-color: lightblue;
+    border-radius: 50px;
+    width: 100px;
+    height: 20px;
+}
+
+table{
+    display: flexbox;
+}
+
+th {
+    background-color: lightblue;
+    margin-top: 50px;
+}
+
+td {
+    padding: 10px 30px;
 }

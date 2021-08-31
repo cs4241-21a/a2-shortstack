@@ -3,13 +3,34 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <link href="css/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <meta charset="utf-8"/>
   </head>
   <body>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <p>
+        Getting Enough Sleep?
+      </p>
+      <input type='text' id='yourname' value="Enter your name here">
+      <input type='text' id='major' value="Enter your major here">
+      <select name="hours" id="hours">
+        <option value="0-4 hours">0-4 hours</option>
+        <option value="5-7 hours">5-7 hours</option>
+        <option value="8 hours">8 hours</option>
+        <option value="8+ hours">8+ hours</option>
+      </select>
       <button>submit</button>
     </form>
+    <table>
+      <tr>
+        <th scope="col"> Name</th>
+        <th scope="col">Major</th>
+        <th scope="col">Hours of Sleep</th>
+        <th scope="col">Advice</th>
+      </tr>
+    </table>
   </body>
   <script>
 
