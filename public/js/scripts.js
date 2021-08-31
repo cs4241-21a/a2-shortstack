@@ -87,7 +87,7 @@ const updatePage = function () {
                 }).then(function (response) {
                     console.log("Delete post sent to server: " + response);
                     updatePage();
-                    count--;
+                    //count--;
                 });
                 elt.preventDefault();
                 return false;
@@ -109,9 +109,20 @@ const updatePage = function () {
             dataTable.appendChild(tableRow);
             tableRow.className = rowNum;
             rowNum++;
-            console.log("Count = "+count);
-            counterDisplayElem.innerHTML = count.toString();
         });
+    });
+    console.log("Count = "+count);
+    fetch('/updatePage', {
+        method: 'GET'
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        appdata = data;
+        console.log("APPDATA ON UPDATE = "+appdata.length);
+        console.log("APPDATA VALUE\n"+JSON.stringify(appdata));
+        count = appdata.length;
+        console.log("COUNT ON UPDATE = "+count);
+        counterDisplayElem.innerHTML = count.toString();
     });
 };
 updatePage();
@@ -165,7 +176,7 @@ const handleInput = function (elt) {
     if (submitBtn.innerHTML === "Submit") {
         inputSelect = 'add';
         makePost();
-        count++;
+        //count++;
     } else {
         inputSelect = 'modify';
         makePost();
