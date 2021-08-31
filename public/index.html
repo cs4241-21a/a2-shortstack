@@ -3,51 +3,56 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    <h1>Team Matching</h1>
+    <p>Welcome to Team Matching! This is a WPI platform to help you find a well-rounded team in your class.</p>
+    <p id="error-box"></p>
     <form action="" id="loginform">
+      <h3>Login</h1>
+      <label for="username">Username: </label>
       <input type='text' id='username' placeholder="username@wpi.edu">
+      <label for="password">Password: </label>
       <input type='password' id='password' placeholder="*******">
-      <button>Login</button>
+      <button id="login-button">Submit</button>
     </form>
+    <div class="logged-in">
     <table id="matches">
-      <tr><td>Preferred meeting time</td></tr>
-      <tr><td>Major</td></tr>
-      <tr><td>Class</td></tr>
-      <tr><td>Follower or leader</td></tr>
-      <tr><td>Commitment</td></tr>
-      <tr><td>Online/In-Person</td></tr>
+      <h2>Current matches</h2>
+      <tr>
+        <th>Preferred meeting time</th>
+        <th>Major</th>
+        <th>Class</th>
+        <th>Follower or leader</th>
+        <th>Commitment</th>
+        <th>Location</th>
+      </tr>
     </table>
-    <form action="" id="updateprofile">
-      <input type='text' id='item' placeholder="Apple Pencil">
-      <button>Submit</button>
-    </form>
+    </div>
+    <div class="logged-in">
+      <h2>Update your profile</h2>
+      <form action="" id="updateprofile">
+        <label for="preferred-time">Preferred time: </label>
+        <input type='text' id='preferred-time' placeholder="Morning">
+        <label for="major">Major: </label>
+        <input type='text' id='major' placeholder="Computer Science">
+        <label for="class">Class: </label>
+        <input type='text' id='class' placeholder="2024">
+        <label for="leadership">Leadership: </label>
+        <input type='text' id='leadership' placeholder="Leader">
+        <label for="commitment">Commitment: </label>
+        <label for="commitment1">Medium</label>
+        <input type='radio' id='commitment1' name='commitment' value="1">
+        <label for="commitment2">High</label>
+        <input type='radio' id='commitment2' name='commitment' value="2">
+        <label for="commitment3">Very High</label>
+        <input type='radio' id='commitment3' name='commitment' value="3">
+        <label for="location">Location: </label>
+        <input type='text' id='location' placeholder="Online">
+        <button>Submit</button>
+      </form>
+    </div>
+    <script src="js/scripts.js"></script>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    document.querySelector( 'button' ).onclick = submit
-  }
-
-  </script>
 </html>
