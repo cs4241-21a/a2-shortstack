@@ -50,10 +50,17 @@
       <button onclick="join()">Join</button>
     </div>
 
-    <div id="chat"></div>
+    <div id="chat">
+      <div class="chat__cards" id="messages"></div>
+    </div>
   </body>
 
   <script>
     getUsername();
+    
+    fetch('templates/card.mustache').then(response => response.text())
+            .then(template => {
+              renderTemplate(template, 'messages', data);
+            });
   </script>
 </html>
