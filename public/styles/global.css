@@ -1,6 +1,8 @@
 /* BODY */
 body {
     height: 100vh;
+    padding: var(--font-size-xxxl) 0;
+    box-sizing: border-box;
     overflow: hidden;
     display: flex;
     flex-direction: column;

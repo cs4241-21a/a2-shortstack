@@ -37,6 +37,10 @@
       }
     }
 
+    function send(event) {
+      console.log(event);
+    }
+
     // check for username when location changes
     window.addEventListener('popstate', getUsername);
   </script>
@@ -58,7 +62,13 @@
 </div>
 
 <div id="chat">
-  <div class="chat__cards" id="messages"></div>
+  <div class="chat__messages" id="messages"></div>
+  <div class="chat__input">
+    <form action="">
+      <input type="text" id="message" placeholder="Write a reply">
+      <button onclick="send()">Send</button>
+    </form>
+  </div>
 </div>
 </body>
 
