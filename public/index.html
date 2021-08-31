@@ -16,6 +16,8 @@
     <div id="join-box">
       <div class="title">Join the chatroom</div>
       <div class="subtitle">Enter your <strong>pogchat.io</strong> username to begin chatting!</div>
+      <small>Username</small>
+      <input type="text" id="username" placeholder="Enter a username">
       <button onclick="join()">Join</button>
     </div>
 
@@ -42,9 +44,13 @@
     getUsername();
 
     function join() {
-      const path = window.location.href.split('?')[0] + '?username=Paradoxdotexe';
-      window.history.pushState({ path }, '', path);
-      getUsername();
+      const input = document.getElementById('username');
+      if (input.value) {
+        const path = window.location.href.split('?')[0] + `?username=${input.value}`;
+        window.history.pushState({ path }, '', path);
+        getUsername();
+        input.value = null;
+      }
     }
 
     // check for username when location changes

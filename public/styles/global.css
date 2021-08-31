@@ -66,6 +66,8 @@ h2 {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-down);
     padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 #join-box .title {
@@ -75,11 +77,24 @@ h2 {
 }
 
 #join-box .subtitle {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 #join-box .subtitle strong {
     font-weight: 500;
+}
+
+#join-box small {
+    font-size: var(--font-size-sm);
+    margin-bottom: 0.25rem;
+}
+
+#join-box input {
+    margin-bottom: 1.5rem;
+}
+
+#join-box button {
+    margin-left: auto;
 }
 
 .joined #join-box {
@@ -104,13 +119,25 @@ h2 {
 
 /* BUTTONS */
 button {
+    width: min-content;
     background: var(--accent-primary);
     box-shadow: var(--box-shadow-down);
     border-radius: var(--border-radius);
     padding: 0.5rem 1rem;
-    float: right;
 }
 
 button:focus {
     background: var(--accent-secondary);
+}
+
+/* INPUT */
+input {
+    background: var(--background-tertiary);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    transition: box-shadow 150ms var(--transition-timing-function);
+}
+
+input:focus {
+    box-shadow: 0 3px var(--accent-primary);
 }
