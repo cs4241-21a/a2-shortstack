@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -30,20 +26,50 @@ const handleGet = function( request, response ) {
   }
 }
 
+let dataArr = []
+
 const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
       dataString += data 
   })
-
+//this is where the fun stuff happens
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    //console.log( JSON.parse( dataString ) )
+    const json = JSON.parse(dataString)
+    let advice = ''
+
+    if (json.hours === "0-4 hours") {
+
+      advice = 'Go get some sleep'
+      json['advice'] = advice
+
+    } else if (json.hours === "5-7 hours") {
+
+      advice = 'Moderate amount of hours of sleep'
+      json['advice'] = advice
+
+    } else if (json.hours === "8 hours") {
+
+      advice = 'Perfect amount of hours of sleep'
+      json['advice'] = advice
+
+    } else {
+
+      advice = 'Too much sleep'
+      json['advice'] = advice
+
+    }
+
+    dataArr.push(json)
+
+    //json.yourname += 'zzzzz'
 
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(dataArr))
   })
 }
 

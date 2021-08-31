@@ -3,12 +3,6 @@ form {
     display: block;
 
 }
-
-/* This is a Class selector */
-.module {
-    
-}
-
 p {
     font-family: 'Rubik', sans-serif;
     font-weight: bold;
@@ -36,7 +30,6 @@ table{
 
 th {
     background-color: lightblue;
-    margin-top: 50px;
 }
 
 td {
