@@ -1,1 +1,20 @@
-/*Style your own assignment! This is fun! */
+/*This is an ID selector*/
+#happy-cake {
+
+}
+
+/* This is a Class selector */
+.module {
+    background-image: "fgo.jpg";
+}
+
+/*This is a Tag Selector */
+body {
+    background-image: url("https://images2.alphacoders.com/928/928887.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+button {
+    outline: none;
+}
