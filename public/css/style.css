@@ -34,7 +34,7 @@ form {
 }
 
 #rightHeader {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Courier New', monospace;
     font-weight: bold;
 }
 
@@ -64,6 +64,7 @@ th {
     background-color: #449432;
     font-weight: bold;
     font-size: 20px;
+    text-align: left;
 }
 
 td {

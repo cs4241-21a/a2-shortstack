@@ -15,15 +15,21 @@ const makeTableHead = function () {
     let th2 = createNode('th');
     let th3 = createNode('th');
     let th4 = createNode('th');
+    let th5 = createNode('th');
+    let th6 = createNode('th');
     th1.innerHTML = 'Name';
     th2.innerHTML = 'Age';
     th3.innerHTML = 'Gender';
     th4.innerHTML = 'Adult';
+    th5.innerHTML = "Edit";
+    th6.innerHTML = "Delete";
     let tableRow = createNode('tr');
     tableRow.appendChild(th1);
     tableRow.appendChild(th2);
     tableRow.appendChild(th3);
     tableRow.appendChild(th4);
+    tableRow.appendChild(th5);
+    tableRow.appendChild(th6);
     dataTable.appendChild(tableRow);
 };
 
