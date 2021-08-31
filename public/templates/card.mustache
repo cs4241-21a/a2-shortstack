@@ -1,8 +1,9 @@
 {{#data}}
     <div class="card {{ class }}">
-        <div class="card__username">{{ owned }}</div>
+        <div class="card__username">{{ username }}</div>
         <div class="card__content">{{ content }}</div>
     </div>
+    <small>{{ timeString }}</small>
 {{/data}}
 
 <style>
@@ -18,5 +19,10 @@
         font-family: var(--font-family-secondary);
         font-size: var(--font-size-xl);
         margin-bottom: 1rem;
+    }
+
+    small {
+        font-size: var(--font-size-sm);
+        text-align: right;
     }
 </style>

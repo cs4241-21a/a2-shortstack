@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles/index.css">
 
   <script src="https://unpkg.com/mustache@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
   <script src="scripts/helpers.js"></script>
 
   <script>
@@ -68,6 +69,7 @@
     const data = await fetchData();
     data.forEach(d => {
       d.class = d.username === username ? 'owned': '';
+      d.timeString = getTimeString(d.submitted);
     });
     console.log(data);
     fetch('templates/card.mustache').then(response => response.text())
