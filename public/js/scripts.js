@@ -141,6 +141,7 @@ const makePost = function () {
 
     if (jsonBody['name'] === ""
         || jsonBody['age'] === ""
+        || jsonBody['age'] < 0
         || jsonBody['gender'] === ""
         || jsonBody['gender'] === "Gender") {
         warning.innerHTML = "You must fill in all fields.";
