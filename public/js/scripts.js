@@ -80,7 +80,6 @@ const updatePage = function () {
             cross.id = `cross${rowNum}`;
             cross.innerHTML = "&#x274C";
             cross.onclick = function (elt) {
-                count -= 1;
 				let body = cross.id;
                 fetch('/delete', {
                     method: 'POST',
@@ -88,6 +87,7 @@ const updatePage = function () {
                 }).then(function (response) {
                     console.log("Delete post sent to server: " + response);
                     updatePage();
+                    count--;
                 });
                 elt.preventDefault();
                 return false;
@@ -164,8 +164,8 @@ const makePost = function () {
 const handleInput = function (elt) {
     if (submitBtn.innerHTML === "Submit") {
         inputSelect = 'add';
-        count++;
         makePost();
+        count++;
     } else {
         inputSelect = 'modify';
         makePost();
