@@ -35,6 +35,7 @@ const POST = (req, res) => {
       responseData = await updateData(data);
     } else if (req.url === '/authenticate') {
       responseData = await authenticateUser(data.username, data.secret);
+      console.log(responseData);
     }
   });
 
@@ -72,11 +73,9 @@ const authenticateUser = async (username, secret) => {
   if (hashes[username]) {
     return bcrypt.compareSync(secret, hashes[username]) ? hashes[username] : null;
   } else {
-    bcrypt.hash(secret, 10, (err, hash) => {
-      hashes[username] = hash;
-      fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
-      return hash;
-    });
+    hashes[username] = bcrypt.hashSync(secret, 10);
+    fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
+    return hashes[username];
   }
 }
 

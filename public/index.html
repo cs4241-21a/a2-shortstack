@@ -42,10 +42,10 @@
         const hash = await authenticateUser(usernameInput.value, secretInput.value);
         if (hash) {
           updateUser(usernameInput.value, hash);
+          usernameInput.value = null;
         } else {
           window.alert('Account secret incorrect.');
         }
-        usernameInput.value = null;
         secretInput.value = null;
       }
     }
