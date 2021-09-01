@@ -14,6 +14,7 @@
 
   <script>
     let username = undefined;
+    let template = null;
     const duration = 500;
 
     const getUsername = () => {
@@ -23,13 +24,13 @@
       username = parseUsername();
       if (username) {
         document.body.classList.add('joined');
-        setTimeout(() => document.getElementById('join').style.display = 'none', 500);
-        setTimeout(() => document.getElementById('chat').style.display = '', 500);
+        setTimeout(() => document.getElementById('join').style.display = 'none', duration);
+        setTimeout(() => document.getElementById('chat').style.display = '', duration);
         renderChat();
       } else {
         document.body.classList.remove('joined');
-        setTimeout(() => document.getElementById('join').style.display = '', 500);
-        setTimeout(() => document.getElementById('chat').style.display = 'none', 500);
+        setTimeout(() => document.getElementById('join').style.display = '', duration);
+        setTimeout(() => document.getElementById('chat').style.display = 'none', duration);
       }
     }
 
@@ -79,7 +80,6 @@
 </div>
 
 <div id="chat">
-  <div class="chat__fade"></div>
   <div class="chat__messages" id="messages"></div>
   <form class="chat__input" action="">
     <input type="text" id="messageInput" placeholder="Write a reply">
@@ -101,11 +101,21 @@
       d.timeString = getTimeString(d.submitted);
     });
     console.log(data);
-    fetch('templates/message.mustache').then(response => response.text())
-            .then(template => {
-              renderTemplate(template, 'messages', data);
-              document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-            });
+
+    if (template) {
+      _renderChat(data);
+    } else {
+      fetch('templates/message.mustache').then(response => response.text()).then(t => {
+        template = t;
+        _renderChat(data);
+      });
+    }
+  }
+
+  function _renderChat(data = null) {
+    renderTemplate(template, 'messages', data);
+    const messages = document.getElementById('messages');
+    setTimeout(() => messages.scrollTop = messages.scrollHeight, 250);
   }
 </script>
 </html>

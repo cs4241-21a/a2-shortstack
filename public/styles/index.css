@@ -116,15 +116,6 @@ h2 {
     opacity: 1;
 }
 
-#chat .chat__fade {
-    top: 0;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 1rem;
-    background: linear-gradient(180deg, var(--background-primary) 0%, rgba(0,0,0,0) 100%);
-}
-
 #chat .chat__messages {
     display: flex;
     flex-direction: column;
@@ -132,6 +123,7 @@ h2 {
     height: calc(100% - 6rem);
     overflow-y: auto;
     padding: 1rem;
+    scroll-behavior: smooth;
 }
 
 #chat .chat__input {
