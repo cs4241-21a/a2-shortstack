@@ -24,10 +24,6 @@
     width: 30%
 }
 
-.loaded #texture {
-    transition: all var(--transition-duration) var(--transition-timing-function);
-}
-
 /* HEADINGS */
 h1 {
     font-family: var(--font-family-secondary);
@@ -52,7 +48,33 @@ h2 {
     opacity: 0;
 }
 
-/* JOIN BOX */
+/* LOGOUT */
+#logout {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    background: var(--color-primary);
+    color: var(--accent-primary);
+    fill: var(--accent-primary);
+    margin-left: -10rem;
+    display: flex;
+    align-items: center;
+    transition: margin-left var(--transition-duration) var(--transition-timing-function);
+}
+
+#logout:focus {
+    background: var(--background-primary)
+}
+
+#logout svg {
+    margin-right: 0.5rem;
+}
+
+.joined #logout {
+    margin-left: 0;
+}
+
+/* JOIN */
 #join {
     position: relative;
     display: flex;
@@ -103,7 +125,6 @@ h2 {
 
 /* CHAT */
 #chat {
-    position: relative;
     background: var(--background-secondary);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-down);
@@ -150,6 +171,6 @@ h2 {
 }
 
 /* TRANSITIONS */
-.loaded #texture, .loaded h1, .loaded h2, .loaded #join .join__card, .loaded #chat {
+#texture, h1, h2, #join .join__card, #chat, #chat {
     transition: all var(--transition-duration) var(--transition-timing-function);
 }

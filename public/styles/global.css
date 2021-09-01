@@ -11,7 +11,7 @@ body {
 
 /* BUTTONS */
 button {
-    width: min-content;
+    width: fit-content;
     background: var(--accent-primary);
     box-shadow: var(--box-shadow-down);
     border-radius: var(--border-radius);
