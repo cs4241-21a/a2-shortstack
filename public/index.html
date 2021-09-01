@@ -46,16 +46,8 @@
 
     const send = (e) => {
       e.preventDefault();
-
       const message = document.getElementById('messageInput');
-      const body = JSON.stringify({
-        username,
-        content: message.value
-      });
-      fetch(window.location.href, { method:'POST', body }).then(async data => {
-        renderChat(await data.json()).then();
-      });
-
+      sendMessage(username, message.value).then(renderChat);
       message.value = null;
     }
 

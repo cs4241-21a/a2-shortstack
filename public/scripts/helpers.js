@@ -34,3 +34,12 @@ const getTimeString = (submitted) => {
         return `${Math.floor(seconds / 365 / 24 / 60 / 60)} years ago`;
     }
 }
+
+const sendMessage = (username, content) => {
+    return new Promise(resolve => {
+        const body = JSON.stringify({ username, content });
+        fetch(window.location.href, { method:'POST', body }).then(data => {
+            data.json().then(resolve);
+        });
+    });
+}
