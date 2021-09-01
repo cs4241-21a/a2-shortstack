@@ -43,3 +43,8 @@ const sendMessage = (username, content) => {
         });
     });
 }
+
+const shadowRoute = (route) => {
+    const path = window.location.href.split(window.location.pathname)[0] + route;
+    window.history.pushState({ path }, '', path);
+}

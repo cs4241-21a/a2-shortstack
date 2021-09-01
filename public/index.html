@@ -15,6 +15,7 @@
   <script>
     let username = undefined;
     let template = null;
+    let password = null;
     const duration = 500;
 
     const getUsername = () => {
@@ -23,6 +24,11 @@
       }
       username = parseUsername();
       if (username) {
+        password = window.prompt('Enter super secret account password');
+        if (!password) {
+          shadowRoute('');
+          return;
+        }
         document.getElementById('chat').style.display = ''
         setTimeout(() => document.body.classList.add('joined'), 50);
         setTimeout(() => document.getElementById('join').style.display = 'none', duration);
@@ -37,8 +43,7 @@
     function join() {
       const input = document.getElementById('usernameInput');
       if (input.value) {
-        const path = window.location.href.split('?')[0] + `chat?username=${input.value}`;
-        window.history.pushState({ path }, '', path);
+        shadowRoute(`chat?username=${input.value}`);
         getUsername();
         input.value = null;
       }
