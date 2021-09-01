@@ -33,7 +33,7 @@ h1 {
     font-family: var(--font-family-secondary);
     text-align: center;
     font-size: var(--font-size-xxxl);
-    margin: var(--font-size-xxxl) 0 1rem;
+    margin-bottom: 1rem;
 }
 
 .joined h1 {
