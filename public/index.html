@@ -14,6 +14,8 @@
 
   <script>
     let username = undefined;
+    const duration = 500;
+
     const getUsername = () => {
       if (username !== undefined) {
         document.body.classList.add('loaded'); // enable transition only after initial username check
@@ -21,14 +23,18 @@
       username = parseUsername();
       if (username) {
         document.body.classList.add('joined');
+        setTimeout(() => document.getElementById('join').style.display = 'none', 500);
+        setTimeout(() => document.getElementById('chat').style.display = '', 500);
         renderChat();
       } else {
         document.body.classList.remove('joined');
+        setTimeout(() => document.getElementById('join').style.display = '', 500);
+        setTimeout(() => document.getElementById('chat').style.display = 'none', 500);
       }
     }
 
     function join() {
-      const input = document.getElementById('username');
+      const input = document.getElementById('usernameInput');
       if (input.value) {
         const path = window.location.href.split('?')[0] + `chat?username=${input.value}`;
         window.history.pushState({ path }, '', path);
@@ -40,7 +46,7 @@
     const send = (e) => {
       e.preventDefault();
 
-      const message = document.getElementById('message');
+      const message = document.getElementById('messageInput');
       const body = JSON.stringify({
         username,
         content: message.value
@@ -67,8 +73,8 @@
     <div class="title">Join the chatroom</div>
     <div class="subtitle">Enter your <strong>pogchat.io</strong> username to begin chatting!</div>
     <small>Username</small>
-    <input type="text" id="username" placeholder="Enter a username">
-    <button onclick="join()">Join</button>
+    <input type="text" id="usernameInput" placeholder="Enter a username">
+    <button id="joinButton" onclick="join()">Join</button>
   </div>
 </div>
 
@@ -76,14 +82,14 @@
   <div class="chat__fade"></div>
   <div class="chat__messages" id="messages"></div>
   <form class="chat__input" action="">
-    <input type="text" id="message" placeholder="Write a reply">
-    <button id="send" onclick="send()">Send</button>
+    <input type="text" id="messageInput" placeholder="Write a reply">
+    <button id="sendButton" onclick="send()">Send</button>
   </form>
 </div>
 </body>
 
 <script>
-  document.getElementById('send').onclick = send;
+  document.getElementById('sendButton').onclick = send;
   getUsername();
 
   async function renderChat(data = null) {

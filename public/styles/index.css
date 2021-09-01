@@ -103,7 +103,7 @@ h2 {
 /* CHAT */
 #chat {
     position: relative;
-    min-width: 440px;
+    min-width: 480px;
     opacity: 0;
     height: 100%;
     overflow: hidden;
