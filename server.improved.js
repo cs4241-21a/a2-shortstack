@@ -1,3 +1,5 @@
+const { parse } = require('path')
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -6,11 +8,10 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+entryData = [
+  {'name': 'test', 'phoneNum': '123-123-1234', 'birthday': '', 'toGift': true, 'giftBy': ''},
 ]
+
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -30,6 +31,20 @@ const handleGet = function( request, response ) {
   }
 }
 
+//Calcuates 30 days before the next birthday 
+const calcGiftDate = function(birthday) {
+  const today = new Date();
+  const bday = new Date(birthday);
+  bday.setFullYear(today.getFullYear());
+  getByDay = new Date(bday)
+  getByDay.setDate(getByDay.getDate() - 30)
+
+  if (today >= bday) { //This year's birthday has passed so plan for the next one 
+	  getByDay.setFullYear(getByDay.getFullYear()+1)
+  } 
+  return getByDay
+}
+
 const handlePost = function( request, response ) {
   let dataString = ''
 
@@ -38,14 +53,23 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    json = JSON.parse(dataString)
 
-    // ... do something with the data here!!!
+    //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
+    giftByDate = ''
+    if (json.toGift === true){
+      giftByDate = calcGiftDate(json.birthday)
+    }
+    json.giftBy = giftByDate
+
+    entryData.push(json)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(json))
   })
 }
+
+
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 

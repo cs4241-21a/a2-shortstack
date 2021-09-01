@@ -3,21 +3,39 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+
+    <link rel="stylesheet" href="style.css">
   </head>
+
+
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div class = "submission">
+      <form action="">
+        <label for ="name">Enter the person's name:</label>
+        <input type='text' id='name' placeholder="Name">
+
+        <label for ="phoneNum"> Enter the person's phone number:</label>
+        <input type='tel' id='phoneNum' placeholder="012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  required>
+
+        <label for='birthday'>Enter the person's Birthday:</label>
+        <input type="date" id="birthday" placeholder = "birthday"> 
+
+        <label for ="toGift">Gift?</label>
+        <input type="checkbox" id="toGift">
+
+        <button>submit</button>
+      </form>
+    </div>
   </body>
+
+
   <script>
-
-  const submit = function( e ) {
+  const submit = function( event ) {
     // prevent default form action from being carried out
-    e.preventDefault()
+    event.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input = document.querySelector('form'),
+          json = {name: input.name.value, phoneNum: input.phoneNum.value, birthday: input.birthday.value, toGift: input.toGift.checked}
           body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -26,10 +44,14 @@
     })
     .then( function( response ) {
       // do something with the reponse 
-      console.log( response )
+      return response.json() 
     })
-
-    return false
+    .then(function(jsonResponse){
+    //just appends the new info on the page to show for now 
+     const element = document.createElement('p')
+     element.innerText = jsonResponse.name + " | " + jsonResponse.phoneNum + " | " + jsonResponse.birthday + " | " + jsonResponse.toGift + " | " +jsonResponse.giftBy
+     document.body.appendChild(element)
+    })
   }
 
   window.onload = function() {
