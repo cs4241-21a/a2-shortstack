@@ -97,6 +97,7 @@
     }
     data.forEach(d => {
       d.class = d.username === username ? 'owned': '';
+      d.class += d.admin ? ' admin': '';
       d.timeString = getTimeString(d.submitted);
     });
     console.log(data);
