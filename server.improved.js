@@ -33,10 +33,11 @@ const POST = (req, res) => {
   req.on('data', async data => {
     data = JSON.parse(data.toString());
     if (req.url === '/message') {
-      responseData = await updateData(data);
+      responseData = await addMessage(data);
+    } else if (req.url === '/delete') {
+      responseData = await deleteMessage(data.id, data.hash);
     } else if (req.url === '/authenticate') {
       responseData = await authenticateUser(data.username, data.secret);
-      console.log(responseData);
     }
   });
 
@@ -50,8 +51,8 @@ const sendFile = (res, path) => {
       respond(res, err ? 404 : 200, err ? "File not found:" : data));
 };
 
-// updates data by appending a new data object, returns updated data
-const updateData = async (newData) => {
+// adds new message to data, returns updated data
+const addMessage = async (newData) => {
   const data = JSON.parse(fs.readFileSync(dataPath));
   if (await authenticateHash(newData.username, newData.hash)) {
     delete newData.hash;
@@ -59,6 +60,19 @@ const updateData = async (newData) => {
       id: uuid(),
       submitted: DateTime.utc(),
       admin: newData['username'] === 'Paradoxdotexe'})
+    fs.writeFile(dataPath, JSON.stringify(data), () => null);
+    return data;
+  } else {
+    return null;
+  }
+};
+
+// deletes specified message from data
+const deleteMessage = async (id, hash) => {
+  const data = JSON.parse(fs.readFileSync(dataPath));
+  const i = data.findIndex(d => d.id === id);
+  if (i > -1 && await authenticateHash(data[i].username, hash)) {
+    data.splice(i, 1);
     fs.writeFile(dataPath, JSON.stringify(data), () => null);
     return data;
   } else {

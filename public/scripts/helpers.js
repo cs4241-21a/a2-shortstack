@@ -36,17 +36,29 @@ const getTimeString = (submitted) => {
 }
 
 const sendMessage = (username, content, hash) => {
-    return new Promise(resolve => {
+    return new Promise(() => {
         const body = JSON.stringify({ username, content, hash });
-        fetch('/message', { method:'POST', body }).then(data => {
-            data.json().then(data => {
-                if (data) {
-                    resolve(data);
-                } else {
-                    window.alert('Incorrect secret provided!');
-                    location.reload();
-                }
-            });
+        fetch('/message', { method:'POST', body }).then(async response => {
+            if (response.ok) {
+                renderChat(await response.json()).then();
+            } else {
+                window.alert('Incorrect secret provided!');
+                location.reload();
+            }
+        });
+    });
+}
+
+const deleteMessage = (id, hash) => {
+    return new Promise(() => {
+        const body = JSON.stringify({ id, hash });
+        fetch('/delete', { method:'POST', body }).then(async response => {
+            if (response.ok) {
+                renderChat(await response.json()).then();
+            } else {
+                window.alert('Incorrect secret provided!');
+                location.reload();
+            }
         });
     });
 }
