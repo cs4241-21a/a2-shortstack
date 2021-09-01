@@ -16,7 +16,9 @@ const getTimeString = (submitted) => {
     const now = luxon.DateTime.now().toSeconds();
     submitted = luxon.DateTime.fromISO(submitted).toSeconds();
     const seconds = now - submitted;
-    if (seconds < 60) {
+    if (seconds < 1) {
+        return `Just now`;
+    } else if (seconds < 60) {
         return `${Math.floor(seconds)} seconds ago`;
     } else if (seconds < 60 * 60) {
         return `${Math.floor(seconds / 60)} minutes ago`;
