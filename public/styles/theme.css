@@ -23,6 +23,7 @@
     --shadow-offset: 4px;
     --shadow-blur: 16px;
     --box-shadow-down: 0 var(--shadow-offset) var(--shadow-blur) rgb(0, 0, 0, var(--shadow-intensity));
+    --box-shadow-up: 0 calc(var(--shadow-offset) * -1) var(--shadow-blur) rgb(0, 0, 0, var(--shadow-intensity));
 
     --gap-xs: 4px;
     --gap-sm: 8px;
