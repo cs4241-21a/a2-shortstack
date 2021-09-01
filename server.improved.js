@@ -9,7 +9,7 @@ const hashesPath = `${dir}/hashes.json`;
 const port = 3000;
 const routes = {
   '/': '/index.html',
-  '/chat': '/index.html',
+  '/chat': '/chat.html',
   '/results': '/data.json'
 };
 
@@ -28,18 +28,18 @@ const GET = (req, res) => {
 
 const POST = (req, res) => {
   let responseData;
-  console.log(req.url);
-  if (req.url === '/message') {
-    req.on('data', async data => {
-      responseData = JSON.stringify(await updateData(JSON.parse(data)));
-    });
-  } else if (req.url === '/authenticate') {
-    req.on('data', async data => {
-      responseData = await(verifyUser(data.username, data.password));
-    });
-  }
+
+  req.on('data', async data => {
+    data = JSON.parse(data.toString());
+    if (req.url === '/message') {
+      responseData = await updateData(data);
+    } else if (req.url === '/authenticate') {
+      responseData = await authenticateUser(data.username, data.secret);
+    }
+  });
+
   req.on('end', () => {
-    respond(res, data ? 200 : 401, data);
+    respond(res, responseData ? 200 : 401, JSON.stringify(responseData));
   });
 };
 
@@ -50,9 +50,9 @@ const sendFile = (res, path) => {
 
 // updates data by appending a new data object, returns updated data
 const updateData = async (newData) => {
-  const data = JSON.parse(await fs.readFileSync(dataPath));
-  if (await verifyUser(newData.username, newData.password)) {
-    delete newData.password;
+  const data = JSON.parse(fs.readFileSync(dataPath));
+  if (await authenticateHash(newData.username, newData.hash)) {
+    delete newData.hash;
     data.push({...newData, submitted: DateTime.utc(), admin: newData['username'] === 'Paradoxdotexe'})
     fs.writeFile(dataPath, JSON.stringify(data), () => null);
     return data;
@@ -67,15 +67,20 @@ const respond = (res, code, data = null) => {
   res.end(data);
 };
 
-const verifyUser = async (username, password) => {
-  const hashes = JSON.parse(await fs.readFileSync(hashesPath));
+const authenticateUser = async (username, secret) => {
+  const hashes = JSON.parse(fs.readFileSync(hashesPath).toString());
   if (hashes[username]) {
-    return bcrypt.compareSync(password, hashes[username]);
+    return bcrypt.compareSync(secret, hashes[username]) ? hashes[username] : null;
   } else {
-    bcrypt.hash(password, 10, (err, hash) => {
+    bcrypt.hash(secret, 10, (err, hash) => {
       hashes[username] = hash;
       fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
+      return hash;
     });
-    return true;
   }
+}
+
+const authenticateHash = async (username, hash) => {
+  const hashes = JSON.parse(fs.readFileSync(hashesPath).toString());
+  return hashes[username] ? hash === hashes[username] : false;
 }

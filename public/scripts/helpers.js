@@ -35,15 +35,15 @@ const getTimeString = (submitted) => {
     }
 }
 
-const sendMessage = (username, content, password) => {
+const sendMessage = (username, content, hash) => {
     return new Promise(resolve => {
-        const body = JSON.stringify({ username, content, password });
-        fetch(window.location.href + '/message', { method:'POST', body }).then(data => {
+        const body = JSON.stringify({ username, content, hash });
+        fetch('/message', { method:'POST', body }).then(data => {
             data.json().then(data => {
                 if (data) {
                     resolve(data);
                 } else {
-                    window.alert('Incorrect password provided!');
+                    window.alert('Incorrect secret provided!');
                     location.reload();
                 }
             });
@@ -51,23 +51,15 @@ const sendMessage = (username, content, password) => {
     });
 }
 
-const authenticateUser = (username, password) => {
+const authenticateUser = (username, secret) => {
     return new Promise(resolve => {
-        const body = JSON.stringify({ username, password });
-        fetch(window.location.href + '/authenticate', { method:'POST', body }).then(data => {
-            data.json().then(data => {
-                if (data) {
-                    resolve();
-                } else {
-                    window.alert('Incorrect password provided!');
-                    location.reload();
-                }
-            });
-        });
+        const body = JSON.stringify({ username, secret });
+        fetch('/authenticate', { method:'POST', body })
+            .then(async response => resolve(response.ok ? await response.json() : null));
     });
 }
 
 const shadowRoute = (route) => {
-    const path = window.location.href.split(window.location.pathname)[0] + route;
+    const path = `/${route}`;
     window.history.pushState({ path }, '', path);
 }

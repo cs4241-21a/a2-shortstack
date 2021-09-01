@@ -13,51 +13,52 @@
   <script src="scripts/helpers.js"></script>
 
   <script>
-    let username = undefined;
+    let username = null;
+    let hash = null;
     let template = null;
-    let password = null;
     const duration = 500;
 
-    const getUsername = () => {
-      if (username !== undefined) {
-        document.body.classList.add('loaded'); // enable transition only after initial username check
-      }
-      username = parseUsername();
-      if (username) {
-        password = window.prompt('Enter super secret account password');
-        if (!password) {
-          shadowRoute('');
-          return;
-        }
+    const updateUser = (u, h) => {
+      username = u;
+      hash = h;
+      if (username && hash) {
         document.getElementById('chat').style.display = ''
         setTimeout(() => document.body.classList.add('joined'), 50);
         setTimeout(() => document.getElementById('join').style.display = 'none', duration);
         renderChat();
+        shadowRoute('chat');
       } else {
         document.getElementById('join').style.display = ''
         setTimeout(() => document.body.classList.remove('joined'), 50);
         setTimeout(() => document.getElementById('chat').style.display = 'none', duration);
+        shadowRoute('');
       }
     }
 
-    function join() {
-      const input = document.getElementById('usernameInput');
-      if (input.value) {
-        shadowRoute(`chat?username=${input.value}`);
-        getUsername();
-        input.value = null;
+    async function join() {
+      const usernameInput = document.getElementById('usernameInput');
+      const secretInput = document.getElementById('secretInput');
+      if (usernameInput.value && secretInput.value) {
+        const hash = await authenticateUser(usernameInput.value, secretInput.value);
+        if (hash) {
+          updateUser(usernameInput.value, hash);
+        } else {
+          window.alert('Account secret incorrect.');
+        }
+        usernameInput.value = null;
+        secretInput.value = null;
       }
     }
 
     const send = (e) => {
       e.preventDefault();
       const message = document.getElementById('messageInput');
-      sendMessage(username, message.value, password).then(renderChat);
+      sendMessage(username, message.value, hash).then(renderChat);
       message.value = null;
     }
 
     // check for username when location changes
-    window.addEventListener('popstate', getUsername);
+    window.addEventListener('popstate', () => updateUser(null, null));
   </script>
 </head>
 
@@ -72,8 +73,8 @@
     <div class="subtitle">Login to your <strong>pogchat.io</strong> to begin chatting!</div>
     <small>Username</small>
     <input type="text" id="usernameInput" placeholder="Enter username">
-    <small>Password</small>
-    <input type="password" id="passwordInput" placeholder="Enter password">
+    <small>Account Secret</small>
+    <input type="password" id="secretInput" placeholder="Enter secret">
     <button id="joinButton" onclick="join()">Join</button>
   </div>
 </div>
@@ -89,7 +90,6 @@
 
 <script>
   document.getElementById('sendButton').onclick = send;
-  getUsername();
 
   async function renderChat(data = null) {
     if (!data) {
