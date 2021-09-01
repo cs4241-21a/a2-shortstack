@@ -35,9 +35,9 @@ const getTimeString = (submitted) => {
     }
 }
 
-const sendMessage = (username, content) => {
+const sendMessage = (username, content, password) => {
     return new Promise(resolve => {
-        const body = JSON.stringify({ username, content });
+        const body = JSON.stringify({ username, content, password });
         fetch(window.location.href, { method:'POST', body }).then(data => {
             data.json().then(resolve);
         });

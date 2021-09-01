@@ -52,7 +52,7 @@
     const send = (e) => {
       e.preventDefault();
       const message = document.getElementById('messageInput');
-      sendMessage(username, message.value).then(renderChat);
+      sendMessage(username, message.value, password).then(renderChat);
       message.value = null;
     }
 
