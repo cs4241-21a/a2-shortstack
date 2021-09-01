@@ -73,6 +73,7 @@
 </div>
 
 <div id="chat">
+  <div class="chat__fade"></div>
   <div class="chat__messages" id="messages"></div>
   <form class="chat__input" action="">
     <input type="text" id="message" placeholder="Write a reply">
@@ -97,6 +98,7 @@
     fetch('templates/message.mustache').then(response => response.text())
             .then(template => {
               renderTemplate(template, 'messages', data);
+              document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
             });
   }
 </script>

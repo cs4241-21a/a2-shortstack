@@ -41,3 +41,22 @@ input:focus {
     box-shadow: var(--box-shadow-down);
     padding: 1.5rem 1.75rem;
 }
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: var(--border-radius);
+    background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius);
+    background: var(--background-tertiary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
