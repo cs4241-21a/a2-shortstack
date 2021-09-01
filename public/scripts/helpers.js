@@ -39,7 +39,14 @@ const sendMessage = (username, content, password) => {
     return new Promise(resolve => {
         const body = JSON.stringify({ username, content, password });
         fetch(window.location.href, { method:'POST', body }).then(data => {
-            data.json().then(resolve);
+            data.json().then(data => {
+                if (data) {
+                    resolve(data);
+                } else {
+                    window.alert('Incorrect password provided!');
+                    location.reload();
+                }
+            });
         });
     });
 }
