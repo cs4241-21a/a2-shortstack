@@ -27,10 +27,17 @@ const GET = (req, res) => {
 };
 
 const POST = (req, res) => {
-  let data = {};
-  req.on('data', async newData => {
-    data = JSON.stringify(await updateData(JSON.parse(newData)));
-  });
+  let responseData;
+  console.log(req.url);
+  if (req.url === '/message') {
+    req.on('data', async data => {
+      responseData = JSON.stringify(await updateData(JSON.parse(data)));
+    });
+  } else if (req.url === '/authenticate') {
+    req.on('data', async data => {
+      responseData = await(verifyUser(data.username, data.password));
+    });
+  }
   req.on('end', () => {
     respond(res, data ? 200 : 401, data);
   });

@@ -38,10 +38,26 @@ const getTimeString = (submitted) => {
 const sendMessage = (username, content, password) => {
     return new Promise(resolve => {
         const body = JSON.stringify({ username, content, password });
-        fetch(window.location.href, { method:'POST', body }).then(data => {
+        fetch(window.location.href + '/message', { method:'POST', body }).then(data => {
             data.json().then(data => {
                 if (data) {
                     resolve(data);
+                } else {
+                    window.alert('Incorrect password provided!');
+                    location.reload();
+                }
+            });
+        });
+    });
+}
+
+const authenticateUser = (username, password) => {
+    return new Promise(resolve => {
+        const body = JSON.stringify({ username, password });
+        fetch(window.location.href + '/authenticate', { method:'POST', body }).then(data => {
+            data.json().then(data => {
+                if (data) {
+                    resolve();
                 } else {
                     window.alert('Incorrect password provided!');
                     location.reload();
