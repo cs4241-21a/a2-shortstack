@@ -1,30 +1,65 @@
 /*Style your own assignment! This is fun! */
 body {
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    background-color: #FAA2A2;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  background-color: #faa2a2;
 }
 h1 {
-    font-family: "Impact";
-        text-transform: uppercase;
-        color: white;
-        font-size: 30pt;
-        letter-spacing: 1px;
-        text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
-          -2px 2px 0 #000, 0px 2px 0 #000, 2px 0px 0 #000, 0px -2px 0 #000,
-          -2px 0px 0 #000, 2px 2px 5px #000;
+  font-family: "Impact";
+  text-transform: uppercase;
+  color: white;
+  font-size: 30pt;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+    -2px 2px 0 #000, 0px 2px 0 #000, 2px 0px 0 #000, 0px -2px 0 #000,
+    -2px 0px 0 #000, 2px 2px 5px #000;
 }
-form {
-    border: 1px solid #9a92e8;
-    border-radius: 5px;
-  }
+
+table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th {
+  border: 1px solid black;
+  text-align: left;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+td {
+  border: 1px solid black;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
 .centered {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  justify-content: center;
+}
 .page {
-    margin: 0;
-    width: 600px;
-    background-color: white;
+  margin: 0;
+  padding: 10px;
+  width: 600px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.form-entry {
+  margin: 5px;
+  background-color: rgb(255, 255, 227);
+  border: 1px solid lightslategray;
+  border-radius: 5px;
+  min-height: 25px;
+}
+
+.submit-button {
+  margin: 5px;
+  background-color: rgb(113, 184, 243);
 }
