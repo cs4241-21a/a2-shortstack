@@ -10,7 +10,7 @@ const hashesPath = `${dir}/hashes.json`;
 const port = 3000;
 const routes = {
   '/': '/index.html',
-  '/chat': '/chat.html',
+  '/chat': '/index.html',
   '/results': '/data.json'
 };
 
