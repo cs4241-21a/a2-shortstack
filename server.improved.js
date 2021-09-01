@@ -34,9 +34,9 @@ const handlePost = function( request, response ) {
   request.on( 'data', function( data ) {
       dataString += data 
   })
-//this is where the fun stuff happens
+
   request.on( 'end', function() {
-    //console.log( JSON.parse( dataString ) )
+
     const json = JSON.parse(dataString)
     let advice = ''
 
@@ -63,10 +63,6 @@ const handlePost = function( request, response ) {
     }
 
     dataArr.push(json)
-
-    //json.yourname += 'zzzzz'
-
-    // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(dataArr))

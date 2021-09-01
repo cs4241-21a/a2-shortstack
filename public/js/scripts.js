@@ -10,7 +10,23 @@ function addRow (entry) {
     majorCell.innerHTML = entry.major;
     hourCell.innerHTML = entry.hours;
     adviceCell.innerHTML = entry.advice;
+
 }
+
+/*function selectedRow () {
+
+    var rIndex, table = document.getElementById("sleeptable")
+    
+    for (var i = 0; i < table.rows.length; i++) {
+        
+        table.rows[i].onclick = function() {
+            
+            rIndex = this.rowIndex;
+            console.log(index);
+        }
+    }
+}*/
+
 
 const submit = function( e ) {
     // prevent default form action from being carried out
