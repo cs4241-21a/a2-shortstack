@@ -110,6 +110,7 @@ h2 {
     opacity: 0;
     height: 100%;
     overflow: hidden;
+    transform: translateY(100vh);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -117,6 +118,7 @@ h2 {
 
 .joined #chat {
     opacity: 1;
+    transform: none;
 }
 
 #chat .chat__messages {
@@ -126,6 +128,9 @@ h2 {
     height: 100%;
     overflow-y: auto;
     padding: 1rem;
+}
+
+.rendered #chat .chat__messages {
     scroll-behavior: smooth;
 }
 
