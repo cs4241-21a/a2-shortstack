@@ -93,10 +93,11 @@ h2 {
 }
 
 #join .join__card input {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
 }
 
 #join .join__card button {
+    margin-top: 0.75rem;
     margin-left: auto;
 }
 
