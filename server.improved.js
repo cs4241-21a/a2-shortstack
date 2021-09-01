@@ -1,10 +1,11 @@
 const http = require('http');
 const fs = require('fs');
 const { DateTime } = require('luxon');
-// const mime = require('mime');
+const bcrypt = require('bcrypt');
 
 const dir = './public';
 const dataPath = `${dir}/data.json`;
+const hashesPath = `${dir}/hashes.json`;
 const port = 3000;
 const routes = {
   '/': '/index.html',
@@ -41,8 +42,11 @@ const sendFile = (res, path) => {
 // updates data by appending a new data object, returns updated data
 const updateData = async (newData) => {
   const data = JSON.parse(await fs.readFileSync(dataPath));
-  data.push({...newData, submitted: DateTime.utc(), admin: newData['username'] === 'Paradoxdotexe'})
-  fs.writeFile(dataPath, JSON.stringify(data), () => null);
+  if (verifyUser(newData.username, newData.password)) {
+    delete newData.password;
+    data.push({...newData, submitted: DateTime.utc(), admin: newData['username'] === 'Paradoxdotexe'})
+    fs.writeFile(dataPath, JSON.stringify(data), () => null);
+  }
   return data;
 };
 
@@ -51,3 +55,16 @@ const resolve = (res, code, data = null) => {
   res.writeHead(code);
   res.end(data);
 };
+
+const verifyUser = async (username, password) => {
+  const hashes = JSON.parse(await fs.readFileSync(hashesPath));
+  if (hashes[username]) {
+    return await bcrypt.compare(password, hashes[username], (err, result) => result);
+  } else {
+    bcrypt.hash(password, 10, (err, hash) => {
+      hashes[username] = hash;
+      fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
+    });
+    return true;
+  }
+}
