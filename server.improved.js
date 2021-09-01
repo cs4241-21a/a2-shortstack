@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const { DateTime } = require('luxon');
 const bcrypt = require('bcrypt');
+const { v4: uuid } = require('uuid');
 
 const dir = './public';
 const dataPath = `${dir}/data.json`;
@@ -54,7 +55,10 @@ const updateData = async (newData) => {
   const data = JSON.parse(fs.readFileSync(dataPath));
   if (await authenticateHash(newData.username, newData.hash)) {
     delete newData.hash;
-    data.push({...newData, submitted: DateTime.utc(), admin: newData['username'] === 'Paradoxdotexe'})
+    data.push({...newData,
+      id: uuid(),
+      submitted: DateTime.utc(),
+      admin: newData['username'] === 'Paradoxdotexe'})
     fs.writeFile(dataPath, JSON.stringify(data), () => null);
     return data;
   } else {
