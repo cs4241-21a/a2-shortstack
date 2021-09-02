@@ -34,8 +34,20 @@ const submit = function( e ) {
   
     const name = document.querySelector( '#yourname' ),
     major = document.querySelector('#major'),
-    sleep = document.querySelector('#hours')
-          json = { yourname: name.value, major: major.value, hours:sleep.value },
+    sleep = document.querySelector('#hours');
+
+    if (name.value === "" || major.value === "" || sleep.value === "") {
+        console.log("All fields are empty")
+        alert("All fields needs to be filled.")
+        return false
+    } 
+
+    if (name.value === "Enter your name here" || major.value === "Enter your major here") {
+        console.log("Not valid data")
+        alert("Enter valid fields only.")
+        return false
+    }
+          json = { yourname: name.value, major: major.value, hours:sleep.value }
           body = JSON.stringify( json )
   
     fetch( '/submit', {
@@ -47,7 +59,6 @@ const submit = function( e ) {
     })
 
     .then( function (json ) {
-        //console.log(json)
         let index = json.length - 1;
         addRow(json[index]);
         console.log(json);
