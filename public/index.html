@@ -26,7 +26,6 @@
       </form>
     </div>
 
-    
     <table onclick= "deletingRow()" id="allEntries">
       <tr> 
         <th>Name</th>
@@ -37,22 +36,18 @@
         <th>Delete</th>
       </tr> 
     </table>
-
-    <!--
-      <button onclick="showAll()">Refresh</button>
-      <button onclick="deleteEntry()">Delete</button> 
-    <p id = "id">hi</p> --> 
   </body>
 
   <script>
     const deletingRow = function(){
       var table = document.querySelector('#allEntries')
       for (var i = 1; i < table.rows.length; i++){
-      
+        //Deletes the selected row 
         table.rows[i].cells[5].onclick = function(){
           table.deleteRow(this.parentElement.rowIndex)
         }
 
+        //Part of modifying selected row 
         table.rows[i].cells[0].onclick = function(){
           document.querySelector("#name").value = "TODO Insert Name"
           document.querySelector("#phoneNum").value = "123"
@@ -80,25 +75,7 @@
     cellDelete.innerHTML = 'Delete'
   }
 
-
-  //Displays all the entries currently stored 
-  /*const showAll = function(){
-    fetch('/showAll', {
-      method:'GET'
-    })
-    .then(function(response) {
-      return response.json()
-    })
-    .then(function(jsonResponse){
-      for (var i = 0; i < jsonResponse.length; i++){
-        addRow(jsonResponse[i])
-      }
-    })
-  }*/
-
   const deleteEntry = function(){
-    //TODO identify and pass which row/entry is being deleted 
-
     fetch('/deleteEntry', {
       method:'POST'
     })
@@ -108,7 +85,7 @@
   }
 
   const submit = function( event ) {
-    // prevent default form action from being carried out
+    //Prevent default form action from being carried out
     event.preventDefault()
 
     const input = document.querySelector('form'),
@@ -120,12 +97,10 @@
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
       return response.json() 
     })
     .then(function(jsonResponse){
       addRow(jsonResponse)
-      //showAll()
     })
   }
 
@@ -133,8 +108,5 @@
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
-
-
-
   </script>
 </html>

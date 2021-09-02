@@ -22,14 +22,6 @@ const server = http.createServer( function( request,response ) {
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice(1) 
-
-  //Update the display with all the entries 
-  /*if (request.url === '/showAll'){
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    console.log(entryData)
-    response.end(JSON.stringify(entryData))
-  }*/
-
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
@@ -73,9 +65,7 @@ const handlePost = function( request, response ) {
       json.giftBy = giftByDate
 
       entryData.push(json)
-      
-      //console.log(entryData)
-      
+
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
       response.end(JSON.stringify(json))
     })
@@ -83,8 +73,7 @@ const handlePost = function( request, response ) {
   if(request.url === '/deleteEntry'){
     console.log("In server.js delete entry")
 
-
-    //TODO remove entry from the array 
+    //TODO!!! remove entry from the array 
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify('hi'))
