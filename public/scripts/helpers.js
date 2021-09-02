@@ -35,24 +35,22 @@ const getTimeString = (submitted) => {
     }
 }
 
-const sendMessage = (username, content, hash) => {
-    return new Promise(() => {
-        const body = JSON.stringify({ username, content, hash });
-        fetch('/message', { method:'POST', body }).then(async response => {
-            if (response.ok) {
-                renderChat(await response.json()).then();
-            } else {
-                window.alert('Incorrect secret provided!');
-                location.reload();
-            }
-        });
-    });
+const addMessage = (username, content, hash) => {
+    return postDataUpdate({ username, content, hash }, '/add');
 }
 
 const deleteMessage = (id, hash) => {
+    return postDataUpdate({ id, hash }, '/delete');
+}
+
+const updateMessage = (id, content, hash) => {
+    return postDataUpdate({ id, content, hash }, '/update');
+}
+
+const postDataUpdate = (data, endpoint) => {
     return new Promise(() => {
-        const body = JSON.stringify({ id, hash });
-        fetch('/delete', { method:'POST', body }).then(async response => {
+        const body = JSON.stringify(data);
+        fetch(endpoint, { method:'POST', body }).then(async response => {
             if (response.ok) {
                 renderChat(await response.json()).then();
             } else {

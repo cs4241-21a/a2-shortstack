@@ -32,10 +32,12 @@ const POST = (req, res) => {
 
   req.on('data', async data => {
     data = JSON.parse(data.toString());
-    if (req.url === '/message') {
-      responseData = await addMessage(data);
+    if (req.url === '/add') {
+      responseData = await addMessage(data.username, data.content, data.hash);
     } else if (req.url === '/delete') {
       responseData = await deleteMessage(data.id, data.hash);
+    } else if (req.url === '/update') {
+        responseData = await updateMessage(data.id, data.content, data.hash);
     } else if (req.url === '/authenticate') {
       responseData = await authenticateUser(data.username, data.secret);
     }
@@ -52,14 +54,15 @@ const sendFile = (res, path) => {
 };
 
 // adds new message to data, returns updated data
-const addMessage = async (newData) => {
+const addMessage = async (username, content, hash) => {
   const data = JSON.parse(fs.readFileSync(dataPath));
-  if (await authenticateHash(newData.username, newData.hash)) {
-    delete newData.hash;
-    data.push({...newData,
+  if (await authenticateHash(username, hash)) {
+    data.push({
       id: uuid(),
+      username,
+      content,
       submitted: DateTime.utc(),
-      admin: newData['username'] === 'Paradoxdotexe'})
+      admin: username === 'Paradoxdotexe'})
     fs.writeFile(dataPath, JSON.stringify(data), () => null);
     return data;
   } else {
@@ -73,6 +76,19 @@ const deleteMessage = async (id, hash) => {
   const i = data.findIndex(d => d.id === id);
   if (i > -1 && await authenticateHash(data[i].username, hash)) {
     data.splice(i, 1);
+    fs.writeFile(dataPath, JSON.stringify(data), () => null);
+    return data;
+  } else {
+    return null;
+  }
+};
+
+// updates specified message from data
+const updateMessage = async (id, content, hash) => {
+  const data = JSON.parse(fs.readFileSync(dataPath));
+  const i = data.findIndex(d => d.id === id);
+  if (i > -1 && await authenticateHash(data[i].username, hash)) {
+    data[i].content = content;
     fs.writeFile(dataPath, JSON.stringify(data), () => null);
     return data;
   } else {

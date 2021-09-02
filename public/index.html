@@ -55,7 +55,7 @@
     const send = (e) => {
       e.preventDefault();
       const message = document.getElementById('messageInput');
-      sendMessage(username, message.value, hash);
+      addMessage(username, message.value, hash);
       message.value = null;
     }
 
