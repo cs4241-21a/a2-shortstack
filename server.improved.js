@@ -12,7 +12,6 @@ entryData = [
   {'name': 'test', 'phoneNum': '123-123-1234', 'birthday': '', 'toGift': true, 'giftBy': ''},
 ]
 
-
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -22,16 +21,23 @@ const server = http.createServer( function( request,response ) {
 })
 
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
+  const filename = dir + request.url.slice(1) 
 
-  if( request.url === '/' ) {
+  //Update the display with all the entries 
+  if (request.url === '/showAll'){
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    console.log(entryData)
+    response.end(JSON.stringify(entryData))
+  }
+
+  else if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
     sendFile( response, filename )
   }
 }
 
-//Calcuates 30 days before the next birthday 
+//Calculates 30 days before the next birthday 
 const calcGiftDate = function(birthday) {
   const today = new Date();
   const bday = new Date(birthday);
@@ -42,34 +48,45 @@ const calcGiftDate = function(birthday) {
   if (today >= bday) { //This year's birthday has passed so plan for the next one 
 	  getByDay.setFullYear(getByDay.getFullYear()+1)
   } 
-  return getByDay
+  return getByDay.toLocaleDateString()
 }
 
 const handlePost = function( request, response ) {
-  let dataString = ''
+  if (request.url === '/submit'){
+    let dataString = ''
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+    request.on( 'data', function( data ) {
+        dataString += data 
+    })
 
-  request.on( 'end', function() {
-    json = JSON.parse(dataString)
+    request.on( 'end', function() {
+      json = JSON.parse(dataString)
 
-    //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
-    giftByDate = ''
-    if (json.toGift === true){
-      giftByDate = calcGiftDate(json.birthday)
-    }
-    json.giftBy = giftByDate
+      //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
+      giftByDate = ''
+      if (json.toGift === true){
+        giftByDate = calcGiftDate(json.birthday)
+      }
+      json.giftBy = giftByDate
 
-    entryData.push(json)
+      entryData.push(json)
+      
+      //console.log(entryData)
+      
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(json))
+    })
+  }
+  if(request.url === '/deleteEntry'){
+    console.log("In server.js delete entry")
+
+    
+    //TODO remove entry from the array 
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(json))
-  })
+    response.end(JSON.stringify('hi'))
+  }
 }
-
-
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
@@ -82,13 +99,11 @@ const sendFile = function( response, filename ) {
        // status code: https://httpstatuses.com
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
-
-     }else{
-
+     }
+     else{
        // file not found, error code 404
        response.writeHeader( 404 )
        response.end( '404 Error: File Not Found' )
-
      }
    })
 }

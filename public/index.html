@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
   </head>
 
-
   <body>
     <div class = "submission">
       <form action="">
@@ -23,13 +22,84 @@
         <label for ="toGift">Gift?</label>
         <input type="checkbox" id="toGift">
 
-        <button>submit</button>
+        <button>update</button> 
       </form>
     </div>
+
+    <button onclick="showAll()">Refresh</button>
+    <table onclick= "deletingRow()" id="allEntries">
+      <tr> 
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Birthday</th>
+        <th>Gift?</th>
+        <th>Get Gift By</th>
+        <th>Delete</th>
+      </tr> 
+    </table>
+
+    <button onclick="deleteEntry()">Delete</button>
   </body>
 
-
   <script>
+    const deletingRow = function(){
+      var table = document.querySelector('#allEntries')
+      for (var i = 1; i < table.rows.length; i++){
+      table.rows[i].cells[5].onclick = function(){
+        table.deleteRow(this.parentElement.rowIndex)
+      }
+    }
+    }
+    
+  //displays a new row with information 
+  const addRow = function(entry){
+    var table = document.querySelector('#allEntries')
+    var row = table.insertRow()
+    var cellName = row.insertCell(0)
+    var cellNumber = row.insertCell(1)
+    var cellBday = row.insertCell(2)
+    var cellToGift = row.insertCell(3)
+    var cellGiftBy = row.insertCell(4)
+    var cellDelete = row.insertCell(5)
+    cellName.innerHTML = entry.name
+    cellNumber.innerHTML = entry.phoneNum
+    cellBday.innerHTML = entry.birthday
+    cellToGift.innerHTML = entry.toGift
+    cellGiftBy.innerHTML = entry.giftBy
+    cellDelete.innerHTML = 'Delete'
+  }
+
+  //Displays all the entries currently stored 
+  const showAll = function(){
+    fetch('/showAll', {
+      method:'GET'
+    })
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(jsonResponse){
+      for (var i = 0; i < jsonResponse.length; i++){
+        addRow(jsonResponse[i])
+      }
+    })
+  }
+
+  const deleteEntry = function(){
+    //TODO identify and pass which row/entry is being deleted 
+
+    fetch('/deleteEntry', {
+      method:'POST'
+    })
+    .then(function(response) {
+
+      
+      //TODO remove row from table / update the display table 
+      document.querySelector('#allEntries').deleteRow(1)
+
+
+    })
+  }
+
   const submit = function( event ) {
     // prevent default form action from being carried out
     event.preventDefault()
@@ -47,10 +117,7 @@
       return response.json() 
     })
     .then(function(jsonResponse){
-    //just appends the new info on the page to show for now 
-     const element = document.createElement('p')
-     element.innerText = jsonResponse.name + " | " + jsonResponse.phoneNum + " | " + jsonResponse.birthday + " | " + jsonResponse.toGift + " | " +jsonResponse.giftBy
-     document.body.appendChild(element)
+      showAll()
     })
   }
 
@@ -58,6 +125,8 @@
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
+
+
 
   </script>
 </html>
