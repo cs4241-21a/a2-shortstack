@@ -121,24 +121,25 @@
   updateUser(null);
   document.getElementById('sendButton').onclick = send;
 
-  async function renderChat(data = null) {
+  async function renderChat(data = null, scrollAllowed = true) {
     if (!data) {
       data = await fetchData();
       console.log(data);
     }
+    const scroll = scrollAllowed ? JSON.stringify(data) !== JSON.stringify(dataCache) : false;
     dataCache = data; // update data cache for updating time strings
     data.forEach(d => {
-      d.class = d.username === username ? 'owned': '';
-      d.class += d.admin ? ' admin': '';
+      d.class = d.username === username ? 'owned ': '';
+      d.class += d.admin ? 'admin': '';
       d.timeString = getTimeString(d.submitted);
     });
 
     if (template) {
-      _renderChat(data);
+      _renderChat(data, scroll);
     } else {
       fetch('templates/message.mustache').then(response => response.text()).then(t => {
         template = t;
-        _renderChat(data, JSON.stringify(data) !== JSON.stringify(dataCache));
+        _renderChat(data, scroll);
         document.body.classList.add('rendered');
       });
     }

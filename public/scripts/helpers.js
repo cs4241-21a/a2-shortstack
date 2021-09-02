@@ -35,19 +35,19 @@ const addMessage = (username, content, hash) => {
 }
 
 const deleteMessage = (id, hash) => {
-    return postDataUpdate({ id, hash }, '/delete');
+    return postDataUpdate({ id, hash }, '/delete', false);
 }
 
 const updateMessage = (id, content, hash) => {
-    return postDataUpdate({ id, content, hash }, '/update');
+    return postDataUpdate({ id, content, hash }, '/update', false);
 }
 
-const postDataUpdate = (data, endpoint) => {
+const postDataUpdate = (data, endpoint, scrollAllowed = true) => {
     return new Promise(() => {
         const body = JSON.stringify(data);
         fetch(endpoint, { method:'POST', body }).then(async response => {
             if (response.ok) {
-                renderChat(await response.json()).then();
+                renderChat(await response.json(), scrollAllowed).then();
             } else {
                 window.alert('Unauthorized error. Please login again.');
                 location.reload();
