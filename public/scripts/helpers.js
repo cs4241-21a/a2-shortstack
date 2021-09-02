@@ -54,7 +54,7 @@ const postDataUpdate = (data, endpoint) => {
             if (response.ok) {
                 renderChat(await response.json()).then();
             } else {
-                window.alert('Incorrect secret provided!');
+                window.alert('Unauthorized error. Please login again.');
                 location.reload();
             }
         });
