@@ -41,23 +41,32 @@
   <script>
     const deletingRow = function(){
       var table = document.querySelector('#allEntries')
-      for (var i = 1; i < table.rows.length; i++){
+      for (let i = 1; i < table.rows.length; i++){
         //Deletes the selected row from the display table 
         table.rows[i].cells[5].onclick = function(){
+          json = {nameToRemove:table.rows[i].cells[0].innerHTML}   
           table.deleteRow(this.parentElement.rowIndex)
-
-          //TODO call to server to delete row from the array 
+          body = JSON.stringify(json) 
           fetch( '/deleteEntry', {
-            method:'POST'
+            method:'POST',
+            body
           })
+          .then( function( response ) {
+            return response.json() 
+           })
         }
 
         //Part of modifying selected row 
         table.rows[i].cells[0].onclick = function(){
-          document.querySelector("#name").value = "TODO Insert Name"
-          document.querySelector("#phoneNum").value = "123"
-          document.querySelector("#birthday").value = "2021-9-1"
-          document.querySelector("#toGift").checked = true
+          document.querySelector("#name").value = table.rows[i].cells[0].innerHTML
+          document.querySelector("#phoneNum").value = table.rows[i].cells[1].innerHTML
+          document.querySelector("#birthday").value =  table.rows[i].cells[2].innerHTML
+          if(table.rows[1].cells[3].innerHTML === 'true'){
+            document.querySelector("#toGift").checked = true
+          }
+          else{
+            document.querySelector("#toGift").checked = false
+          }
         }
       }
     }

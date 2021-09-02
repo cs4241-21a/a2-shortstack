@@ -9,7 +9,7 @@ const http = require( 'http' ),
       port = 3000
 
 entryData = [
-  {'name': 'test', 'phoneNum': '123-123-1234', 'birthday': '', 'toGift': true, 'giftBy': ''},
+  //{'name': 'test', 'phoneNum': '123-123-1234', 'birthday': '', 'toGift': true, 'giftBy': ''},
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -57,28 +57,56 @@ const handlePost = function( request, response ) {
     request.on( 'end', function() {
       json = JSON.parse(dataString)
 
-      //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
-      giftByDate = ''
-      if (json.toGift === true){
-        giftByDate = calcGiftDate(json.birthday)
-      }
-      json.giftBy = giftByDate
+      /*let isNew = true 
+      for (var i = 0; i < entryData.length; i++){
+        if (entryData[i].name === jsonTest.name){ //TODO maybe improve 
+          isNew = false 
+        }
+      } */
+      
+     // if(isNew === true){
+        //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
+        giftByDate = ''
+        if (json.toGift === true){
+          giftByDate = calcGiftDate(json.birthday)
+        }
+        json.giftBy = giftByDate
 
-      entryData.push(json)
+        entryData.push(json)
 
-      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(json))
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end(JSON.stringify(json))
+      //} 
+      //else{
+        //need to edit 
+      //}
+    
+    
     })
-  }
-  if(request.url === '/deleteEntry'){
-    console.log("In server.js delete entry")
+    
+  }//end if submit
 
-    //TODO!!! remove entry from the array 
+  else if(request.url === '/deleteEntry'){
+    let dataString = ''
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify('hi'))
-  }
-}
+    request.on( 'data', function( data ) {
+        dataString += data 
+    })
+
+    request.on( 'end', function() {
+      jsonTest = JSON.parse(dataString)
+      
+      for (var i = 0; i < entryData.length; i++){
+        if (entryData[i].name === jsonTest.nameToRemove){
+          entryData.splice(i,1)
+        }
+      }
+      
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify('removed'))
+    })
+  }//end if deleteEntry 
+}//end handlePost
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
