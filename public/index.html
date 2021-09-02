@@ -42,9 +42,14 @@
     const deletingRow = function(){
       var table = document.querySelector('#allEntries')
       for (var i = 1; i < table.rows.length; i++){
-        //Deletes the selected row 
+        //Deletes the selected row from the display table 
         table.rows[i].cells[5].onclick = function(){
           table.deleteRow(this.parentElement.rowIndex)
+
+          //TODO call to server to delete row from the array 
+          fetch( '/deleteEntry', {
+            method:'POST'
+          })
         }
 
         //Part of modifying selected row 
