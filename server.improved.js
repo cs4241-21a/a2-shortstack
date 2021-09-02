@@ -7,9 +7,8 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'hotel-name': 'Best Resort', 'location': 'Miami', 'cleanliness': 9, 'service': 8, 'amenity': 7, 'overall-experience':8},
+  { 'hotel-name': 'Roadside Inn', 'location': 'Boston', 'cleanliness': 5, 'service': 5, 'amenity': 5, 'overall-experience':5}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -30,6 +29,11 @@ const handleGet = function( request, response ) {
   }
 }
 
+const getOverallScore = function (cleanlinessScore, serviceScore, amenityScore) {
+  let sum = cleanlinessScore + serviceScore + amenityScore;
+  return sum / 3
+}
+
 const handlePost = function( request, response ) {
   let dataString = ''
 
@@ -38,13 +42,22 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
+    if( request.url === '/table') {
+      console.log('Inside post for getting table')
+      response.writeHead( 200, 'OK', {'Content-Type': 'text/plain' })   
+      response.end(JSON.stringify( appdata ))
+    } else {
+    const json = JSON.parse( dataString )
+    const overallScore = getOverallScore(Number(json.cleanliness), Number(json.service), Number(json.amenity))
+    appdata.push({'hotel-name': json.hotelname, 'location': json.hotellocation, 'cleanliness': json.cleanliness, 'service': json.service, 'amenity': json.amenity, 'overall-experience':overallScore})
     // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    console.log( json )
+    console.log(`Here is the overall score: ${overallScore}`)
+    response.writeHead( 200, 'OK', {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify( json ))
+    }
   })
+
 }
 
 const sendFile = function( response, filename ) {
@@ -54,7 +67,7 @@ const sendFile = function( response, filename ) {
 
      // if the error = null, then we've loaded the file successfully
      if( err === null ) {
-
+      
        // status code: https://httpstatuses.com
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )

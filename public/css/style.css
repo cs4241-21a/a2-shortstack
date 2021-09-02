@@ -1,1 +1,49 @@
 /*Style your own assignment! This is fun! */
+
+th {
+    border: 1px solid black;
+    padding: 20px;
+    width: 16.6%;
+}
+
+td {
+    text-align: center;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+input[type='number'] {
+    width: 35px;
+}
+
+body {
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: auto;
+    background-color: rgb(99, 99, 99);
+    color: white;
+}
+
+div {
+    margin: 5px;
+}
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
