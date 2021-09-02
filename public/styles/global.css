@@ -22,6 +22,11 @@ button:focus {
     background: var(--accent-secondary);
 }
 
+button:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 /* INPUT */
 input {
     background: var(--background-tertiary);

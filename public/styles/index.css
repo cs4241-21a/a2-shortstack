@@ -48,29 +48,47 @@ h2 {
     opacity: 0;
 }
 
-/* LOGOUT */
-#logout {
+/* ACTIONS */
+#actions {
     position: absolute;
     top: 2rem;
     left: 2rem;
-    background: var(--color-primary);
-    color: var(--accent-primary);
-    fill: var(--accent-primary);
-    margin-left: -10rem;
+    margin-left: -25rem;
     display: flex;
-    align-items: center;
     transition: margin-left var(--transition-duration) var(--transition-timing-function);
 }
 
-#logout:focus {
+#actions button {
+    display: flex;
+    align-items: center;
+}
+
+#actions button:first-child {
+    margin-right: 2rem;
+    background: var(--color-primary);
+    color: var(--accent-primary);
+    fill: var(--accent-primary);
+}
+
+#actions button:first-child:focus {
     background: var(--background-primary)
 }
 
-#logout svg {
+#actions button:last-child {
+    background: none;
+    fill: var(--color-primary);
+    box-shadow: inset 0 0 0 2px white;
+}
+
+#actions button:last-child:focus {
+    background: rgba(255, 255, 255, 0.15)
+}
+
+#actions button svg {
     margin-right: 0.5rem;
 }
 
-.joined #logout {
+.joined #actions {
     margin-left: 0;
 }
 
@@ -171,6 +189,6 @@ h2 {
 }
 
 /* TRANSITIONS */
-#texture, h1, h2, #join .join__card, #chat, #chat {
+#texture, h1, h2, #join .join__card, #chat {
     transition: all var(--transition-duration) var(--transition-timing-function);
 }
