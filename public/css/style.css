@@ -35,6 +35,10 @@ td {
   display: flex;
   justify-content: center;
 }
+.right-aligned {
+  display: flex;
+  justify-content: right;
+}
 .page {
   margin: 0;
   padding: 10px;
@@ -59,7 +63,17 @@ select {
   min-height: 25px;
 }
 
+.cancel-button {
+  background-color: rgb(240, 130, 102);
+}
+
 .submit-button {
+  background-color: rgb(134, 172, 243);
+}
+
+.button {
   margin: 5px;
-  background-color: rgb(113, 184, 243);
+  border: 1px solid lightslategray;
+  border-radius: 5px;
+  min-height: 25px;
 }

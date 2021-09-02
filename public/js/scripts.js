@@ -1,6 +1,7 @@
 // Add some Javascript code here, to run on the front end.
 
 let currentData = [];
+let editingUUID = null;
 
 const getData = async () => {
   console.log("Fetching data");
@@ -48,6 +49,7 @@ const getData = async () => {
 
 const editEntry = (uuid) => {
   console.log(`Editing entry with UUID ${uuid}`);
+  editingUUID = uuid;
   const entry = currentData.find((e) => e.uuid === uuid);
   if (!entry) {
     console.log("Attempting to edit invalid entry");
@@ -55,7 +57,14 @@ const editEntry = (uuid) => {
   }
 
   // Enter edit mode
+  document.getElementById("submit").innerText = "Update";
+  document.getElementById("cancel").hidden = false;
   // Fill form
+
+  document.getElementById("name").value = entry.name;
+  document.getElementById("gender").value = entry.gender;
+  document.getElementById("birthday").value = entry.birthday;
+  document.getElementById("country").value = entry.country;
 
   console.log(entry);
 };
@@ -69,22 +78,27 @@ const deleteEntry = (uuid) => {
   });
 };
 
-const submitAdd = () => {
-  const { name, gender, birthday, country } = getFormData();
+const submit = () => {
+  const body = getFormData();
+  if (editingUUID) body.uuid = editingUUID;
 
   fetch("/data", {
     method: "POST",
-    body: JSON.stringify({
-      name,
-      gender,
-      birthday,
-      country,
-    }),
+    body: JSON.stringify(body),
   }).then(function (response) {
     getData();
   });
 
   return false;
+};
+
+const cancelEdit = () => {
+  console.log("Canceling edit");
+  editingUUID = null;
+
+  // Exit edit mode
+  document.getElementById("submit").innerText = "Add";
+  document.getElementById("cancel").hidden = true;
 };
 
 const getFormData = () => {

@@ -39,9 +39,16 @@
           value="Afghanistan"
         />
       </span>
-      <span>
-        <button className="cancel-button" onclick="cancelEdit()">Cancel</button>
-        <button className="submit-button" onclick="submitAdd()">
+      <span class="right-aligned">
+        <button
+          hidden="true"
+          id="cancel"
+          class="cancel-button button"
+          onclick="cancelEdit()"
+        >
+          Cancel
+        </button>
+        <button id="submit" class="submit-button button" onclick="submit()">
           Add
         </button></span
       >

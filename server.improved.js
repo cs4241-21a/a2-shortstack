@@ -66,19 +66,27 @@ const handlePost = function (request, response) {
 
     // ... do something with the data here!!!
     if (request.url === "/data") {
-      data.uuid = uuidv4();
-
       const birth = new Date(data.birthday);
       const today = new Date();
 
       const diff = today - birth;
 
       data.age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+      if (data.uuid) {
+        // Update existing entry
+        console.log(`Updating entry with UUID ${data.uuid}`);
+        const idx = appdata.findIndex((entry) => entry.uuid === data.uuid);
 
-      console.log("Adding new entry: ");
-      console.log(data);
+        appdata[idx] = data;
+      } else {
+        // Add new entry
+        data.uuid = uuidv4();
 
-      appdata.push(data);
+        console.log("Adding new entry: ");
+        console.log(data);
+
+        appdata.push(data);
+      }
     }
 
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });
