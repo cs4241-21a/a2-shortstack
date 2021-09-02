@@ -56,10 +56,18 @@ function handleAddition(request, response) {
 
     let dataStringParsed = JSON.parse(dataString);
 
+    let studentHours = -1
+    if (dataStringParsed.StudentRole === "SA" ) {
+      studentHours = 10
+    } else if (dataStringParsed.StudentRole === "TA" ) {
+      studentHours = 20
+    }
+
     appdata.push({
       StudentName: dataStringParsed.StudentName,
       StudentClass: dataStringParsed.StudentClass,
       StudentRole: dataStringParsed.StudentRole,
+      StudentHours: studentHours,
       id: id_counter,
     });
 
@@ -129,6 +137,16 @@ function handleUpdate(request, response) {
         appdata[i].StudentName = dataStringParsed.StudentName;
         appdata[i].StudentClass = dataStringParsed.StudentClass;
         appdata[i].StudentRole = dataStringParsed.StudentRole;
+ 
+        let studentHours = -1
+        if (dataStringParsed.StudentRole === "SA" ) {
+          studentHours = 10
+        } else if (dataStringParsed.StudentRole === "TA" ) {
+          studentHours = 20
+        }
+
+        appdata[i].StudentHours = studentHours;
+    
         break;
       }
     }
