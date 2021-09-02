@@ -48,4 +48,4 @@ overflow-y: auto;
 - **Transition Effect**: Added styles to create a smooth transition effect between the login and chat pages.
     - Style rules were added based on the dynamic `joined` class to detect once the user has joined the chatroom, updating styles accordingly to transition components to and from the page.
 * **Focus Accessibility**: Focus styles were added to all inputs and buttons to support keyboard accessibility.
-    - The `::focus` selector was used to add visible style changes to focused inputs and buttons, making it easy to navigate the page using only a keyboard.
+    - The `:focus` selector was used to add visible style changes to focused inputs and buttons, making it easy to navigate the page using only a keyboard.
