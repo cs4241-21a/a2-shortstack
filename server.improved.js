@@ -44,6 +44,9 @@ const handlePost = function( request, response ) {
   } else if( request.url === '/deleteEntry' ) {
     handleDeletion(request, response)
     // console.log("Attempting delete data")
+  } else if( request.url === '/updateEntry' ) {
+    handleUpdate(request, response)
+    // console.log("Attempting delete data")
   }else{
     console.log("I don't know what you want me to do!")
   }
@@ -163,6 +166,41 @@ function handleDeletion(request, response) {
       appdata.splice(item_index, 1)
       // appdata.removeIndex(item_index)
     }
+
+    console.log("appData")
+    console.log(appdata)
+    const string_app_data = JSON.stringify(appdata)
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain'})
+
+    response.end(string_app_data)
+  })
+
+}
+
+function handleUpdate(request, response) {
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+      dataString += data 
+  })
+
+  request.on( 'end', function() {
+
+    console.log("\n\nNEW UPDATE DATA REQUEST")
+
+    let dataStringParsed = JSON.parse( dataString )
+
+    console.log("dataStringParsed")
+    console.log(dataStringParsed)
+
+    for (let i = 0; i < appdata.length; i++) {
+
+      if (String(appdata[i].id) === String(dataStringParsed.id)){
+        appdata[i].name = dataStringParsed.yourname
+        break
+      }
+    } 
 
     console.log("appData")
     console.log(appdata)

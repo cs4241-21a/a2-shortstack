@@ -131,6 +131,32 @@
       return false;
     }
 
+    function updateItemFunc(button) {
+
+      const input = document.querySelector("#yourname"),
+        id_value = button.path[0].id,
+        json = { yourname: input.value, id: id_value },
+        body = JSON.stringify(json);
+
+      fetch("/updateEntry", {
+        method: "POST",
+        body,
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+
+          initialize_list(data);
+
+          previous_app_data = data;
+
+          return data;
+        });
+
+      return false;
+    }
+
     function initialize_list(data_points) {
       var forum_section = document.getElementById("forum_section");
       // console.log("forum_section")
@@ -150,16 +176,20 @@
         // console.log(data_point.name);
         const element_list_item = document.createElement("li");
         const element_list_delete = document.createElement("BUTTON");
-        const delete_button_id = data_point.id;
-        element_list_delete.setAttribute("id", delete_button_id);
-        element_list_delete.setAttribute("name", "your name here");
+        const element_list_update = document.createElement("BUTTON");
+
         element_list_item.innerHTML = data_point.name;
+        element_list_delete.setAttribute("id", data_point.id);
         element_list_delete.innerHTML = "remove_item";
+        element_list_update.setAttribute("id", data_point.id);
+        element_list_update.innerHTML = "update_item";
 
         element_list_delete.onclick = deleteItemFunc;
+        element_list_update.onclick = updateItemFunc;
 
         element.appendChild(element_list_item);
         element.appendChild(element_list_delete);
+        element.appendChild(element_list_update);
         document.body.appendChild(element);
       }
       data_points.forEach(myFunc);
