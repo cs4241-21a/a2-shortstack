@@ -17,6 +17,7 @@
     let username = null;
     let hash = null;
     let template = null;
+    let dataCache = null;
     const duration = 500;
 
     const updateUser = (u, h = null) => {
@@ -103,28 +104,33 @@
   async function renderChat(data = null) {
     if (!data) {
       data = await fetchData();
+      console.log(data);
     }
+    dataCache = data; // update data cache for updating time strings
     data.forEach(d => {
       d.class = d.username === username ? 'owned': '';
       d.class += d.admin ? ' admin': '';
       d.timeString = getTimeString(d.submitted);
     });
-    console.log(data);
 
     if (template) {
       _renderChat(data);
     } else {
       fetch('templates/message.mustache').then(response => response.text()).then(t => {
         template = t;
-        _renderChat(data);
+        _renderChat(data, JSON.stringify(data) !== JSON.stringify(dataCache));
         document.body.classList.add('rendered');
       });
     }
   }
 
-  function _renderChat(data = null) {
+  function _renderChat(data, scroll) {
     renderTemplate(template, 'messages', data);
-    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+    if (scroll) {
+      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+    }
   }
+
+  setInterval(() => renderChat(dataCache), 30000);
 </script>
 </html>
