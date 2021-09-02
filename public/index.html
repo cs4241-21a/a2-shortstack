@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>pogchat.io</title>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
 
-  <link rel="stylesheet" href="styles/theme.css">
-  <link rel="stylesheet" href="styles/global.css">
-  <link rel="stylesheet" href="styles/index.css">
+  <link rel="stylesheet" href="styles/theme.css" />
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/index.css" />
 
   <script src="https://unpkg.com/mustache@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
@@ -14,6 +14,7 @@
   <script src="scripts/helpers.js"></script>
 
   <script>
+    //<![CDATA[
     let username = null;
     let hash = null;
     let template = null;
@@ -24,8 +25,8 @@
       username = u;
       hash = h;
       if (username && hash) {
-        document.getElementById('actions').style.display = ''
-        document.getElementById('chat').style.display = ''
+        document.getElementById('actions').style.display = '';
+        document.getElementById('chat').style.display = '';
         setTimeout(() => document.body.classList.add('joined'), 50);
         setTimeout(() => document.getElementById('join').style.display = 'none', duration);
         renderChat();
@@ -70,11 +71,12 @@
 
     // check for username when location changes
     window.addEventListener('popstate', () => updateUser(null));
+    //]]>
   </script>
 </head>
 
 <body>
-<div id="texture"><img src="assets/texture.jpg" alt=""></div>
+<div id="texture"><img src="assets/texture.jpg" alt="" /></div>
 <h1>pogchat.io</h1>
 <h2>a chat for all my pogchamps</h2>
 
@@ -94,21 +96,20 @@
     <div class="title">Join the chatroom</div>
     <div class="subtitle">Enter or create a <strong>pogchat.io</strong> account to begin chatting!</div>
     <small>Username</small>
-    <input type="text" id="usernameInput" placeholder="Enter username">
+    <input type="text" id="usernameInput" placeholder="Enter username" />
     <small>Password</small>
-    <input type="password" id="secretInput" placeholder="Enter password">
+    <input type="password" id="secretInput" placeholder="Enter password" />
     <button id="joinButton" onclick="join()">Join</button>
   </div>
 </div>
 
 <div id="chat">
   <div class="chat__messages" id="messages"></div>
-  <form class="chat__input" action="">
-    <input type="text" id="messageInput" placeholder="Write a reply">
+  <form class="chat__input">
+    <input type="text" id="messageInput" placeholder="Write a reply" />
     <button id="sendButton" onclick="send()">Send</button>
   </form>
 </div>
-</body>
 
 <script>
   updateUser(null);
@@ -146,4 +147,5 @@
 
   setInterval(() => renderChat(dataCache), 30000);
 </script>
+</body>
 </html>
