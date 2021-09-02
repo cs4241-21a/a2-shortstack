@@ -40,19 +40,22 @@
       }
     }
 
-    async function join() {
+    const join = async (e) => {
+      e.preventDefault();
       const usernameInput = document.getElementById('usernameInput');
       const secretInput = document.getElementById('secretInput');
       if (usernameInput.value && secretInput.value) {
-        const hash = await authenticateUser(usernameInput.value, secretInput.value);
-        if (hash) {
-          updateUser(usernameInput.value, hash);
-          usernameInput.value = null;
-        } else {
-          window.alert('Account password incorrect.');
-        }
-        secretInput.value = null;
+        authenticateUser(usernameInput.value, secretInput.value).then(hash => {
+          if (hash) {
+            updateUser(usernameInput.value, hash);
+            usernameInput.value = null;
+          } else {
+            window.alert('Account password incorrect.');
+          }
+          secretInput.value = null;
+        });
       }
+      return false;
     }
 
     const send = (e) => {
@@ -60,6 +63,7 @@
       const message = document.getElementById('messageInput');
       addMessage(username, message.value, hash);
       message.value = null;
+      return false;
     }
 
     const refresh = async () => {
@@ -95,19 +99,21 @@
   <div class="join__card card">
     <div class="title">Join the chatroom</div>
     <div class="subtitle">Enter or create a <strong>pogchat.io</strong> account to begin chatting!</div>
-    <small>Username</small>
-    <input type="text" id="usernameInput" placeholder="Enter username" />
-    <small>Password</small>
-    <input type="password" id="secretInput" placeholder="Enter password" />
-    <button id="joinButton" onclick="join()">Join</button>
+    <form onsubmit="return join(event)">
+      <small>Username</small>
+      <input type="text" id="usernameInput" placeholder="Enter username" />
+      <small>Password</small>
+      <input type="password" id="secretInput" placeholder="Enter password" />
+      <button id="joinButton">Join</button>
+    </form>
   </div>
 </div>
 
 <div id="chat">
   <div class="chat__messages" id="messages"></div>
-  <form class="chat__input">
+  <form class="chat__input" onsubmit="return send(event)">
     <input type="text" id="messageInput" placeholder="Write a reply" />
-    <button id="sendButton" onclick="send()">Send</button>
+    <button id="sendButton">Send</button>
   </form>
 </div>
 

@@ -1,15 +1,19 @@
 let editing = false;
 
-function edit(id) {
+function beginEdit(id) {
     updateEditing(true, id);
 }
 
-function confirm(id, hash) {
+function confirmEdit(e, id, hash) {
+    if (e) {
+        e.preventDefault();
+    }
     updateEditing(false, id);
     updateMessage(id, document.getElementById(`contentInput#${id}`).value, hash).then();
+    return false;
 }
 
-function cancel(id) {
+function cancelEdit(id) {
     updateEditing(false, id);
 }
 

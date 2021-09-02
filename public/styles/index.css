@@ -127,6 +127,11 @@ h2 {
     font-weight: 500;
 }
 
+#join .join__card form {
+    display: flex;
+    flex-direction: column;
+}
+
 #join .join__card small {
     font-size: var(--font-size-sm);
     margin-bottom: 0.25rem;
