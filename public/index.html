@@ -1,56 +1,73 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>Lost&Found @ WPI</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <h1>Team Matching</h1>
-    <p>Welcome to Team Matching! This is a WPI platform to help you find a well-rounded team in your class.</p>
+    <h1>Lost&Found</h1>
+    <p>Welcome to Lost&Found! This is a WPI platform to help you recover lost items or publish alerts on found items.</p>
     <p id="error-box"></p>
     <form action="" id="loginform">
       <h3>Login</h1>
       <label for="username">Username: </label>
-      <input type='text' id='username' placeholder="username@wpi.edu">
+      <input type="text" id="username" placeholder="username@wpi.edu" required="required" value="fgalbiati@wpi.edu">
       <label for="password">Password: </label>
-      <input type='password' id='password' placeholder="*******">
+      <input type="password" id="password" placeholder="*******" required="required" value="abc123">
       <button id="login-button">Submit</button>
     </form>
     <div class="logged-in">
-    <table id="matches">
-      <h2>Current matches</h2>
-      <tr>
-        <th>Preferred meeting time</th>
-        <th>Major</th>
-        <th>Class</th>
-        <th>Follower or leader</th>
-        <th>Commitment</th>
-        <th>Location</th>
-      </tr>
-    </table>
+      <h2>Lost items</h2>
+      <table id="lostitems">
+        <tr>
+          <th>Item</th>
+          <th>When</th>
+          <th>Where</th>
+          <th>Description</th>
+          <th>Photo</th>
+          <th>Email me!</th>
+        </tr>
+      </table>
+      <h2>Found items</h2>
+      <table id="founditems">
+        <tr>
+          <th>Item</th>
+          <th>When</th>
+          <th>Where</th>
+          <th>Description</th>
+          <th>Photo</th>
+          <th>Email me!</th>
+        </tr>
+      </table>
     </div>
     <div class="logged-in">
-      <h2>Update your profile</h2>
-      <form action="" id="updateprofile">
-        <label for="preferred-time">Preferred time: </label>
-        <input type='text' id='preferred-time' placeholder="Morning">
-        <label for="major">Major: </label>
-        <input type='text' id='major' placeholder="Computer Science">
-        <label for="class">Class: </label>
-        <input type='text' id='class' placeholder="2024">
-        <label for="leadership">Leadership: </label>
-        <input type='text' id='leadership' placeholder="Leader">
-        <label for="commitment">Commitment: </label>
-        <label for="commitment1">Medium</label>
-        <input type='radio' id='commitment1' name='commitment' value="1">
-        <label for="commitment2">High</label>
-        <input type='radio' id='commitment2' name='commitment' value="2">
-        <label for="commitment3">Very High</label>
-        <input type='radio' id='commitment3' name='commitment' value="3">
-        <label for="location">Location: </label>
-        <input type='text' id='location' placeholder="Online">
-        <button>Submit</button>
+      <h2>Post a new Lost or Found item</h2>
+      <form action="" id="createentry">
+        <label for="type1">Lost</label>
+        <input type="radio" name="type" value="lost" id="type1" checked>
+        <label for="type2">Found</label>
+        <input type="radio" name="type" value="found" id="type2">
+
+        <label for="item">Item: </label>
+        <input type="text" id="item" placeholder="Apple Pen">
+        
+        <label for="when">When: </label>
+        <input type="datetime" id="when" placeholder="mm/dd/yyyy">
+
+        <label for="where">Where: </label>
+        <input type="text" id="where" placeholder="FH 311">
+        
+        <label for="description">Description: </label>
+        <input type="text" id="description" placeholder="Color, brand...">
+        
+        <label for="photo">Photo: </label>        
+        <input type="url" id="photo" name="photo">
+        
+        <label for="emailme">Who to contact: </label>        
+        <input type="email" id="emailme" placeholder="abc@wpi.edu">
+
+        <button id="createentry-button">Submit</button>
       </form>
     </div>
     <script src="js/scripts.js"></script>

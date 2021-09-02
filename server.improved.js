@@ -7,32 +7,38 @@ const http = require( 'http' ),
       port = 3000
 
 const users = {
-  'federico' : {'password': 'abc123'},
+  'fgalbiati@wpi.edu' : {'password': 'abc123'},
   'john' : {'password': 'aaa111'},
   'amanda' : {'password': 'ab24'},
   'sophia' : {'password': 'asdasd5'}
 }
 
-let matches = {
-  'federico' : ['amanda', 'sophia'],
-  'amanda' : ['john']
+let lostItems = {
+  '1': {
+    'item': 'Apple Pen',
+    'when': '09/01/2021',
+    'where': 'FH 311',
+    'description': 'White, pen, red cap, Apple original',
+    'photo': 'https://google.com',
+    'emailme': 'fgalbiati@wpi.edu'
+  }
 }
 
-const setDefaults = function() {
-  for (const user in users) {
-    users[user].preferredTime = 'Morning'
-    users[user].major = 'Computer Science'
-    users[user].class = '2024'
-    users[user].leadership = 'Follower'
-    users[user].commitment = '1'
-    users[user].location = 'Online'
+let foundItems = {
+  '1': {
+    'item': 'Apple Pen',
+    'when': '09/01/2021',
+    'where': 'FH 311',
+    'description': 'White, pen, red cap, Apple original',
+    'photo': 'https://google.com',
+    'emailme': 'fgalbiati@wpi.edu'
   }
 }
 
 const server = http.createServer( function( request,response ) {
-  if( request.method === 'GET' ) {
+  if ( request.method === 'GET' ) {
     handleGet( request, response )    
-  }else if( request.method === 'POST' ){
+  } else if ( request.method === 'POST' ) {
     handlePost( request, response ) 
   }
 })
@@ -42,8 +48,10 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  } else if ( request.url === '/api/matches') {
-    sendData(response, matches[request.username])
+  } else if ( request.url === '/api/lostitems') {
+    sendData(response, lostItems)
+  } else if ( request.url === '/api/founditems') {
+    sendData(response, foundItems)
   } else {
     sendFile( response, filename )
   }
@@ -68,7 +76,6 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     let data = JSON.parse( dataString )
-    console.log(data)
     if (request.url === '/api/login') {
       if (login(data)) {
         response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
@@ -78,6 +85,26 @@ const handlePost = function( request, response ) {
       response.writeHead( 403, "Invalid login", {'Content-Type': 'text/plain' })
       response.end()
       return
+    } else if (request.url === '/api/create') {
+      let filtered = {
+        'item' : data.item,
+        'when' : data.when,
+        'where' : data.where,
+        'description' : data.description,
+        'photo' : data.photo,
+        'emailme' : data.emailme,
+      }
+      if (data.lost === true) {
+        lostItems['2'] = filtered
+        console.log("Added to lost items")
+        response.writeHeader( 200 )
+        response.end() 
+      } else if (data.found === true) {
+        foundItems['2'] = filtered
+        console.log("Added to found items")
+        response.writeHeader( 200 )
+        response.end() 
+      }
     }
   })
 }
@@ -104,5 +131,9 @@ const sendFile = function( response, filename ) {
    })
 }
 
-setDefaults()
+const sendData = function( response, data ) {
+  response.writeHeader( 200, { 'Content-Type': 'application/json' })
+  response.end(JSON.stringify(data))
+}
+
 server.listen( process.env.PORT || port )
