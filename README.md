@@ -4,9 +4,9 @@ Nathan Klingensmith https://a2-iamparadoxdotexe.glitch.me/
 My website is a simple chatroom app that supports account authentication, non-live messaging, message editing, and message deletion.
 
 ##### *Instructions* 
-To enter that chat, create an account with a username and password. Passwords are made securing using [bycrpt's](https://www.npmjs.com/package/bcrypt) salting and hashing algorithm.
+To enter that chat, create an account with a username and password. Passwords are made secure using [bycrpt's](https://www.npmjs.com/package/bcrypt) salting and hashing algorithm.
 
-Once logged in, you should see all current messages in the database. You can add a new message with the input box at the bottom. Once you have sent message, you can edit it's content or delete it entirely using the icon buttons located on the message. *\*You can only edit and delete your own messages.*
+Once logged in, you should see all current messages in the database. You can add a new message with the input box at the bottom. Once you have sent message, you can edit it's content or delete it entirely using the icon buttons located on the message. *\*You can only edit and delete your own messages.*\*
 
 ##### *Layout Method*
 Chat messages pulled from the server are organized using a flex-box. If there are too many messages to display on-screen, the flex-box becomes scrollable.
@@ -20,7 +20,7 @@ overflow-y: auto;
 
 ## Technical Achievements
 * **Mustache Templating**:  Implemented [Mustache.js](https://www.npmjs.com/package/mustache) for component templating. 
-    - I used **Mustache** to programmatically add message card components to the website. Server data is provided to each message to display the correct information and ensure message editing features point to the correct message based on its `id`.
+    - I used **Mustache** to programmatically add message card components to the website. Server data is provided to each message to display the correct information and ensure each message's buttons point to the correct message based on its `id`.
 - **Message Data**:  Utilized a JSON file to persistently store an array of message objects.
     - Each message object contains five fields: `id`, `username`, `admin`, `content`, and `submitted`.
         ```
@@ -44,8 +44,8 @@ overflow-y: auto;
 ### Design Achievements
 * **Page Styles**: Many style rules were added throughout the application.
     - Style rules are split up amongst `styles/global.css`, `styles/index.css`, `styles/theme.css`, and `templates/mustache.css`.
-    - Many dynamic rules were added to react to the classes `joined` and `rendered` being programmatically added to the document body during different events.
+    - Many dynamic rules were added to react to the classes `joined` and `rendered` being programmatically added to the document body after different events.
 - **Transition Effect**: Added styles to create a smooth transition effect between the login and chat pages.
-    - Style rules were added based on the dynamic `joined` class to detect once the user has joined the chatroom and update styles accordingly to transition components to and from the page.
+    - Style rules were added based on the dynamic `joined` class to detect once the user has joined the chatroom, updating styles accordingly to transition components to and from the page.
 * **Focus Accessibility**: Focus styles were added to all inputs and buttons to support keyboard accessibility.
     - The `::focus` selector was used to add visible style changes to focused inputs and buttons, making it easy to navigate the page using only a keyboard.
