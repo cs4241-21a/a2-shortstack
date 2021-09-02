@@ -1,3 +1,14 @@
-// Add some Javascript code here, to run on the front end.
+const inputText = document.getElementById('inptNotes');
+const counter = document.getElementById('counter');
 
-console.log("Welcome to assignment 2!")
+inputText.addEventListener('input', updateValue);
+
+function updateValue(e){
+    const target = e.target;
+
+    const maxLength = target.getAttribute('maxlength');
+
+    const currentLength = target.value.length;
+
+    counter.innerHTML = `${currentLength}/${maxLength}`;
+};

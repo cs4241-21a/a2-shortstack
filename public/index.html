@@ -3,12 +3,61 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/scripts.js" defer></script>
+    
   </head>
+
+
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <h1> Contact Log </h1>
+
+    
+
+    <h2> Add Contact </h2>
+
+    <div >
+      
+      <form action="">
+        <label for="inptName" class="bold_text"> Name: </label>
+        <input type='text' id='inptName'> 
+      </form>
+
+      <br> 
+      
+      <form action="">
+        <label for="inptEmail" class="bold_text"> Email: </label>
+        <input type='text' id='inptEmail'> 
+      </form>
+
+      <br> 
+
+
+      <form action="">
+        <label for="inptNumber" class="bold_text"> Number: </label>
+        <input type='text' id='inptNumber'> 
+      </form>
+
+      <br> 
+
+      <form action="">
+        <label for="inptNotes" class="bold_text"> Notes: </label>
+        <textarea type='text' id='inptNotes' maxlength="200"> </textarea> 
+        <div id="counter"></div>
+      </form>
+
+      
+      
+      <button>Submit</button>
+    </div>
+
+    
+
+    
+
+  
   </body>
   <script>
 
