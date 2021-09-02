@@ -9,7 +9,7 @@ const http = require( 'http' ),
       port = 3000
 
 entryData = [
-  //{'name': 'test', 'phoneNum': '123-123-1234', 'birthday': '', 'toGift': true, 'giftBy': ''},
+  //{'name': 'example', 'phoneNum': '123-123-1234', 'birthday': '', 'toGift': true, 'giftBy': ''},
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -46,6 +46,14 @@ const calcGiftDate = function(birthday) {
   return getByDay.toLocaleDateString()
 }
 
+//Helper function to remove entry from the arra y
+const deleteEntry = function(entry){
+  for (var i = 0; i < entryData.length; i++){
+    if (entryData[i].name === entry){
+      entryData.splice(i,1)
+    }
+  }
+}
 const handlePost = function( request, response ) {
   if (request.url === '/submit'){
     let dataString = ''
@@ -56,15 +64,14 @@ const handlePost = function( request, response ) {
 
     request.on( 'end', function() {
       json = JSON.parse(dataString)
-
-      /*let isNew = true 
+     
+      //Removes the old entry if updating a field
       for (var i = 0; i < entryData.length; i++){
-        if (entryData[i].name === jsonTest.name){ //TODO maybe improve 
-          isNew = false 
+        if (entryData[i].name === json.rowName && json.rowName !== ''){ 
+          deleteEntry(json.rowName)
         }
-      } */
+      } 
       
-     // if(isNew === true){
         //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
         giftByDate = ''
         if (json.toGift === true){
@@ -76,14 +83,7 @@ const handlePost = function( request, response ) {
 
         response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
         response.end(JSON.stringify(json))
-      //} 
-      //else{
-        //need to edit 
-      //}
-    
-    
     })
-    
   }//end if submit
 
   else if(request.url === '/deleteEntry'){
@@ -96,11 +96,7 @@ const handlePost = function( request, response ) {
     request.on( 'end', function() {
       jsonTest = JSON.parse(dataString)
       
-      for (var i = 0; i < entryData.length; i++){
-        if (entryData[i].name === jsonTest.nameToRemove){
-          entryData.splice(i,1)
-        }
-      }
+      deleteEntry(jsonTest.nameToRemove)
       
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
       response.end(JSON.stringify('removed'))

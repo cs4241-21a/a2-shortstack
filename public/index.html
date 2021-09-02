@@ -26,7 +26,7 @@
       </form>
     </div>
 
-    <table onclick= "deletingRow()" id="allEntries">
+    <table onclick= "selectingRow()" id="allEntries">
       <tr> 
         <th>Name</th>
         <th>Phone Number</th>
@@ -39,7 +39,9 @@
   </body>
 
   <script>
-    const deletingRow = function(){
+    let selectedRowName = ''
+
+    const selectingRow = function(){
       var table = document.querySelector('#allEntries')
       for (let i = 1; i < table.rows.length; i++){
         //Deletes the selected row from the display table 
@@ -67,6 +69,7 @@
           else{
             document.querySelector("#toGift").checked = false
           }
+          selectedRowName = table.rows[i].cells[0].innerHTML
         }
       }
     }
@@ -103,7 +106,7 @@
     event.preventDefault()
 
     const input = document.querySelector('form'),
-          json = {name: input.name.value, phoneNum: input.phoneNum.value, birthday: input.birthday.value, toGift: input.toGift.checked}
+          json = {name: input.name.value, phoneNum: input.phoneNum.value, birthday: input.birthday.value, toGift: input.toGift.checked, rowName: selectedRowName}
           body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -114,8 +117,15 @@
       return response.json() 
     })
     .then(function(jsonResponse){
+      table = document.querySelector("#allEntries")
+      for (let i = 1; i < table.rows.length; i++){
+        if (table.rows[i].cells[0].innerHTML === selectedRowName){
+          table.deleteRow(i) 
+        }
+      }
+      selectedRowName = '' //reset
       addRow(jsonResponse)
-    })
+    })    
   }
 
   window.onload = function() {
