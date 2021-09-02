@@ -4,8 +4,9 @@ function edit(id) {
     updateEditing(true, id);
 }
 
-function confirm(id) {
+function confirm(id, hash) {
     updateEditing(false, id);
+    updateMessage(id, document.getElementById(`contentInput#${id}`).value, hash).then();
 }
 
 function cancel(id) {
@@ -14,12 +15,9 @@ function cancel(id) {
 
 function updateEditing(e, id) {
     editing = e;
-    displayElement(`editButton#${id}`, !e);
-    displayElement(`deleteButton#${id}`, !e);
-    displayElement(`confirmButton#${id}`, e);
-    displayElement(`cancelButton#${id}`, e);
-}
-
-const displayElement = (id, display) => {
-    document.getElementById(id).style.display = display ? 'flex' : 'none';
+    if (editing) {
+        document.getElementById(`message#${id}`).classList.add('editing');
+    } else {
+        document.getElementById(`message#${id}`).classList.remove('editing');
+    }
 }
