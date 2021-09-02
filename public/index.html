@@ -9,9 +9,9 @@
       <input type="text" id="yourname" value="your name here" />
       <button>submit</button>
     </form>
-    <ul id="trackedForm">
+    <!-- <ul id="trackedForm">
       <li>TestingText</li>
-    </ul>
+    </ul> -->
   </body>
   <script>
     let previous_app_data = [];
@@ -103,7 +103,7 @@
     }
 
     function deleteItemFunc(button) {
-      console.log(button.path[0].id);
+      // console.log(button.path[0].id);
 
       const input = button.path[0].id,
         json = { id: input },

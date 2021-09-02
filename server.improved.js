@@ -29,7 +29,7 @@ const handleGet = function( request, response ) {
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   } else if( request.url === '/initializeData' ) {
-    console.log("Attempting initialize data")
+    // console.log("Attempting initialize data")
     getInitialDataList( response )
   }else{
     sendFile( response, filename )
@@ -39,11 +39,11 @@ const handleGet = function( request, response ) {
 
 const handlePost = function( request, response ) {
   if( request.url === '/submit' ) {
-    console.log("Attempting add data")
+    // console.log("Attempting add data")
     handleAddition( request, response )
   } else if( request.url === '/deleteEntry' ) {
     handleDeletion(request, response)
-    console.log("Attempting delete data")
+    // console.log("Attempting delete data")
   }else{
     console.log("I don't know what you want me to do!")
   }
@@ -135,12 +135,12 @@ function handleDeletion(request, response) {
 
   request.on( 'end', function() {
 
-    console.log("\n\nNEW POST DATA REQUEST")
+    console.log("\n\nNEW DELETE DATA REQUEST")
     // console.log("dataString")
     // console.log( dataString  )
     let dataStringParsed = JSON.parse( dataString )
-    console.log("dataString parsed")
-    console.log( dataStringParsed )
+    // console.log("dataString parsed")
+    // console.log( dataStringParsed )
     // appdata.push({ 'name': dataStringParsed.yourname, "id": id_counter})
 
     let item_index = -1
@@ -159,52 +159,18 @@ function handleDeletion(request, response) {
       }
     } 
 
+    if (item_index != -1) {
+      appdata.splice(item_index, 1)
+      // appdata.removeIndex(item_index)
+    }
+
     console.log("appData")
     console.log(appdata)
     const string_app_data = JSON.stringify(appdata)
-    // console.log("string appData")
-    // console.log(string_app_data)
-    // let unordered_list = window.document.getElementById("trackedForm");
-    // let list_item = document.createElement("newListItem");
-    // list_item.innerText = dataString;
-    // unordered_list.appendChild(list_item);
-    
-    // ... do something with the data here!!!
-
-    // const json = JSON.parse(dataString)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain'})
-    // response.write(string_app_data)
 
-    // console.log("Response Object")
-    // console.log(response.bodyUsed)
-    // console.log(response.body)
-
-    // response.bodyUsed = true
-    // response.body = string_app_data
-
-    // console.log("Response Object Post Change")
-    // console.log(response.bodyUsed)
-    // console.log(response.body)
-
-    // response
-    // .writeHead(200, {
-    //   'Content-Length': Buffer.byteLength(string_app_data),
-    //   'Content-Type': 'text/plain'
-    // })
-    // .end(string_app_data);
-    
-    // response.write(string_app_data)
-    // response.write(string_app_data)
-    // response.write(string_app_data)
-    // response.write(string_app_data)
-    // response.body = string_app_data
-    // response.end(string_app_data)
-    // response.end("Hello There")
-    // response.data = string_app_data
-    // response.sendFile = string_app_data
     response.end(string_app_data)
-    // response.end(appdata)
   })
 
 }
