@@ -6,7 +6,7 @@ const { v4: uuid } = require('uuid');
 
 const dir = './public';
 const dataPath = `${dir}/data.json`;
-const hashesPath = `${dir}/hashes.json`;
+const hashesPath = './hashes.json';
 const port = 3000;
 const routes = {
   '/': '/index.html',
