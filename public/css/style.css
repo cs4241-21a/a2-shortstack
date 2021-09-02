@@ -1,1 +1,30 @@
 /*Style your own assignment! This is fun! */
+
+#forum_section {
+  /* padding: 25px; */
+  border: 2px solid black;
+}
+
+.forum_row {
+  border: 2px solid black;
+}
+
+.forum_cell {
+  border: 2px solid black;
+  /* padding: 10px; */
+}
+
+.forum_cell_button {
+  border: 2px solid black;
+  padding: 10px;
+  width: 100%;
+}
+
+.forum_header {
+  border: 2px solid black;
+  padding: 10px;
+}
+
+body {
+  background-color: rgb(240, 234, 231);
+}

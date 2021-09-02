@@ -3,6 +3,7 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charets="utf-8" />
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <form action="">
@@ -134,38 +135,94 @@
         forum_section.remove();
       }
 
-      const element = document.createElement("ul");
-      element.setAttribute("id", "forum_section");
+      const table_element = document.createElement("table");
+      table_element.setAttribute("id", "forum_section");
+
+      const info_name_header = document.createElement("th");
+      const info_class_header = document.createElement("th");
+      const info_role_header = document.createElement("th");
+      const info_hours_header = document.createElement("th");
+      const info_delete_header = document.createElement("th");
+      const info_update_header = document.createElement("th");
+
+      const element_table_header_row = document.createElement("tr");
+      element_table_header_row.setAttribute("class", "forum_header");
+
+      info_name_header.setAttribute("class", "forum_header");
+      info_class_header.setAttribute("class", "forum_header");
+      info_role_header.setAttribute("class", "forum_header");
+      info_hours_header.setAttribute("class", "forum_header");
+      info_delete_header.setAttribute("class", "forum_header");
+      info_update_header.setAttribute("class", "forum_header");
+
+      info_name_header.innerHTML = "Student Name"
+      info_class_header.innerHTML = "Class Assignment"
+      info_role_header.innerHTML = "Student Role"
+      info_hours_header.innerHTML = "Student Hours Per Week"
+      info_delete_header.innerHTML = "Remove Student"
+      info_update_header.innerHTML = "Update Student Information"
+
+      element_table_header_row.appendChild(info_name_header);
+      element_table_header_row.appendChild(info_class_header);
+      element_table_header_row.appendChild(info_role_header);
+      element_table_header_row.appendChild(info_hours_header);
+      element_table_header_row.appendChild(info_delete_header);
+      element_table_header_row.appendChild(info_update_header);
+
+      table_element.appendChild(element_table_header_row)
 
       function myFunc(data_point) {
-        const element_list_item = document.createElement("li");
+        const element_list_info_name = document.createElement("td");
+        const element_list_info_class = document.createElement("td");
+        const element_list_info_role = document.createElement("td");
+        const element_list_info_hours = document.createElement("td");
         const element_list_delete = document.createElement("BUTTON");
+        const element_list_delete_table_cell = document.createElement("td");
         const element_list_update = document.createElement("BUTTON");
+        const element_list_update_table_cell = document.createElement("td");
 
-        element_list_item.innerHTML =
-          data_point.StudentName +
-          " --- " +
-          data_point.StudentClass +
-          " --- " +
-          data_point.StudentRole +
-          " --- " +
-          data_point.StudentHours;
+        const element_table_row = document.createElement("tr");
+        element_table_row.setAttribute("class", "forum_row");
+
+        element_list_info_name.setAttribute("class", "forum_cell");
+        element_list_info_name.innerHTML = data_point.StudentName
+        element_list_info_class.setAttribute("class", "forum_cell");
+        element_list_info_class.innerHTML = data_point.StudentClass
+        element_list_info_role.setAttribute("class", "forum_cell");
+        element_list_info_role.innerHTML = data_point.StudentRole
+        element_list_info_hours.setAttribute("class", "forum_cell");
+        element_list_info_hours.innerHTML = data_point.StudentHours
 
         element_list_delete.setAttribute("id", data_point.id);
+        element_list_delete.setAttribute("class", "forum_cell_button");
         element_list_delete.innerHTML = "remove_item";
         element_list_update.setAttribute("id", data_point.id);
+        element_list_update.setAttribute("class", "forum_cell_button");
         element_list_update.innerHTML = "update_item";
+
+        element_list_delete_table_cell.setAttribute("class", "forum_cell");
+        element_list_update_table_cell.setAttribute("class", "forum_cell");
 
         element_list_delete.onclick = deleteItemFunc;
         element_list_update.onclick = updateItemFunc;
 
-        element.appendChild(element_list_item);
-        element.appendChild(element_list_delete);
-        element.appendChild(element_list_update);
-        document.body.appendChild(element);
+        element_list_update_table_cell.appendChild(element_list_update)
+        element_list_delete_table_cell.appendChild(element_list_delete)
+
+        element_table_row.appendChild(element_list_info_name);
+        element_table_row.appendChild(element_list_info_class);
+        element_table_row.appendChild(element_list_info_role);
+        element_table_row.appendChild(element_list_info_hours);
+        element_table_row.appendChild(element_list_delete_table_cell);
+        element_table_row.appendChild(element_list_update_table_cell);
+
+        table_element.appendChild(element_table_row)
       }
 
       data_points.forEach(myFunc);
+
+      document.body.appendChild(table_element);
+
     }
 
     window.onload = function () {
