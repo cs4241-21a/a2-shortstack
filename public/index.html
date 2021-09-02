@@ -26,7 +26,7 @@
       </form>
     </div>
 
-    <button onclick="showAll()">Refresh</button>
+    
     <table onclick= "deletingRow()" id="allEntries">
       <tr> 
         <th>Name</th>
@@ -38,20 +38,31 @@
       </tr> 
     </table>
 
-    <button onclick="deleteEntry()">Delete</button>
+    <!--
+      <button onclick="showAll()">Refresh</button>
+      <button onclick="deleteEntry()">Delete</button> 
+    <p id = "id">hi</p> --> 
   </body>
 
   <script>
     const deletingRow = function(){
       var table = document.querySelector('#allEntries')
       for (var i = 1; i < table.rows.length; i++){
-      table.rows[i].cells[5].onclick = function(){
-        table.deleteRow(this.parentElement.rowIndex)
+      
+        table.rows[i].cells[5].onclick = function(){
+          table.deleteRow(this.parentElement.rowIndex)
+        }
+
+        table.rows[i].cells[0].onclick = function(){
+          document.querySelector("#name").value = "TODO Insert Name"
+          document.querySelector("#phoneNum").value = "123"
+          document.querySelector("#birthday").value = "2021-9-1"
+          document.querySelector("#toGift").checked = true
+        }
       }
     }
-    }
     
-  //displays a new row with information 
+  //Displays a new row with information 
   const addRow = function(entry){
     var table = document.querySelector('#allEntries')
     var row = table.insertRow()
@@ -69,8 +80,9 @@
     cellDelete.innerHTML = 'Delete'
   }
 
+
   //Displays all the entries currently stored 
-  const showAll = function(){
+  /*const showAll = function(){
     fetch('/showAll', {
       method:'GET'
     })
@@ -82,7 +94,7 @@
         addRow(jsonResponse[i])
       }
     })
-  }
+  }*/
 
   const deleteEntry = function(){
     //TODO identify and pass which row/entry is being deleted 
@@ -91,12 +103,7 @@
       method:'POST'
     })
     .then(function(response) {
-
-      
-      //TODO remove row from table / update the display table 
       document.querySelector('#allEntries').deleteRow(1)
-
-
     })
   }
 
@@ -117,7 +124,8 @@
       return response.json() 
     })
     .then(function(jsonResponse){
-      showAll()
+      addRow(jsonResponse)
+      //showAll()
     })
   }
 

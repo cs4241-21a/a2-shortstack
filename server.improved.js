@@ -24,13 +24,13 @@ const handleGet = function( request, response ) {
   const filename = dir + request.url.slice(1) 
 
   //Update the display with all the entries 
-  if (request.url === '/showAll'){
+  /*if (request.url === '/showAll'){
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     console.log(entryData)
     response.end(JSON.stringify(entryData))
-  }
+  }*/
 
-  else if( request.url === '/' ) {
+  if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   }else{
     sendFile( response, filename )
@@ -40,6 +40,9 @@ const handleGet = function( request, response ) {
 //Calculates 30 days before the next birthday 
 const calcGiftDate = function(birthday) {
   const today = new Date();
+  if(birthday === ''){
+    return new Date(today.getFullYear()+1, 0,1).toLocaleDateString()
+  }
   const bday = new Date(birthday);
   bday.setFullYear(today.getFullYear());
   getByDay = new Date(bday)
@@ -80,7 +83,7 @@ const handlePost = function( request, response ) {
   if(request.url === '/deleteEntry'){
     console.log("In server.js delete entry")
 
-    
+
     //TODO remove entry from the array 
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
