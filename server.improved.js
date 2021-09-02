@@ -6,8 +6,6 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = []
-
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -63,6 +61,7 @@ const handlePost = function( request, response ) {
     }
 
     dataArr.push(json)
+    console.log("dataArr:" + JSON.stringify(dataArr))
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(dataArr))

@@ -19,6 +19,34 @@ label {
     margin-left: 475px;
 }
 
+.removeButton {
+    font-family: 'Besley', sans-serif;
+    font-size: 15px;
+    background-color: #EEBAB9;
+    border: 0px;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.removeButton:hover {
+    background-color: #E07B83;
+}
+
+.editButton {
+    font-family: 'Besley', sans-serif;
+    font-size: 15px;
+    background-color: #F5C9AD;
+    border: 0px;
+    border-radius: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.editButton:hover {
+    background-color: #F5A688;
+}
+
 .textBox {
     font-family: 'Rubik',sans-serif;
     font-size: 20px;
@@ -31,6 +59,10 @@ label {
     background-color: #CAD6F5;
     border: 0px;
     outline: none;
+}
+
+.textBox:hover {
+    background-color: #B2B0EB;
 }
 
 .selectBox {
@@ -46,6 +78,10 @@ label {
     margin-top: 20px;
 }
 
+.selectBox:hover {
+    background-color: #F5B4DF;
+}
+
 body {
     background-image: url("https://i.pinimg.com/originals/a3/11/53/a311536cc9efba6f2f4a549148f0d504.jpg");
     background-repeat: no-repeat;
@@ -58,13 +94,17 @@ button {
     font-size: 20px;
     outline: none;
     border: none;
-    background-color:#429DC2;
+    background-color: #8CDAFF;
     border-radius: 50px;
     width: 130px;
     height: 45px;
     margin-top: 50px;
     margin-left: 700px;
     padding-bottom: 5px;
+}
+
+button:hover {
+    background-color:#63B1FF;
 }
 
 table{
@@ -77,11 +117,12 @@ table{
 th {
     font-family: 'Besley', sans-serif;
     background-color: #77DBDA;
-    padding: 10px 100px;
+    padding: 10px 70px;
     font-weight: unset;
 }
 
 td {
-    padding: 10px 30px;
+    padding: 10px 75px;
+    font-family: 'Besley', sans-serif;
     background-color: #89DACD;
 }

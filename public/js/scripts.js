@@ -1,32 +1,44 @@
+let dataArr;
+
 function addRow (entry) {
     let table = document.getElementById("sleeptable"),
     newRow = table.insertRow(-1),
     nameCell = newRow.insertCell(0),
     majorCell = newRow.insertCell(1),
     hourCell = newRow.insertCell(2),
-    adviceCell = newRow.insertCell(3);
+    adviceCell = newRow.insertCell(3),
+    editCell = newRow.insertCell(4),
+    removeCell = newRow.insertCell(5);
 
     nameCell.innerHTML = entry.yourname;
     majorCell.innerHTML = entry.major;
     hourCell.innerHTML = entry.hours;
     adviceCell.innerHTML = entry.advice;
 
+    let editButton = document.createElement('input')
+
+    editButton.setAttribute('type', 'button')
+    editButton.setAttribute('value', 'Edit')
+    editButton.className = 'editButton';
+    editButton.setAttribute('onclick', 'editRow(this')
+    editCell.appendChild(editButton);
+
+    let removeButton = document.createElement('input')
+
+    removeButton.setAttribute('type','button')
+    removeButton.setAttribute('value', 'Remove')
+    removeButton.className = 'removeButton';
+    removeButton.setAttribute('onclick', 'removeRow(this)')
+    removeCell.appendChild(removeButton);
+
 }
+function removeRow (entry) {
 
-/*function selectedRow () {
-
-    var rIndex, table = document.getElementById("sleeptable")
+    let table = document.getElementById("sleeptable")
+    table.deleteRow(entry.parentNode.parentNode.rowIndex);
+    //console.log("It got here");
     
-    for (var i = 0; i < table.rows.length; i++) {
-        
-        table.rows[i].onclick = function() {
-            
-            rIndex = this.rowIndex;
-            console.log(index);
-        }
-    }
-}*/
-
+}
 
 const submit = function( e ) {
     // prevent default form action from being carried out
@@ -59,6 +71,7 @@ const submit = function( e ) {
     })
 
     .then( function (json ) {
+        //dataArr = json;
         let index = json.length - 1;
         addRow(json[index]);
         console.log(json);
