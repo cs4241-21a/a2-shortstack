@@ -10,6 +10,7 @@
 
   <script src="https://unpkg.com/mustache@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
+  <script src="scripts/message.mustache.js"></script>
   <script src="scripts/helpers.js"></script>
 
   <script>
@@ -46,7 +47,7 @@
           updateUser(usernameInput.value, hash);
           usernameInput.value = null;
         } else {
-          window.alert('Account secret incorrect.');
+          window.alert('Account password incorrect.');
         }
         secretInput.value = null;
       }
