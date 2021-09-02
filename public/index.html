@@ -3,6 +3,11 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <style>
+      /* classes can be selected within CSS with .className{}
+         id can be selected with #id{}
+         and tags can be selected with just tag{} */
+    </style>
   </head>
   <body>
     <form action="">
@@ -12,11 +17,13 @@
   </body>
   <script>
 
-  const submit = function( e ) {
+  const submit = function( event ) {
     // prevent default form action from being carried out
-    e.preventDefault()
+    event.preventDefault()
 
     const input = document.querySelector( '#yourname' ),
+                  // This just gets the item with an id of yourname
+                  // can use document.querySelectorAll() to get a list of all instances
           json = { yourname: input.value },
           body = JSON.stringify( json )
 
@@ -24,16 +31,22 @@
       method:'POST',
       body 
     })
+    .then (function (response){
+      return response.json()
+    })
     .then( function( response ) {
       // do something with the reponse 
       console.log( response )
+      const element = document.createElement('p')
+      element.innerText = json.yourname
+      document.body.appendChild(element)
     })
 
     return false
   }
 
   window.onload = function() {
-    const button = document.querySelector( 'button' )
+    const button = document.querySelector( 'button' ) 
     button.onclick = submit
   }
 
