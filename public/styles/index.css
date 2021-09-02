@@ -53,18 +53,20 @@ h2 {
     position: absolute;
     top: 2rem;
     left: 2rem;
-    margin-left: -25rem;
+    margin-left: -10rem;
     display: flex;
+    flex-direction: column;
     transition: margin-left var(--transition-duration) var(--transition-timing-function);
 }
 
 #actions button {
+    width: 100%;
     display: flex;
     align-items: center;
 }
 
 #actions button:first-child {
-    margin-right: 2rem;
+    margin-bottom: 1rem;
     background: var(--color-primary);
     color: var(--accent-primary);
     fill: var(--accent-primary);
