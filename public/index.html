@@ -22,12 +22,39 @@
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      body
     })
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+      // do something with the response
+      return response.json() //added
     })
+    /*.then( function( json) {
+      // options for loops
+       if( Array.isArray(json)){
+         //json.map( car => car.model)
+         //json.map( model => model[0].toUpperCase() + model.slice(1))
+         //json.forEach(console.log)
+
+         for( let car of json){
+           const model = car.model
+           const upperModel = model[0].toUpperCase() + model.slice(1)
+           console.log( upperModel)
+         }
+
+         //for(let i =0; j < json.length; i++){
+          // const car = json [i]
+           //const model = car.model
+           //const upperModel = model[0].toUpperCase() + model.slice(1)
+           //console.log( upperModel)
+
+       }
+    })*/
+    .then( function( json ) {
+      //console.log( json );
+      const element = document.createElement('p');
+      element.innerText = json.yourname;
+      document.body.appendChild(element);
+    }) //added
 
     return false
   }
@@ -36,6 +63,6 @@
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
-
+  // might want to move script to js outside of index.html
   </script>
 </html>
