@@ -2,81 +2,52 @@
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8" />
+    <meta charets="utf-8" />
   </head>
   <body>
     <form action="">
-      <input type="text" id="yourname" value="your name here" />
-      <button>submit</button>
+      <input type="text" id="StudentName" value="Enter Name Here" />
+      <input type="text" id="StudentClass" value="Enter Course Here" />
+      <select id="StudentRole">
+        <option>SA</option>
+        <option>TA</option>
+      </select>
+      <button>Add Entry</button>
     </form>
-    <!-- <ul id="trackedForm">
-      <li>TestingText</li>
-    </ul> -->
   </body>
   <script>
     let previous_app_data = [];
 
     update_based_on_existing_data();
 
-    const submit = function (e) {
+    const addItemFunc = function (e) {
       // prevent default form action from being carried out
       e.preventDefault();
 
-      const input = document.querySelector("#yourname"),
-        json = { yourname: input.value },
+      const name_input = document.querySelector("#StudentName"),
+        class_input = document.querySelector("#StudentClass"),
+        role_input = document.querySelector("#StudentRole"),
+        json = {
+          StudentName: name_input.value,
+          StudentClass: class_input.value,
+          StudentRole: role_input.value,
+        },
         body = JSON.stringify(json);
 
-      // console.log("This is the index.html")
-      // console.log("This is the input:")
-      // console.log(input)
-      // console.log("This is the json:")
-      // console.log(json)
-      // console.log("This is the body:")
-      // console.log(body)
+      console.log("json");
+      console.log(json);
 
       fetch("/submit", {
         method: "POST",
         body,
       })
         .then(function (response) {
-          // do something with the response
-          // console.log("response")
-          // console.log( response )
-          // console.log("response string")
-          // console.log( response.toString() )
-          // console.log("response body")
-          // console.log(response.text())
-          // console.log("JSON parsed response body")
-          // console.log(JSON.parse(response.body))
-          // console.log("JSON toString")
-          // console.log(response.toString())
-          // console.log("Response Body")
-          // console.log(response.body)
-          // console.log("Response Text")
-          // console.log(response.responseText)
-          // console.log(response)
-          // console.log("yourname")
-          // console.log(json.yourname)
-          // return json.yourname
           return response.json();
         })
         .then(function (data) {
-          // const string_json = json
-          // console.log("new data")
-          // console.log(data)
-
           initialize_list(data);
 
-          // console.log(element)
-
-          // console.log("previous_app_data")
-          // console.log(previous_app_data)
           previous_app_data = data;
-          // console.log("updated data")
-          // console.log(previous_app_data)
-
-          // element.appendChild(document.createElement('ul').innerHTML = "testing")
-          // document.getElementById("forum_section").appendChild(document.createElement('ul').innerHTML = "testing")
 
           return data;
         });
@@ -103,14 +74,9 @@
     }
 
     function deleteItemFunc(button) {
-      // console.log(button.path[0].id);
-
       const input = button.path[0].id,
         json = { id: input },
         body = JSON.stringify(json);
-
-      // console.log("Body")
-      // console.log(body)
 
       fetch("/deleteEntry", {
         method: "POST",
@@ -120,7 +86,6 @@
           return response.json();
         })
         .then(function (data) {
-
           initialize_list(data);
 
           previous_app_data = data;
@@ -132,10 +97,16 @@
     }
 
     function updateItemFunc(button) {
-
-      const input = document.querySelector("#yourname"),
+      const name_input = document.querySelector("#StudentName"),
+        class_input = document.querySelector("#StudentClass"),
+        role_input = document.querySelector("#StudentRole"),
         id_value = button.path[0].id,
-        json = { yourname: input.value, id: id_value },
+        json = {
+          StudentName: name_input.value,
+          StudentClass: class_input.value,
+          StudentRole: role_input.value,
+          id: id_value,
+        },
         body = JSON.stringify(json);
 
       fetch("/updateEntry", {
@@ -146,7 +117,6 @@
           return response.json();
         })
         .then(function (data) {
-
           initialize_list(data);
 
           previous_app_data = data;
@@ -159,26 +129,26 @@
 
     function initialize_list(data_points) {
       var forum_section = document.getElementById("forum_section");
-      // console.log("forum_section")
-      // console.log(forum_section)
+
       if (forum_section != null) {
-        // console.log("Attempting to remove")
         forum_section.remove();
       }
 
       const element = document.createElement("ul");
       element.setAttribute("id", "forum_section");
-      // element.innerHTML = '<p><h1>text</h1></p>'
-      // element.innerHTML = '<p><h1>' + data.toString() + '</h1></p>'
-      // element.innerHTML = data
-      // console.log("Loop")
+
       function myFunc(data_point) {
-        // console.log(data_point.name);
         const element_list_item = document.createElement("li");
         const element_list_delete = document.createElement("BUTTON");
         const element_list_update = document.createElement("BUTTON");
 
-        element_list_item.innerHTML = data_point.name;
+        element_list_item.innerHTML =
+          data_point.StudentName +
+          " --- " +
+          data_point.StudentClass +
+          " --- " +
+          data_point.StudentRole;
+
         element_list_delete.setAttribute("id", data_point.id);
         element_list_delete.innerHTML = "remove_item";
         element_list_update.setAttribute("id", data_point.id);
@@ -192,12 +162,13 @@
         element.appendChild(element_list_update);
         document.body.appendChild(element);
       }
+
       data_points.forEach(myFunc);
     }
 
     window.onload = function () {
       const button = document.querySelector("button");
-      button.onclick = submit;
+      button.onclick = addItemFunc;
     };
   </script>
 </html>
