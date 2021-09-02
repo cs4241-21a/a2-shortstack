@@ -4,7 +4,7 @@ Nathan Klingensmith https://a2-iamparadoxdotexe.glitch.me/
 My website is a simple chatroom app that supports account authentication, non-live messaging, message editing, and message deletion.
 
 ##### *Instructions* 
-To enter that chat, create an account with a username and password. Passwords are made secure using [bycrpt's](https://www.npmjs.com/package/bcrypt) salting and hashing algorithm.
+To enter that chat, create an account with a username and password. Passwords are made secure using [bcrypt's](https://www.npmjs.com/package/bcrypt) salting and hashing algorithm.
 
 Once logged in, you should see all current messages in the database. You can add a new message with the input box at the bottom. Once you have sent message, you can edit it's content or delete it entirely using the icon buttons located on the message. *\*You can only edit and delete your own messages.*\*
 
@@ -31,7 +31,7 @@ overflow-y: auto;
         submitted: "2021-09-02T15:57:01.040Z"
       ```
     - To create a message, a user provides their username and the message content. The server automatically assigns a UUIDv4 id (via [uuid](https://www.npmjs.com/package/uuid)) and submission time (via [luxon](https://www.npmjs.com/package/luxon)) to the object. Lastly, the `admin` field is derived based on if the username equals "Paradoxdotexe" or not (my username).
-    - Message data is stored in `data.json` and can be easily retrieved through the `/results` GET endpoint.
+    - Message data is stored in `data.json` and can be easily retrieved through the `/results` GET endpoint. The website displays each message's username and content along with the submitted time converted to a human-readable format. If the message is from an admin, it is colored purple to indicate so.
 * **Account Authentication**: Implemented [bcrypt](https://www.npmjs.com/package/bcrypt) for creating a hash table for account password verification.
     - I used **bcrypt** to salt and hash plaintext passwords for secure storage in a hash table located at `hashes.json`.
     - I added a `/authenticate` POST endpoint that can be used to create a new account or login to an existing one. In both cases, success returns the user's hash and failure returns a *401 Unauthorized Error*.
