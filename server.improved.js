@@ -56,12 +56,7 @@ function handleAddition(request, response) {
 
     let dataStringParsed = JSON.parse(dataString);
 
-    let studentHours = -1
-    if (dataStringParsed.StudentRole === "SA" ) {
-      studentHours = 10
-    } else if (dataStringParsed.StudentRole === "TA" ) {
-      studentHours = 20
-    }
+    let studentHours = getStudentHours(dataStringParsed.StudentRole)
 
     appdata.push({
       StudentName: dataStringParsed.StudentName,
@@ -129,8 +124,8 @@ function handleUpdate(request, response) {
 
     let dataStringParsed = JSON.parse(dataString);
 
-    console.log("dataStringParsed");
-    console.log(dataStringParsed);
+    // console.log("dataStringParsed");
+    // console.log(dataStringParsed);
 
     for (let i = 0; i < appdata.length; i++) {
       if (String(appdata[i].id) === String(dataStringParsed.id)) {
@@ -138,12 +133,7 @@ function handleUpdate(request, response) {
         appdata[i].StudentClass = dataStringParsed.StudentClass;
         appdata[i].StudentRole = dataStringParsed.StudentRole;
  
-        let studentHours = -1
-        if (dataStringParsed.StudentRole === "SA" ) {
-          studentHours = 10
-        } else if (dataStringParsed.StudentRole === "TA" ) {
-          studentHours = 20
-        }
+        let studentHours = getStudentHours(dataStringParsed.StudentRole)
 
         appdata[i].StudentHours = studentHours;
     
@@ -193,3 +183,16 @@ const sendFile = function (response, filename) {
 };
 
 server.listen(process.env.PORT || port);
+
+function getStudentHours(studentRole){
+  // console.log("studentRole")
+  // console.log(studentRole)
+  if (studentRole === "SA" ) {
+    return 10
+  } else if (studentRole === "TA" || studentRole === "GLA" ) {
+    return 20
+  } else {
+    return -1
+  }
+
+}
