@@ -1,44 +1,4 @@
-let dataArr;
-
-function addRow (entry) {
-    let table = document.getElementById("sleeptable"),
-    newRow = table.insertRow(-1),
-    nameCell = newRow.insertCell(0),
-    majorCell = newRow.insertCell(1),
-    hourCell = newRow.insertCell(2),
-    adviceCell = newRow.insertCell(3),
-    editCell = newRow.insertCell(4),
-    removeCell = newRow.insertCell(5);
-
-    nameCell.innerHTML = entry.yourname;
-    majorCell.innerHTML = entry.major;
-    hourCell.innerHTML = entry.hours;
-    adviceCell.innerHTML = entry.advice;
-
-    let editButton = document.createElement('input')
-
-    editButton.setAttribute('type', 'button')
-    editButton.setAttribute('value', 'Edit')
-    editButton.className = 'editButton';
-    editButton.setAttribute('onclick', 'editRow(this')
-    editCell.appendChild(editButton);
-
-    let removeButton = document.createElement('input')
-
-    removeButton.setAttribute('type','button')
-    removeButton.setAttribute('value', 'Remove')
-    removeButton.className = 'removeButton';
-    removeButton.setAttribute('onclick', 'removeRow(this)')
-    removeCell.appendChild(removeButton);
-
-}
-function removeRow (entry) {
-
-    let table = document.getElementById("sleeptable")
-    table.deleteRow(entry.parentNode.parentNode.rowIndex);
-    //console.log("It got here");
-    
-}
+let dataArr = [];
 
 const submit = function( e ) {
     // prevent default form action from being carried out
@@ -48,12 +8,14 @@ const submit = function( e ) {
     major = document.querySelector('#major'),
     sleep = document.querySelector('#hours');
 
+    //Error checking to make sure the fields are not empty
     if (name.value === "" || major.value === "" || sleep.value === "") {
         console.log("All fields are empty")
         alert("All fields needs to be filled.")
         return false
     } 
 
+    //Error checking to make sure the fields are not the starting text
     if (name.value === "Enter your name here" || major.value === "Enter your major here") {
         console.log("Not valid data")
         alert("Enter valid fields only.")
@@ -67,20 +29,95 @@ const submit = function( e ) {
       body 
     })
     .then( function( response ) {
-      return response.json()
+      return response.text()
     })
 
-    .then( function (json ) {
-        //dataArr = json;
-        let index = json.length - 1;
-        addRow(json[index]);
-        console.log(json);
+    .then( function ( text ) {
+        dataArr.push(JSON.parse(text));
+        updateTable();
+        console.log("dataArr: " + dataArr);
     })
   
     return false
+  }
+
+  const remove = function (e) {
+    e.preventDefault()
+    console.log("e.target.id.substring(1): " + e.target.id.substring(1))
+    dataArr.splice(Number(e.target.id.substring(1)), 1);
+    updateTable();
+  }
+
+  const modify = function (e) {
+    e.preventDefault()
+
+    let entry = dataArr[Number(e.target.id.substring(1))];
+
+    document.querySelector("#yourname").value = entry.yourname
+    document.querySelector("#major").value = entry.major
+    document.querySelector("#hours").value = entry.hours
+
+    dataArr.splice(Number(e.target.id.substring(1)), 1);
+    updateTable();
   }
   
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
+  }
+
+  function updateTable() {
+
+    let tbody = document.querySelector("tbody")
+    tbody.innerHTML = ""
+
+    for (let i = 0; i < dataArr.length; i++) {
+
+        let newRow = document.createElement("tr")
+
+        for (let j = 0; j < 6; j++) {
+
+            let newCell = document.createElement("td")
+            let newText;
+
+           switch(j) {
+               case 0:
+                   newText = document.createTextNode(dataArr[i].yourname);
+                   break;
+                case 1:
+                    newText = document.createTextNode(dataArr[i].major);
+                    break;
+                case 2:
+                    newText = document.createTextNode(dataArr[i].hours);
+                    break;
+                case 3:
+                    newText = document.createTextNode(dataArr[i].advice);
+                    break;
+                case 4:
+                    newText = document.createElement("Input")
+                    newText.setAttribute('type','button')
+                    newText.setAttribute('value', 'Edit')
+                    newText.className = 'editButton';
+                    break;
+                case 5:
+                    newText = document.createElement("Input")
+                    newText.setAttribute('type','button')
+                    newText.setAttribute('value', 'Remove')
+                    newText.className = 'removeButton';
+                    break;
+           }
+
+            if (j === 4) {
+                newText.onclick = modify;
+            }
+
+            if (j === 5) {
+                newText.onclick = remove;
+            }
+
+            newCell.appendChild(newText)
+            newRow.appendChild(newCell)
+        }
+        tbody.appendChild(newRow)
+    }   
   }

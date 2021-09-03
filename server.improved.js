@@ -6,6 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -24,8 +25,6 @@ const handleGet = function( request, response ) {
   }
 }
 
-let dataArr = []
-
 const handlePost = function( request, response ) {
   let dataString = ''
 
@@ -37,34 +36,38 @@ const handlePost = function( request, response ) {
 
     const json = JSON.parse(dataString)
     let advice = ''
+    hours = json.hours
 
-    if (json.hours === "0-4 hours") {
+    if (hours === "0-4 hours") {
 
       advice = 'Go get some sleep'
-      json['advice'] = advice
+      //json['advice'] = advice
 
-    } else if (json.hours === "5-7 hours") {
+    } else if (hours === "5-7 hours") {
 
       advice = 'Moderate amount of hours of sleep'
-      json['advice'] = advice
+      //json['advice'] = advice
 
-    } else if (json.hours === "8 hours") {
+    } else if (hours === "8 hours") {
 
       advice = 'Perfect amount of hours of sleep'
-      json['advice'] = advice
+      //json['advice'] = advice
 
     } else {
 
       advice = 'Too much sleep'
-      json['advice'] = advice
+      //json['advice'] = advice
 
     }
 
-    dataArr.push(json)
-    console.log("dataArr:" + JSON.stringify(dataArr))
+    //dataArr.push(json)
+    json.advice = advice
+    //console.log("dataArr:" + JSON.stringify(dataArr))
+    console.log("json: " + JSON.stringify(json))
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(dataArr))
+    //response.end(JSON.stringify(dataArr))
+    response.end(JSON.stringify(json))
   })
 }
 

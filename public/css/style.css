@@ -74,7 +74,7 @@ label {
     background-color: #F1D9F4;
     border: 0px;
     outline: none;
-    margin-left: 650px;
+    margin-left: 625px;
     margin-top: 20px;
 }
 
@@ -96,15 +96,28 @@ button {
     border: none;
     background-color: #8CDAFF;
     border-radius: 50px;
+    margin-top: 50px;
+    margin-left: 675px;
     width: 130px;
     height: 45px;
-    margin-top: 50px;
-    margin-left: 700px;
-    padding-bottom: 5px;
 }
 
 button:hover {
     background-color:#63B1FF;
+}
+
+.submitButton {
+    font-family: 'Besley', sans-serif;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    background-color: #8CDAFF;
+    border-radius: 50px;
+    width: 130px;
+    height: 45px;
+    margin-top: 50px;
+    margin-left: 675px;
+    padding-bottom: 5px;
 }
 
 table{

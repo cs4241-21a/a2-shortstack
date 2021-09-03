@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Besley&display=swap" rel="stylesheet"> 
-    <form action="">
+    <form action="" autocomplete="off">
       <p>
         Getting Enough Sleep?
       </p>
@@ -30,18 +30,20 @@
         </select>
         </div>
       </div>
-      <div>
         <button>submit</button>
       </div>
       <table id="sleeptable">
-        <tr>
-          <th scope="col"> Name</th>
-          <th scope="col">Major</th>
-          <th scope="col">Hours of Sleep</th>
-          <th scope="col">Advice</th>
-          <th scope="col">Edit</th>
-          <th scope="col">Delete</th>
-        </tr>
+        <thead>
+          <tr>
+            <th scope="col"> Name</th>
+            <th scope="col">Major</th>
+            <th scope="col">Hours of Sleep</th>
+            <th scope="col">Advice</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+      <tbody></tbody>
       </table>
     </form>
   </body>
