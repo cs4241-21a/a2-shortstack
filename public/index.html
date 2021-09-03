@@ -6,7 +6,13 @@
   </head>
   <body>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <input type='text' id='title' value="title for image">
+      <br>
+      <input type='text' id='description' value="description for image">
+      <br>
+      <label for="imgUpload">Upload an image:</label>
+      <br>
+      <input type='file' id='fileUp' name="imgUpload" accept="image/png, image/jpeg, image/gif">
       <button>submit</button>
     </form>
   </body>
@@ -16,18 +22,38 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const title= document.querySelector('#title')
 
-    fetch( '/submit', {
+    fetch( '/submitTitle', {
       method:'POST',
-      body 
+      body: title.value,
     })
     .then( function( response ) {
       // do something with the reponse 
       console.log( response )
     })
+
+    const description= document.querySelector('#description')
+
+    fetch( '/submitDescription', {
+      method:'POST',
+      body: description.value,
+    })
+    .then( function( response ) {
+      // do something with the reponse 
+      console.log( response )
+    })
+
+    /*
+    const image = document.querySelector( '#fileUp' )
+    fetch( '/submitImg', {
+      method:'POST'
+    })
+    .then( function( response ) {
+      // do something with the reponse 
+      console.log( response )
+    })
+    */
 
     return false
   }
