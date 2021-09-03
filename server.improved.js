@@ -8,10 +8,13 @@ const http = require("http"),
   dir = "public/",
   port = 3000;
 
+// Data maintained by the server for the forum
 const appdata = [];
 
+// Unique ID which we are assigning every element
 let id_counter = 0;
 
+// The server we will be using and how it handles different calls
 const server = http.createServer(function (request, response) {
   if (request.method === "GET") {
     handleGet(request, response);
@@ -20,6 +23,7 @@ const server = http.createServer(function (request, response) {
   }
 });
 
+// Handles all GET calls. Either sends over a file or delivers the forum data
 const handleGet = function (request, response) {
   const filename = dir + request.url.slice(1);
 
@@ -32,6 +36,7 @@ const handleGet = function (request, response) {
   }
 };
 
+// Handles all POST calls, deals with submit, delete, and update
 const handlePost = function (request, response) {
   if (request.url === "/submit") {
     handleAddition(request, response);
@@ -44,6 +49,7 @@ const handlePost = function (request, response) {
   }
 };
 
+// Handles adding an item to the forum
 function handleAddition(request, response) {
   let dataString = "";
 
@@ -56,8 +62,9 @@ function handleAddition(request, response) {
 
     let dataStringParsed = JSON.parse(dataString);
 
-    let studentHours = getStudentHours(dataStringParsed.StudentRole)
+    let studentHours = getStudentHours(dataStringParsed.StudentRole);
 
+    // Appends data to server storage
     appdata.push({
       StudentName: dataStringParsed.StudentName,
       StudentClass: dataStringParsed.StudentClass,
@@ -66,6 +73,7 @@ function handleAddition(request, response) {
       id: id_counter,
     });
 
+    // Increments id counter to ensure uniqueness
     id_counter = id_counter + 1;
 
     console.log("appData");
@@ -73,10 +81,12 @@ function handleAddition(request, response) {
 
     const string_app_data = JSON.stringify(appdata);
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    // Sends forum data back to front end
     response.end(string_app_data);
   });
 }
 
+// Handles deleting an item from the forum
 function handleDeletion(request, response) {
   let dataString = "";
 
@@ -91,6 +101,7 @@ function handleDeletion(request, response) {
 
     let item_index = -1;
 
+    // Search the forum until we find the id
     for (let i = 0; i < appdata.length; i++) {
       if (String(appdata[i].id) === String(dataStringParsed.id)) {
         item_index = i;
@@ -98,6 +109,7 @@ function handleDeletion(request, response) {
       }
     }
 
+    // So long as the item exists, remove it
     if (item_index != -1) {
       appdata.splice(item_index, 1);
     }
@@ -108,10 +120,12 @@ function handleDeletion(request, response) {
 
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });
 
+    // Return the forum data to the front end
     response.end(string_app_data);
   });
 }
 
+// Handles updating an item in the forum
 function handleUpdate(request, response) {
   let dataString = "";
 
@@ -124,19 +138,17 @@ function handleUpdate(request, response) {
 
     let dataStringParsed = JSON.parse(dataString);
 
-    // console.log("dataStringParsed");
-    // console.log(dataStringParsed);
-
+    // For every item, check if it is the one we need to update it. Then update it when found.
     for (let i = 0; i < appdata.length; i++) {
       if (String(appdata[i].id) === String(dataStringParsed.id)) {
         appdata[i].StudentName = dataStringParsed.StudentName;
         appdata[i].StudentClass = dataStringParsed.StudentClass;
         appdata[i].StudentRole = dataStringParsed.StudentRole;
- 
-        let studentHours = getStudentHours(dataStringParsed.StudentRole)
+
+        let studentHours = getStudentHours(dataStringParsed.StudentRole);
 
         appdata[i].StudentHours = studentHours;
-    
+
         break;
       }
     }
@@ -148,10 +160,12 @@ function handleUpdate(request, response) {
 
     response.writeHead(200, "OK", { "Content-Type": "text/plain" });
 
+    // Return forum data to front end
     response.end(string_app_data);
   });
 }
 
+// Handles the get request where we get all forum data
 const getInitialDataList = function (response) {
   console.log("\n\nNEW GET INITIAL DATA REQUEST");
 
@@ -162,9 +176,11 @@ const getInitialDataList = function (response) {
 
   response.writeHead(200, "OK", { "Content-Type": "text/plain" });
 
+  // Return forum data
   response.end(string_app_data);
 };
 
+// Handles sending a file over to the front end
 const sendFile = function (response, filename) {
   const type = mime.getType(filename);
 
@@ -182,17 +198,16 @@ const sendFile = function (response, filename) {
   });
 };
 
+// Lists on the respective port for the server
 server.listen(process.env.PORT || port);
 
-function getStudentHours(studentRole){
-  // console.log("studentRole")
-  // console.log(studentRole)
-  if (studentRole === "SA" ) {
-    return 10
-  } else if (studentRole === "TA" || studentRole === "GLA" ) {
-    return 20
+// Function that converts student role to hours per week
+function getStudentHours(studentRole) {
+  if (studentRole === "SA") {
+    return 10;
+  } else if (studentRole === "TA" || studentRole === "GLA") {
+    return 20;
   } else {
-    return -1
+    return -1;
   }
-
 }
