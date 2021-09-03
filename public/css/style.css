@@ -1,1 +1,20 @@
 /*Style your own assignment! This is fun! */
+form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-label {
+    display: block;
+    padding: 10px;
+}
+
+.form-radio-group {
+    padding: 10px;
+}
+
+.form-text-input {
+    border-width: 0px;
+    border-bottom-width: 2px;
+}

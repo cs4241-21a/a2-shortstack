@@ -1,41 +1,39 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+<head>
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/scripts.js"></script>
+</head>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+<body>
+  <!-- TODO: Create form with fields for the data -->
+  <h1>Basic Server Demo</h1>
+  <h2>Enter Your info:</h2>
+  <form class="form" action="">
+    <div>
+      <label class="form-label">First Name: <input class="form-text-input" type='text' name='first' value=""
+          required></label>
+      <label class="form-label">Last Name: <input class="form-text-input" type='text' name='last' value=""
+          required></label>
+      <label class="form-label">Comment: <input class="form-text-input" type='text' name='comment' value=""></label>
+    </div>
+    <div class="form-radio-group">
+      <input type="radio" id="true" name="bool" value="true" checked>
+      <label for="true">True</label>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+      <input type="radio" id="false" name="bool" value="false">
+      <label for="false">False</label>
+    </div>
 
-    return false
-  }
+    <button>Submit</button>
+  </form>
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+  <div id="table">
+    
+  </div>
+</body>
 
-  </script>
 </html>
