@@ -3,39 +3,44 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <header>
+      <h1>
+        200m Race Results
+      </h1>
+    </header>
+    <main>
+      <h1>
+        Athlete:
+      </h1>
+      <p>To Add a participant, enter their name, class, 1st split, and final time. </p>
+      <p>To Modify a participant, enter their name, class, and update their split and final time. </p>
+      <form action="">
+        <label for="name">Enter Name:</label>
+        <input type='text' id='name' value="" placeholder="Name (Ex: John Doe)">
+        <label for="year">Enter Year:</label>
+        <input type='number' id='year' value="" placeholder="Class Year (Ex: 2022)">
+        <label for="split">Enter 1st Split:</label>
+        <input type='number' id='split' value="" placeholder="Split (Ex: 13.5)">
+        <label for="time">Enter Time:</label>
+        <input type='number' id='time' value="" placeholder="Time (Ex: 26.3)">
+        <button>submit</button>
+      </form>
+      <h1>
+        Race Results:
+      </h1>
+      <table id="results-table">
+        <tr>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Split</th>
+          <th>Time</th>
+          <th>Delta</th>
+        </tr>
+      </table>
+    </main>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+  <script src="js/scripts.js"></script>
 </html>
