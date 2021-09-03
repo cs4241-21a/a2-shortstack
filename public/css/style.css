@@ -1,1 +1,59 @@
-/*Style your own assignment! This is fun! */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+:root {
+--purple-dark: #564494;
+--purple-med: #827EE0;
+--purple-light: #ACA8FF;
+--yellow-dark: #D1BB62;
+--yelllow-light: #E0D7A8;
+}
+
+* {font-family: 'Montserrat', sans-serif}
+
+body {
+    background-color: var(--yelllow-light);
+}
+h1, h2 {
+    color: var(--purple-dark);
+    justify-content: center;
+}
+
+label, input {
+    display: block;
+}
+
+label {
+    color: var(--purple-dark);
+}
+
+table, th, td {
+    border: 0.5px solid var(--purple-med);
+}
+
+table {
+    background-color: var(--purple-med);
+}
+
+th, td {
+    margin: -10px;
+}
+
+th {
+    background-color: var(--yellow-dark);
+    color: var(--purple-dark);
+}
+
+td {
+    background-color: var(--yelllow-light);
+    color: var(--purple-dark);
+}
+
+#wrapper {
+    display: flex;
+}
+
+#submit {
+    background-color: var(--purple-light);
+    color: var(--purple-dark);
+    margin-top: 10px;
+}
