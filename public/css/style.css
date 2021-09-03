@@ -1,10 +1,102 @@
 label {
     display: inline-block;
-    width: 150px;
-    text-align: right;
+    width: 60px;
+    text-align: left;
+  }
+
+  textarea{
+    resize: none;
   }
 
 .bold_text {
     font-weight: bold;
+}
+
+.nav_bar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+
+
+.nav_bar a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav_bar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav_bar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+} 
+
+.popup .overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: none;
+  background: rgba(0,0,0,0.7);
+}
+
+.popup .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  background: #fff;
+  width: 400px;
+  height: 300px;
+  z-index: 2;
+  text-align: left;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.popup.active .overlay {
+  display: block;
+}
+.popup.active .content{
+  transition: all 300ms ease-in-out;
+  transform: translate(-50%,-50%) scale(1);
+}
+
+.popup .close_btn { 
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 30px;
+  height: 30px;
+  color: #000;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+  border-radius: 50%;
 }
 

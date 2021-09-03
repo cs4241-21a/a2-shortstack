@@ -7,9 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {'name': 'Mike', 'email': 'mike@wpi.edu', 'number': '718-654-980', 'notes': 'Likes to steal cookies'},
+  {'name': 'Emma', 'email': 'eemma@wpi.edu', 'number': '718-634-980', 'notes': 'Loves to eat shrimp'},
+  {'name': 'Steven', 'email': 'steven@wpi.edu', 'number': '713-654-980', 'notes': 'This guy is mean'},
+  {'name': 'Cooper', 'email': 'b@j.com', 'number': '743-234-5678', 'notes': 'This person is the best'}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -23,11 +24,23 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
+  if(request.url == '/getData') { 
+    getDataClient(response, appdata) 
+  }
+  else if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else{
     sendFile( response, filename )
   }
+}
+
+const getDataClient = function(response, data) { 
+  console.log('got data')
+  const type = mime.getType(data);
+  response.writeHead(200, {'Content-Type': type});
+  response.write(JSON.stringify(data));
+  response.end()
 }
 
 const handlePost = function( request, response ) {
@@ -41,10 +54,30 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    if(request.url === '/submit') { addToDatabase(JSON.parse(dataString)) }
+    else if(request.url === '/update') { updateItemInDatabase(JSON.parse(dataString)) }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
   })
+}
+
+const addToDatabase = function(json) {
+    appdata.push(json)
+}
+
+const updateItemInDatabase = function(json) {
+  console.log("in server update")
+  for(let i =0; i < appdata.length; i++){
+    
+    if(i == json['modifyInput']){
+      let item = appdata[i];
+      item['name'] = json['name']
+      item['email'] = json['email']
+      item['number'] = json['number']
+      item['notes'] = json['notes']
+    }
+  }
 }
 
 const sendFile = function( response, filename ) {
