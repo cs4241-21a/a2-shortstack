@@ -2,28 +2,28 @@ let currEdit = 1;
 
 
 
-window.onload = function(tableId) {
+window.onload = function() {
     initData()
   }
 
   const initData = function(){
     fetch('/getData', {
-        method:'GET',
+        method:'GET'
       })
       .then(function (response) {
-        return response.json();
+        return response.json()
       })
       .then(function (data) {
         const text = document.getElementById( 'contact_counter' )
         text.innerHTML = 'Number of Contacts: ' + Object.values(data).length
-        buildTable('dataTable', data)
+        buildTable('dataTable', data) 
     })
   }
 
   const buildTable = function(tableId, data){
     let tableRef = document.getElementById(tableId);
     for(var i = tableRef.rows.length - 1; i > 0; i--)
-        tableRef.deleteRow(i);
+        tableRef.deleteRow(i)
 
 
         let row = 1

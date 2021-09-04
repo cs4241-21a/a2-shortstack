@@ -32,10 +32,9 @@ const submit = function( e ) {
     // const input = document.querySelector( '#inptName' ),
     //       json = { name: input.value },
     //       body = JSON.stringify( json )
-    let jsonPost = JSON.parse(body);
+    
 
-
-    if (jsonPost['name'] === ""  || jsonPost['email'] === ""   || jsonPost['number'] === ""  || jsonPost['notes'] === "")
+    if (json['name'] === ""  || json['email'] === ""   || json['number'] === ""  || json['notes'] === "")
         alert("Please fill in all field before submitting!")
     
     else{

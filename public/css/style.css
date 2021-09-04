@@ -31,7 +31,7 @@ label {
     cursor: pointer;  
   }
 
-  tr:nth-child(even) {background-color: #e7e5e5;}
+  tr:nth-child(even) {background-color: #e7e5e5}
 
   th { 
     border-bottom: 1px solid black;

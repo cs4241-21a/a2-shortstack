@@ -24,7 +24,7 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if(request.url == '/getData') { 
+  if(request.url === '/getData') { 
     getDataClient(response, appdata) 
   }
   else if( request.url === '/' ) {
