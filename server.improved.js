@@ -6,11 +6,6 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -38,12 +33,34 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+    const json = JSON.parse(dataString)
+    let advice = ''
+    hours = json.hours
+
+    if (hours === "0-4 hours") {
+
+      advice = 'Go get some sleep'
+
+    } else if (hours === "5-7 hours") {
+
+      advice = 'Moderate amount of hours of sleep'
+
+    } else if (hours === "8 hours") {
+
+      advice = 'Perfect amount of hours of sleep'
+
+    } else {
+
+      advice = 'Cut back on some hours'
+
+    }
+
+    json.advice = advice
+    console.log("json: " + JSON.stringify(json))
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(json))
   })
 }
 
