@@ -1,4 +1,4 @@
-let currEdit = 0;
+let currEdit = 1;
 
 
 
@@ -29,6 +29,8 @@ window.onload = function(tableId) {
         let row = 1
     data.map( function (item){
         let newRow = tableRef.insertRow(-1);
+        newRow.classList += "itemRow"
+        
         
         let columnNum = tableRef.rows[0].cells.length
         
@@ -45,19 +47,15 @@ window.onload = function(tableId) {
 
             newCell.appendChild(newText);  
         }
-        let edit_icon = document.createElement('form')
+        let edit_icon = document.createElement('td')
 
-        let edit_item = document.createElement('td')
-
-        edit_icon.classList += "arrow down"
         edit_icon.id = row - 1
-        
-        edit_icon.onclick = function(){
-          currEdit = edit_icon.id
-          showEditWindow(edit_icon.id)
+
+      newRow.onclick= function(){
+        currEdit = edit_icon.id
+        showEditWindow(edit_icon.id)
       }
-      edit_item.appendChild(edit_icon)
-      tableRef.rows[row].appendChild(edit_item)
+      
         row++
 
     })
@@ -95,15 +93,6 @@ window.onload = function(tableId) {
   }
 
   function updateItem() {
-    console.log("updated")
-    submitUpdate()
-    
-  }
-
-  const submitUpdate = function( e ) {
-    // prevent default form action from being carried out
- 
-
     const name = document.getElementById('editName')
     const email = document.getElementById('editEmail')
     const number = document.getElementById('editNumber')
@@ -135,7 +124,31 @@ window.onload = function(tableId) {
             closeEdit()
           });
     }
-    
   }
+
+function deleteItem(){
+  let confirmAction = confirm("Are you sure to delete this item?");
+  if (confirmAction) {
+    const json = {
+      modifyInput: currEdit
+  };
+
+  let body = JSON.stringify(json);
+    fetch( '/delete', {
+         method:'POST',
+         body 
+        })
+        .then( function( response ) {
+          initData()
+          closeEdit()
+        });
+  } 
+
+   
+}
+
+
+
+ 
 
  

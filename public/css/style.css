@@ -8,6 +8,44 @@ label {
     resize: none;
   }
 
+  table {
+    width: 50%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    
+  }
+
+
+  td {
+    border: 1px solid black;
+  }
+
+
+  .itemRow:hover {
+    background-color: #04AA6D;
+    cursor: pointer;  
+  }
+
+  tr:nth-child(even) {background-color: #e7e5e5;}
+
+  th { 
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+  }
+
+  .left_border {
+    border-left: 1px solid black;
+  }
+
+  .right_border{
+    border-right: 1px solid black;
+  }
+
 .bold_text {
     font-weight: bold;
 }
@@ -68,11 +106,11 @@ label {
   left: 50%;
   transform: translate(-50%,-50%) scale(0);
   background: #fff;
-  width: 400px;
-  height: 300px;
+  width: 325px;
+  height: 350px;
   z-index: 2;
   text-align: left;
-  padding: 20px;
+  padding-left: 20px;
   box-sizing: border-box;
 }
 
@@ -98,5 +136,24 @@ label {
   border-style: solid;
   border-color: black;
   border-radius: 50%;
+}
+
+.popup .update_btn { 
+  margin-top: 30px;
+  color: #04AA6D;
+  font-size: 25px;
+  border-style: solid;
+  background: white;
+  border-color: #04AA6D;
+}
+
+.popup .delete_btn { 
+  margin-top: 30px;
+  color: #aa0404;
+  font-size: 25px;
+  margin-left: 40px;
+  background: white;
+  border-style: solid;
+  border-color: #aa0404;
 }
 

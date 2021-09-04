@@ -27,15 +27,18 @@
     <br> 
     <br> 
 
-    <table id="dataTable">
-      <tr>
-        <th> Contact Number </th>
-        <th> Name </th>
-        <th> Email </th>
-        <th> Number </th>
-        <th> Notes </th> 
-      </tr>
-    </table>
+    <div style="overflow-x:auto;">
+      <table id="dataTable">
+        <tr>
+          <th class= "left_border"> Contact Number </th>
+          <th> Name </th>
+          <th> Email </th>
+          <th> Number </th>
+          <th class= "right_border"> Notes </th> 
+        </tr>
+      </table>
+    </div>
+    
 
     <div class="popup" id="popup_1"> 
       <div class="overlay"> </div>
@@ -71,7 +74,9 @@
             <div id="counter"></div>
           </form>
 
-          <button onclick="updateItem()">Submit</button>
+          
+          <button class = "update_btn"onclick="updateItem()">Update</button>
+          <button class = "delete_btn"onclick="deleteItem()">Delete</button>
       </div>
     </div>
 
