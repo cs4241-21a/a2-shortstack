@@ -2,13 +2,14 @@
 <html lang='en'>
   <head>
     <link rel='stylesheet' href='css/style.css' />
+    <link rel="shortcut icon" href="#">
     <title>CS4241 Assignment 2</title>
     <meta charset='utf-8' />
   </head>
   <body>
     <header class='site-header'><h1>Hotel Reviews</h1></header>
     <h2>Leave a Review:</h2>
-    <form action=''>
+    <form action='/public' method='POST'>
       <div class='flex-container'>
         <div>
           <label for='hotel-name'>Hotel Name:</label>
@@ -52,8 +53,8 @@
               max='10'
             />
           </div>
-          <div>
-            <button>Submit Review</button>
+          <div id='Button-Container'>
+            <button id='Submit-Button'>Submit Review</button>
           </div>
         </ul>
       </div>

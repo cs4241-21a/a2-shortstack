@@ -3,11 +3,12 @@
 th {
     border: 1px solid black;
     padding: 20px;
-    width: 16.6%;
+    width: 12.5%;
 }
 
 td {
     text-align: center;
+    overflow-wrap: break-word;
 }
 
 table {
@@ -35,6 +36,11 @@ h2 {
     width: auto;
     background-color: rgb(99, 99, 99);
     color: white;
+}
+
+#Submit-Button {
+    font-size: 16px;
+    background-color: lightcoral;
 }
 
 div {
