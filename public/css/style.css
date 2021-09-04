@@ -1,1 +1,53 @@
 /*Style your own assignment! This is fun! */
+
+p {
+    text-align: center;
+    color: blue;
+}
+
+
+.general {
+    top: 0;
+    padding-top: 25px;
+    z-index: 1;
+    height: 100%;
+    overflow-x: hidden;
+    position: fixed;
+}
+
+.gameArea {
+    left: 0;
+    width: 70%;
+    background-color: beige;
+}
+
+.scoreArea {
+    right: 0;
+    width: 30%;
+    background-color: blueviolet;
+}
+
+table, th, td {
+    border: 2px solid black;
+}
+
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+
+#container {
+    border:1px solid black;
+    width: 700px;
+    height: 400px;
+    position: relative;
+    background: grey;
+}
+#animate {
+    width: 30px;
+    height: 30px;
+    x: 10px;
+    y: 100px;
+    background: red;
+    position: absolute;
+}

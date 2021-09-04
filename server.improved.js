@@ -39,9 +39,9 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
-    const json = JSON.parse(dataString) // added
-    json.yourname += 'zzzzzz' // added
-    console.log(json.yourname) //added
+    const json = JSON.parse(dataString)
+    json.yourname += 'zzzzzz'
+    console.log(json.yourname)
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
