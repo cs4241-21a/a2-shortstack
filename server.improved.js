@@ -6,6 +6,7 @@ const http = require("http"),
   dir = "public/",
   port = 3000;
 
+/* default data is empty */
 const appdata = [];
 
 const server = http.createServer(function (request, response) {
@@ -26,6 +27,8 @@ const handleGet = function (request, response) {
   }
 };
 
+/* interact with sumbit and remove requests, able to interact with existing data
+by matching the name and team */
 const handlePost = function (request, response) {
   let dataString = "";
 
@@ -33,6 +36,7 @@ const handlePost = function (request, response) {
     dataString += data;
   });
 
+  /* check if the request is adding or removing data */
   if (request.url === "/submit") {
     request.on("end", function () {
       const dataJSON = JSON.parse(dataString);
@@ -51,6 +55,7 @@ const handlePost = function (request, response) {
       if (!modified) {
         appdata.push(dataJSON);
       }
+      /* sorting data by fastest average time */
       appdata.sort(function (a, b) {
         return a["avg"] - b["avg"];
       });
@@ -68,6 +73,7 @@ const handlePost = function (request, response) {
           appdata.splice(i, 1)
         }
       }
+      /* sorting data by fastest average time */
       appdata.sort(function (a, b) {
         return a["avg"] - b["avg"];
       });
