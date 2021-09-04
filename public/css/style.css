@@ -1,1 +1,24 @@
 /*Style your own assignment! This is fun! */
+.fa-paint-brush{
+    color: black;
+}
+
+body {
+    margin: 0px;
+}
+
+header {
+    display: flex;
+    background-color: blueviolet;
+    width: 100%;
+    height: fit-content;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header-btn{
+    height: 3em;
+    width: 3em;
+    border-radius: 5px;
+    background-color: yellow;
+}

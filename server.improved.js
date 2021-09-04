@@ -6,12 +6,18 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+
 const appdata = [
   { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
+/**
+ * HTTP Server
+ *
+ * Delegates requests based on method calls
+ */
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -20,6 +26,13 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
+/**
+ * handleGet
+ *
+ * Processes all GET requests
+ * @param request
+ * @param response
+ */
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
@@ -30,6 +43,13 @@ const handleGet = function( request, response ) {
   }
 }
 
+/**
+ * handlePost
+ *
+ * Processes all POST requests
+ * @param request
+ * @param response
+ */
 const handlePost = function( request, response ) {
   let dataString = ''
 
@@ -43,12 +63,20 @@ const handlePost = function( request, response ) {
     // json.yourname += " the first!"
 
     // ... do something with the data here!!!
+    //TODO: work with data here
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(appdata))
   })
 }
 
+/**
+ * sendFile
+ *
+ * Sends the requested file back to the client, if the file exists. If not, it returns 404
+ * @param response
+ * @param filename
+ */
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
 
