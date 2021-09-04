@@ -4,28 +4,12 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <div class = "submission">
-      <form action="">
-        <label for ="name">Enter the person's name:</label>
-        <input type='text' id='name' placeholder="Name">
-
-        <label for ="phoneNum"> Enter the person's phone number:</label>
-        <input type='tel' id='phoneNum' placeholder="012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  required>
-
-        <label for='birthday'>Enter the person's Birthday:</label>
-        <input type="date" id="birthday" placeholder = "birthday"> 
-
-        <label for ="toGift">Gift?</label>
-        <input type="checkbox" id="toGift">
-
-        <button>update</button> 
-      </form>
-    </div>
-
+    <h3 id = tableHeading">Contacts</h3>
     <table onclick= "selectingRow()" id="allEntries">
       <tr> 
         <th>Name</th>
@@ -36,6 +20,23 @@
         <th>Delete</th>
       </tr> 
     </table>
+
+    <h3 id = "updateHeading">Add/Update Person</h3>
+    <form class = "submission" action="">
+        <label for ="name">Name:</label>
+        <input type='text' id='name' placeholder="Name">
+
+        <label for ="phoneNum">Phone number:</label>
+        <input type='tel' id='phoneNum' placeholder="012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  required>
+
+        <label for='birthday'>Birthday:</label>
+        <input type="date" id="birthday" placeholder = "birthday"> 
+
+        <label for ="toGift">Gift:</label>
+        <input type="checkbox" id="toGift">
+
+        <button id = "update">Update</button> 
+    </form>
   </body>
 
   <script>
