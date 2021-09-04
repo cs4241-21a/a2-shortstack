@@ -44,8 +44,11 @@ const submit = function( e ) {
   //Removes the selected row from the table
   const remove = function (e) {
     e.preventDefault()
-    dataArr.splice(Number(e.target.id.substring(1)), 1);
+
+    //Gets the id of the row that needs to be deleted
+    dataArr.splice(Number(e.target.id.substring(6)), 1);
     console.log("Current dataArr after deletion: " + JSON.stringify(dataArr))
+
     updateTable();
   }
 
@@ -53,14 +56,16 @@ const submit = function( e ) {
   const modify = function (e) {
     e.preventDefault()
 
-    let entry = dataArr[Number(e.target.id.substring(1))];
+    //Gets the id of the row that needs to be editted
+    let entry = dataArr[Number(e.target.id.substring(4))];
 
     document.querySelector("#yourname").value = entry.yourname
     document.querySelector("#major").value = entry.major
     document.querySelector("#hours").value = entry.hours
 
-    dataArr.splice(Number(e.target.id.substring(1)), 1);
+    dataArr.splice(Number(e.target.id.substring(4)), 1);
     console.log("Current dataArr when editing: " + JSON.stringify(dataArr))
+
     updateTable();
   }
   
@@ -118,10 +123,12 @@ const submit = function( e ) {
            }
             //Adds an event to the Edit button
             if (cell === 4) {
+                newText.id = "Edit" + index.toString()
                 newText.onclick = modify;
             }
             //Adds an event to the Remove button
             if (cell === 5) {
+                newText.id = "Delete" + index.toString()
                 newText.onclick = remove;
             }
             //Placing each text to there appropriate cell and placing each cell to a row
