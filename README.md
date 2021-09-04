@@ -1,4 +1,4 @@
-Winnie Ly https://a2-theanirtist.glitch.me  
+Winnie Ly https://a2-theaniartist.glitch.me  
 
 This project focuses on the communication between the client and the server as the user enters in the required fields and the website will display data that is on the server side. After inputting and displaying the data, the user can either submit more data, edit a row, or delete a row from the table. Upon selecting an option from the selector box, the derived field, advice, will show depending on the user's selection.
 
