@@ -5,10 +5,10 @@ const submit = function (e) {
   //add a way to validate all fields are filled
 
   const name = document.getElementById("name")
-  const year = document.getElementById("year")
-  const split = document.getElementById("split")
+  const team = document.getElementById("team")
   const time = document.getElementById("time")
-  const json = { name: name.value, year: year.value, split: split.value, time: time.value }
+  const laps = document.getElementById("laps")
+  const json = { name: name.value, team: team.value, time: time.value, laps: laps.value }
   const body = JSON.stringify(json)
 
   fetch("/submit", {

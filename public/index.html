@@ -8,24 +8,24 @@
   <body>
     <header>
       <h1>
-        200m Race Results
+        Race Results
       </h1>
     </header>
     <main>
       <h1>
         Athlete:
       </h1>
-      <p>To Add a participant, enter their name, class, 1st split, and final time. </p>
-      <p>To Modify a participant, enter their name, class, and update their split and final time. </p>
+      <p>To Add a participant, enter their name, team, total time, and number of laps. </p>
+      <p>To Modify a participant, enter their name, team, and update their total time and laps. </p>
       <form action="">
         <label for="name">Enter Name:</label>
         <input type='text' id='name' value="" placeholder="Name (Ex: John Doe)">
         <label for="year">Enter Year:</label>
-        <input type='number' id='year' value="" placeholder="Class Year (Ex: 2022)">
-        <label for="split">Enter 1st Split:</label>
-        <input type='number' id='split' value="" placeholder="Split (Ex: 13.5)">
-        <label for="time">Enter Time:</label>
-        <input type='number' id='time' value="" placeholder="Time (Ex: 26.3)">
+        <input type='text' id='team' value="" placeholder="Team (Ex: Blue)">
+        <label for="split">Enter Total Time:</label>
+        <input type='number' id='time' value="" placeholder="Time(minutes) (Ex: 125)">
+        <label for="time">Enter Number of Laps:</label>
+        <input type='number' id='laps' value="" placeholder="Time (Ex: 25)">
         <button>submit</button>
       </form>
       <h1>
@@ -34,10 +34,10 @@
       <table id="results-table">
         <tr>
           <th>Name</th>
-          <th>Year</th>
-          <th>Split</th>
+          <th>Tean</th>
           <th>Time</th>
-          <th>Delta</th>
+          <th>Laps</th>
+          <th>Avg</th>
         </tr>
       </table>
     </main>

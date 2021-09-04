@@ -36,13 +36,13 @@ const handlePost = function (request, response) {
 
     request.on("end", function () {
       const dataJSON = JSON.parse(dataString);
-      let delta = dataJSON.time - dataJSON.split - dataJSON.split;
-      dataJSON.delta = delta;
+      let avg = dataJSON.time / dataJSON.laps;
+      dataJSON.avg = avg;
       let modified = false;
       for (let i = 0; i < appdata.length; i++) {
         if (
           appdata[i].name === dataJSON.name &&
-          appdata[i].year === dataJSON.year
+          appdata[i].team === dataJSON.team
         ) {
           appdata[i] = dataJSON;
           modified = true;
@@ -52,7 +52,7 @@ const handlePost = function (request, response) {
         appdata.push(dataJSON);
       }
       appdata.sort(function (a, b) {
-        return a["time"] - b["time"];
+        return a["avg"] - b["avg"];
       });
       response.writeHead(200, "OK", { "Content-Type": "text/plain" });
       response.end(JSON.stringify(appdata));
