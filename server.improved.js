@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let appdata = [];
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -31,20 +27,67 @@ const handleGet = function( request, response ) {
 }
 
 const handlePost = function( request, response ) {
+if (request.url === '/submit'){
+    let dataString = ''
+
+    request.on( 'data', function( data ) {
+        dataString += data 
+    })
+
+    request.on( 'end', function() {
+      let entry = JSON.parse( dataString );
+      const totalcal = entry.cal * entry.numserv;
+      entry.tcal = String(totalcal);
+      console.log(entry);
+      appdata.push(entry);
+    
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(appdata))
+    })
+  }
+else if(request.url === '/update'){
   let dataString = ''
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+    request.on( 'data', function( data ) {
+        dataString += data 
+    })
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    request.on( 'end', function() {
+      let entry = JSON.parse( dataString );
 
-    // ... do something with the data here!!!
+      const totalcal = entry.cal * entry.numserv;
+      entry.tcal = String(totalcal);
+      console.log(entry);
+      for(let i = 0; i < appdata.length; i++){
+        if (appdata[i].fname === entry.fname){
+          appdata[i].numserv = entry.numserv;
+          appdata[i].tcal = entry.tcal;
+          break;
+        }
+      }
+      console.log(appdata)
+      let updateData = []
+      updateData.push(entry);
+      
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(updateData))
+    })
+}
+else if(request.url === '/remove'){
+  let dataString = ''
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
-  })
+    request.on( 'data', function( data ) {
+        dataString += data 
+    })
+
+    request.on( 'end', function() {
+      const newdata = appdata.filter(food => food.fname != dataString.slice(1,-1));
+      appdata = newdata;
+      console.log(appdata);
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(dataString)
+    })
+  }
 }
 
 const sendFile = function( response, filename ) {
