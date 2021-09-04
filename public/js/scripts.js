@@ -15,6 +15,13 @@ const submit = function( e ) {
         return false
     } 
 
+    //Error checking to make sure the fields are not just a single character
+    if (name.value.length < 2 || major.value.length < 2) {
+      console.log("Not a valid input")
+      alert("Enter valid fields only.")
+      return false
+    }
+
     //Error checking to make sure the fields are not the starting text
     if (name.value === "Enter your name here" || major.value === "Enter your major here") {
         console.log("Not valid data")
@@ -41,6 +48,23 @@ const submit = function( e ) {
     return false
   }
 
+  //Edits the selected row by removing it and adding it back to the table
+  const modify = function (e) {
+      e.preventDefault()
+  
+      //Gets the id of the row that needs to be editted
+      let entry = dataArr[Number(e.target.id.substring(4))];
+  
+      document.querySelector('#yourname').value = entry.yourname
+      document.querySelector('#major').value = entry.major
+      document.querySelector('#hours').value = entry.hours
+  
+      dataArr.splice(Number(e.target.id.substring(4)), 1);
+      console.log("Current dataArr when editing: " + JSON.stringify(dataArr))
+  
+      updateTable();
+    }
+
   //Removes the selected row from the table
   const remove = function (e) {
     e.preventDefault()
@@ -48,23 +72,6 @@ const submit = function( e ) {
     //Gets the id of the row that needs to be deleted
     dataArr.splice(Number(e.target.id.substring(6)), 1);
     console.log("Current dataArr after deletion: " + JSON.stringify(dataArr))
-
-    updateTable();
-  }
-
-  //Edits the selected row by removing it and adding it back to the table
-  const modify = function (e) {
-    e.preventDefault()
-
-    //Gets the id of the row that needs to be editted
-    let entry = dataArr[Number(e.target.id.substring(4))];
-
-    document.querySelector("#yourname").value = entry.yourname
-    document.querySelector("#major").value = entry.major
-    document.querySelector("#hours").value = entry.hours
-
-    dataArr.splice(Number(e.target.id.substring(4)), 1);
-    console.log("Current dataArr when editing: " + JSON.stringify(dataArr))
 
     updateTable();
   }
@@ -77,16 +84,16 @@ const submit = function( e ) {
   //Function updates the table either by adding, editing, or deleting a row from the table
   function updateTable() {
 
-    let tbody = document.querySelector("tbody")
+    let tbody = document.querySelector('tbody')
     tbody.innerHTML = ""
 
     for (let index = 0; index < dataArr.length; index++) {
 
-        let newRow = document.createElement("tr")
+        let newRow = document.createElement('tr')
 
         for (let cell = 0; cell < 6; cell++) {
 
-            let newCell = document.createElement("td")
+            let newCell = document.createElement('td')
             let newText;
 
            switch(cell) {
@@ -108,14 +115,14 @@ const submit = function( e ) {
                     break;
                 case 4:
                     //Creates a new cell that contains the Edit button
-                    newText = document.createElement("Input")
+                    newText = document.createElement('Input')
                     newText.setAttribute('type','button')
                     newText.setAttribute('value', 'Edit')
                     newText.className = 'editButton';
                     break;
                 case 5:
                     //Creates a new cell that contains the Remove button
-                    newText = document.createElement("Input")
+                    newText = document.createElement('Input')
                     newText.setAttribute('type','button')
                     newText.setAttribute('value', 'Remove')
                     newText.className = 'removeButton';
