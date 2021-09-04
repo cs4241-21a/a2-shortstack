@@ -8,7 +8,9 @@ const submit = function (e) {
   const team = document.getElementById("team")
   const time = document.getElementById("time")
   const laps = document.getElementById("laps")
-  const json = { name: name.value, team: team.value, time: time.value, laps: laps.value }
+  const fastest = document.getElementById("fastest")
+  const json = { name: name.value, team: team.value, time: time.value,
+     laps: laps.value, fastest: fastest.value }
   const body = JSON.stringify(json)
 
   fetch("/submit", {
@@ -26,10 +28,14 @@ const submit = function (e) {
 }
 
 //function to remove elements that are clicked on in the table
-//TODO
 const remove = function (e) {
   // prevent default form action from being carried out
-  e.preventDefault();
+  e.preventDefault()
+
+  const name = e.path[1].cells[0].innerText
+  const team = e.path[1].cells[1].innerText
+  const json = { name: name, team: team }
+  const body = JSON.stringify(json)
 
   fetch("/remove", {
     method: "POST",
@@ -46,6 +52,15 @@ const remove = function (e) {
 };
 
 function redrawTable(values) {
+  const headers = [
+    'Racer',
+    'Team',
+    'Total Time',
+    'Number of Laps',
+    'Fastest Lap',
+    'Average Lap Time',
+    'Remove'
+  ]
   let table = document.getElementById("results-table");
 
   //remove all the values from the table
@@ -53,21 +68,19 @@ function redrawTable(values) {
     table.removeChild(table.firstChild);
   }
 
-  if (values.length === 0) {
-    return;
-  }
-
   //create headers
   let r = document.createElement("tr");
-  for (let header in values[0]) {
-    console.log(header);
-    header = header.charAt(0).toUpperCase() + header.slice(1);
+  for (let header of headers) {
     let h = document.createElement("th");
     let hval = document.createTextNode(header);
     h.appendChild(hval);
     r.appendChild(h);
   }
   table.appendChild(r);
+
+  if (values.length === 0) {
+    return;
+  }
 
   //fill in the values
   values.forEach((element) => {
@@ -78,8 +91,18 @@ function redrawTable(values) {
       valueNode.appendChild(valueText);
       row.appendChild(valueNode);
     }
+    let deleteElement = createDelete();
+    row.appendChild(deleteElement);
     table.appendChild(row);
   });
+}
+
+function createDelete() {
+  let deleteNode = document.createElement("td");
+  let deleteText = document.createTextNode('delete');
+  deleteNode.appendChild(deleteText);
+  deleteNode.onclick = remove;
+  return deleteNode;
 }
 
 window.onload = function () {

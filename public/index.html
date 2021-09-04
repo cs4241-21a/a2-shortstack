@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+    </style> 
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
@@ -18,14 +21,16 @@
       <p>To Add a participant, enter their name, team, total time, and number of laps. </p>
       <p>To Modify a participant, enter their name, team, and update their total time and laps. </p>
       <form action="">
-        <label for="name">Enter Name:</label>
+        <label for="name">Racer:</label>
         <input type='text' id='name' value="" placeholder="Name (Ex: John Doe)">
-        <label for="year">Enter Year:</label>
+        <label for="team">Team:</label>
         <input type='text' id='team' value="" placeholder="Team (Ex: Blue)">
-        <label for="split">Enter Total Time:</label>
+        <label for="split">Total Time:</label>
         <input type='number' id='time' value="" placeholder="Time(minutes) (Ex: 125)">
-        <label for="time">Enter Number of Laps:</label>
+        <label for="time">Number of Laps:</label>
         <input type='number' id='laps' value="" placeholder="Time (Ex: 25)">
+        <label for="time">Fastest Lap:</label>
+        <input type='number' id='fastest' value="" placeholder="Time(seconds) (Ex: 105.69)">
         <button>submit</button>
       </form>
       <h1>
@@ -33,11 +38,12 @@
       </h1>
       <table id="results-table">
         <tr>
-          <th>Name</th>
-          <th>Tean</th>
-          <th>Time</th>
-          <th>Laps</th>
-          <th>Avg</th>
+          <th>Racer</th>
+          <th>Team</th>
+          <th>Total Time</th>
+          <th>Number of Laps</th>
+          <th>Fastest Lap</th>
+          <th>Average Lap Time</th>
         </tr>
       </table>
     </main>

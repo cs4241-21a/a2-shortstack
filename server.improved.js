@@ -27,13 +27,13 @@ const handleGet = function (request, response) {
 };
 
 const handlePost = function (request, response) {
+  let dataString = "";
+
+  request.on("data", function (data) {
+    dataString += data;
+  });
+
   if (request.url === "/submit") {
-    let dataString = "";
-
-    request.on("data", function (data) {
-      dataString += data;
-    });
-
     request.on("end", function () {
       const dataJSON = JSON.parse(dataString);
       let avg = dataJSON.time / dataJSON.laps;
@@ -50,6 +50,23 @@ const handlePost = function (request, response) {
       }
       if (!modified) {
         appdata.push(dataJSON);
+      }
+      appdata.sort(function (a, b) {
+        return a["avg"] - b["avg"];
+      });
+      response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+      response.end(JSON.stringify(appdata));
+    });
+  } else if (request.url === "/remove") {
+    request.on("end", function () {
+      const dataJSON = JSON.parse(dataString);
+      for (let i = 0; i < appdata.length; i++) {
+        if (
+          appdata[i].name === dataJSON.name &&
+          appdata[i].team === dataJSON.team
+        ) {
+          appdata.splice(i, 1)
+        }
       }
       appdata.sort(function (a, b) {
         return a["avg"] - b["avg"];
