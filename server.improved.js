@@ -46,7 +46,7 @@ const calcGiftDate = function(birthday) {
   return getByDay.toLocaleDateString()
 }
 
-//Helper function to remove entry from the arra y
+//Helper function to remove entry from the array
 const deleteEntry = function(entry){
   for (var i = 0; i < entryData.length; i++){
     if (entryData[i].name === entry){
@@ -54,6 +54,7 @@ const deleteEntry = function(entry){
     }
   }
 }
+
 const handlePost = function( request, response ) {
   if (request.url === '/submit'){
     let dataString = ''
@@ -66,25 +67,24 @@ const handlePost = function( request, response ) {
       json = JSON.parse(dataString)
      
       //Removes the old entry if updating a field
-      for (var i = 0; i < entryData.length; i++){
-        if (entryData[i].name === json.rowName && json.rowName !== ''){ 
-          deleteEntry(json.rowName)
-        }
-      } 
+      if (json.rowName !== ''){ 
+        deleteEntry(json.rowName)
+      }
+      deleteEntry(json.name) //delete entry if the name already exists 
       
-        //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
-        giftByDate = ''
-        if (json.toGift === true){
-          giftByDate = calcGiftDate(json.birthday)
-        }
-        json.giftBy = giftByDate
+      
+      //Derived field, if the gift checkbox was checked calculated when to a gift by aka 30 days before 
+      giftByDate = ''
+      if (json.toGift === true){
+        giftByDate = calcGiftDate(json.birthday)
+      }
+      json.giftBy = giftByDate
+      entryData.push(json)
 
-        entryData.push(json)
-
-        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-        response.end(JSON.stringify(json))
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(json))
     })
-  }//end if submit
+  }
 
   else if(request.url === '/deleteEntry'){
     let dataString = ''
@@ -97,12 +97,12 @@ const handlePost = function( request, response ) {
       jsonTest = JSON.parse(dataString)
       
       deleteEntry(jsonTest.nameToRemove)
-      
+
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
       response.end(JSON.stringify('removed'))
     })
-  }//end if deleteEntry 
-}//end handlePost
+  } 
+}
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 

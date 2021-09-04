@@ -21,7 +21,7 @@
       </tr> 
     </table>
 
-    <h3 id = "updateHeading">Add/Update Person</h3>
+    <h3 id = "updateHeading">Add/Update</h3>
     <form class = "submission" action="">
         <label for ="name">Name:</label>
         <input type='text' id='name' placeholder="Name">
@@ -37,6 +37,16 @@
 
         <button id = "update">Update</button> 
     </form>
+
+    <h3 id = "infoHeading">Note</h3>
+    <p id = "information"> To add a new entry fill in the fields, and click update. <br>
+      To modify an entry select the row on the table, update the fields, and click update. <br>
+      To delete an entry click delete on the desired row. <br>
+      Click the table once to focus on the table, then click the desired row for modifying/deleting.  <br>
+      Entries must have unique names. Adding/modifying an entry with the same name as an existing one will 
+      replace the previous entry. <br>
+      Gift selected with no birthday will default to the Jan. 1st of the coming year. 
+    </p>
   </body>
 
   <script>
@@ -59,7 +69,7 @@
            })
         }
 
-        //Part of modifying selected row 
+        //Selecting for modifying 
         table.rows[i].cells[0].onclick = function(){
           document.querySelector("#name").value = table.rows[i].cells[0].innerHTML
           document.querySelector("#phoneNum").value = table.rows[i].cells[1].innerHTML
@@ -122,6 +132,9 @@
       for (let i = 1; i < table.rows.length; i++){
         if (table.rows[i].cells[0].innerHTML === selectedRowName){
           table.deleteRow(i) 
+        }
+        else if (table.rows[i].cells[0].innerHTML === json.name){
+          table.deleteRow(i)
         }
       }
       selectedRowName = '' //reset
