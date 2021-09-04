@@ -41,32 +41,25 @@ const handlePost = function( request, response ) {
     if (hours === "0-4 hours") {
 
       advice = 'Go get some sleep'
-      //json['advice'] = advice
 
     } else if (hours === "5-7 hours") {
 
       advice = 'Moderate amount of hours of sleep'
-      //json['advice'] = advice
 
     } else if (hours === "8 hours") {
 
       advice = 'Perfect amount of hours of sleep'
-      //json['advice'] = advice
 
     } else {
 
       advice = 'Too much sleep'
-      //json['advice'] = advice
 
     }
 
-    //dataArr.push(json)
     json.advice = advice
-    //console.log("dataArr:" + JSON.stringify(dataArr))
     console.log("json: " + JSON.stringify(json))
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    //response.end(JSON.stringify(dataArr))
     response.end(JSON.stringify(json))
   })
 }

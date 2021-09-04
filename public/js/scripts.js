@@ -35,19 +35,21 @@ const submit = function( e ) {
     .then( function ( text ) {
         dataArr.push(JSON.parse(text));
         updateTable();
-        console.log("dataArr: " + dataArr);
+        console.log("dataArr: " + JSON.stringify(dataArr));
     })
   
     return false
   }
 
+  //Removes the selected row from the table
   const remove = function (e) {
     e.preventDefault()
-    console.log("e.target.id.substring(1): " + e.target.id.substring(1))
     dataArr.splice(Number(e.target.id.substring(1)), 1);
+    console.log("Current dataArr after deletion: " + JSON.stringify(dataArr))
     updateTable();
   }
 
+  //Edits the selected row by removing it and adding it back to the table
   const modify = function (e) {
     e.preventDefault()
 
@@ -58,6 +60,7 @@ const submit = function( e ) {
     document.querySelector("#hours").value = entry.hours
 
     dataArr.splice(Number(e.target.id.substring(1)), 1);
+    console.log("Current dataArr when editing: " + JSON.stringify(dataArr))
     updateTable();
   }
   
@@ -66,58 +69,66 @@ const submit = function( e ) {
     button.onclick = submit
   }
 
+  //Function updates the table either by adding, editing, or deleting a row from the table
   function updateTable() {
 
     let tbody = document.querySelector("tbody")
     tbody.innerHTML = ""
 
-    for (let i = 0; i < dataArr.length; i++) {
+    for (let index = 0; index < dataArr.length; index++) {
 
         let newRow = document.createElement("tr")
 
-        for (let j = 0; j < 6; j++) {
+        for (let cell = 0; cell < 6; cell++) {
 
             let newCell = document.createElement("td")
             let newText;
 
-           switch(j) {
+           switch(cell) {
                case 0:
-                   newText = document.createTextNode(dataArr[i].yourname);
+                   //Creates a new cell that contains the Name value
+                   newText = document.createTextNode(dataArr[index].yourname);
                    break;
                 case 1:
-                    newText = document.createTextNode(dataArr[i].major);
+                    //Creates a new cell that contains the Major value
+                    newText = document.createTextNode(dataArr[index].major);
                     break;
                 case 2:
-                    newText = document.createTextNode(dataArr[i].hours);
+                    //Creates a new cell that contains the Hours value
+                    newText = document.createTextNode(dataArr[index].hours);
                     break;
                 case 3:
-                    newText = document.createTextNode(dataArr[i].advice);
+                    //Creates a new cell that contains the Advice value
+                    newText = document.createTextNode(dataArr[index].advice);
                     break;
                 case 4:
+                    //Creates a new cell that contains the Edit button
                     newText = document.createElement("Input")
                     newText.setAttribute('type','button')
                     newText.setAttribute('value', 'Edit')
                     newText.className = 'editButton';
                     break;
                 case 5:
+                    //Creates a new cell that contains the Remove button
                     newText = document.createElement("Input")
                     newText.setAttribute('type','button')
                     newText.setAttribute('value', 'Remove')
                     newText.className = 'removeButton';
                     break;
            }
-
-            if (j === 4) {
+            //Adds an event to the Edit button
+            if (cell === 4) {
                 newText.onclick = modify;
             }
-
-            if (j === 5) {
+            //Adds an event to the Remove button
+            if (cell === 5) {
                 newText.onclick = remove;
             }
-
+            //Placing each text to there appropriate cell and placing each cell to a row
             newCell.appendChild(newText)
             newRow.appendChild(newCell)
         }
+        //Placing the row in the tbody
         tbody.appendChild(newRow)
     }   
   }
