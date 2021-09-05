@@ -34,9 +34,17 @@
     // prevent default form action from being carried out
     event.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const nameInput = document.querySelector( "#foodname" );
+    const categoryInput = document.querySelector( "#foodcategory" );
+    const quantityInput = document.querySelector( "#foodquantity" );
+    const expirationDateInput = document.querySelector( "#expirationdate" );
+
+    json = { foodname: nameInput.value, 
+      foodcategory: categoryInput.value,
+      foodquantity: quantityInput.value,
+      expirationdate: expirationDateInput.value };
+
+    body = JSON.stringify( json )
 
     fetch( '/submitAddFood', {
       method:'POST',
@@ -50,19 +58,10 @@
     return false
   }
 
-  const submitRemoveFood = function( event ) {
-    event.preventDefault()
-
-
-  }
-
   window.onload = function() {
 
-    const addFoodButton = document.querySelector( 'button' )
-    addFoodButton.onclick = submitAddFood
-
-    const removeFoodButton = document.querySelector( 'button')
-    removeFoodButton.onclick = submitRemoveFood
+    const button = document.querySelector( 'button' )
+    button.onclick = submitAddFood
 
   }
 
