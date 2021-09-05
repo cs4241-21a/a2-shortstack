@@ -1,6 +1,6 @@
 label {
     display: inline-block;
-    width: 60px;
+    width: 80px;
     text-align: left;
   }
 
@@ -9,15 +9,35 @@ label {
   }
 
   table {
-    width: 50%;
+    width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  html, body { 
+    font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+    margin: 0;
+    height: 100%;
+  }
+
+  b {
+    font-size: large;
   }
 
   th, td {
     padding: 15px;
     text-align: center;
     vertical-align: middle;
-    
+    word-wrap: break-word;
+  }
+
+  h1 {
+    font-family: "Sofia", sans-serif;
+    font-size: 30px;
+  }
+
+  input {
+    font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
   }
 
 
@@ -25,6 +45,9 @@ label {
     border: 1px solid black;
   }
 
+  .center {
+    text-align: center;
+  }
 
   .itemRow:hover {
     background-color: #04AA6D;
@@ -48,9 +71,11 @@ label {
 
 .bold_text {
     font-weight: bold;
+    font-family: "Trirong", serif;
 }
 
 .nav_bar {
+  font-family: "Sofia", 'Times New Roman', Times, serif;
   overflow: hidden;
   background-color: #333;
 }
@@ -64,30 +89,15 @@ label {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 20px;
+  margin-left: 20px;
 }
 
-.nav_bar a:hover {
-  background-color: #ddd;
-  color: black;
-}
 
 .nav_bar a.active {
   background-color: #04AA6D;
   color: white;
 }
 
-
-.arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-} 
 
 .popup .overlay {
   position: fixed;
@@ -107,7 +117,7 @@ label {
   transform: translate(-50%,-50%) scale(0);
   background: #fff;
   width: 325px;
-  height: 350px;
+  height: 390px;
   z-index: 2;
   text-align: left;
   padding-left: 20px;
@@ -139,7 +149,8 @@ label {
 }
 
 .popup .update_btn { 
-  margin-top: 30px;
+  font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+  margin-top: 10px;
   color: #04AA6D;
   font-size: 25px;
   border-style: solid;
@@ -148,12 +159,59 @@ label {
 }
 
 .popup .delete_btn { 
-  margin-top: 30px;
+  font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+  margin-top: 10px;
   color: #aa0404;
   font-size: 25px;
-  margin-left: 40px;
+  margin-left: 80px;
   background: white;
   border-style: solid;
   border-color: #aa0404;
 }
 
+
+.grid {
+  display: grid;
+  margin: 0;
+  height: 94%;
+}
+
+.left-half {
+  grid-column: 1;
+  margin-left: 20px;
+}
+
+.right-half {
+  grid-column: 3;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.middle-half {
+  grid-column: 2;
+}
+
+
+.verticalLine {
+  border-left: solid black;
+  margin-right: 20px;
+  margin-left: 60px;
+}
+
+.submit_btn{
+  font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+  margin-top: 10px;
+  color: #04AA6D;
+  font-size: 25px;
+  margin-left: 80px;
+  background: white;
+  border-style: solid;
+  border-color: #04AA6D;
+}
+
+#counter {
+  font-family: "Sofia", 'Times New Roman', Times, serif;
+  margin-left: 209px;
+  font-size: 11px;
+  
+}

@@ -7,10 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {'name': 'Mike', 'email': 'mike@wpi.edu', 'number': '718-654-980', 'notes': 'Likes to steal cookies'},
-  {'name': 'Emma', 'email': 'eemma@wpi.edu', 'number': '718-634-980', 'notes': 'Loves to eat shrimp'},
-  {'name': 'Steven', 'email': 'steven@wpi.edu', 'number': '713-654-980', 'notes': 'This guy is mean'},
-  {'name': 'Cooper', 'email': 'b@j.com', 'number': '743-234-5678', 'notes': 'This person is the best'}
+  {'name': 'Mike', 'email': 'mike@wpi.edu', 'number': '718-654-980', 'age': 10, 'age_group': "Child", 'notes': 'Likes to steal cookies'},
+  {'name': 'Emma', 'email': 'eemma@wpi.edu', 'number': '718-634-980',  'age': 19, 'age_group': "Adult", 'notes': 'Loves to eat shrimp'},
+  {'name': 'Steven', 'email': 'steven@wpi.edu', 'number': '713-654-980', 'age': 67,'age_group': "Senior",  'notes': 'This guy is mean'},
+  {'name': 'Cooper', 'email': 'b@j.com', 'number': '743-234-5678', 'age': 17, 'age_group': "Teenager", 'notes': 'This person is the best'}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -25,7 +25,7 @@ const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
   if(request.url === '/getData') { 
-    getDataClient(response, appdata) 
+    getData(response, appdata) 
   }
   else if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
@@ -35,7 +35,7 @@ const handleGet = function( request, response ) {
   }
 }
 
-const getDataClient = function(response, data) { 
+const getData = function(response, data) { 
   console.log('got data')
   const type = mime.getType(data);
   response.writeHead(200, {'Content-Type': type});
@@ -53,7 +53,7 @@ const handlePost = function( request, response ) {
     console.log(JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
-    if(request.url === '/submit') { addToDatabase(JSON.parse(dataString)) }
+    if(request.url === '/submit') { appdata.push(JSON.parse(dataString)) }
     else if(request.url === '/update') { updateItemInDatabase(JSON.parse(dataString)) }
     else if(request.url === '/delete') { deleteItemInDatabase(JSON.parse(dataString)) }
 
@@ -62,9 +62,6 @@ const handlePost = function( request, response ) {
   })
 }
 
-const addToDatabase = function(json) {
-    appdata.push(json)
-}
 
 const updateItemInDatabase = function(json) {
   console.log("in server update")
@@ -74,6 +71,8 @@ const updateItemInDatabase = function(json) {
       item['name'] = json['name']
       item['email'] = json['email']
       item['number'] = json['number']
+      item['age'] = json['age']
+      item['age_group'] = json['age_group']
       item['notes'] = json['notes']
     }
   }
