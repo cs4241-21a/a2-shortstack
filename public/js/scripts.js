@@ -2,12 +2,62 @@ const dataTable = document.getElementById('Leaderboard');
 const gameCanvas = document.getElementById('gameCanvas');
 let submitBtn = document.getElementById( 'submitBtn' );
 
-let rowNum = 1;
-
 window.onload = function() {
     makeTableHead();
     updatePage();
-    submitBtn.onclick(makePost());
+    submitBtn.onclick = submit;
+}
+
+const submit = function( e ) {
+    e.preventDefault()
+    /*/let warning = document.getElementById('warning');
+
+    if (jsonBody['score'] === 0
+        || jsonBody['name'] === "your name here") {
+        //warning.innerHTML = "Please change name and score points";
+    } else {
+        //warning.innerHTML = "";*/
+    const input = document.querySelector( '#yourname' ),
+        input2 = document.getElementById('printScore'),
+        json = { yourname: input.value,
+            score: input2.innerText,
+            rank: "" },
+        body = JSON.stringify( json )
+
+    fetch( '/submit', {
+        method:'POST',
+        body
+    })
+        .then( function( response ) {
+            // do something with the response
+            console.log("Post made to server");
+        })
+        /*.then( function( json) {
+          // options for loops
+           if( Array.isArray(json)){
+             //json.map( car => car.model)
+             //json.map( model => model[0].toUpperCase() + model.slice(1))
+             //json.forEach(console.log)
+
+             for( let car of json){
+               const model = car.model
+               const upperModel = model[0].toUpperCase() + model.slice(1)
+               console.log( upperModel)
+             }
+
+             //for(let i =0; j < json.length; i++){
+              // const car = json [i]
+               //const model = car.model
+               //const upperModel = model[0].toUpperCase() + model.slice(1)
+               //console.log( upperModel)
+
+           }
+        })*/
+        .then( function( json ) {
+            console.log(json);
+            updatePage();
+        })
+    return false
 }
 
 let count = 3;
@@ -90,7 +140,7 @@ const updatePage = function () {
                 return false;
             };*/
 
-            td1.innerHTML = row.name;
+            td1.innerHTML = row.yourname;
             td2.innerHTML = row.score;
             td3.innerHTML = row.rank;
             td4.appendChild(pencil);
@@ -134,26 +184,6 @@ const makePageBody = function () {
         modifyIndex
     };
     return JSON.stringify(json);
-};
-
-//Makes post and sends to server.
-const makePost = function () {
-    let body = makePageBody();
-    let jsonBody = JSON.parse(body);
-    /*/let warning = document.getElementById('warning');
-
-    if (jsonBody['score'] === 0
-        || jsonBody['name'] === "your name here") {
-        //warning.innerHTML = "Please change name and score points";
-    } else {
-        //warning.innerHTML = "";*/
-    fetch("/submit", {
-        method: 'POST',
-        body
-    }).then(function (response) {
-        console.log("Post from makePost sent to server: " + response);
-        updatePage();
-    });
 };
 
 //////////////////////////////////////////
