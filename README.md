@@ -8,7 +8,7 @@ The derived field of AGE GROUP is created when a user ADDs a new contact to the 
 For CSS, a grid layout was used to create vertical sections of the website. The Left section is the location of the data table, which stores all the contacts. The Middle section is just a vertical line, used to separate the left and right grid sections. The Right section is where a user enters information to add a contact. A pop-up menu is simulated in the project by creating a Div element to store the content. Everywhere that is not the pop-up menu has its color set to a light grey, and the user can only interact with the pop-up window. Lastly, CSS is used to customize the various fonts, colors, and data tables that occur on the webpage. For example, the fonts Sofia, Trirong, and Roboto Condensed are imported from Google Fonts and are used to stylize the data. CSS was also used to create an overhead navigation bar and the hovering effect for the table rows. When a user hovers over a specific row, that row's CSS background-color trait gets changed. 
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: Using a combination of CSS, HTML, and JS, I created a single webpage, where users can submit data, edit data and delete data. The data is stored in the form of contact, which has seven specific fields. When the user submits data the data table is updated immediately with the new data from the user. The current state of the server data is always displayed in real-time. The derived field of the Age Group is calculated by the program and stored in the database. All data persists on the webpage, even when refreshed until the Node.js server is reset. 
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
