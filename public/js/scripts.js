@@ -6,7 +6,6 @@ const submit = function( e ) {
   let calInput = document.getElementById( 'cal' );
   let servInput = document.getElementById( 'numserv' );
   let mytable = document.getElementById("foodtable");
-  console.log(typeof(servInput.value))
   for(let i = 0; i < mytable.rows.length; i++){
       if(foodInput.value === mytable.rows[i].cells[0].innerHTML){
         alert("Invalid input: Duplicate item");
@@ -82,7 +81,6 @@ const update = function( e ){
   .then( function( text ){
       const entry = JSON.parse(text);
       const name = entry[0].fname;
-      console.log(entry)
       let table = document.getElementById("foodtable");
       for(let i = 0; i < table.rows.length; i++){
         if(table.rows[i].cells[0].innerHTML === name){
@@ -121,5 +119,4 @@ window.onload = function() {
 
   const button2 = document.getElementById( 'update' )
   button2.onclick = update
-
 }
