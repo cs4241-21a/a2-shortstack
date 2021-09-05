@@ -3,12 +3,32 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="css/reset.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    <h1>Procrast-inator</h1>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+      <h2 id="form-title">Add new task:</h2>
+      <label id="name-label">Task name</label>
+      <input type="text" id="name" value="task name">
+      <label id="period-label">Time to complete</label>
+      <input type="text" id="period" value="1" min="1">
+      <label id="deadline-label">Deadline</label>
+      <input type="date" id="name">
+      <button id="submit-form-button">submit</button>
     </form>
+    <div id="tasklist">
+      <h2>Tracked Tasks</h2>
+      <button>Add</button>
+      <grid id="tasklist-grid">
+        <p id="name-header">Task Name:</p>
+        <p id="startdate-header">Start Date:</p>
+        <p id="period-header">Time to Complete:</p>
+        <p id="deadline-header">Deadline:</p>
+        <p id="modify-header">Modify:</p>
+      </grid>
+    </div>
   </body>
   <script>
 
@@ -16,12 +36,12 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
+    const input = document.querySelector( "#yourname" ),
           json = { yourname: input.value },
           body = JSON.stringify( json )
 
-    fetch( '/submit', {
-      method:'POST',
+    fetch( "/submit", {
+      method:"POST",
       body 
     })
     .then( function( response ) {
@@ -33,7 +53,7 @@
   }
 
   window.onload = function() {
-    const button = document.querySelector( 'button' )
+    const button = document.querySelector( "button" )
     button.onclick = submit
   }
 
