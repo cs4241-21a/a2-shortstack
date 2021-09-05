@@ -1,120 +1,183 @@
 const dataTable = document.getElementById('Leaderboard');
 const gameCanvas = document.getElementById('gameCanvas');
+let submitBtn = document.getElementById( 'submitBtn' );
 
 let rowNum = 1;
 
-const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+window.onload = function() {
+    makeTableHead();
+    updatePage();
 
-    const input = document.querySelector( '#yourname' ),
-        input2 = document.getElementById('printScore'),
-        json = { yourname: input.value,
-                score: input2.innerText,
-                rank: "" },
-        body = JSON.stringify( json )
-
-    fetch( '/submit', {
-        method:'POST',
-        body
-    })
-        .then( function( response ) {
-            // do something with the response
-            return response.json()
-        })
-        /*.then( function( json) {
-          // options for loops
-           if( Array.isArray(json)){
-             //json.map( car => car.model)
-             //json.map( model => model[0].toUpperCase() + model.slice(1))
-             //json.forEach(console.log)
-
-             for( let car of json){
-               const model = car.model
-               const upperModel = model[0].toUpperCase() + model.slice(1)
-               console.log( upperModel)
-             }
-
-             //for(let i =0; j < json.length; i++){
-              // const car = json [i]
-               //const model = car.model
-               //const upperModel = model[0].toUpperCase() + model.slice(1)
-               //console.log( upperModel)
-
-           }
-        })*/
-        .then( function( json ) {
-            /*const element = document.createElement('p');
-            element.innerText = json.yourname;
-            document.body.appendChild(element);*/
-            insertData(json);
-        })
-
-    return false
+    //submitBtn.onclick = submit;
+    handleInput();
 }
-function insertData(json){
-    // creating table row elements
-    let tableRow = document.createElement('tr');
-    let td1 = document.createElement('td');
-    let td2 = document.createElement('td');
-    let td3 = document.createElement('td');
-    let td4 = document.createElement('td');
-    let td5 = document.createElement('td');
 
-    let pencil = document.createElement('i');
-    pencil.id = `pencil${rowNum}`;
-    pencil.innerHTML = "&#x270F";
-    /*pencil.onclick = function (elt) {
-            editPencil(pencil, row);
-            elt.preventDefault();
-            return false;
-        };*/
-    let cross = document.createElement('i');
-    cross.id = `cross${rowNum}`;
-    cross.innerHTML = "&#x274C";
-    /*cross.onclick = function (elt) {
-            let body = cross.id;
-            fetch('/delete', {
-                method: 'POST',
-                body
-            }).then(function (response) {
-                console.log("Delete post sent to server: " + response);
-                updatePage();
-                //count--;
-            });
-            elt.preventDefault();
-            return false;
-        };*/
+let count = 3;
 
-    //Adding values to table row
-    td1.innerText = json.yourname;
-    td2.innerText = json.score;
-    td3.innerText = json.rank;
-    td4.appendChild(pencil);
-    td5.appendChild(cross);
+let appdata;
+const createNode = function (elt) {
+    return document.createElement(elt);
+};
 
-    tableRow.appendChild(td1);
-    tableRow.appendChild(td2);
-    tableRow.appendChild(td3);
-    tableRow.appendChild(td4);
-    tableRow.appendChild(td5);
+const makeTableHead = function () {
+    let th1 = createNode('th');
+    let th2 = createNode('th');
+    let th3 = createNode('th');
+    let th4 = createNode('th');
+    let th5 = createNode('th');
+    th1.innerHTML = 'Name';
+    th2.innerHTML = 'Score';
+    th3.innerHTML = 'Rank';
+    th4.innerHTML = "Edit";
+    th5.innerHTML = "Delete";
+    let tableRow = createNode('tr');
+    tableRow.appendChild(th1);
+    tableRow.appendChild(th2);
+    tableRow.appendChild(th3);
+    tableRow.appendChild(th4);
+    tableRow.appendChild(th5);
     dataTable.appendChild(tableRow);
-    tableRow.className = `class${rowNum}`;
-    rowNum++;
-}
+};
 
-/*function popTable() {
-
-    for(let json of existingTable){
-        insertData(json);
-    }
+//Edit Function
+/*const editPencil = function (pencil, row) {
+    modifyIndex = pencil.id[6];
+    rightHeader.innerHTML = "Modify Information";
+    submitBtn.innerHTML = "Update";
+    document.getElementById('yourname').value = row.name;
 }*/
 
-window.onload = function() {
-    //popTable();
-    let submitBtn = document.getElementById( 'submitBtn' );
-    submitBtn.onclick = submit;
-}
+
+//Updates page.
+const updatePage = function () {
+    fetch('/updatePage', {
+        method: 'GET'
+    }).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        appdata = json;
+        dataTable.innerHTML = "";
+        makeTableHead();
+        let rowNum = 1;
+        appdata.map(function (row) {
+            let tableRow = createNode('tr');
+            let td1 = createNode('td');
+            let td2 = createNode('td');
+            let td3 = createNode('td');
+            let td4 = createNode('td');
+            let td5 = createNode('td');
+
+            let pencil = createNode('i');
+            pencil.id = `pencil${rowNum}`;
+            pencil.innerHTML = "&#x270F";
+            /*pencil.onclick = function (elt) {
+                editPencil(pencil, row);
+                elt.preventDefault();
+                return false;
+            };*/
+            let cross = createNode('i');
+            cross.id = `cross${rowNum}`;
+            cross.innerHTML = "&#x274C";
+            /*cross.onclick = function (elt) {
+                let body = cross.id;
+                fetch('/delete', {
+                    method: 'POST',
+                    body
+                }).then(function (response) {
+                    console.log("Delete post sent to server: " + response);
+                    updatePage();
+                    //count--;
+                });
+                elt.preventDefault();
+                return false;
+            };*/
+
+            td1.innerHTML = row.name;
+            td2.innerHTML = row.score;
+            td3.innerHTML = row.rank;
+            td4.appendChild(pencil);
+            td5.appendChild(cross);
+
+            tableRow.appendChild(td1);
+            tableRow.appendChild(td2);
+            tableRow.appendChild(td3);
+            tableRow.appendChild(td4);
+            tableRow.appendChild(td5);
+            tableRow.appendChild(td6);
+            dataTable.appendChild(tableRow);
+            tableRow.className = rowNum;
+            rowNum++;
+        });
+    });
+    console.log("Count = "+count);
+    fetch('/updatePage', {
+        method: 'GET'
+    }).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        appdata = json;
+        console.log("APPDATA ON UPDATE = " + appdata.length);
+        console.log("APPDATA VALUE\n" + JSON.stringify(appdata));
+        count = appdata.length;
+        console.log("COUNT ON UPDATE = " + count);
+    });
+};
+updatePage();
+
+let inputSelect;
+let modifyIndex = 0;
+//Makes page body.
+const makePageBody = function () {
+    const name = document.getElementById('yourname');
+    const score = document.getElementById('printScore');
+    const json = {
+        name: name.value,
+        score: parseInt(score.value),
+        rank: 0,
+        modifyIndex
+    };
+    return JSON.stringify(json);
+};
+
+//Makes post and sends to server.
+const makePost = function () {
+    let body = makePageBody();
+    let jsonBody = JSON.parse(body);
+    let warning = document.getElementById('warning');
+
+    if (jsonBody['score'] === 0
+        || jsonBody['name'] === "your name here") {
+        warning.innerHTML = "Please change name and score points";
+    } else {
+        warning.innerHTML = "";
+        fetch(`/${inputSelect}`, {
+            method: 'POST',
+            body
+        }).then(function (response) {
+            console.log("Post from makePost sent to server: " + response);
+            updatePage();
+        });
+    }
+};
+//Handles input once button is pressed.
+const handleInput = function (elt) {
+    if (submitBtn.innerHTML === "submit") {
+        inputSelect = 'add';
+        makePost();
+        //count++;
+    } else {
+        inputSelect = 'modify';
+        makePost();
+        //rightHeader.innerHTML = "Add New Information";
+        submitBtn.innerHTML = "Submit";
+
+        //document.getElementById('yourname').value = "";
+    }
+    elt.preventDefault();
+    return false;
+};
+
+
 //////////////////////////////////////////
 
 let myGamePiece;

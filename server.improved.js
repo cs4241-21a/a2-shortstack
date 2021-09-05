@@ -4,16 +4,16 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
+/*const appdata = [
   { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+]*/
 
-const newAppData = [
-  {'yourname': 'Greg', 'score': 7500, 'rank': 1},
-  {'yourname': 'Mark', 'score': 6879, 'rank': 2},
-  {'yourname': 'Liam', 'score': 5900, 'rank': 3}
+const appData = [
+  {'name': 'Greg', 'score': 7500, 'rank': 1},
+  {'name': 'Mark', 'score': 6879, 'rank': 2},
+  {'name': 'Liam', 'score': 5900, 'rank': 3}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -45,7 +45,6 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
     const json = JSON.parse(dataString)
     // ... do something with the data here!!!
-
     //json.rank = calcRank(json.score);
     // add data to a table here
 
