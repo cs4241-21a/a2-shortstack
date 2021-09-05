@@ -1,9 +1,12 @@
-/*Style your own assignment! This is fun! */
+/* ---------- Element Selectors ---------- */
+
+h1, h2 {
+    font-family: 'Hina Mincho', serif;
+}
 
 th {
-    border: 1px solid black;
-    padding: 20px;
-    width: 12.5%;
+    border: 5px double black;
+    padding: 15px;
 }
 
 td {
@@ -14,42 +17,103 @@ td {
 table {
     table-layout: fixed;
     width: 100%;
-}
-
-input[type='number'] {
-    width: 35px;
+    margin-bottom: 40px;
 }
 
 body {
     margin: 0 auto;
+    font-family: 'Hina Mincho', serif;
+    font-size: 25px;
+    background-color: #ede7dd;
+}
+
+h1 {
+    font-size:100px;
 }
 
 h2 {
     text-align: center;
-}
-
-.site-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    width: auto;
-    background-color: rgb(99, 99, 99);
-    color: white;
-}
-
-#Submit-Button {
-    font-size: 16px;
-    background-color: lightcoral;
+    font-size: 50px;
 }
 
 div {
     margin: 5px;
 }
+
+button {
+    font-family: 'Hina Mincho', serif;
+    border: 1px solid black;
+    font-size: 20px;
+}
+
+
+/* ---------- Class Selectors ----------*/
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../images/palmtrees.jpg');
+    background-size: cover;
+    background-position: top;
+    height: 50vh;
+    width: 100%;
+    color: white;
+}
+
+.title-field {
+    width: 210px;
+}
+
+.number-button-field {
+    width: 80px;
+}
+/* Below is my flex-box layout */
+
 .flex-container {
     display: flex;
+    background-image: url("../images/cancun.jpg");
+    background-size: auto;
+    border: 10px double black;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    color: white;
+    margin: auto;
+    width: 1375px;
+    height: 538px;
 }
+
+.delete-button {
+    background-color: red;
+    color: black;
+}
+
+.edit-button {
+    background-color: orange;
+    color: black;
+}
+
+/* ---------- ID Selectors ---------- */
+
+#Submit-Button {
+    font-size: 25px;
+    background-color: lightgreen;
+}
+
+/* ---------- Attribute Selectors ---------- */
+
+input[type='number'] {
+    font-family: 'Hina Mincho', serif;
+    width: 50px;
+    font-size: 25px;
+}
+
+input[type='text'] {
+    font-family: 'Hina Mincho', serif;
+    text-align: center;
+    font-size: 25px;
+}
+
+
+

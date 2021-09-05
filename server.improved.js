@@ -13,7 +13,7 @@ const appdata = [
     'cleanliness': 9,
     'service': 8,
     'amenity': 7,
-    'overallexperience': 8
+    'overallexperience': 8,
   },
   {
     'hotel': 'Roadside Inn',
@@ -21,7 +21,7 @@ const appdata = [
     'cleanliness': 5,
     'service': 5,
     'amenity': 5,
-    'overallexperience': 5
+    'overallexperience': 5,
   },
 ];
 
@@ -77,12 +77,12 @@ const handlePost = function (request, response) {
             json.amenity
           );
           appdata.push({
-            'hotel': json.hotel,
-            'location': json.location,
-            'cleanliness': json.cleanliness,
-            'service': json.service,
-            'amenity': json.amenity,
-            'overallexperience': overallScore,
+            hotel: json.hotel,
+            location: json.location,
+            cleanliness: json.cleanliness,
+            service: json.service,
+            amenity: json.amenity,
+            overallexperience: overallScore,
           });
           response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
           response.end(JSON.stringify(appdata));
@@ -96,10 +96,12 @@ const handlePost = function (request, response) {
             json.service,
             json.amenity
           );
-          json['overallexperience'] = overallScore
+          json['overallexperience'] = overallScore;
           let index = -1;
-          for(let i = 0; i < appdata.length; i++) {
-            if(JSON.stringify(appdata[i]) === JSON.stringify(json)) {index = i}
+          for (let i = 0; i < appdata.length; i++) {
+            if (JSON.stringify(appdata[i]) === JSON.stringify(json)) {
+              index = i;
+            }
           }
           appdata.splice(index, 1);
           response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
@@ -110,7 +112,6 @@ const handlePost = function (request, response) {
       case '/edit':
         {
           const json = JSON.parse(dataString);
-          
           const overallScoreForOriginal = getOverallScore(
             json[0].cleanliness,
             json[0].service,
@@ -121,24 +122,28 @@ const handlePost = function (request, response) {
             json[1].service,
             json[1].amenity
           );
-          json[0]['overallexperience'] = overallScoreForOriginal
+          json[0]['overallexperience'] = overallScoreForOriginal;
           let index = -1;
-          for(let i = 0; i < appdata.length; i++) {
-            if(JSON.stringify(appdata[i]) === JSON.stringify(json[0])) {index = i}
+          for (let i = 0; i < appdata.length; i++) {
+            if (JSON.stringify(appdata[i]) === JSON.stringify(json[0])) {
+              index = i;
+            }
           }
-          appdata.splice(index, 1, 
-          {
-          'hotel': json[1].hotel,
-          'location': json[1].location,
-          'cleanliness': json[1].cleanliness,
-          'service': json[1].service,
-          'amenity': json[1].amenity,
-          'overallexperience': overallScore
+          appdata.splice(index, 1, {
+            hotel: json[1].hotel,
+            location: json[1].location,
+            cleanliness: json[1].cleanliness,
+            service: json[1].service,
+            amenity: json[1].amenity,
+            overallexperience: overallScore,
           });
           response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
           response.end(JSON.stringify(appdata));
         }
-        break
+        break;
+
+      default:
+        console.log('Hit default case in post switch statement');
     }
   });
 };
