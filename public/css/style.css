@@ -1,1 +1,10 @@
 /*Style your own assignment! This is fun! */
+.root {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+#sentence-root{
+  display: none;
+}
