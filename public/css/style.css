@@ -72,7 +72,7 @@ button {
 
 .flex-container {
     display: flex;
-    background-image: url("../images/cancun.jpg");
+    background-image: url('../images/cancun.jpg');
     background-size: auto;
     border: 10px double black;
     flex-direction: column;
