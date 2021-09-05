@@ -67,7 +67,7 @@ const update = function( e ){
   let calUpdate = document.getElementById( 'cal2' );
   let servUpdate = document.getElementById( 'numserv2' );
 
-  if(servUpdate.value < 0){
+  if(calUpdate < 0 || servUpdate.value < 0){
     alert("Invalid input: Negative value");
   }
   else{
@@ -86,6 +86,7 @@ const update = function( e ){
       let table = document.getElementById("foodtable");
       for(let i = 0; i < table.rows.length; i++){
         if(table.rows[i].cells[0].innerHTML === name){
+          table.rows[i].cells[1].innerHTML = entry[0].cal;
           table.rows[i].cells[2].innerHTML = entry[0].numserv;
           table.rows[i].cells[3].innerHTML = entry[0].tcal;
           break;

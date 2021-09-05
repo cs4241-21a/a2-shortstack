@@ -14,10 +14,10 @@ h2 span{
 table, th, td{
     border:1.5px solid #1B4F72;
 }
-button{
+#add, #update{
     margin: 5px;
 }
-#fname2, #cal2 {
+#fname2 {
     background-color:#CCD1D1 ;
 }
 .header{

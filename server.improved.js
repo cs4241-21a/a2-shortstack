@@ -60,6 +60,7 @@ else if(request.url === '/update'){
       console.log(entry);
       for(let i = 0; i < appdata.length; i++){
         if (appdata[i].fname === entry.fname){
+          appdata[i].cal = entry.cal;
           appdata[i].numserv = entry.numserv;
           appdata[i].tcal = entry.tcal;
           break;
