@@ -15,7 +15,7 @@ label {
   }
 
   html, body { 
-    font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+    font-family: "Roboto", 'Times New Roman', Times, serif;
     margin: 0;
     height: 100%;
   }
@@ -37,7 +37,7 @@ label {
   }
 
   input {
-    font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+    font-family: "Roboto", 'Times New Roman', Times, serif;
   }
 
 
@@ -149,7 +149,7 @@ label {
 }
 
 .popup .update_btn { 
-  font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+  font-family: "Roboto", 'Times New Roman', Times, serif;
   margin-top: 10px;
   color: #04AA6D;
   font-size: 25px;
@@ -159,7 +159,7 @@ label {
 }
 
 .popup .delete_btn { 
-  font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+  font-family: "Roboto", 'Times New Roman', Times, serif;
   margin-top: 10px;
   color: #aa0404;
   font-size: 25px;
@@ -199,7 +199,7 @@ label {
 }
 
 .submit_btn{
-  font-family: "Roboto Condensed", 'Times New Roman', Times, serif;
+  font-family: "Roboto", 'Times New Roman', Times, serif;
   margin-top: 10px;
   color: #04AA6D;
   font-size: 25px;
