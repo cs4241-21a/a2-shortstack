@@ -7,9 +7,7 @@ let rowNum = 1;
 window.onload = function() {
     makeTableHead();
     updatePage();
-
-    //submitBtn.onclick = submit;
-    handleInput();
+    submitBtn.onclick(makePost());
 }
 
 let count = 3;
@@ -37,7 +35,7 @@ const makeTableHead = function () {
     tableRow.appendChild(th4);
     tableRow.appendChild(th5);
     dataTable.appendChild(tableRow);
-};
+}; // working
 
 //Edit Function
 /*const editPencil = function (pencil, row) {
@@ -103,7 +101,6 @@ const updatePage = function () {
             tableRow.appendChild(td3);
             tableRow.appendChild(td4);
             tableRow.appendChild(td5);
-            tableRow.appendChild(td6);
             dataTable.appendChild(tableRow);
             tableRow.className = rowNum;
             rowNum++;
@@ -132,7 +129,7 @@ const makePageBody = function () {
     const score = document.getElementById('printScore');
     const json = {
         name: name.value,
-        score: parseInt(score.value),
+        score: score.value,
         rank: 0,
         modifyIndex
     };
@@ -143,40 +140,21 @@ const makePageBody = function () {
 const makePost = function () {
     let body = makePageBody();
     let jsonBody = JSON.parse(body);
-    let warning = document.getElementById('warning');
+    /*/let warning = document.getElementById('warning');
 
     if (jsonBody['score'] === 0
         || jsonBody['name'] === "your name here") {
-        warning.innerHTML = "Please change name and score points";
+        //warning.innerHTML = "Please change name and score points";
     } else {
-        warning.innerHTML = "";
-        fetch(`/${inputSelect}`, {
-            method: 'POST',
-            body
-        }).then(function (response) {
-            console.log("Post from makePost sent to server: " + response);
-            updatePage();
-        });
-    }
+        //warning.innerHTML = "";*/
+    fetch("/submit", {
+        method: 'POST',
+        body
+    }).then(function (response) {
+        console.log("Post from makePost sent to server: " + response);
+        updatePage();
+    });
 };
-//Handles input once button is pressed.
-const handleInput = function (elt) {
-    if (submitBtn.innerHTML === "submit") {
-        inputSelect = 'add';
-        makePost();
-        //count++;
-    } else {
-        inputSelect = 'modify';
-        makePost();
-        //rightHeader.innerHTML = "Add New Information";
-        submitBtn.innerHTML = "Submit";
-
-        //document.getElementById('yourname').value = "";
-    }
-    elt.preventDefault();
-    return false;
-};
-
 
 //////////////////////////////////////////
 
