@@ -5,9 +5,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {'yourname': 'Greg', 'score': 7500, 'rank': 1},
-  {'yourname': 'Mark', 'score': 6879, 'rank': 2},
-  {'yourname': 'Liam', 'score': 5900, 'rank': 3}
+  {'yourname': 'Greg', 'score': 750, 'rank': 1},
+  {'yourname': 'Mark', 'score': 687, 'rank': 2},
+  {'yourname': 'Liam', 'score': 590, 'rank': 3}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -66,9 +66,10 @@ function addRowToTable(dataString) {
   let jsonApp = JSON.parse(dataString);
   console.log("jsonApp:\n" + JSON.stringify(jsonApp))
 
-  jsonApp['rank'] = calcRank(jsonApp);
+  jsonApp['rank'] = 0;
   console.log("jsonApp:\n" + JSON.stringify(jsonApp))
   appdata.push(jsonApp);
+  updateRank();
 }
 
 function deleteRowFromTable(dataString) {
@@ -93,17 +94,40 @@ function modifyRowFromTable(dataString) {
   }
 }
 
-function calcRank(score){
-  let rank = 0;
-  // look at all scores and find what rank it is
 
-  updateRank(rank);
-  return rank;
-} // Unfinished
-
-function updateRank(rank){
+function updateRank(){
   // for each rank of value rank or lower add 1 to number
-} // Unfinished
+  let newRank = appdata.length;
+  if(Array.isArray(appdata)){
+    for( let user of appdata){
+      const rank = user.rank
+      if (rank === 0){
+        //Calculate rank value
+        let tempRank = Infinity;
+        for(let otherUser of appdata){
+          if((parseInt(user.score) >= parseInt(otherUser.score)) && (tempRank > otherUser.rank) && (otherUser.rank !== 0)){
+            tempRank = otherUser.rank;
+            otherUser.rank = -1;
+          }
+        }
+        if (tempRank != Infinity){
+          newRank = tempRank;
+        }
+        console.log(newRank);
+        user.rank = newRank;
+      }
+    }
+
+    for (let user of appdata){
+      if (user.rank === -1){
+        user.rank = newRank + 1;
+      } else if (user.rank > newRank){
+        console.log("hello");
+        user.rank = user.rank + 1;
+      }
+    }
+  }
+}
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
