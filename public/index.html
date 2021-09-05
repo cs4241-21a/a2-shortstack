@@ -1,18 +1,38 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
   </head>
+
   <body>
+    
     <form action="">
+
       <input type='text' id='yourname' value="your name here">
+
+      <label for="foodname">Name:</label><br>
+      <input type="text" id="foodname" value="">
+
+      <label for="foodcategory">Category:</label><br>
+      <input type="text" id="foodcategory" value="">
+
+      <label for="foodquantity">Quantity:</label><br>
+      <input type="text" id="foodquantity" value="">
+
+      <label for="expirationdate">Expiration Date (mm/dd/yyyy):</label><br>
+      <input type="text" id="expirationdate" value="">
+
       <button>submit</button>
+
     </form>
+    
   </body>
+
   <script>
 
-  const submit = function( event ) {
+  const submitAddFood = function( event ) {
     // prevent default form action from being carried out
     event.preventDefault()
 
@@ -20,7 +40,7 @@
           json = { yourname: input.value },
           body = JSON.stringify( json )
 
-    fetch( '/submit', {
+    fetch( '/submitAddFood', {
       method:'POST',
       body 
     })
@@ -32,9 +52,20 @@
     return false
   }
 
+  const submitRemoveFood = function( event ) {
+    event.preventDefault()
+
+
+  }
+
   window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+    
+    const addFoodButton = document.querySelector( 'button' )
+    addFoodButton.onclick = submitAddFood
+
+    const removeFoodButton = document.querySelector( 'button')
+    removeFoodButton.onclick = submitRemoveFood
+
   }
 
   </script>
