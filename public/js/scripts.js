@@ -32,27 +32,6 @@ const submit = function( e ) {
             // do something with the response
             console.log("Post made to server");
         })
-        /*.then( function( json) {
-          // options for loops
-           if( Array.isArray(json)){
-             //json.map( car => car.model)
-             //json.map( model => model[0].toUpperCase() + model.slice(1))
-             //json.forEach(console.log)
-
-             for( let car of json){
-               const model = car.model
-               const upperModel = model[0].toUpperCase() + model.slice(1)
-               console.log( upperModel)
-             }
-
-             //for(let i =0; j < json.length; i++){
-              // const car = json [i]
-               //const model = car.model
-               //const upperModel = model[0].toUpperCase() + model.slice(1)
-               //console.log( upperModel)
-
-           }
-        })*/
         .then( function( json ) {
             console.log(json);
             updatePage();
@@ -77,7 +56,7 @@ const makeTableHead = function () {
     th2.innerHTML = 'Score';
     th3.innerHTML = 'Rank';
     th4.innerHTML = "Edit";
-    th5.innerHTML = "Delete";
+    th5.innerHTML = "Report";
     let tableRow = createNode('tr');
     tableRow.appendChild(th1);
     tableRow.appendChild(th2);
@@ -155,6 +134,8 @@ const updatePage = function () {
             tableRow.className = rowNum;
             rowNum++;
         });
+        sortTable();
+        myGameArea.clear();
     });
     console.log("Count = "+count);
     fetch('/updatePage', {
@@ -306,4 +287,41 @@ function everyinterval(n) {
 
 function accelerate(n) {
     myGamePiece.gravity = n;
+}
+
+//////////////////////////////////////////////
+
+function sortTable() {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("Leaderboard");
+    switching = true;
+    /*Make a loop that will continue until
+    no switching has been done:*/
+    while (switching) {
+        //start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /*Loop through all table rows (except the
+        first, which contains table headers):*/
+        for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /*Get the two elements you want to compare,
+            one from current row and one from the next:*/
+            x = rows[i].getElementsByTagName("TD")[2];
+            y = rows[i + 1].getElementsByTagName("TD")[2];
+            //check if the two rows should switch place:
+            if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            /*If a switch has been marked, make the switch
+            and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
 }

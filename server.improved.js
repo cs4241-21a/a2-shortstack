@@ -98,33 +98,33 @@ function modifyRowFromTable(dataString) {
 function updateRank(){
   // for each rank of value rank or lower add 1 to number
   let newRank = appdata.length;
-  if(Array.isArray(appdata)){
-    for( let user of appdata){
-      const rank = user.rank
-      if (rank === 0){
-        //Calculate rank value
-        let tempRank = Infinity;
-        for(let otherUser of appdata){
-          if((parseInt(user.score) >= parseInt(otherUser.score)) && (tempRank > otherUser.rank) && (otherUser.rank !== 0)){
-            tempRank = otherUser.rank;
-            otherUser.rank = -1;
-          }
+  for(let user of appdata){
+    let rank = user.rank
+    if (rank === 0){
+      //Calculate rank value
+      let tempRank = Infinity;
+      for(let otherUser of appdata){
+        if((parseInt(user.score) >= parseInt(otherUser.score)) && (tempRank > otherUser.rank) && (otherUser.rank !== 0)){
+          tempRank = otherUser.rank;
         }
-        if (tempRank != Infinity){
-          newRank = tempRank;
-        }
-        console.log(newRank);
-        user.rank = newRank;
       }
+      for(let otherUser of appdata){
+        if(otherUser.rank === tempRank){
+          otherUser.rank = -1;
+        }
+      }
+      if (tempRank != Infinity){
+        newRank = tempRank;
+      }
+      user.rank = newRank;
     }
+  }
 
-    for (let user of appdata){
-      if (user.rank === -1){
-        user.rank = newRank + 1;
-      } else if (user.rank > newRank){
-        console.log("hello");
-        user.rank = user.rank + 1;
-      }
+  for (let user of appdata){
+    if (user.rank === -1){
+      user.rank = newRank + 1;
+    } else if (user.rank > newRank){
+      user.rank++;
     }
   }
 }
