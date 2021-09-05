@@ -3,12 +3,29 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <script type='text/javascript' src='scripts.js'></script>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
+    <nav>
+      
+    </nav>
+    <form action="/submit-player-score" method="post">
+      <ul>
+        <li>
+          <label for="player-name">Name:</label>
+          <input type='text' id='player-name' name="your name here">
+        </li>
+        <li>
+          <label for="player-score">Score (test input):</label>
+          <input type='text' id='player-score' name="your name here">
+        </li>
+      </ul>
+      
       <button>submit</button>
     </form>
+    <table id="game-leaderboard">
+
+    </table>
   </body>
   <script>
 
@@ -22,7 +39,8 @@
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      body //shortened version of "body": body 
+      //If there is only one word, it is taken in as the key and value
     })
     .then( function( response ) {
       //do something with the reponse 
@@ -39,3 +57,4 @@
 
   </script>
 </html>
+

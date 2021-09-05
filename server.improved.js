@@ -7,21 +7,39 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name': 'oops', 'score': 1999, 'rank': 2},
+  { 'name': 'honda', 'score': 2004, 'rank': 1 },
+  { 'name': 'ford', 'score': 1987, 'rank': 3} 
 ]
+
+//get/post request that lets me get app data
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
+    if(request.url === "/submit-player-score"){
+      addData(appdata);
+    } else if(request.url === "/delete-player-score"){
+      
+    }
+    //if it's add, do add
+    //if it's delete, do delete
     handlePost( request, response ) 
   }
 })
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
+
+  //Sort the array depending on player rank
+  appdata.sort((a,b) => a.rank - b.rank);
+
+  if(appdata.isArray(json)){
+    json
+      .map()
+      .forEach()
+  }
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
@@ -42,8 +60,13 @@ const handlePost = function( request, response ) {
 
     // ... do something with the data here!!!
 
+    
+    
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    //if we submit a request that requires us to get the data
+      //response.end(appdata)
+    response.end(appdata)
   })
 }
 
@@ -70,3 +93,5 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+
+
