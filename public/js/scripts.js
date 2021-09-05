@@ -4,7 +4,6 @@ const gameCanvas = document.getElementById('gameCanvas');
 let rowNum = 1;
 
 const submit = function( e ) {
-    // prevent default form action from being carried out
     e.preventDefault()
 
     const input = document.querySelector( '#yourname' ),
@@ -20,7 +19,7 @@ const submit = function( e ) {
     })
         .then( function( response ) {
             // do something with the response
-            return response.json()
+            console.log("Post made to server");
         })
         /*.then( function( json) {
           // options for loops
@@ -44,9 +43,7 @@ const submit = function( e ) {
            }
         })*/
         .then( function( json ) {
-            /*const element = document.createElement('p');
-            element.innerText = json.yourname;
-            document.body.appendChild(element);*/
+            console.log(json);
             insertData(json);
         })
 
@@ -103,15 +100,24 @@ function insertData(json){
     rowNum++;
 }
 
-/*function popTable() {
+function popTable() {
 
     for(let json of existingTable){
         insertData(json);
     }
-}*/
+}//unfinished
 
+function getData(){
+    fetch('/appData', {
+        method: 'GET'
+    })
+        .then(res => {return res.json()})
+        .then(data => console.log(data) )
+}
+
+///////////////////////////
 window.onload = function() {
-    //popTable();
+    getData();
     let submitBtn = document.getElementById( 'submitBtn' );
     submitBtn.onclick = submit;
 }
