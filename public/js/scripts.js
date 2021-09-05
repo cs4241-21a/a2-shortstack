@@ -8,7 +8,10 @@ const submit = function( e ) {
     e.preventDefault()
 
     const input = document.querySelector( '#yourname' ),
-        json = { yourname: input.value },
+        input2 = document.getElementById('printScore'),
+        json = { yourname: input.value,
+                score: input2.innerText,
+                rank: "" },
         body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -44,59 +47,71 @@ const submit = function( e ) {
             /*const element = document.createElement('p');
             element.innerText = json.yourname;
             document.body.appendChild(element);*/
-
-            let tableRow = document.createElement('tr');
-            let td1 = document.createElement('td');
-            let td2 = document.createElement('td');
-            let td3 = document.createElement('td');
-            let td4 = document.createElement('td');
-            let td5 = document.createElement('td');
-
-            let pencil = document.createElement('i');
-            pencil.id = `pencil${rowNum}`;
-            pencil.innerHTML = "&#x270F";
-            /*pencil.onclick = function (elt) {
-                    editPencil(pencil, row);
-                    elt.preventDefault();
-                    return false;
-                };*/
-            let cross = document.createElement('i');
-            cross.id = `cross${rowNum}`;
-            cross.innerHTML = "&#x274C";
-            /*cross.onclick = function (elt) {
-                    let body = cross.id;
-                    fetch('/delete', {
-                        method: 'POST',
-                        body
-                    }).then(function (response) {
-                        console.log("Delete post sent to server: " + response);
-                        updatePage();
-                        //count--;
-                    });
-                    elt.preventDefault();
-                    return false;
-                };*/
-
-            td1.innerText = json.yourname;
-            td2.innerText = "1000";
-            td3.innerText = "1";
-            td4.appendChild(pencil);
-            td5.appendChild(cross);
-
-            tableRow.appendChild(td1);
-            tableRow.appendChild(td2);
-            tableRow.appendChild(td3);
-            tableRow.appendChild(td4);
-            tableRow.appendChild(td5);
-            dataTable.appendChild(tableRow);
-            tableRow.className = `class${rowNum}`;
-            rowNum++;
+            insertData(json);
         })
 
     return false
 }
+function insertData(json){
+    // creating table row elements
+    let tableRow = document.createElement('tr');
+    let td1 = document.createElement('td');
+    let td2 = document.createElement('td');
+    let td3 = document.createElement('td');
+    let td4 = document.createElement('td');
+    let td5 = document.createElement('td');
+
+    let pencil = document.createElement('i');
+    pencil.id = `pencil${rowNum}`;
+    pencil.innerHTML = "&#x270F";
+    /*pencil.onclick = function (elt) {
+            editPencil(pencil, row);
+            elt.preventDefault();
+            return false;
+        };*/
+    let cross = document.createElement('i');
+    cross.id = `cross${rowNum}`;
+    cross.innerHTML = "&#x274C";
+    /*cross.onclick = function (elt) {
+            let body = cross.id;
+            fetch('/delete', {
+                method: 'POST',
+                body
+            }).then(function (response) {
+                console.log("Delete post sent to server: " + response);
+                updatePage();
+                //count--;
+            });
+            elt.preventDefault();
+            return false;
+        };*/
+
+    //Adding values to table row
+    td1.innerText = json.yourname;
+    td2.innerText = json.score;
+    td3.innerText = json.rank;
+    td4.appendChild(pencil);
+    td5.appendChild(cross);
+
+    tableRow.appendChild(td1);
+    tableRow.appendChild(td2);
+    tableRow.appendChild(td3);
+    tableRow.appendChild(td4);
+    tableRow.appendChild(td5);
+    dataTable.appendChild(tableRow);
+    tableRow.className = `class${rowNum}`;
+    rowNum++;
+}
+
+/*function popTable() {
+
+    for(let json of existingTable){
+        insertData(json);
+    }
+}*/
 
 window.onload = function() {
+    //popTable();
     let submitBtn = document.getElementById( 'submitBtn' );
     submitBtn.onclick = submit;
 }
@@ -109,7 +124,7 @@ let myScore;
 function startGame() {
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.05;
-    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+    myScore = document.getElementById('printScore');
     myGameArea.start();
 }
 
@@ -141,14 +156,8 @@ function component(width, height, color, x, y, type) {
     this.gravitySpeed = 0;
     this.update = function() {
         let ctx = myGameArea.context;
-        if (this.type == "text") {
-            ctx.font = this.width + " " + this.height;
-            ctx.fillStyle = color;
-            ctx.fillText(this.text, this.x, this.y);
-        } else {
-            ctx.fillStyle = color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-        }
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
     this.newPos = function() {
         this.gravitySpeed += this.gravity;
@@ -212,15 +221,16 @@ function updateGameArea() {
         myObstacles[i].x += -1;
         myObstacles[i].update();
     }
-    myScore.text="SCORE: " + myGameArea.frameNo;
-    myScore.update();
+    //myScore.text="SCORE: " + myGameArea.frameNo;
+    myScore.innerText = myGameArea.frameNo;
+    //myScore.update();
     myGamePiece.newPos();
     myGamePiece.update();
 }
 
 function everyinterval(n) {
-    if ((myGameArea.frameNo / n) % 1 === 0) {return true;}
-    return false;
+    return (myGameArea.frameNo / n) % 1 === 0;
+
 }
 
 function accelerate(n) {

@@ -1,7 +1,5 @@
 const http = require( 'http' ),
       fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
       mime = require( 'mime' ),
       dir  = 'public/',
       port = 3000
@@ -10,6 +8,12 @@ const appdata = [
   { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+]
+
+const newAppData = [
+  {'yourname': 'Greg', 'score': 7500, 'rank': 1},
+  {'yourname': 'Mark', 'score': 6879, 'rank': 2},
+  {'yourname': 'Liam', 'score': 5900, 'rank': 3}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -40,14 +44,27 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
     const json = JSON.parse(dataString)
-    json.yourname += 'zzzzzz'
-    console.log(json.yourname)
     // ... do something with the data here!!!
+
+    //json.rank = calcRank(json.score);
+    // add data to a table here
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(json))
   })
 }
+
+/*function calcRank(score){
+  let rank = 0;
+  // look at all scores and find what rank it is
+
+  updateRank(rank);
+  return rank;
+}
+
+function updateRank(rank){
+  // for each rank of value rank or lower add 1 to number
+}*/
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
