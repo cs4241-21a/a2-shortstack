@@ -1,5 +1,5 @@
 # Calorie Tracker
-Jack Ayvazian (jpayvazian)
+Jack Ayvazian (jpayvazian) https://a2-jpayvazian.glitch.me/
 
 This is an application to track your calorie intake as a diary of food items with the amount of calories per serving, and how many servings consumed. The server will derive the total calories for each item based on how many servings were entered. Once an item is added using the submit button, it will display in a table where the item can be deleted or edited. Upon clicking the edit button beside an item, a new form below will be filled in with the current field values, and the number of servings can be changed and the table will update by clicking the "update" button. 
 
