@@ -1,1 +1,88 @@
 /*Style your own assignment! This is fun! */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
+html, body{
+    font-family:"Noto Sans", sans-serif;
+    font-size: 1em;
+    line-height: 1.4;
+    height: 100vh ;
+    padding:0px;
+    margin:0px;
+    background-color: lightblue;
+}
+* {
+    box-sizing: border-box;
+  }
+h1, h2, h3, h4, h5{
+    font-family:"Ubuntu", sans-serif;
+    text-align: center;
+    line-height: 1.2;
+}
+
+h1{
+    font-size:2.5em;
+}
+
+#body-wrapper{
+    margin:auto;
+    padding:16px;
+    max-width: 950px;
+    background-color:aliceblue;
+    height: 100%;
+}
+
+#form-wrapper{
+    padding:8px;
+    margin:auto;
+}
+
+#submit{
+    background-color: green;
+    font-weight: bold;
+    color:white;
+    border-radius: 6px;
+    padding:4px;
+    margin-left:4px;
+}
+
+#flex-wrapper{
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items:space-around;
+    flex-wrap:wrap;
+}
+
+#entries-wrapper{
+    border: 4px solid lightblue;
+    min-width: 450px;
+}
+.entry{
+    background-color: white;
+    padding:6px;
+    margin:4px;
+}
+
+.remove{
+    background-color: darkred;
+    font-weight: bold;
+    color:white;
+    border-radius: 6px;
+    padding:4px;
+    margin-left:4px;
+    float:right;
+}
+
+#pie-wrapper{
+    padding:8px;
+    min-height: 300px;
+    min-width: 300px;
+}
+
+.dot {
+    height:100%;
+    width: 100%;
+    background-color:darkblue;
+    border-radius: 50%;
+    display: inline-block;
+  }

@@ -3,12 +3,49 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div id="body-wrapper">
+      <h1>HORG Logger</h1>
+      <h3>For classifying your <a href="https://www.horg.com/horg/">occlupanid</a> collection.</h3>
+      <div id="form-wrapper">
+        <form action="">
+          <label for="yourname">Add an entry:</label>
+          <input type='text' id='yourname' value="your name here">
+          <label for="cars">Choose a car:</label>
+  
+          <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select> 
+          <button id="submit">add</button>
+        </form>
+      </div>
+      <h2>My current collection:</h2>
+      <div id="flex-wrapper">
+        <div id="entries-wrapper">
+          <div class="entry">
+            <span>hello this is a horg entry guys</span>
+            <button class="remove">x</button>
+          </div>
+          <div class="entry">
+            <span>hello this is a horg entry guys2</span>
+            <button class="remove">x</button>
+          </div>
+          <div class="entry">
+            <span>hello this is a horg entry guys3</span>
+            <button class="remove">x</button>
+          </div>
+        </div>
+        <div id="pie-wrapper">
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
   </body>
   <script>
 
@@ -19,6 +56,12 @@
     const input = document.querySelector( '#yourname' ),
           json = { yourname: input.value },
           body = JSON.stringify( json )
+
+          /*
+    const input2 = document.querySelector( '#cars' ),
+          json = { yourname: input2.value },
+          body = JSON.stringify( json )
+          */
 
     fetch( '/submit', {
       method:'POST',
