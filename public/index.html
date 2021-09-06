@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <h3 id = tableHeading">Contacts</h3>
+    <h3 id = tableHeading>Contacts</h3>
     <table onclick= "selectingRow()" id="allEntries">
       <tr> 
         <th>Name</th>
@@ -30,7 +30,7 @@
         <input type='tel' id='phoneNum' placeholder="012-345-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  required>
 
         <label for='birthday'>Birthday:</label>
-        <input type="date" id="birthday" placeholder = "birthday"> 
+        <input type="date" id="birthday"> 
 
         <label for ="toGift">Gift:</label>
         <input type="checkbox" id="toGift">
@@ -48,7 +48,6 @@
       Gift selected with no birthday will default to the Jan. 1st of the coming year. 
     </p>
   </body>
-
   <script>
     let selectedRowName = ''
 
