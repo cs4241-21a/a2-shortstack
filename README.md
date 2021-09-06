@@ -6,13 +6,13 @@ This is an application to track your calorie intake as a diary of food items wit
 The CSS positioning technique I used was flexbox, where I have a flex-container div wrapping flex-item divs, and this allowed me to display the data table beside the add food form.
 
 ## Technical Achievements
-* Created a single page app which always displays the current server-side data. On server side, console will log current app data state after each action.
-* Added checks for some invalid form inputs such as negative calories/servings, and for duplicate food item names. The reason duplicates are not allowed is because it makes more sense to update the number of calories/servings in that senario. The app will alert the user if they try to submit/update these invalid inputs.
+1. Created a single page app which always displays the current server-side data. On server side, console will log current app data state after each action.
+2. Added checks for some invalid form inputs such as negative calories/servings, and for duplicate food item names. The reason duplicates are not allowed is because it makes more sense to update the number of calories/servings in that senario. The app will alert the user if they try to submit/update these invalid inputs.
 
 ## Design Achievements
-* Kept the food name read-only (with gray background color of the text field to indicate this to the user) when updating an item. This is because if you are changing the food item entirely, it makes more sense to delete and/or add a new item. 
+1. Kept the food name read-only (with gray background color of the text field to indicate this to the user) when updating an item. This is because if you are changing the food item entirely, it makes more sense to delete and/or add a new item. 
 
-* Interface testing:
+2. Interface testing:
     1. Last name of evaluator: Sheehan
     2. The total calories for all the items in the table combined could be displayed
     3. I was surprised that the read-only field was unclear as it had a gray background around it
