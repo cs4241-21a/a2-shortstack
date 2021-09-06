@@ -7,15 +7,16 @@
   </head>
   <body>
     <div class="general gameArea">
-      <form action="">
-        <input type='text' id='yourname' value="your name here">
-        <button id="submitBtn">submit</button>
-      </form>
-      <br>
       <button id="startBtn" onclick="startGame()">Start Game</button>
       <p>Score: <span id="printScore">0</span></p>
       <br>
-      <div id="gameCanvas"></div>
+      <div id="myfilter"></div>
+      <div id="myrestartbutton"><button onclick="restartGame()">Restart</button></div>
+      <div id="canvascontainer"></div>
+      <form action="">
+      <input type='text' id='yourname'  placeholder="your name here">
+      <button id="submitBtn">submit</button>
+    </form>
       <br>
       <button id="accelBtn" onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">ACCELERATE</button>
     </div>

@@ -45,15 +45,14 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    //console.log( JSON.parse( dataString ) )
     const json = JSON.parse(dataString)
     // ... do something with the data here!!!
     if(request.url === '/submit') {
-      addRowToTable(dataString);
+      addRow(dataString);
     } else if (request.url === '/delete'){
-      deleteRowFromTable(dataString);
+      deleteRow(dataString);
     } else if (request.url === '/modify'){
-      modifyRowFromTable(dataString);
+      modifyRow(dataString);
     }
     console.log("appdata:\n" + JSON.stringify(appdata));
     response.writeHead(200,"OK", {'Content-Type': 'text/plain'});
@@ -62,25 +61,32 @@ const handlePost = function( request, response ) {
   })
 }
 
-function addRowToTable(dataString) {
+function addRow(dataString) {
   let jsonApp = JSON.parse(dataString);
   console.log("jsonApp:\n" + JSON.stringify(jsonApp))
 
   jsonApp['rank'] = 0;
   console.log("jsonApp:\n" + JSON.stringify(jsonApp))
+  for(let i = 0;i < appdata.length; i++){
+    let user = appdata[i];
+    if (jsonApp['yourname'] === user.yourname && jsonApp['score'] > user.score){
+      deleteRow(i + 1);
+    } else {
+      // return error message
+      return;
+    }
+  }
   appdata.push(jsonApp);
-  updateRank();
+  calcRank();
 }
 
-function deleteRowFromTable(dataString) {
-  for (let i = 0; i < appdata.length; i++) {
-    let row = appdata[i];
-    console.log("dataString = " + dataString.slice(5));
-    if ((i + 1).toString() === dataString.slice(5)) appdata.splice(i, 1);
-  }
-} // later add user check
+function deleteRow(dataString) {
+  let rankDel = appdata[dataString - 1].rank
+  appdata.splice(dataString - 1, 1);
+  updateRank(rankDel);
+}
 
-function modifyRowFromTable(dataString) {
+function modifyRow(dataString) {
   let jsonApp = JSON.parse(dataString);
   for (let i = 0; i < appdata.length; i++) {
     console.log("i = " + i);
@@ -95,7 +101,7 @@ function modifyRowFromTable(dataString) {
 }
 
 
-function updateRank(){
+function calcRank(){
   // for each rank of value rank or lower add 1 to number
   let newRank = appdata.length;
   for(let user of appdata){
@@ -107,27 +113,25 @@ function updateRank(){
         if((parseInt(user.score) >= parseInt(otherUser.score)) && (tempRank > otherUser.rank) && (otherUser.rank !== 0)){
           tempRank = otherUser.rank;
         }
-      }
-      for(let otherUser of appdata){
-        if(otherUser.rank === tempRank){
-          otherUser.rank = -1;
+        if(otherUser.rank >= tempRank){
+          otherUser.rank++;
         }
       }
-      if (tempRank != Infinity){
+      if (tempRank !== Infinity){
         newRank = tempRank;
       }
       user.rank = newRank;
     }
   }
-
-  for (let user of appdata){
-    if (user.rank === -1){
-      user.rank = newRank + 1;
-    } else if (user.rank > newRank){
-      user.rank++;
+} //calculates and updates ranks when users are added
+function updateRank(rankDel){
+  for(let user of appdata){
+    if (user.rank > rankDel){
+      user.rank--;
     }
   }
-}
+  calcRank();
+} //updates ranks when users are deleted
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
@@ -142,6 +146,7 @@ const sendFile = function( response, filename ) {
        response.end( content )
 
      }else{
+
 
        // file not found, error code 404
        response.writeHeader( 404 )

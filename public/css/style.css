@@ -31,6 +31,17 @@ table, th, td {
     border: 2px solid black;
 }
 
+tr:nth-child(2){
+    background-color: goldenrod;
+}
+tr:nth-child(3){
+    background-color: silver;
+}
+
+tr:nth-child(4){
+    background-color: saddlebrown;
+}
+
 canvas {
     border:1px solid #d3d3d3;
     background-color: #f1f1f1;
@@ -50,4 +61,26 @@ canvas {
     y: 100px;
     background: red;
     position: absolute;
+}
+
+#myfilter{
+    position:absolute;
+    background-color:#000000;
+    opacity:0.3;
+    width:480px;
+    height:270px;
+    display:none
+}
+#myrestartbutton{
+    position:absolute;
+    padding-top:125px;
+    padding-left:100px;
+    width: 75px;
+    display:none;
+}
+#submitBtn{
+    display:none;
+}
+#yourname{
+    display:none;
 }

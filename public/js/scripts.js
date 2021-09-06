@@ -1,5 +1,5 @@
 const dataTable = document.getElementById('Leaderboard');
-const gameCanvas = document.getElementById('gameCanvas');
+const gameCanvas = document.getElementById('canvascontainer');
 let submitBtn = document.getElementById( 'submitBtn' );
 
 window.onload = function() {
@@ -103,9 +103,10 @@ const updatePage = function () {
                 return false;
             };*/
             let cross = createNode('i');
-            cross.id = `cross${rowNum}`;
+            //cross.id = `cross${rowNum}`;
+            cross.id = `${rowNum}`;
             cross.innerHTML = "&#x274C";
-            /*cross.onclick = function (elt) {
+            cross.onclick = function (elt) {
                 let body = cross.id;
                 fetch('/delete', {
                     method: 'POST',
@@ -113,11 +114,10 @@ const updatePage = function () {
                 }).then(function (response) {
                     console.log("Delete post sent to server: " + response);
                     updatePage();
-                    //count--;
                 });
                 elt.preventDefault();
                 return false;
-            };*/
+            };
 
             td1.innerHTML = row.yourname;
             td2.innerHTML = row.score;
@@ -135,7 +135,6 @@ const updatePage = function () {
             rowNum++;
         });
         sortTable();
-        myGameArea.clear();
     });
     console.log("Count = "+count);
     fetch('/updatePage', {
@@ -152,51 +151,56 @@ const updatePage = function () {
 };
 updatePage();
 
-let inputSelect;
-let modifyIndex = 0;
-//Makes page body.
-const makePageBody = function () {
-    const name = document.getElementById('yourname');
-    const score = document.getElementById('printScore');
-    const json = {
-        name: name.value,
-        score: score.value,
-        rank: 0,
-        modifyIndex
-    };
-    return JSON.stringify(json);
-};
-
 //////////////////////////////////////////
-
+let myGameArea;
 let myGamePiece;
 let myObstacles = [];
 let myScore;
 
+function restartGame() {
+    document.getElementById("myfilter").style.display = "none";
+    document.getElementById("myrestartbutton").style.display = "none";
+    document.getElementById("submitBtn").style.display = "none";
+    document.getElementById("yourname").style.display = "none";
+    myGameArea.stop();
+    myGameArea.clear();
+    myGameArea = {};
+    myGamePiece = {};
+    myObstacles = [];
+    myScore.innerText = 0;
+    document.getElementById("canvascontainer").innerHTML = "";
+    startGame()
+}
+
 function startGame() {
+    myGameArea = new gamearea();
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.05;
     myScore = document.getElementById('printScore');
     myGameArea.start();
 }
 
-let myGameArea = {
-    canvas : document.createElement("canvas"),
-    start : function() {
+function gamearea() {
+    this.canvas = document.createElement("canvas"),
+    this.start = function() {
         this.canvas.width = 480;
         this.canvas.height = 270;
         this.context = this.canvas.getContext("2d");
         gameCanvas.appendChild(this.canvas);
+        this.pause = false;
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
     },
-    clear : function() {
+    this.stop = function (){
+        clearInterval(this.interval);
+        this.pause = true;
+    },
+    this.clear = function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
 
-function component(width, height, color, x, y, type) {
-    this.type = type;
+function component(width, height, color, x, y) {
     this.score = 0;
     this.width = width;
     this.height = height;
@@ -251,33 +255,38 @@ function component(width, height, color, x, y, type) {
 
 function updateGameArea() {
     let x, height, gap, minHeight, maxHeight, minGap, maxGap;
-    for (i = 0; i < myObstacles.length; i += 1) {
+    for (let i = 0; i < myObstacles.length; i += 1) {
         if (myGamePiece.crashWith(myObstacles[i])) {
+            myGameArea.stop();
+            document.getElementById("myfilter").style.display = "block";
+            document.getElementById("myrestartbutton").style.display = "block";
+            document.getElementById("yourname").style.display = "block";
+            document.getElementById("submitBtn").style.display = "block";
             return;
         }
     }
-    myGameArea.clear();
-    myGameArea.frameNo += 1;
-    if (myGameArea.frameNo === 1 || everyinterval(150)) {
-        x = myGameArea.canvas.width;
-        minHeight = 20;
-        maxHeight = 200;
-        height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-        minGap = 50;
-        maxGap = 200;
-        gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-        myObstacles.push(new component(10, height, "green", x, 0));
-        myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+    if (myGameArea.pause === false) {
+        myGameArea.clear();
+        myGameArea.frameNo += 1;
+        if (myGameArea.frameNo === 1 || everyinterval(150)) {
+            x = myGameArea.canvas.width;
+            minHeight = 20;
+            maxHeight = 200;
+            height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+            minGap = 50;
+            maxGap = 200;
+            gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+            myObstacles.push(new component(10, height, "green", x, 0));
+            myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+        }
+        for (let i = 0; i < myObstacles.length; i += 1) {
+            myObstacles[i].x += -1;
+            myObstacles[i].update();
+        }
+        myScore.innerText = myGameArea.frameNo;
+        myGamePiece.newPos();
+        myGamePiece.update();
     }
-    for (let i = 0; i < myObstacles.length; i += 1) {
-        myObstacles[i].x += -1;
-        myObstacles[i].update();
-    }
-    //myScore.text="SCORE: " + myGameArea.frameNo;
-    myScore.innerText = myGameArea.frameNo;
-    //myScore.update();
-    myGamePiece.newPos();
-    myGamePiece.update();
 }
 
 function everyinterval(n) {
@@ -288,6 +297,7 @@ function everyinterval(n) {
 function accelerate(n) {
     myGamePiece.gravity = n;
 }
+
 
 //////////////////////////////////////////////
 
