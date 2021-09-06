@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
-  "scripts": {
-    "start": "node server.improved.js"
-  },
-  "dependencies": {
-    "mime": "^2.4.4"
-  }
+    "name": "Jump Rope Penguin",
+    "version": "",
+    "description": "Jump Rope Minigame for demonstrating communication between server and client",
+    "author": "Shannen Lin",
+    "scripts": {
+        "start": "node server.improved.js"
+    },
+    "dependencies": {
+        "mime": "^2.4.4"
+    }
 }
