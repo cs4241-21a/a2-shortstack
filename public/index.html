@@ -3,21 +3,83 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <form method="post">
+    <ul>
+      <li>
+        <label for="todo">Todo:</label>
+        <textarea id="todo" name="todo"></textarea>
+      </li>
+      <li>
+        <label for="day">Select Day of the Week</label>
+          <select id="day" name="day">
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturdday">Saturday</option>
+        </select>
+      </li>
+      <li>
+        <label for="priority">Select priority</label>
+          <select id="priority" name="priority">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+      </li>
+            <!---
+      <li>
+        <label for="priority">Low priority</label>
+        <input type="radio" id="lowPriority" name="priority" value="low" checked>
+      <li>
+        <label for="priority">High priority</label>
+        <input type="radio" id="highPriority" name="priority" value="high">
+      </li>
+    -->
+      <li class="button">
+        <button type="button">SUBMIT</button>
+      </li>     
+    </ul>
+
     </form>
   </body>
   <script>
+
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const todoInput = document.querySelector( '#todo' )
+    const dayInput = document.querySelector( '#day' )
+    const priority = document.querySelector('#priority')
+    
+    /*
+    const lowPriorityInput = document.querySelector( '#lowPriority' )
+    const highPriorityInput = document.querySelector( '#highPriority' )
+
+      let priority = lowPriorityInput.value
+
+    if(highPriorityInput.checked){
+       priority = highPriorityInput.value
+    }
+*/
+
+          json = { todo: todoInput.value, 
+                    day: dayInput.value, 
+                    priority: priority.value }
           body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -31,7 +93,7 @@
 
     return false
   }
-
+  
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
