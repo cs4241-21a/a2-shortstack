@@ -79,7 +79,8 @@ window.onload = function() {
           document.getElementById("editEmail").value = value[1]
           document.getElementById("editNumber").value = value[2]
           document.getElementById("editAge").value = value[3]
-          document.getElementById("editNotes").value = value[5]
+          document.getElementById("editNotes").value = value[7]
+          document.getElementById("editOccupation").value = value[4]
         }
         count++
       })
@@ -99,15 +100,18 @@ window.onload = function() {
     const number = document.getElementById('editNumber')
     const notes = document.getElementById('editNotes')
     const age = document.getElementById('editAge')
+    const occupation = document.getElementById('editOccupation')
 
     const json = {
-        name: name.value,
-        email: email.value,
-        number: number.value,
-        age: age.value,
-        age_group: getAge(age.value),
-        notes: notes.value,
-        modifyInput: currEdit
+      name: name.value,
+      email: email.value,
+      number: number.value,
+      age: age.value,
+      occupation: occupation.value,
+      age_group: getAge(age.value),
+      education_level: getEducationValue(age.value, occupation.value),
+      notes: notes.value,
+      modifyInput: currEdit
     }
 
     let body = JSON.stringify(json)
@@ -115,7 +119,7 @@ window.onload = function() {
     //       json = { name: input.value },
     //       body = JSON.stringify( json )
     
-    if (json['name'] === ""  || json['email'] === ""   || json['number'] === ""  || json['notes'] === "" || json['age'] === "")
+    if (json['name'] === ""  || json['email'] === ""   || json['number'] === ""  || json['notes'] === "" || json['age'] === "" || json['occupation'] === "")
       alert("Please fill in all field before submitting!")
     else{
         fetch( '/update', {
@@ -163,6 +167,31 @@ function getAge(age){
   }
 }
 
+function getEducationValue(age, occupation){
+  if(occupation === "Unemployed")
+    return " Never Attended"
+  else if(age >= 22 && occupation !== "Student"){
+    return "Graduate"
+  }
+  else if(age <= 14 && occupation === "Student") {
+    return "Preschool"
+  }
+  else if(age > 14 && age <18 &&  occupation === "Student")
+    return "Highschool"
+  else if(age > 18 && occupation === "Working"){
+    return "Highschool Graduate"
+  }
+  else if(age > 22 && occupation === "Student"){
+    return "Graduate Program"
+  }
+  else if(age >= 18 && occupation === "Student"){
+    return "College"
+  }
+  else {
+    return "Never Attended"
+  }
+}
+
 const inputText = document.getElementById('inptNotes')
 const counter = document.getElementById('counter')
 
@@ -186,13 +215,16 @@ const submit = function( e ) {
     const number = document.getElementById('inptNumber')
     const notes = document.getElementById('inptNotes')
     const age = document.getElementById('inptAge')
+    const occupation = document.getElementById('inptOccupation')
 
     const json = {
         name: name.value,
         email: email.value,
         number: number.value,
         age: age.value,
+        occupation: occupation.value,
         age_group: getAge(age.value),
+        education_level: getEducationValue(age.value, occupation.value),
         notes: notes.value
     }
 
@@ -202,7 +234,7 @@ const submit = function( e ) {
     //       body = JSON.stringify( json )
     
 
-    if (json['name'] === ""  || json['email'] === ""   || json['number'] === ""  || json['notes'] === "" || json['age'] === "")
+    if (json['name'] === ""  || json['email'] === ""   || json['number'] === ""  || json['notes'] === "" || json['age'] === "" || json['occupation'] === "")
         alert("Please fill in all field before submitting!")
     
     else{
@@ -217,6 +249,7 @@ const submit = function( e ) {
             document.getElementById('inptNotes').value = ""
             document.getElementById('inptAge').value = ""
             document.getElementById('counter').innerHTML=""
+            document.getElementById('inptOccupation').value="Student"
             initData()
           })
     }

@@ -7,10 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {'name': 'Mike', 'email': 'mike@wpi.edu', 'number': '718-654-980', 'age': 10, 'age_group': "Child", 'notes': 'Likes to steal cookies'},
-  {'name': 'Emma', 'email': 'eemma@wpi.edu', 'number': '718-634-980',  'age': 19, 'age_group': "Adult", 'notes': 'Loves to eat shrimp'},
-  {'name': 'Steven', 'email': 'steven@wpi.edu', 'number': '713-654-980', 'age': 67,'age_group': "Senior",  'notes': 'This guy is mean'},
-  {'name': 'Cooper', 'email': 'b@j.com', 'number': '743-234-5678', 'age': 17, 'age_group': "Teenager", 'notes': 'This person is the best'}
+  {'name': 'Mike', 'email': 'mike@wpi.edu', 'number': '718-654-980', 'age': 10, 'occupation': 'Student', 'age_group': 'Child', 'education_level': 'Preschool', 'notes': 'Likes to steal cookies'},
+  {'name': 'Emma', 'email': 'eemma@wpi.edu', 'number': '718-634-980',  'age': 19, 'occupation': 'Working', 'age_group': "Adult", 'education_level': 'Highschool Graduate', 'notes': 'Loves to eat shrimp'},
+  {'name': 'Steven', 'email': 'steven@wpi.edu', 'number': '713-654-980', 'age': 67, 'occupation': 'Student', 'age_group': "Senior", 'education_level': 'Graduate Program', 'notes': 'This guy is mean'},
+  {'name': 'Cooper', 'email': 'b@j.com', 'number': '743-234-5678', 'age': 17, 'occupation': 'Unemployed', 'age_group': "Teenager", 'education_level': 'Never Attended', 'notes': 'This person is the best'}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -72,7 +72,9 @@ const updateItemInDatabase = function(json) {
       item['email'] = json['email']
       item['number'] = json['number']
       item['age'] = json['age']
+      item['occupation'] = json['occupation']
       item['age_group'] = json['age_group']
+      item['education_level'] = json['education_level']
       item['notes'] = json['notes']
     }
   }

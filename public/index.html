@@ -37,7 +37,9 @@
           <th> Email </th>
           <th> Number </th>
           <th> Age </th>
+          <th> Occupation </th>
           <th> Age Group </th>
+          <th> Education Level </th>
           <th class= "right_border"> Notes </th> 
         </tr>
       </table>
@@ -79,6 +81,16 @@
         <label for="inptAge" class="bold_text"> Age: </label>
         <input type='number' id='inptAge'> 
       </form>
+
+      <br> 
+
+      
+        <label for="inptOccupation" class="bold_text"> Age: </label>
+        <select id="inptOccupation">
+          <option value="Student" class="bold_text">Student</option>
+          <option value="Working" class="bold_text" >Working</option>
+          <option value="Unemployed" class="bold_text">Unemployed</option>
+        </select>
 
       <br> 
 
@@ -127,7 +139,18 @@
   
         <br> 
 
-        <form>
+        
+          <label for="editOccupation" class="bold_text"> Notes: </label>
+          <select id="editOccupation">
+            <option value="Student" class="bold_text" >Student</option>
+            <option value="Working" class="bold_text">Working</option>
+            <option value="Unemployed" class="bold_text">Unemployed</option>
+          </select>
+        
+
+        <br>
+
+        <form></form>
           <label for="editNotes" class="bold_text"> Notes: </label>
           <textarea id='editNotes' maxlength="200"> </textarea> 
         </form>
