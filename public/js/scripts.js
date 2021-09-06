@@ -1,16 +1,12 @@
 // Add some Javascript code here, to run on the front end.
-
-console.log("Welcome to assignment 2!")
-
 //function
 //request that just gives me data
 //have edit function return data as well
 
 
+const secretDoc = document.getElementById("deleteScoreForm")
+secretDoc.style.display = "none";
 
-function deleteData(appdata){
-    
-}
 
 //Adds a row 
 function addRow(){
@@ -32,8 +28,6 @@ function addRow(){
             appdata[i].rank += 1;
         }
     }
-
-    
 }
 
 function makeTableFromData(appdata){
@@ -71,9 +65,6 @@ function generateTable(table, data){
             let text = document.createTextNode(element[key]);
             cell.appendChild(text);
         }
-        let deleteButton = document.createElement("button");
-        deleteButton.id = i;
-        row.appendChild(deleteButton);
     }
     
 }
@@ -83,164 +74,102 @@ function generateTable(table, data){
 //Game Code
 //////////////
 
-let radius = 100;
-let x, y;
-let score = 0;
-let r, g, b;
-let level = 1;
-let isCircleClicked = true;
 let gameOver = false;
 let timeInterval = 1500;
+let playerScore = 0;
+let displayMessage = document.getElementById("message");
+let displayScore = document.getElementById("score");
+let displaySavedScore = document.getElementById("savedScore");
+let isKeyPressed = true;
+let wrongKeyPressed = false;
+let gameTimer;
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  x = random(windowWidth);
-  y = random(windowHeight);
-  r = random(255);
-  g = random(255);
-  b = random(255);
+function gameLoopSetup(){
+  playerScore = 0;
+  gameOver = false;
+  timeInterval = 1500;
+  isKeyPressed = true;
+  displayScore.innerHTML = "Score: " + playerScore;
+
+
+  gameLoop();
 }
 
-function draw() {
-    console.log(gameOver)
-  background(0);
-  if(!gameOver){
-    fill(r, g, b)
-    noStroke();
-    ellipse(x, y, radius*3, radius*3);
-    text("Score: " + score, 10, 20);
-    text("Level: " + level, 10, 60);
-    textSize(30);
+
+function gameLoop(){
+
+  //If the correct key was pressed at the end of the interval, the game continues
+  if(isKeyPressed){
+    gameOver = false;
   } else {
-    text("Game Over!", windowWidth/2, windowHeight/2);
-    textSize(60);
+    gameOver = true;
+  }
+
+  //Primary game loop
+  if(!gameOver){
+    isKeyPressed = false;
+
+    //Increase game speed over time
+    if(playerScore % 10 === 0 && playerScore <= 100 && playerScore !== 0){
+      timeInterval -= 50;
+    }
+
+    //Make a new timeout
+    clearTimeout(gameLoop);
+    gameTimer = setTimeout(gameLoop, timeInterval);
+
+    //Set a randomized key
+    let keyArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    let currentKey = keyArray[getRandomInt(0,25)];
+    let currentKeyCode = "Key"+currentKey;
+
+
+    displayMessage.innerHTML = "Press " + currentKey + "!";
+
+    //Make a key event listener that removes itself after success
+    document.addEventListener("keydown", function(event){
+
+      let timesActivated = 0;
+
+      if(event.code === currentKeyCode){
+
+        displayMessage.innerHTML = currentKey + " was pressed!";
+        isKeyPressed = true;
+        playerScore += 1;
+        displayScore.innerHTML = "Score: " + playerScore;
+        timesActivated += 1;
+
+      } else {
+        if(timesActivated > 0){
+          displayMessage.innerHTML = currentKey + " was not pressed! Game over!";
+          wrongKeyPressed = true;
+          gameOver = true;
+          clearTimeout(gameLoop);
+        }
+       
+        timesActivated += 1;
+      }
+    }, {once: true});
+  } else if(gameOver) {
+    console.log("poggy woggy: " + wrongKeyPressed)
+    if(!wrongKeyPressed){
+      displayMessage.innerHTML = " The key was not pressed in time! Game over!";
+    }
+
+    displaySavedScore.innerHTML = playerScore;
+    clearTimeout(gameLoop);
   }
 }
-  
-function mousePressed(){
-  let d = dist(mouseX, mouseY, x, y);
-    if (d < radius) {
-      newCircle();
-      score++;
 
-      
-      if(score % 10 === 0 && score < 100){
-        radius /= 1.1;
-        level++;
-        timeInterval -= 50;
-      }
-
-      /*
-      if (score == 10) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if (score == 20) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if (score == 30) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if (score == 40) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if (score == 50) {
-        radius/= 1.3;
-        level++;
-      }
-      
-      if(score == 60) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if(score == 70) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if (score == 80) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if(score == 90) {
-        radius /= 1.3;
-        level++;
-      }
-      
-      if(score == 100) {
-        radius /= 1.3;
-        level++;
-      }
-      */
-  
-     isCircleClicked = true;
-  
-    }
-      
-    }
-
-function newCircle(){
-    if(isCircleClicked){
-        x = random(windowWidth);
-        y = random(windowHeight);
-        r = random(255);
-        g = random(255);
-        b = random(255);
-        isCircleClicked = false;
-    } else {
-        
-        //gameOver = true;
-    }
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive).
+ * The value is no lower than min (or the next integer greater than min
+ * if min isn't an integer) and no greater than max (or the next integer
+ * lower than max if max isn't an integer).
+ * Using Math.round() will give you a non-uniform distribution!
+ */
+ function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-setInterval(newCircle, timeInterval);
-
-/*
-//Sorts the HTML table, allowing for a accurate ranked leaderboard
-function sortLeaderboardByRank(){
-
-    let table = document.getElementById("game-leaderboard");
-    
-    //Booleans that track switching status
-    let switching = true;
-    let shouldSwitch;
-
-    //This while loop will continue until we no longer have to switch
-    while(switching){
-        switching = false;
-        rows = table.rows;
-
-        //Loop through all table rows except for the first
-        for(let i = 1; i < (rows.length-1); i++){
-            shouldSwitch = false;
-
-            //Get the two elements we want to compare from the current and next row
-            //In this case, we're getting the rank
-            let currRow = rows[i].getElementsByTagName("TD")[0];
-            let nextRow = rows[i].getElementsByTagName("TD")[0];
-
-            //Check if the two elements should be switched. 
-            //If so, mark as a switch and break the loop
-            if(currRow.innerHTML > nextRow.innerHTML){
-                shouldSwitch = true;
-                break;
-            }
-        }
-
-        //If a switch needs to be made, make the switch and repeat the while loop.
-        if(shouldSwitch){
-            rows[i].parentNode.insertBefore(rows[i+1], rows[i]);
-            switching = true;
-        }
-    }
-}
-*/
