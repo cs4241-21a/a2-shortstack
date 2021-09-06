@@ -3,7 +3,9 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-    <script type='text/javascript' src='scripts.js'></script>
+    <script type='text/javascript' src='../js/scripts.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
   </head>
   <body>
     <nav>
@@ -12,17 +14,29 @@
     <form action="/submit-player-score" method="post">
       <ul>
         <li>
-          <label for="player-name">Name:</label>
-          <input type='text' id='player-name' name="your name here">
+          <label for="playername">Name:</label>
+          <input type='text' id='playername' name="your name here">
         </li>
         <li>
-          <label for="player-score">Score (test input):</label>
-          <input type='text' id='player-score' name="your name here">
+          <label for="playerscore">Score (test input):</label>
+          <input type='text' id='playerscore' name="your name here">
         </li>
       </ul>
       
-      <button>submit</button>
+      <button id = "submit">Enter Score</button>
     </form>
+
+    <form action="/delete-player-score" method="post">
+      <ul>
+        <li>
+          <label for="deletename">Name:</label>
+          <input type='text' id='deletename' name="your name here">
+        </li>
+      </ul>
+      
+      <button id = "deleteButton">Delete</button>
+    </form>
+
     <table id="game-leaderboard">
 
     </table>
@@ -33,8 +47,9 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const input = document.querySelector( '#playername' ),
+          scoreinput = document.querySelector('#playerscore'),
+          json = { playername: input.value, playerscore: scoreinput.value },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -43,16 +58,54 @@
       //If there is only one word, it is taken in as the key and value
     })
     .then( function( response ) {
+      
       //do something with the reponse 
-      console.log( response )
+      response.text().then(function(textdata) {
+        console.log(JSON.parse(textdata));
+        let newAppdata = JSON.parse(textdata);
+
+        makeTableFromData(newAppdata);
+      })
+      //let newResponse = JSON.parse(response)
+      //console.log(newResponse[0].name);
     })
 
     return false
   }
+  
+
+  const deleteScore = function(e){
+    e.preventDefault();
+
+    const input = document.querySelector( '#deletename' ),
+          json = { playername: input.value},
+          body = JSON.stringify( json )
+
+    fetch('/deleteScore', {
+      method: 'POST',
+      body
+    })
+    .then(function( response) {
+      //do something with the reponse 
+      response.text().then(function(textdata) {
+        console.log(JSON.parse(textdata));
+        let newAppdata = JSON.parse(textdata);
+
+        makeTableFromData(newAppdata);
+      })
+      //let newResponse = JSON.parse(response)
+      //console.log(newResponse[0].name);
+
+    })
+  }
+  
 
   window.onload = function() {
-    const button = document.querySelector( 'button' )
+    const button = document.getElementById( 'submit' )
     button.onclick = submit
+
+    const deleteButton = document.getElementById('deleteButton');
+    deleteButton.onclick = deleteScore;
   }
 
   </script>
