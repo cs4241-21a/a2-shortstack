@@ -173,10 +173,12 @@ function restartGame() {
 }
 
 function startGame() {
+    document.getElementById("startBtn").style.display = "none";
     myGameArea = new gamearea();
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.05;
     myScore = document.getElementById('printScore');
+    document.getElementById("accelBtn").style.display = "block";
     myGameArea.start();
 }
 
@@ -262,6 +264,7 @@ function updateGameArea() {
             document.getElementById("myrestartbutton").style.display = "block";
             document.getElementById("yourname").style.display = "block";
             document.getElementById("submitBtn").style.display = "block";
+            document.getElementById("accelBtn").style.display = "none";
             return;
         }
     }

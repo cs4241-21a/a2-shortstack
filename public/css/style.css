@@ -5,10 +5,9 @@ p {
     color: blue;
 }
 
-
 .general {
+    alignment: center;
     top: 0;
-    padding-top: 25px;
     z-index: 1;
     height: 100%;
     overflow-x: hidden;
@@ -16,18 +15,27 @@ p {
 }
 
 .gameArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     left: 0;
     width: 70%;
     background-color: beige;
 }
 
 .scoreArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     right: 0;
     width: 30%;
     background-color: mediumpurple;
 }
 
 table, th, td {
+    flex-shrink: 3;
     border: 2px solid black;
 }
 
@@ -67,20 +75,22 @@ canvas {
     position:absolute;
     background-color:#000000;
     opacity:0.3;
-    width:480px;
-    height:270px;
-    display:none
+    width:482px;
+    height:271px;
 }
 #myrestartbutton{
     position:absolute;
-    padding-top:125px;
-    padding-left:100px;
+    padding-top:110px;
     width: 75px;
-    display:none;
+    margin-top: 20px;
+    margin-left: 210px;
 }
-#submitBtn{
-    display:none;
+
+#startBtn{
+    display: block;
 }
-#yourname{
-    display:none;
+
+.hidden{
+    display: none;
 }
+
