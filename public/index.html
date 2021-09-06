@@ -6,7 +6,7 @@
   </head>
   <body>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <input type='text' id='youritem' value="Grocery Item Here">
       <button>submit</button>
     </form>
   </body>
@@ -16,7 +16,7 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
+    const input = document.querySelector( '#youritem' ),
           json = { yourname: input.value },
           body = JSON.stringify( json )
 
