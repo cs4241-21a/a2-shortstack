@@ -66,7 +66,7 @@ const update = function( e ){
   let calUpdate = document.getElementById( 'cal2' );
   let servUpdate = document.getElementById( 'numserv2' );
 
-  if(calUpdate < 0 || servUpdate.value < 0){
+  if(calUpdate.value < 0 || servUpdate.value < 0){
     alert("Invalid input: Negative value");
   }
   else{
