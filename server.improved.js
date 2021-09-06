@@ -40,7 +40,7 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     let jsonData = JSON.parse(dataString);
-    console.log(jsonData)
+    //console.log(jsonData)
     let obj = {
       name: jsonData.name,
       message: jsonData.message,
