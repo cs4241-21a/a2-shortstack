@@ -25,11 +25,12 @@ function refreshTable(data) {
     'Hotel Location',
     'Cleanliness',
     'Service',
-    'Amenity',
+    'Amenities',
     'Overall Score',
     'Edit',
     'Delete',
   ];
+  // Adding table headers 
   for (let title of tableColumns) {
     let th = document.createElement('th');
     let headerText = document.createTextNode(title);
@@ -42,6 +43,7 @@ function refreshTable(data) {
     th.appendChild(headerText);
     headerRow.appendChild(th);
   }
+  // Adding rows of data to the table
   for (let element of data) {
     let row = tBody.insertRow();
     for (let key of Object.keys(data[0])) {
