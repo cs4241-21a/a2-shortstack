@@ -1,8 +1,8 @@
 
 ## Your Web Application Title
-This project keeps track of a simply contact list including each person's name, phone number and birthday. It also indicts whether to give the person a gift for their birthday. Using this indication and the birthday, the program generates a date 30 days before the birthday as the date to get a gift by. 
+This project keeps track of a simple contact list including each person's name, phone number and birthday. It also indicts whether to give the person a gift for their birthday. Using this indication and the birthday, the program generates a date 30 days before the birthday as the date to get a gift by. 
 
-When selecting a row to modify/delete something, but click on rhe table and then the row to focus the mouse. 
+When selecting a row to modify/delete something, but click on the table and then the row to focus the mouse. 
 Note: Will only allow one entry per name.
 
 CS Positioning: CSS grid to arrange the elements of the form.
