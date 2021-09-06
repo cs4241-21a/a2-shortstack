@@ -12,6 +12,10 @@ const appdata = [
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
+var storeData = [
+
+]
+
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -35,15 +39,20 @@ const handlePost = function( request, response ) {
 
   request.on( 'data', function( data ) {
       dataString += data 
+      storeData += data
   })
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
+    const javaObject = JSON.parse( dataString )
+    
+    //console.log( json )
+    //javaObject.yourname += 'HelloWorld'
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(javaObject))
   })
 }
 
