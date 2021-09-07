@@ -13,7 +13,8 @@
   <button>submit</button>
 </form>
 <form action="">
-
+  <input type="text" id="pointer" value="index value to remove">
+  <button onclick="del()">remove record</button>
 </form>
 </body>
 <script>
@@ -26,9 +27,11 @@
             inputlength = document.querySelector("#length"),
             inputauthor = document.querySelector("#author"),
             letime = Date.now()
-    retime = letime.value + 604800*3;
-    json = { bookname: inputname.value , length:inputlength.value, author:inputauthor.value ,checktime:letime.value,
-      returntime: retime.value},
+            retime = letime.value + 604800*3;
+    const json = {
+              bookname: inputname.value, length: inputlength.value, author: inputauthor.value, checktime: letime.value,
+              returntime: retime.value
+            },
             body = JSON.stringify(json);
 
     fetch("/submit", {
@@ -43,6 +46,22 @@
 
     return false;
   };
+
+  const del = function(){
+    const body = JSON.stringify(document.querySelector("#pointer"));
+
+    fetch("/delete", {
+      method: "POST",
+      body
+    }).then(function(response) {
+      return response.json();
+    })
+          .then(function(json) {
+            console.log(json);
+          });
+
+    return false;
+  }
 
   window.onload = function() {
     const button = document.querySelector("button");

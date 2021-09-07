@@ -42,6 +42,15 @@ const handlePost = function( request, response ) {
         console.log(JSON.stringify(appdata));
         response.end(JSON.stringify(appdata));
       } break;
+
+      case '/delete':
+      {
+        /* whatever record you are sending */
+        const json = JSON.parse(dataString);
+        appdata.splice(appdata.indexOf(json),1);
+        response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
+        response.end(JSON.stringify(appdata));
+      } break;
         /*
         add more cases here if you want to edit or delete and handle them accordingly
         */
