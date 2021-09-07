@@ -1,1 +1,35 @@
-/*Style your own assignment! This is fun! */
+body{
+    background-color: #AED6F1;
+    font-family: Arial, sans-serif;
+}
+
+h2 span{
+    color: #2E86C1;
+    border: 3px solid #2E86C1;
+    padding: 10px;
+}
+table, th, td{
+    border:1.5px solid #1B4F72;
+}
+#add, #update{
+    margin: 5px;
+}
+#fname2 {
+    background-color:#CCD1D1 ;
+}
+.header{
+    color: #1B4F72;
+    text-align:center;
+    border: 5px solid #1B4F72;
+}
+.flex-container{
+    display:flex;
+}
+.flex-item{
+    width:250px;
+    margin:10px;
+}
+.flex-item-table{
+    margin:10px;
+    min-height: 15px;
+}
