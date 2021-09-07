@@ -13,20 +13,12 @@ const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
     
-    const json = { id, name: task.value, period: period.value, deadline: deadline.value }
+    const json = {requestType, id, name: task.value, period: period.value, deadline: deadline.value }
     
     const body = JSON.stringify( json )
 
-    let method
-
-    switch( requestType ) {
-        case 0: method == "POST"
-        case 1: method == "PUT"
-        case 2: method == "DELETE"
-    }
-
     fetch( "/submit", {
-        method,
+        method: "POST",
         body
     })
     .then( function( response ) {
