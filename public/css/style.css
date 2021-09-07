@@ -32,6 +32,9 @@ th{
     text-align: left;
 }
 
+.deleteBtn{
+    cursor: grab;
+}
 
 
 

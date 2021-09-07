@@ -14,4 +14,10 @@ The server's handlePost() for submit returns a stringified json with the lastest
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
 
-prep for validation test 
+Name: Lee 
+Problems: Selecting a row to modify was slightly confusing, especially when only one row was present, so the 
+    entry field did not appear to change. 
+Comments: A bit confused with the purpose of the generated data
+Changes: I would change the heading for the generated data in the table, and or add a note explaining 
+    that a date, that would represent when to buy/get a gift by would be generated if the checkbox is clicked. 
+    To make the selection more obvious, highlighting the currently selected row in the tabel or another visual cue may be helpful. Also adding a clear all button for the entry fields could make using the fields easier. The fields could also clear once the submit button is pressed which might help clarify the selection and that the submission occured. 

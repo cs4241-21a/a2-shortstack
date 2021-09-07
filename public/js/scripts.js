@@ -51,6 +51,7 @@ let selectedRowName = ''
     cellToGift.innerHTML = entry.toGift
     cellGiftBy.innerHTML = entry.giftBy
     cellDelete.innerHTML = 'Delete'
+    cellDelete.classList.add('deleteBtn')
   }
 
   const deleteEntry = function(){
