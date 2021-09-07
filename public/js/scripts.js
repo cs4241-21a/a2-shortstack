@@ -17,8 +17,7 @@ const submit = function( e ) {
   .then( response => response.json() )
   .then( function( response ) {
     // do something with the reponse 
-    console.log('we reach here!')
-    console.log( response )
+    // console.log( response )
 
     const responseBody = response.yourname;
     
@@ -31,8 +30,39 @@ const submit = function( e ) {
   return false
 }
 
+const result = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+    console.log("get in the result function!")
+    body = JSON.stringify( {} );
+  
+    fetch( '/result', {
+      method:'POST',
+      body
+    })
+    .then( response => response.json() )
+    .then( function( response ) {
+      // do something with the reponse 
+      // console.log( response )
+      if( Array.isArray(response)){
+          for(let i = 0; i < reponse.length; i++){
+              const thing = reponse[i]
+              newContent += "<ol>" + thing + "</ol>"
+          }
+      }
+      document.getElementById("resultDisplay").innerHTML = newContent;
+      //document.querySelector('#yourname');
+      //const div = document.getElementById('')
+    })
+  
+    return false
+  }
+
 window.onload = function() {
-  const button = document.querySelector( 'button' )
-  button.onclick = submit
+  const button1 = document.getElementById( 'submitButton' )
+  button1.onclick = submit
+
+  const button2 = document.getElementById( 'ServerMemory' )
+  button2.onclick = result
 }
 

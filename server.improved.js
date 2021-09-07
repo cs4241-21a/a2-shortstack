@@ -6,15 +6,16 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+// json
 const appdata = [
   { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
-var storeData = [
-
-]
+var storeData = {
+  "listOfThings":[]
+}
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -39,20 +40,28 @@ const handlePost = function( request, response ) {
 
   request.on( 'data', function( data ) {
       dataString += data 
-      storeData += data
+      if(data != ""){
+        storeData.listOfThings.push({data})
+      }
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
     const javaObject = JSON.parse( dataString )
-    
+    //console.log(dataString)
+    //console.log(javaObject)
+    if(dataString == ""){
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(storeData))
+    }
+    else{
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(javaObject))
+    }
     //console.log( json )
     //javaObject.yourname += 'HelloWorld'
     // ... do something with the data here!!!
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(javaObject))
+    
   })
 }
 
