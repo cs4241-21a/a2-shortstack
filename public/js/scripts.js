@@ -1,12 +1,21 @@
 // Add some Javascript code here, to run on the front end.
 
+const form = document.getElementById( "form" )
+const formTitle = document.getElementById( "form-title" )
+const task = document.getElementById( "name" )
+const period = document.getElementById( "period" )
+const deadline = document.getElementById( "deadline" )
+
+let id = NaN;
+let requestType = 0; //0 is add, 1 is edit, 2 is delete
+
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
-
-    const input = document.querySelector( "#yourname" ),
-            json = { yourname: input.value },
-            body = JSON.stringify( json )
+    
+    const json = { requestType, id, name: task.value, period: period.value, deadline: deadline.value }
+    
+    const body = JSON.stringify( json )
 
     fetch( "/submit", {
         method:"POST",
@@ -20,7 +29,25 @@ const submit = function( e ) {
     return false
 }
 
-window.onload = function() {
-    const button = document.querySelector( "button" )
-    button.onclick = submit
+const add = function ( e ) {
+    e.preventDefault()
+
+    form.removeAttribute( "hidden" )
+    formTitle.innerText = "Add new task:"
+    task.value = "Task Name"
+    period.value = "1"
+    deadline.value = "2021-09-01T00:00"
+    requestType = 0
+    id = NaN
+
+    return false;
 }
+
+window.onload = function() {
+    const submitButton = document.getElementById( "submit-form-button" )
+    const addButton = document.getElementById( "add-button" )
+    
+    submitButton.onclick = submit
+    addButton.onclick = add
+}
+
