@@ -19,9 +19,6 @@ Your application is required to implement the following functionalities:
 6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
 7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
 
-*Technical*
-- (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
 *Design/UX*
 - (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
 
@@ -48,11 +45,15 @@ This website allows you to fill out and submit a simple survey by clicking the "
 The inspiration for the questions were to be simple but mainly to create a divide in opinion. This website started with concept shown in this image: 
 ![concept](concept.png)
 
-The main feature I really wanted to implement were modal boxes, popup boxes that appear with information once you click a button that will prompt a survey to appear. Slowly, this webpage came together by research various techniques from videos, assigned readings, and StackOverflow. I am also really into survey results and the stats behind them so I wanted to also display those as well. I also used a color scheme using: https://coolors.co/generate .
+The main feature I really wanted to implement were modal boxes, popup boxes that appear with information once you click a button that will prompt a survey to appear. Slowly, this webpage came together by research various techniques from videos, assigned readings, and Stack Overflow. I am also really into survey results and the stats behind them so I wanted to also display those as well. I also used a color scheme using: https://coolors.co/generate .
 
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: Using JS and HTML, I was able to allow users to get consistent updates on the client side of the webpage (both stats and survey responses) after a new entry was submitted. A minor additional feature is when they go submit another survey, it does not store the previous submission data AKA the form's input is reset.
+
+- **Tech Achievement 2**: Using JS, CSS, and HTML, I was able to create modal boxes to host my form. Clicking outside the modal box or hitting the "X" icon of the box, closes modal. The modal is opened when a user decides to take the survey or edit a response. The screen dimming effect along with color combinations allow a clean and effective interface for the user.
+
+- **Tech Achievment 3**: Using JS and HTML, the user is able to modify / delete survey. Modifying is done by clicking on the corresponding response's pencil icon and it opens the modal box's form with inputs based on the selected response's data. Deletion is as simple as clicking corresponding the trash icons. The updates are shown to the client automatically with both of these actions.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
