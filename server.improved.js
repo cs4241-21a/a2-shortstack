@@ -49,10 +49,8 @@ const handlePost = function( request, response ) {
       default:
     }
 
-    response.body = JSON.stringify(appdata)
-
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
