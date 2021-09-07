@@ -43,7 +43,7 @@ const dateToDatetimeValue = function( date ) {
 }
 
 const dateToString = function( date ) {
-    let newDate = new Date(date)
+    let newDate = new Date( date )
 
     // parse deadline datetime value
     let year = "" + newDate.getFullYear()
@@ -73,9 +73,9 @@ const submit = function( e ) {
     e.preventDefault()
 
     //round date to nearest hour
-    deadline.value = dateToDatetimeValue(new Date(deadline.value))
+    deadline.value = dateToDatetimeValue( new Date( deadline.value ) )
 
-    const json = {id, name: task.value, period: period.value, deadline: deadline.value }
+    const json = { id, name: task.value, period: period.value, deadline: deadline.value }
     
     const body = JSON.stringify( json )
 
@@ -133,7 +133,7 @@ const edit = function( e, utask ) {
     formTitle.innerText = "Edit task:"
     task.value = utask.name
     period.value = utask.period
-    deadline.value = dateToDatetimeValue(utask.deadline)
+    deadline.value = dateToDatetimeValue( new Date( utask.deadline ) )
     requestType = 1
     id = utask.id
 
