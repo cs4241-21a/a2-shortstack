@@ -19,6 +19,50 @@ function deleteEntry(index){
 
 }
 
+function editEntry(index, name, lang, starter, icream) {
+    console.log("Edit Entry: " + index + name + lang + starter + icream);
+    // set input values in form
+    document.getElementById("name").value = name;
+    switch(lang){
+        case "HTML":
+            document.getElementById("html").checked = true;
+            break;
+        case "CSS":
+            document.getElementById("css").checked = true;    
+            break;
+        case "JS":
+            document.getElementById("javascript").checked = true;
+            break;
+    }
+    switch(starter){
+        case "Bulbasaur":
+            document.getElementById("bulb").checked = true;
+            break;
+        case "Charmander":
+            document.getElementById("char").checked = true;    
+            break;
+        case "Squirtle":
+            document.getElementById("squirt").checked = true;
+            break;
+    }
+    document.getElementById("icream").value = icream;
+
+    // delete old entry
+    let json = {"index": index};
+    let body = JSON.stringify(json)
+
+    fetch( '/delete', {
+        method:'POST',
+        body 
+    })
+
+    // reveal modal
+    const modal = document.getElementById("promptModal");
+    modal.style.display = "block";
+
+    // new entry will be added once user clicks submit
+}
+
 function initCounts() {
     lang_dict = {"HTML": 0, "CSS": 0, "JS": 0};
     starter_dict = {"Bulbasaur": 0, "Charmander": 0, "Squirtle": 0};
@@ -168,6 +212,15 @@ function updatePage() {
             icreamData.innerHTML = entry["icream"]
             newRow.appendChild(icreamData)
             updateCounts("icream", entry["icream"])
+
+            // add edit icon
+            let editIcon = document.createElement('td');
+            editIcon.innerHTML = "<span class=\"icon\">&#x270E;</span>";
+            editIcon.onclick = function(e) {
+                e.preventDefault();
+                editEntry(dataIndex, entry["name"], entry["lang"], entry["starter"], entry["icream"]);
+            }
+            newRow.appendChild(editIcon);
 
             // add delete icon
             let deleteIcon = document.createElement('td');
