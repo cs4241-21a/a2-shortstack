@@ -16,7 +16,7 @@ const submit = function( e ) {
     // round deadline to nearest hour
     let dateDeadline = Date.parse(deadline.value)
     const step = 60 * 60 * 1000 // number of milliseconds in an hour
-    dateDeadline = new Date( Math.round( dateDeadline.getTime() / step ) * step )
+    dateDeadline = new Date( Math.round( dateDeadline / step ) * step )
     deadline.value = dateDeadline.toString()
 
     const json = {id, name: task.value, period: period.value, deadline: deadline.value }
