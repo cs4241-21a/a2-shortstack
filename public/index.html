@@ -2,40 +2,91 @@
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&family=Marck+Script&display=swap" rel="stylesheet">
+
+
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/scripts.js"></script>
     <meta charset="utf-8">
   </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
+  <div>
+    <body onload="updateOnLoad()">
+      <h1> Tyler's RPG Dice Roller </h1>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+      <div id="grid">
+        <div class = "form_grid">
+          <div class = "form_box" id = "add_box">
+            <form class="forms" id="add" action="">
+              <h3>Add a new roll</h3>
+              <label for="Character">Character</label>
+              <input type="text" id="character" required>
+              <br><br>
+              <label for="Dice Type">Dice Type</label>
+              <select name="dice" id="diceType">
+                <option value="4">d4 (4-sided)</option>
+                <option value="6">d6 (6-sided)</option>
+                <option value="8">d8 (8-sided)</option>
+                <option value="10">d10 (10-sided)</option>
+                <option value="12">d12 (12-sided)</option>
+                <option value="20" selected>d20 (20-sided)</option>
+                <option value="100">d100 (100-sided)</option>
+              </select>
+              <br><br>
+              <label for="Quantity">Quantity</label>
+              <input type="text" id="quantity" required>
+              <br><br>
+              <label for="Modifier">Modifier</label>
+              <input type="text" id="modifier" required>
+              <br><br>
+              <button class="b1" type="button" onclick="addRoll()">Add</button>
+            </form>
+          </div>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+          <div class=line></div>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+          <div class = "form_box" id = "delete_box">
+            <form class="forms" id="delete" actions="">
+              <h3>Delete an existing roll</h3>
+              <label for="ID">ID</label>
+              <input type="text" id="id">
+              <br><br>
+              <label for="Character">Character</label>
+              <input type="text" id="character">
+              <button class="b2" type="button" onclick="deleteRoll()">Delete</button>
+            </form>
+          </div>
 
-    return false
-  }
+          <div class=line></div>
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+          <div class = "form_box" id = "button_box">
+            <span class="buttonSpace">
+              <h3>Other Options</h3>
+              <button class="b3" type="button" onclick="clearRolls()">Clear</button>
+            </span>
+          </div>
+      </div>
 
-  </script>
+
+      <table class="table" id="table_list">
+        <thead>
+          <tr>
+            <th>ID #</th>
+            <th width="50%">Character</th>
+            <th>Dice Type</th>
+            <th>Quantity</th>
+            <th>Modifier</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+
+    </div>
+    </body>
+  </div>
 </html>
