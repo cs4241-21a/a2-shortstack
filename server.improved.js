@@ -12,6 +12,8 @@ const appdata = [
   { 'id': 2, 'name': 'Something', 'start': Date.parse('2021-09-08T16:00'), 'period': 20 , 'deadline': Date.parse('2021-09-09T12:00') } 
 ]
 
+let highestId = 2
+
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -77,13 +79,14 @@ const sendFile = function( response, filename ) {
 }
 
 const addTask = function( name, period, deadline ) {
-  let id = appdata[appdata.length - 1].id + 1
+  let id = highestId + 1
+  highestId++;
 
   let numPeriod = Number.parseInt(period)
 
   let dateDeadline = Date.parse(deadline)
 
-  let dataEntry = { 'name': name, 'start': Date(), 'period': numPeriod, 'deadline': dateDeadline }
+  let dataEntry = { 'id': id, 'name': name, 'start': Date.parse(Date()), 'period': numPeriod, 'deadline': dateDeadline }
   appdata.push(dataEntry)
 
   recalculateStarts()
@@ -111,6 +114,16 @@ const removeTask = function( id ) {
   let i = appdata.find( ( entry ) => entry.id === numId )
 
   appdata.splice(i, 1)
+
+  //update highestId to next lowest id if necessary
+  if (id === highestId){
+    highestId = 0
+    appdata.forEach(entry => {
+      if ( id > highestId ) {
+        highestId = id
+      }
+    });
+  }
 
   recalculateStarts()
 }
