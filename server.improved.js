@@ -35,11 +35,12 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     switch(request.url){
-      case '/adddata':
+      case '/submit':
       {
         appdata.push(dataString)
         response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-        response.end(JSON.stringfy(appdata));
+        console.log(JSON.stringify(appdata));
+        response.end(JSON.stringify(appdata));
       } break;
         /*
         add more cases here if you want to edit or delete and handle them accordingly
