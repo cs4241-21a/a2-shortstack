@@ -13,12 +13,11 @@ const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
+    // round deadline to nearest hour
     let dateDeadline = Date.parse(deadline.value)
-    
-    deadline.value = "" + dateDeadline.getFullYear() + "-"
-                        + dateDeadline.getMonth() + "-"
-                        + dateDeadline.getDate() + "T"
-                        + dateDeadline.getHours() + ":00"
+    const step = 60 * 60 * 1000 // number of milliseconds in an hour
+    dateDeadline = new Date( Math.round( dateDeadline.getTime() / step ) * step )
+    deadline.value = dateDeadline.toString()
 
     const json = {id, name: task.value, period: period.value, deadline: deadline.value }
     
@@ -55,7 +54,7 @@ const add = function ( e ) {
     requestType = 0
     id = NaN
 
-    return false;
+    return false
 }
 
 const update = function ( json ) {
@@ -63,7 +62,7 @@ const update = function ( json ) {
 
     console.log(json)
 
-    return false;
+    return false
 }
 
 window.onload = function() {
