@@ -43,11 +43,13 @@ const dateToDatetimeValue = function( date ) {
 }
 
 const dateToString = function( date ) {
+    let newDate = new Date(date)
+
     // parse deadline datetime value
-    let year = "" + date.getFullYear()
-    let month = "" + date.getMonth()
-    let day = "" + date.getDate()
-    let hours = "" + date.getHours()
+    let year = "" + newDate.getFullYear()
+    let month = "" + newDate.getMonth()
+    let day = "" + newDate.getDate()
+    let hours = "" + newDate.getHours()
 
     // translate hours into am/pm
     let pm = false
