@@ -148,7 +148,7 @@ const remove = function( e, utask ) {
 
     fetch( "/remove", {
         method: "POST",
-        body: "{ id }"
+        body: JSON.stringify( { id } )
     })
     .then( ( response ) => response.json() )
     .then( function( appData ) {
