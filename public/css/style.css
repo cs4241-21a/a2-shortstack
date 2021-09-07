@@ -2,7 +2,21 @@ body {
     font-family: 'Roboto', Arial;
 }
 
+#grid {
+    display: grid;
+    grid-template-columns: 30em 45em;
+    grid-gap: 1em;
+}
+
+#myh2 {
+    text-align: center;
+}
+
+#carform {
+    margin-left: 10em;
+}
+
 table, th, td {
-    border:1px solid black;
-    margin: 1em 0 1em 0;
+    border: 1px solid black;
+    height: 2em;
 }
