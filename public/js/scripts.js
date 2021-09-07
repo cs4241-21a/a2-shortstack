@@ -82,8 +82,8 @@ const submit = function( e ) {
     let url
 
     switch( requestType ) {
-        case 0: url = "/add"; break
-        case 1: url = "/edit"; break
+        case 0: url = "/add"; form.hidden = true; break
+        case 1: url = "/edit"; form.hidden = true; break
     }
 
     fetch( url, {
@@ -101,7 +101,7 @@ const submit = function( e ) {
 const add = function ( e ) {
     e.preventDefault()
 
-    form.removeAttribute( "hidden" )
+    form.hidden = false
     formTitle.innerText = "Add new task:"
     task.value = "Task Name"
     period.value = "1"
