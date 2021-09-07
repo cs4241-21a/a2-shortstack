@@ -32,7 +32,7 @@ const handleGet = function( request, response ) {
     sendFile(response, 'public/index.html')
   } else if (request.url === '/updatePage'){
     sendAppData(response, appdata);
-  }else{
+  } else{
     sendFile( response, filename )
   }
 }
@@ -89,14 +89,15 @@ function deleteRow(dataString) {
 
 function modifyRow(dataString) {
   let jsonApp = JSON.parse(dataString);
-  for (let i = 0; i < appdata.length; i++) {
-    console.log("i = " + i);
-    console.log("jsonApp = " + jsonApp['modifyIndex']);
-    if ((i + 1).toString().normalize() === (jsonApp['modifyIndex'].toString().normalize())) {
-      let row = appdata[i];
-      row['name'] = jsonApp['name'];
-      row['score'] = jsonApp['score'];
-      row['rank'] = jsonApp['rank'];
+  for(let user of appdata){
+    if (user.yourname === jsonApp['newName']){
+      return;
+    }
+  }
+  for (let user of appdata){
+    if (user.yourname === jsonApp['oldName']){
+      user.yourname = jsonApp['newName'];
+      return;
     }
   }
 }

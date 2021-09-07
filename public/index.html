@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
   </head>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Glory">
   <body>
     <div class="general gameArea">
       <h1>Flappy Block</h1>
@@ -16,17 +18,22 @@
         <div class="hidden" id="myrestartbutton"><button onclick="restartGame()">Restart</button></div>
         <div id="canvascontainer"></div>
       </div>
-      <form action="">
+      <form>
         <input class="hidden" type='text' id='yourname'  placeholder="your name here">
-        <button class="hidden" id="submitBtn">submit</button>
+        <button class="hidden" id="submitBtn">Submit</button>
       </form>
       <br>
       <button class="hidden" id="accelBtn" onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">ACCELERATE</button>
     </div>
     <div class="general scoreArea" id="scoreAreaID">
       <h2>Leaderboard</h2>
-      <table id="Leaderboard">
-      </table>
+      <table id="Leaderboard"></table>
+      <div>
+        <form action="">
+          <input class="hidden" type='text' id='editName'  placeholder="New Name">
+          <button class="hidden" id="submitNewNameBtn">Submit</button>
+        </form>
+      </div>
     </div>
   </body>
   <script src="./js/scripts.js"></script>

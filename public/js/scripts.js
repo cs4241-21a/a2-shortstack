@@ -1,28 +1,28 @@
 const dataTable = document.getElementById('Leaderboard');
 const gameCanvas = document.getElementById('canvascontainer');
 let submitBtn = document.getElementById( 'submitBtn' );
+let editSubBtn = document.getElementById('submitNewNameBtn');
+let rowNumEdit;
 
 window.onload = function() {
     makeTableHead();
     updatePage();
     submitBtn.onclick = submit;
+    editSubBtn.onclick = callEdit;
 }
 
 const submit = function( e ) {
-    e.preventDefault()
-    /*/let warning = document.getElementById('warning');
-
-    if (jsonBody['score'] === 0
-        || jsonBody['name'] === "your name here") {
-        //warning.innerHTML = "Please change name and score points";
-    } else {
-        //warning.innerHTML = "";*/
+    e.preventDefault();
     const input = document.querySelector( '#yourname' ),
         input2 = document.getElementById('printScore'),
         json = { yourname: input.value,
             score: input2.innerText,
             rank: "" },
         body = JSON.stringify( json )
+    if (input.value === "") {
+        window.alert("Please enter a username");
+        return false;
+    }
 
     fetch( '/submit', {
         method:'POST',
@@ -36,7 +36,7 @@ const submit = function( e ) {
             console.log(json);
             updatePage();
         })
-    return false
+    return false;
 }
 
 let count = 3;
@@ -66,13 +66,44 @@ const makeTableHead = function () {
     dataTable.appendChild(tableRow);
 }; // working
 
+function checkExisting(){
+    const input = document.querySelector( '#editName' );
+    fetch('/updatePage', {
+        method: 'GET'
+    }).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        appdata = json;
+        for(let user of appdata){
+            if (user.yourname === input.value){
+                window.alert("Please enter a unique username");
+            }
+        }
+    })
+    return false;
+}
+
 //Edit Function
-/*const editPencil = function (pencil, row) {
-    modifyIndex = pencil.id[6];
-    rightHeader.innerHTML = "Modify Information";
-    submitBtn.innerHTML = "Update";
-    document.getElementById('yourname').value = row.name;
-}*/
+const callEdit = function(){
+    const input = document.querySelector( '#editName' ),
+        input2 = rowNumEdit,
+        json = { newName: input.value,
+            oldName: input2 },
+        body = JSON.stringify( json )
+    checkExisting();
+        fetch('/modify', {
+            method: 'POST',
+            body
+        }).then(function (response) {
+                // do something with the response
+                console.log("Post made to server");
+            }).then(function (json) {
+                console.log(json);
+                updatePage();
+                document.getElementById("editName").style.display = "none";
+                document.getElementById("submitNewNameBtn").style.display = "none";})
+    return false;
+}
 
 
 //Updates page.
@@ -97,17 +128,21 @@ const updatePage = function () {
             let pencil = createNode('i');
             pencil.id = `pencil${rowNum}`;
             pencil.innerHTML = "&#x270F";
-            /*pencil.onclick = function (elt) {
-                editPencil(pencil, row);
+            pencil.onclick = function (elt) {
                 elt.preventDefault();
+                document.getElementById("editName").style.display = "block";
+                document.getElementById("submitNewNameBtn").style.display = "block";
+                rowNumEdit = row.yourname;
                 return false;
-            };*/
+            };
             let cross = createNode('i');
-            //cross.id = `cross${rowNum}`;
             cross.id = `${rowNum}`;
             cross.innerHTML = "&#x274C";
             cross.onclick = function (elt) {
                 let body = cross.id;
+                if(!window.confirm("Are you sure you want to delete someones score")){
+                    return false;
+                }
                 fetch('/delete', {
                     method: 'POST',
                     body

@@ -12,6 +12,7 @@ p {
     height: 100%;
     overflow-x: hidden;
     position: fixed;
+    font-family: "Glory", monospace;
 }
 
 .gameArea {
