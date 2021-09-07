@@ -9,29 +9,25 @@
       <input type="text" id="bookname" value="name of book here" />
       <input type="text" id="length" value="length of book here" />
       <input type="text" id="author" value="author of book here" />
-      <input type="hidden" id="timestamp" name="timestamp" value="0">
+      <input type="hidden" id="timestamp" name="timestamp" value="0"/>
+      <input type="hidden" id="returntime" name="retime" value="0"/>
       <button>submit</button>
-    </form>
-    <form action="">
-
     </form>
   </body>
   <script>
     const submit = function(e) {
       // prevent default form action from being carried out
       e.preventDefault();
-
-
       const inputname = document.querySelector("#bookname"),
             inputlength = document.querySelector("#length"),
             inputauthor = document.querySelector("#author"),
             letime = Date.now()
             retime = letime.value + 604800*3;
         json = { bookname: inputname.value , length:inputlength.value, author:inputauthor.value ,checktime:letime.value,
-          returntime: retime.value},
+          returntime: retime.value}
         body = JSON.stringify(json);
 
-      fetch("/submit", {
+      fetch("/addata", {
         method: "POST",
         body
       }).then(function(response) {
