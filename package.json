@@ -8,5 +8,8 @@
   },
   "dependencies": {
     "mime": "^2.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
