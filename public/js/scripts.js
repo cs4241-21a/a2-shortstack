@@ -42,6 +42,30 @@ const dateToDatetimeValue = function( date ) {
     return dateValue
 }
 
+const dateToString = function( date ) {
+    // parse deadline datetime value
+    let year = "" + date.getFullYear()
+    let month = "" + date.getMonth()
+    let day = "" + date.getDate()
+    let hours = "" + date.getHours()
+
+    // translate hours into am/pm
+    let pm = false
+    if ( hours >= 12 ) {
+        hours -= 12
+        pm = true
+    }
+
+    //stitch values back together
+    let dateValue = "" + month + "/"
+                        + day + "/"
+                        + year + " "
+                        + hours + ":00 "
+                        + pm?"PM":"AM"
+
+    return dateValue
+}
+
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
@@ -142,9 +166,9 @@ const update = function ( json ) {
     json.forEach(task => {
         let element = taskTemplate.cloneNode( true )
         element.children[0].innerText = task.name
-        element.children[1].innerText = task.start
+        element.children[1].innerText = dateToString( task.start )
         element.children[2].innerText = task.period
-        element.children[3].innerText = task.deadline
+        element.children[3].innerText = dateToString( task.deadline )
         element.children[4].children[0].onclick = getEditCallback( task )
         element.children[4].children[1].onclick = getRemoveCallback( task )
 
