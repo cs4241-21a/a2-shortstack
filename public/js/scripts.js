@@ -79,7 +79,6 @@ function edit_row ( no ) {
   document.getElementById("edit_button"+no).style.display="none";
   document.getElementById("save_button"+no).style.display="inline";
   itemIndex = parseInt(no);
-  console.log("EDIT INDEX " + itemIndex)
 
   let assignment = document.getElementById("assignment_row"+no);
   let course = document.getElementById("course_row"+no);
@@ -185,7 +184,6 @@ function refreshComplete() {
     }
     else if(appdata.length === (document.getElementById("hwTable").rows.length-3)) {//Math.max.apply(Math, appdata.map(function(o) { return o.itemIndex; }))) {
       
-      console.log("SOFJGSOGH")
       document.getElementById("hwTable").deleteRow(document.getElementById("hwTable").rows.length-2);
     }
     else {
