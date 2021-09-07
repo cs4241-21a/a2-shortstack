@@ -24,6 +24,7 @@ let updateTasks = (tasks) => {
         // Create table row
         const row = document.createElement('tr');
 
+        // Task title
         const titleData = document.createElement('td');
         const titleInput = document.createElement('input');
         titleInput.className = 'table-intput';
@@ -31,6 +32,7 @@ let updateTasks = (tasks) => {
         titleInput.value = element.title;
         titleInput.id = `title-${element.title}`;
 
+        // Task description
         const descriptionData = document.createElement('td');
         const descriptionInput = document.createElement('input');
         descriptionInput.className = 'table-input';
@@ -38,6 +40,7 @@ let updateTasks = (tasks) => {
         descriptionInput.value = element.description;
         descriptionInput.id = `description-${element.title}`;
 
+        // Task priority
         const priorityData = document.createElement('td');
         const priorityInput = document.createElement('input');
         priorityInput.className = 'table-input';
@@ -48,6 +51,7 @@ let updateTasks = (tasks) => {
         priorityInput.value = element.priority;
         priorityInput.id = `priority-${element.title}`;
 
+        // Task creation date
         const dateCreatedData = document.createElement('td');
         const dateCreatedInput = document.createElement('input');
         dateCreatedInput.className = 'table-input';
@@ -55,6 +59,7 @@ let updateTasks = (tasks) => {
         dateCreatedData.appendChild(dateCreatedInput);
         dateCreatedInput.value = element.dateCreated;
 
+        // Task deadline
         const deadlineData = document.createElement('td');
         const deadlineInput = document.createElement('input');
         deadlineInput.className = 'table-input';
@@ -62,6 +67,7 @@ let updateTasks = (tasks) => {
         deadlineData.appendChild(deadlineInput);
         deadlineInput.value = element.deadline;
 
+        // Task delete button
         const delBtn = document.createElement('button');
         delBtn.className = "warn-btn";
         delBtn.appendChild(document.createTextNode('Delete'));
@@ -79,6 +85,7 @@ let updateTasks = (tasks) => {
             });
         };
 
+        // Task edit button
         const editBtn = document.createElement('button');
         editBtn.className = 'secondary-btn';
         editBtn.appendChild(document.createTextNode('Save Edits'));
@@ -127,6 +134,7 @@ let updateTasks = (tasks) => {
     });
 }
 
+// Add task submit callback
 const submit = function (e) {
     // prevent default form action from being carried out
     e.preventDefault();
@@ -145,6 +153,7 @@ const submit = function (e) {
         return;
     }
 
+    // Compile Data
     const json = {
         title: title.value,
         description: description.value,
@@ -153,6 +162,7 @@ const submit = function (e) {
     };
     const body = JSON.stringify(json)
 
+    // Send data
     fetch('/submit', {
         method: 'POST',
         body

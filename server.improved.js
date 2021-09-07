@@ -33,26 +33,30 @@ const handlePost = function (request, response) {
   let dataString = ''
 
   request.on('data', function (data) {
-    dataString += data
+    dataString += data;
   })
 
   request.on('end', function () {
     let json = JSON.parse(dataString);
 
-    if(request.url === '/submit'){
+    // Add task submission
+    if (request.url === '/submit') {
+
+      // Check if task title is duplicate
       let dupe = false;
       appdata.forEach((element) => {
         if (element.title === json.title) {
           response.writeHead(200, "OK", { 'Content-Type': 'application/json' });
-          const resData = { ...appdata, error: 'Duplicate Task titles not allowed'};
+          const resData = { ...appdata, error: 'Duplicate Task titles not allowed' };
           response.end(JSON.stringify(resData));
           dupe = true;
         }
       });
-  
+
       if (dupe)
         return;
-  
+
+      // Add data to array
       appdata.push(
         {
           title: json.title,
@@ -62,11 +66,11 @@ const handlePost = function (request, response) {
           deadline: createDeadline(json.dateCreated, json.priority)
         }
       );
-  
+
       response.writeHead(200, "OK", { 'Content-Type': 'application/json' });
       response.end(JSON.stringify(appdata));
 
-    } else if (request.url === '/delete') {
+    } else if (request.url === '/delete') { // Delete a task
 
       // Delete task
       appdata = appdata.filter((element) => {
@@ -75,14 +79,15 @@ const handlePost = function (request, response) {
 
       response.writeHead(200, "OK", { 'Content-Type': 'application/json' });
       response.end(JSON.stringify(appdata));
-    } else if (request.url === '/edit') {
-      // Edit task
+
+    } else if (request.url === '/edit') { // Edit a task
+
       appdata = appdata.map((element) => {
-        if(json.oldTitle === element.title) {
+        if (json.oldTitle === element.title) {
           element.title = json.newTitle;
           element.description = json.description;
           element.priority = json.priority;
-          element.deadline = createDeadline(element.dateCreated, json.priority)
+          element.deadline = createDeadline(element.dateCreated, json.priority);
         }
 
         return element;
@@ -91,12 +96,12 @@ const handlePost = function (request, response) {
       response.writeHead(200, "OK", { 'Content-Type': 'application/json' });
       response.end(JSON.stringify(appdata));
     }
-    
+
   });
 }
 
 const sendFile = function (response, filename) {
-  const type = mime.getType(filename)
+  const type = mime.getType(filename);
 
   fs.readFile(filename, function (err, content) {
 
@@ -104,19 +109,25 @@ const sendFile = function (response, filename) {
     if (err === null) {
 
       // status code: https://httpstatuses.com
-      response.writeHeader(200, { 'Content-Type': type })
-      response.end(content)
+      response.writeHeader(200, { 'Content-Type': type });
+      response.end(content);
 
     } else {
 
       // file not found, error code 404
-      response.writeHeader(404)
-      response.end('404 Error: File Not Found')
+      response.writeHeader(404);
+      response.end('404 Error: File Not Found');
 
     }
   })
 }
 
+/**
+ * Calculates a deadline date based on a creation date and task priority.
+ * @param {String} dateCreated Date string of task creation data in MM/DD/YYYY format
+ * @param {Int} priority Priority of task [0, 10]
+ * @returns A deadline date string in the form MM/DD/YYYY.
+ */
 let createDeadline = (dateCreated, priority) => {
 
   let month = parseInt(dateCreated.substr(0, 2));
@@ -124,7 +135,7 @@ let createDeadline = (dateCreated, priority) => {
   let year = parseInt(dateCreated.substr(6, 4));
   let deadLine = new Date();
   deadLine.setDate(day);
-  deadLine.setMonth(month-1);
+  deadLine.setMonth(month - 1);
   deadLine.setFullYear(year);
 
   switch (priority) {
@@ -167,4 +178,4 @@ let createDeadline = (dateCreated, priority) => {
     `${String(deadLine.getDate()).padStart(2, '0')}/${deadLine.getFullYear()}`;
 }
 
-server.listen(process.env.PORT || port)
+server.listen(process.env.PORT || port);
