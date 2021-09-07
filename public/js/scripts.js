@@ -133,8 +133,6 @@ const remove = function( e, utask ) {
 }
 
 const update = function ( json ) {
-    e.preventDefault()
-
     console.log( json )
 
     //clear tasks
