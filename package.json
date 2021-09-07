@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
+  "name": "a2",
+  "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Keval Ashara",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.5.2"
   }
 }

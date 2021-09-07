@@ -8,7 +8,12 @@
     <form action="">
       <input type="text" id="bookname" value="name of book here" />
       <input type="text" id="length" value="length of book here" />
+      <input type="text" id="author" value="author of book here" />
+      <input type="hidden" id="timestamp" name="timestamp" value="0">
       <button>submit</button>
+    </form>
+    <form action="">
+
     </form>
   </body>
   <script>
@@ -16,16 +21,30 @@
       // prevent default form action from being carried out
       e.preventDefault();
 
+
       const inputname = document.querySelector("#bookname"),
-            inputlength = document.queryselector("#length")
-        json = { bookname: inputname.value , length:inputlength.value},
+            inputlength = document.querySelector("#length"),
+            inputauthor = document.querySelector("#author"),
+            letime = Date.now()
+            retime = letime.value + 604800*3;
+        json = { bookname: inputname.value , length:inputlength.value, author:inputauthor.value ,checktime:letime.value,
+          returntime: retime.value},
         body = JSON.stringify(json);
 
       fetch("/submit", {
         method: "POST",
         body
       }).then(function(response) {
-        // do something with the reponse
+        const date = new Date (Date.now())
+        const retdate = new Date(Date.now() + 604800000*3)
+        console.log(date)
+        console.log(retdate)
+        console.log("Date: "+ date.getDate()+
+                "/"+(date.getMonth()+1)+
+                "/"+date.getFullYear()+
+                " "+date.getHours()+
+                ":"+date.getMinutes()+
+                ":"+date.getSeconds());
         console.log(response);
       });
 
