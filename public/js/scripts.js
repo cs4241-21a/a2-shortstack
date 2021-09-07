@@ -35,10 +35,10 @@ const submit = function( e ) {
     }
 
     //stitch values back together in proper format
-    deadline.value = "" + dateDeadline.getFullYear() + "-"
-                        + dateDeadline.getMonth() + "-"
-                        + dateDeadline.getDate() + "T"
-                        + dateDeadline.getHours() + ":00"
+    deadline.value = "" + year + "-"
+                        + month + "-"
+                        + date + "T"
+                        + hours + ":00"
 
     const json = {id, name: task.value, period: period.value, deadline: deadline.value }
     
