@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'id': 0, 'name': 'Test Task', 'start': Date.parse('2021-09-07T00:00'), 'period': 20 , 'deadline': Date.parse('2021-09-09T12:00') },
+  { 'id': 1, 'name': 'Placeholder', 'start': Date.parse('2021-09-07T20:00'), 'period': 20 , 'deadline': Date.parse('2021-09-09T12:00') },
+  { 'id': 2, 'name': 'Something', 'start': Date.parse('2021-09-08T16:00'), 'period': 20 , 'deadline': Date.parse('2021-09-09T12:00') } 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,9 +38,18 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let json = JSON.parse( dataString )
+    console.log( json )
 
     // ... do something with the data here!!!
+    switch( url ){
+      case '/add': addTask( json.name, json.period, json.deadline ); break
+      case '/edit': editTask( json.id, json.name, json.period, json.deadline ); break
+      case '/remove': removeTask( json.id ); break
+      default:
+    }
+
+    response.body = JSON.stringify(appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
@@ -67,6 +76,49 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+const addTask = function( name, period, deadline ) {
+  let id = appdata[appdata.length - 1].id + 1
+
+  let numPeriod = Number.parseInt(period)
+
+  let dateDeadline = Date.parse(deadline)
+
+  let dataEntry = { 'name': name, 'start': Date(), 'period': numPeriod, 'deadline': dateDeadline }
+  appdata.push(dataEntry)
+
+  recalculateStarts()
+}
+
+const editTask = function( id, name, period, deadline ) {
+  let numId = Number.parseInt(id)
+
+  let numPeriod = Number.parseInt(period)
+
+  let dateDeadline = Date.parse(deadline)
+
+  let i = appdata.find( ( entry ) => entry.id === numId )
+
+  appdata[i].name = name
+  appdata[i].period = numPeriod
+  appdata[i].deadline = dateDeadline
+
+  recalculateStarts()
+}
+
+const removeTask = function( id ) {
+  let numId = Number.parseInt(id)
+
+  let i = appdata.find( ( entry ) => entry.id === numId )
+
+  appdata.splice(i, 1)
+
+  recalculateStarts()
+}
+
+const recalculateStarts = function() {
+  // TODO calculate latest starts based on deadlines and periods
 }
 
 server.listen( process.env.PORT || port )

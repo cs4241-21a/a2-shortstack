@@ -13,6 +13,11 @@ const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
     
+    deadline.value = "" + Date.prototype.getFullYear() + "-"
+                        + Date.prototype.getMonth() + "-"
+                        + Date.prototype.getDate() + "T"
+                        + Date.prototype.getHours() + ":00"
+
     const json = {id, name: task.value, period: period.value, deadline: deadline.value }
     
     const body = JSON.stringify( json )
@@ -20,9 +25,9 @@ const submit = function( e ) {
     let url
 
     switch( requestType ) {
-        case 0: url = "/add"
-        case 1: url = "/edit"
-        case 2: url = "/remove"
+        case 0: url = "/add"; break
+        case 1: url = "/edit"; break
+        case 2: url = "/remove"; break
     }
 
     fetch( url, {
@@ -30,8 +35,8 @@ const submit = function( e ) {
         body
     })
     .then( function( response ) {
-        // do something with the reponse 
-        console.log( response )
+        // do something with the reponse
+        update(JSON.parse(response))
     })
 
     return false
@@ -51,6 +56,14 @@ const add = function ( e ) {
     return false;
 }
 
+const update = function ( json ) {
+    e.preventDefault()
+
+    console.log(json)
+
+    return false;
+}
+
 window.onload = function() {
     const submitButton = document.getElementById( "submit-form-button" )
     const addButton = document.getElementById( "add-button" )
@@ -61,4 +74,3 @@ window.onload = function() {
     //load data from server
     //connect edit and delete buttons to fetch requests
 }
-
