@@ -13,6 +13,8 @@ Testing Browser: Google Chrome
 - **Tech Achievement 1**: 
 The server's handlePost() for submit returns a stringified json with the lastest entry which contained the dervived field. In index.html once the server has responsed, if the entry was being updated the old version is removed from the display table. A new row is added to the display table to show the new entry. 
 
+Supports add, modify, and deleting entries 
+
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
 
