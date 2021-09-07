@@ -111,7 +111,7 @@ const editTask = function( id, name, period, deadline ) {
 const removeTask = function( id ) {
   let numId = Number.parseInt(id)
 
-  let i = appdata.find( ( entry ) => entry.id === numId )
+  let i = appdata.findIndex( ( entry ) => entry.id === numId )
 
   appdata.splice(i, 1)
 
