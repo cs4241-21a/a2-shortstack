@@ -99,7 +99,7 @@ const editTask = function( id, name, period, deadline ) {
 
   let dateDeadline = Date.parse(deadline)
 
-  let i = appdata.find( ( entry ) => entry.id === numId )
+  let i = appdata.findIndex( ( entry ) => entry.id === numId )
 
   appdata[i].name = name
   appdata[i].period = numPeriod
