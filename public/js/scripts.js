@@ -66,7 +66,7 @@ function update_based_on_existing_data() {
 // Function that is responsible for deleting an item from our forum
 function deleteItemFunc(button) {
   // POST request variables
-  const input = button.path[0].id,
+  const input = button.composedPath()[0].id,
     json = { id: input },
     body = JSON.stringify(json);
 
@@ -97,7 +97,7 @@ function updateItemFunc(button) {
   const name_input = document.querySelector("#StudentName"),
     class_input = document.querySelector("#StudentClass"),
     role_input = document.querySelector("#StudentRole"),
-    id_value = button.path[0].id,
+    id_value = button.composedPath()[0].id,
     json = {
       StudentName: name_input.value,
       StudentClass: class_input.value,
