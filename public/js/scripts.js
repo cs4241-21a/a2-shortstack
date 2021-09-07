@@ -12,11 +12,13 @@ let requestType = 0; //0 is add, 1 is edit, 2 is delete
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
+
+    let dateDeadline = Date.parse(deadline.value)
     
-    deadline.value = "" + Date.prototype.getFullYear() + "-"
-                        + Date.prototype.getMonth() + "-"
-                        + Date.prototype.getDate() + "T"
-                        + Date.prototype.getHours() + ":00"
+    deadline.value = "" + dateDeadline.getFullYear() + "-"
+                        + dateDeadline.getMonth() + "-"
+                        + dateDeadline.getDate() + "T"
+                        + dateDeadline.getHours() + ":00"
 
     const json = {id, name: task.value, period: period.value, deadline: deadline.value }
     
