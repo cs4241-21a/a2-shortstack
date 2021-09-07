@@ -58,7 +58,8 @@ const submit = function( e ) {
     })
     .then( function( response ) {
         // do something with the reponse
-        update(JSON.parse(response.body))
+        console.log(response)
+        //update(JSON.parse(response.body))
     })
 
     return false
