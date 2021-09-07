@@ -7,7 +7,7 @@ const period = document.getElementById( "period" )
 const deadline = document.getElementById( "deadline" )
 
 const taskContainer = document.getElementById( "task-container" )
-const taskTemplate = document.getElementById( "task-template" ).firstChild
+const taskTemplate = document.getElementById( "task-template" ).content.children[0]
 
 let id = NaN;
 let requestType = 0; //0 is add, 1 is edit, 2 is delete
@@ -141,12 +141,12 @@ const update = function ( json ) {
     //load tasks from json
     json.forEach(task => {
         let element = taskTemplate.cloneNode( true )
-        element.childNodes[0].innerText = task.name
-        element.childNodes[1].innerText = task.start
-        element.childNodes[2].innerText = task.period
-        element.childNodes[3].innerText = task.deadline
-        element.childNodes[4].childNodes[0].onclick = getEditCallback( task )
-        element.childNodes[4].childNodes[1].onclick = getRemoveCallback( task )
+        element.children[0].innerText = task.name
+        element.children[1].innerText = task.start
+        element.children[2].innerText = task.period
+        element.children[3].innerText = task.deadline
+        element.children[4].children[0].onclick = getEditCallback( task )
+        element.children[4].children[1].onclick = getRemoveCallback( task )
 
         taskContainer.appendChild( element )
     });
