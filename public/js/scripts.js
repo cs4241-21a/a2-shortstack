@@ -16,7 +16,7 @@ const dateToDatetimeValue = function( date ) {
     // parse deadline datetime value
     let year = "" + date.getFullYear()
     let month = "" + date.getMonth()
-    let day = "" + day.getDate()
+    let day = "" + date.getDate()
     let hours = "" + date.getHours()
 
     //ensure all strings are the proper number of characters by adding 0's
