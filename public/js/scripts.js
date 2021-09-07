@@ -122,7 +122,7 @@ const remove = function( e, utask ) {
 
     fetch( "/remove", {
         method: "POST",
-        body: { id }
+        body: "{ id }"
     })
     .then( ( response ) => response.json() )
     .then( function( appData ) {
@@ -166,7 +166,7 @@ window.onload = function() {
     //load data from server
     fetch( "/update", {
         method: "POST",
-        body: ""
+        body: "{}"
     })
     .then( ( response ) => response.json() )
     .then( function( appData ) {
