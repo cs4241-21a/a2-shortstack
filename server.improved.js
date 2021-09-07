@@ -6,7 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [ 
+let appdata = [ 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -42,7 +42,7 @@ const handlePost = function( request, response ) {
   console.log(appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 

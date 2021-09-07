@@ -4,6 +4,7 @@
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
+    <div class='schedule'></div>
   </head>
   <body>
     <form method="post">
@@ -39,24 +40,36 @@
             <option value="10">10</option>
         </select>
       </li>
-            <!---
-      <li>
-        <label for="priority">Low priority</label>
-        <input type="radio" id="lowPriority" name="priority" value="low" checked>
-      <li>
-        <label for="priority">High priority</label>
-        <input type="radio" id="highPriority" name="priority" value="high">
-      </li>
-    -->
       <li class="button">
         <button type="button">SUBMIT</button>
       </li>     
     </ul>
-
     </form>
+    <h1>Your Schedule:</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+      </tr>
+      <tr>
+        <td>Alfreds Futterkiste</td>
+        <td>Maria Anders</td>
+        <td>Germany</td>
+      </tr>
+      <tr>
+        <td>Centro comercial Moctezuma</td>
+        <td>Francisco Chang</td>
+        <td>Mexico</td>
+      </tr>
+    </table>
   </body>
-  <script>
 
+  <script>
 
   const submit = function( e ) {
     // prevent default form action from being carried out
@@ -98,6 +111,36 @@
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
+
+  const schedule = document.querySelector('schedule')
+
+  const createSchedule = () => {
+    while(schedule.firstChild) schedule.removeChild(schedule.firstChild)
+
+    let scheduleTable = document.createObject('table')
+    scheduleTable.className = 'scheduleTable'
+
+    let scheduleTableHead = document.createObject('thead')
+    scheduleTableHead.className = 'scheduleTableHead'
+
+    let scheduleTableHeaderRow = document.createElement('tr')
+    scheduleTableHeaderRow.className = 'scheduleTableHeaderRow'
+
+
+    tableHeaders.forEach(header => {
+    
+    let scheduleHeader = document.createElement('th') // Creates the current header cell during a specific iteration
+    scheduleHeader.innerText = header
+    scheduleTableHeaderRow.append(scheduleHeader) // Appends the current header cell to the header row
+})
+
+    scheduleTableHead.append(scheduleTableHeaderRow) // Appends the header row to the table header group element
+    scheduleTable.append(scheduleTableHead)
+    let scheduleTableBody = document.createElement('tbody') // Creates the table body group element
+    scheduleTableBody.className = "scheduleTable-Body"
+    scheduleTable.append(scheduleTableBody) // Appends the table body group element to the table
+    schedule.append(scheduleTable) // Appends the table to the scoreboard div
+}
 
   </script>
 </html>
