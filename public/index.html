@@ -1,41 +1,86 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
+    <head>
+        <title>CS4241 Assignment 2</title>
+        <meta charset="utf-8">
+        <script src="js/scripts.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+        <script>
+            let form = {}
+            window.onload = function() {
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+                            form = {
+                                            nTick : document.querySelector("#nTick"),
+                                            nAmt : document.querySelector("#nAmt"),
+                                            nPurch : document.querySelector("#nPurch")
+                                        }
+                            const button = document.querySelector( '#signin' )
+                            button.onclick = signin
+                            document.querySelector('#signup').onclick = signup
+                            document.querySelector('#submitNewAsset').onclick = submitnewasset
+                            document.querySelector('#clearForm').onclick = clearform
+                        }
 
-    return false
-  }
+        </script>
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+    </head>
+    <body>
+        <header>
 
-  </script>
+            <h1>Finance Tracker</h1>
+
+        </header>
+
+        <form id="welcomeForm" action="">
+            <input type='text' id='username' placeholder="Enter your username">
+            <div style="display:flex;">
+                <button id="signin" style="flex-grow:1">Sign in</button>
+                <button id="signup" style="flex-grow:1">Sign Up</button>
+            </div>
+        </form>
+
+        <div id="userinfo" style="display:none">
+
+            <h3></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Amount</th>
+                        <th>Purchase Prive</th>
+                        <th>Current Price</th>
+                        <th>Current Profit/Loss</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+
+                </tbody>
+            </table>
+
+            <p>Click on rows to mark for deletion. Click "submit" to delete. Click "submit" submit new asset.</p>
+            <div id="newEntryForm" style="display:none">
+                <form action="">
+                    <input type='text' id='nTick' placeholder='Ticker'>
+                    <input type='text' id='nAmt' placeholder='Amount'>
+                    <input type='text' id='nPurch' placeholder='Purchase Price'>
+                    <div style="display:flex">
+                        <button id="submitNewAsset" style="flex-grow:1">Submit Changes</button>
+                        <button id="clearForm" style="flex-grow:1">Cancel Changes</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="userOptions" style="display:flex">
+                <button onclick="setupModifyEntries()" style="flex-grow:1">Modify/Delete Assets</button>
+                <button onclick="signout()" style="flex-grow:1">Sign Out</button>
+
+            </div>
+
+        </div>
+    </body>
 </html>
