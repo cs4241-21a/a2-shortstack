@@ -8,9 +8,9 @@ const http = require( 'http' ),
 
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { name: 'Jane Doe', color: '#ff55ff', message: 'Sometimes all you need is a little splash of color1' },
+  { name: 'Jane Doe', color: '#ffff55', message: 'Sometimes all you need is a little splash of color2' },
+  { name: 'Jane Doe', color: '#55ffff', message: 'Sometimes all you need is a little splash of color3' }
 ]
 
 /**
@@ -34,10 +34,17 @@ const server = http.createServer( function( request,response ) {
  * @param response
  */
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
+  const filename = dir + request.url.slice( 1 )
+
+  function sendMessages(response) {
+    response.writeHead(200, "OK", {'Content-Type': 'application/json'})
+    response.end(JSON.stringify(appdata))
+  }
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }else if(request.url === 'messages') {
+    sendMessages(response)
   }else{
     sendFile( response, filename )
   }
@@ -52,13 +59,12 @@ const handleGet = function( request, response ) {
  */
 const handlePost = function( request, response ) {
   let dataString = ''
-
   request.on( 'data', function( data ) {
       dataString += data 
   })
 
   request.on( 'end', function() {
-    // console.log( JSON.parse( dataString ) )
+    console.log( JSON.parse( dataString ) )
     // const json = JSON.parse(appdata)
     // json.yourname += " the first!"
 

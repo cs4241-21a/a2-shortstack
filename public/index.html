@@ -8,18 +8,84 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+<!--    <header>-->
+<!--      <button class="header-btn">-->
+<!--        <i class="fas fa-paint-brush"></i>-->
+<!--      </button>-->
+<!--      <input type="color" name="color" id="color">-->
+<!--    </header>-->
+
+
+<!--    <form action="">-->
+<!--      <input type='text' id='yourname' value="your name here">-->
+<!--      <button>submit</button>-->
+<!--    </form>-->
+<!--  <p id="responseField">None yet</p>-->
+
+    <!--
+      Header
+      Contains the HTML form for submitting the colored message
+      -->
     <header>
-      <button class="header-btn">
-        <i class="fas fa-paint-brush"></i>
-      </button>
-      <input type="color" name="color" id="color">
+      <form action="">
+        <label>Name:</label>
+        <input type="text" id="inputName" placeholder="Jane Doe">
+        <br>
+        <label>Message Color:</label>
+        <input type="color" id="inputColor" value="#FF55FF">
+        <br>
+        <label>Message:</label><br>
+        <textarea id="inputMessage" placeholder="Sometimes all you need is a little splash of color"></textarea>
+        <br>
+        <button class="header-btn">Send</button>
+      </form>
     </header>
 
+    <!--
+      Main
+      Contains the messages submitted to the server-->
+<!--    <main>-->
+      <message>
+        <h3>Jane Doe1</h3>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <p>Jane Doe2:</p>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h4>Jane Doe3</h4>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h5>Jane Doe4</h5>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h6>Jane Doe5</h6>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h3>Jane Doe6</h3>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h3>Jane Doe7</h3>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h3>Jane Doe8</h3>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h3>Jane Doe9</h3>
+        <p>Sometimes all you need is a little splash of color</p>
+      </message>
+      <message>
+        <h3>Jane Doe10</h3>
+        <p>Sometimes all you need is a little splash of color. Sometimes all you need is a little splash of color. Sometimes all you need is a little splash of color</p>
+      </message>
+<!--    </main>-->
 
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  <p id="responseField">None yet</p>
   </body>
 </html>

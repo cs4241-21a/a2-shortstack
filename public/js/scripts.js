@@ -1,13 +1,15 @@
 // Add some Javascript code here, to run on the front end.
 
-console.log("Welcome to assignment 2!")
+// console.log("Welcome to assignment 2!")
 
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-        json = { yourname: input.value },
+    const name = document.getElementById( "inputName" ),
+        color = document.getElementById("inputColor"),
+        message = document.getElementById("inputMessage"),
+        json = { name: name.value, color: color.value, message: message.value },
         body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -15,17 +17,19 @@ const submit = function( e ) {
         body
     })
         .then( function( response ) {
-            // do something with the reponse
+            document.getElementById("inputMessage").value = ""
+
+            // do something with the response
             return response.json()
         }).then( function ( json ) {
-
-        if(Array.isArray(json)){
-            for(let car of json){
-                const model = car.model
-                const upperModel = model[0].toUpperCase() + model.slice(1)
-                console.log(upperModel)
-            }
-        }
+        console.log('Server response: ' + json)
+        // if(Array.isArray(json)){
+        //     for(let car of json){
+        //         const model = car.model
+        //         const upperModel = model[0].toUpperCase() + model.slice(1)
+        //         console.log(upperModel)
+        //     }
+        // }
 
         // if(Array.isArray(json)){
         //   json
@@ -54,4 +58,5 @@ const submit = function( e ) {
 window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
+
 }
