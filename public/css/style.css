@@ -4,6 +4,10 @@ th,td,p,b,input,button {
   font-size: large;
 }
 
+button {
+  cursor:pointer;
+}
+
 a {
   font-family: 'Courier Prime', monospace; 
   font-size: x-large;

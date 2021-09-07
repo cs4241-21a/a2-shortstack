@@ -80,7 +80,7 @@ const sendFile = function( response, filename ) {
 function owoify(text) {
   //console.log(text)
   let v = text.replace(/[lr]/g, 'w').replace(/[LR]/g, 'W').replace(/n[aeiou]/g, 'ny').replace(/N[aeiou]/g, 'Ny').replace(/N[AEIOU]/g, 'NY');
-  let numExclaimations = (v.match(/!/)||[]).length;
+  let numExclaimations = (v.match(/!/g)||[]).length;
   for(let i = 0; i < numExclaimations; i++) {
     v = v.replace('!'," " + faces[getRandomInt(0, faces.length)] + " ");
   }
