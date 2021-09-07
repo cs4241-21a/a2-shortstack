@@ -3,77 +3,73 @@ const context = canvas.getContext('2d');
 
 context.scale(20, 20);
 
-const objName = varObj => Object.keys(varObj)[0];
-const oShape = [
-    [1, 1],
-    [1, 1]
-]
-const iShape = [
-    [0, 1, 0, 0],
-    [0, 1, 0, 0],
-    [0, 1, 0, 0],
-    [0, 1, 0, 0]
-]
-const sShape = [
-    [0, 0, 0],
-    [0, 1, 1],
-    [1, 1, 0]
-]
-const zShape = [
-    [0, 0, 0],
-    [1, 1, 0],
-    [0, 1, 1]
-]
-const lShape = [
-    [0, 1, 0],
-    [0, 1, 0],
-    [0, 1, 1]
-]
-const jShape = [
-    [0, 1, 0],
-    [0, 1, 0],
-    [1, 1, 0]
-]
-const tShape = [
-    [0, 0, 0],
-    [1, 1, 1],
-    [0, 1, 0]
+const allShapes = 'OISZLJT';
+const colors = [
+    null,
+    '#033E8C',
+    '#D97C2B',
+    '#E02955',
+    '#0FA697',
+    '#D4A39E',
+    '#D9A036',
+    '#188FD9'
 ]
 
-function defColor(aShape) {
-    let color = "#f3f3f3";
-    switch (objName({ aShape })) {
-        case 'oShape':
-            color = '#033E8C'
-            break;
-        case 'iShape':
-            color = '#D97C2B'
-            break;
-        case 'sShape':
-            color = '#E02955'
-            break;
-        case 'zShape':
-            color = '#0FA697'
-            break;
-        case 'lShape':
-            color = '#D4A39E'
-            break;
-        case 'jShape':
-            color = '#D9A036'
-            break;
-        case 'tShape':
-            color = '#188FD9'
+function createShape(type) {
+    switch (type) {
+        case 'O':
+            return [
+                [1, 1],
+                [1, 1]
+            ];
+        case 'I':
+            return [
+                [0, 2, 0, 0],
+                [0, 2, 0, 0],
+                [0, 2, 0, 0],
+                [0, 2, 0, 0]
+            ];
+        case 'S':
+            return [
+                [0, 0, 0],
+                [0, 3, 3],
+                [3, 3, 0]
+            ];
+        case 'Z':
+            return [
+                [0, 0, 0],
+                [4, 4, 0],
+                [0, 4, 4]
+            ];
+        case 'L':
+            return [
+                [0, 5, 0],
+                [0, 5, 0],
+                [0, 5, 5]
+            ];
+        case 'J':
+            return [
+                [0, 6, 0],
+                [0, 6, 0],
+                [6, 6, 0]
+            ];
+        case 'T':
+            return [
+                [0, 0, 0],
+                [7, 7, 7],
+                [0, 7, 0]
+            ];
+        default:
+            alert("Object Doesn't Exist!");
             break;
     }
-    return color;
 }
 
 function drawShape(aShape, offset) {
-    let color = defColor(aShape);
     aShape.forEach((row, y) => {
         row.forEach((value, x) => {
             if (value !== 0) {
-                context.fillStyle = color;
+                context.fillStyle = colors[value];
                 context.fillRect(
                     x + offset.x,
                     y + offset.y,
@@ -96,7 +92,9 @@ function shapeDrop() {
     if (shapeCollide(arena, player)) {
         player.pos.y--;
         addShape(arena, player);
-        player.pos.y = 0;
+        playerReset();
+        arenaSweep();
+        updateScore();
     }
     dropCounter = 0;
 }
@@ -104,6 +102,7 @@ function shapeDrop() {
 let dropCounter = 0;
 let dropInterval = 1000;
 let lastTime = 0;
+
 function update(time = 0) {
     const deltaTime = time - lastTime;
     lastTime = time;
@@ -134,6 +133,27 @@ function addShape(arena, player) {
     });
 }
 
+function arenaSweep() {
+    let rowCount = 1;
+    outer: for (let y = arena.length - 1; y >= 0; y--) {
+        for (let x = 0; x < arena[y].length; x++) {
+            if (arena[y][x] === 0) {
+                continue outer;
+            }
+        }
+        const row = arena.splice(y, 1)[0].fill(0);
+        arena.unshift(row);
+        y++;
+
+        player.score += rowCount * 10;
+        rowCount *= 2;
+    }
+}
+
+function updateScore() {
+    document.getElementById('score').innerText = player.score;
+}
+
 function shapeCollide(arena, player) {
     const [sh, off] = [player.currentShape, player.pos];
     for (let y = 0; y < sh.length; ++y) {
@@ -152,6 +172,49 @@ function shapeCollide(arena, player) {
     return false;
 }
 
+function playerReset() {
+    const shapeIndex = allShapes.length * Math.random() | 0;
+    player.currentShape = createShape(allShapes[shapeIndex]);
+    player.pos.y = 0;
+    player.pos.x =
+        (arena[0].length / 2 | 0) -
+        (player.currentShape[0].length / 2 | 0);
+}
+
+function playerRotate(dir) {
+    const pos = player.pos.x;
+    let offset = -1;
+    rotate(player.currentShape, dir);
+    while (shapeCollide(arena, player)) {
+        player.pos.x += offset;
+        offset = -(offset + (offset > 0 ? 1 : -1));
+        if (offset > (player.currentShape[0].length - 2)) {
+            rotate(player.currentShape, -dir);
+            player.pos.x = pos;
+            return;
+        }
+    }
+}
+
+function rotate(shape, dir) {
+    for (let y = 0; y < shape.length; y++) {
+        for (let x = 0; x < y; x++) {
+            [
+                shape[x][y],
+                shape[y][x],
+            ] = [
+                    shape[y][x],
+                    shape[x][y],
+                ];
+        }
+    }
+    if (dir > 0) {
+        shape.forEach(row => row.reverse());
+    } else {
+        shape.reverse();
+    }
+}
+
 function playerMove(dir) {
     player.pos.x += dir;
     if (shapeCollide(arena, player)) {
@@ -160,8 +223,9 @@ function playerMove(dir) {
 }
 
 let player = {
-    currentShape: tShape,
-    pos: { x: 6, y: 10 }
+    currentShape: null,
+    pos: { x: 0, y: 0 },
+    score: 0,
 }
 
 const arena = createArena(15, 25);
@@ -185,14 +249,20 @@ document.addEventListener('keydown', e => {
             break;
         case 'ArrowUp':
             break;
-        case 'r':
-        case 'R':
+        case 'e':
+        case 'E':
+            playerRotate(1);
             break;
+        case 'q':
+        case 'Q':
+            playerRotate(-1);
         default:
             break;
     }
 });
 
+playerReset();
+updateScore();
 update();
 
 

@@ -1,5 +1,9 @@
 /*Style your own assignment! This is fun! */
 
+#score {
+  font-size: 2em;
+}
+
 #tetris {
   margin: 5% 10% 10% 5%;
 }
