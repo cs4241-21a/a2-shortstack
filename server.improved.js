@@ -7,10 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+  { 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'cat' },
+  { 'name': 'Mordecai', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg', 'call': 'MEOW', 'type': 'dog' },
+  { 'name': 'Bubba', 'link': 'https://i.imgur.com/Db4cRax.png', 'call': 'CUTE', 'type':'other'}
+];
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -38,12 +38,37 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let obj = JSON.parse( dataString );
+    console.log(obj)
 
-    // ... do something with the data here!!!
+    if(obj.name !== '' && (obj.link.includes("https://i.imgur.com/") || obj.link.includes("https://cdn.discordapp.com/attachments/"))) {
+      let flip = Math.random();
+      let call;
+      switch (dataString.type) {
+        case "Dog":
+          call = (flip > 0.5) ? "ARF" : "WOOF";
+          break;
+        case "Cat":
+          call = (flip > 0.5) ? "MEOW" : "PURR";
+          break;
+        case "Snake":
+          call = (flip > 0.5) ? "TSSS" : "SSSWEET";
+          break;
+        case "Bird":
+          call = (flip > 0.5) ? "TWEET" : "CHIRP";
+          break;
+        default:
+          call = (flip > 0.5) ? "CUTE" : "AAAW";
+      }
+      obj.call = call;
+      appdata.push(obj)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+      response.end(JSON.stringify(appdata))
+    } else {
+      response.writeHead(400, "Invalid Pet Request! Make sure your image is an imgur/discord link and that the name is not null", {'Content-Type': 'text/plain'})
+      response.end(JSON.stringify(appdata))
+    }
   })
 }
 

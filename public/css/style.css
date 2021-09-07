@@ -1,1 +1,29 @@
 /*Style your own assignment! This is fun! */
+* {
+    box-sizing: border-box;
+}
+html, body, div, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+body {
+    line-height: 1;
+    margin: 0 auto;
+    max-width: 60em;
+}
+
+#gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+img {
+    width: 25%;
+    height: auto;
+    object-fit: cover;
+}
