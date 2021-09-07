@@ -58,7 +58,7 @@ const submit = function( e ) {
     })
     .then( function( response ) {
         // do something with the reponse
-        console.log(response)
+        console.log(response.body)
         //update(JSON.parse(response.body))
     })
 
