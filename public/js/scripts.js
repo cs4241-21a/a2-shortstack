@@ -13,13 +13,21 @@ const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
     
-    const json = { requestType, id, name: task.value, period: period.value, deadline: deadline.value }
+    const json = { id, name: task.value, period: period.value, deadline: deadline.value }
     
     const body = JSON.stringify( json )
 
+    let method
+
+    switch( requestType ) {
+        case 0: method == "POST"
+        case 1: method == "PUT"
+        case 2: method == "DELETE"
+    }
+
     fetch( "/submit", {
-        method:"POST",
-        body 
+        method,
+        body
     })
     .then( function( response ) {
         // do something with the reponse 
@@ -49,5 +57,8 @@ window.onload = function() {
     
     submitButton.onclick = submit
     addButton.onclick = add
+
+    //load data from server
+    //connect edit and delete buttons to fetch requests
 }
 
