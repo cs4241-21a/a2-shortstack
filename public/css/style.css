@@ -1,1 +1,8 @@
-/*Style your own assignment! This is fun! */
+body {
+    font-family: 'Roboto', Arial;
+}
+
+table, th, td {
+    border:1px solid black;
+    margin: 1em 0 1em 0;
+}
