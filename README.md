@@ -5,6 +5,8 @@ In order to position my elements, I used the CSS grid format. This allowed me to
 
 In order to use my application, please read the Tutorial Area (labeled "How To Use"). This is also shown below. 
 
+All testing was completed in Chrome and Firefox. 
+
 How To Use:
 - Enter the necessary information in the Input Area.
 - When you've entered new information, click Add Entry.
@@ -13,6 +15,23 @@ How To Use:
 
 ## Technical Achievements
 - **Tech Achievement 1** (10 points): Using a combination of GET and POST requests, I created a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. Every button the user can click leads to a POST request being send to the server. This POST request will return the list of all data entries currently in the server's memory. This also persists through the frontend restarting whether through a page refresh, opening a new page, etc. Every time the page is reset, a GET request gets the updated list of information from the server. This ensures that the client is never out of data and the table won't act buggy when adding that first entry after a refresh.
+- **Tech Achievement 2** (5 points): Update and remove table entry functionality are working as intended.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design Achievement 1** (5 points): User study 1 was completed and is listed below.
+
+    1. Provide the last name of each student you conduct the evaluation with.
+
+        Stephano Jordhani
+
+    2. What problems did the user have with your design?
+
+        We discovered an issue where my update and delete actions did not work in Firefox, they only functioned in Chrome. He did not dislike anything involving the layout itself.
+
+    3. What comments did they make that surprised you?
+
+        I was surprised 2/3 of the actions did not work in Firefox, I didn't expect there to be such a difference between browsers. There were no surprising comments about comments on the layout itself.
+
+    4. What would you change about the interface based on their feedback?
+
+        I would not make any changes to the interface itself based on this feedback, I did change the front-end to be Firefox compatible, however. 
