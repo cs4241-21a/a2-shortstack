@@ -42,7 +42,7 @@ const handlePost = function( request, response ) {
     console.log( json )
 
     // ... do something with the data here!!!
-    switch( url ){
+    switch( request.url ){
       case '/add': addTask( json.name, json.period, json.deadline ); break
       case '/edit': editTask( json.id, json.name, json.period, json.deadline ); break
       case '/remove': removeTask( json.id ); break
