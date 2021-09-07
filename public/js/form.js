@@ -265,10 +265,11 @@ const submitForm = function(e) {
     })
     .then( function( response ) { 
       console.log( response )
+    }).then( function() { 
+        console.log( "Finished add request" )
+        updatePage()
+        form.reset()
     })
-
-    updatePage()
-    form.reset()
   }
 
 window.onload = function() {

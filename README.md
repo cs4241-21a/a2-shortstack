@@ -8,9 +8,7 @@ Glitch link: http://a2-hellofellowkids.glitch.me
 
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 
-Your application is required to implement the following functionalities:
-
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
+Your application is required to implement the following functionalities:git 
 - All pages should [validate](https://validator.w3.org)
 
 3. Test your project to make sure that when someone goes to your main page, it displays correctly.
