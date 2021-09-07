@@ -13,8 +13,28 @@ const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    // round deadline to nearest hour
+    // parse deadline datetime value
     let dateDeadline = new Date(Date.parse(deadline.value))
+    let year = "" + dateDeadline.getFullYear()
+    let month = "" + dateDeadline.getMonth()
+    let date = "" + dateDeadline.getDate()
+    let hours = "" + dateDeadline.getHours()
+
+    //ensure all strings are the proper number of characters by adding 0's
+    while ( year.length < 4 ) {
+        year = "0" + year
+    }
+    if ( month.length < 2) {
+        month = "0" + month
+    }
+    if ( date.length < 2 ) {
+        date = "0" + date
+    }
+    if ( hours.length < 2) {
+        hours = "0" + hours
+    }
+
+    //stitch values back together in proper format
     deadline.value = "" + dateDeadline.getFullYear() + "-"
                         + dateDeadline.getMonth() + "-"
                         + dateDeadline.getDate() + "T"
