@@ -4,7 +4,7 @@ WPI email: akumar6@wpi.edu
 
 Github Username: hellofellowkids
 
-Glitch link: http://a2-hellofellowkids.glitch.me
+Glitch link: https://a2-hellofellowids.glitch.me/
 
 Pull Request: a2-hellofellowkids-Aditya-Kumar
 
