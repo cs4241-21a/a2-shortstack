@@ -3,29 +3,10 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 
 Due: September 9th, by 11:59 AM.
 
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
-
-Baseline Requirements
----
-
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
-
-Your application is required to implement the following functionalities:
-
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
 
 Your application is required to demonstrate the use of the following concepts:
 
 HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.
 - All pages should [validate](https://validator.w3.org)
 
 CSS:
@@ -40,12 +21,6 @@ CSS:
 
 - CSS defined in a maintainable, readable form, in external stylesheets 
 
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
 
 Deliverables
 ---
