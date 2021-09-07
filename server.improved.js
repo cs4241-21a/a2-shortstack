@@ -45,8 +45,8 @@ const handlePost = function (request, response) {
       let modified = false;
       for (let i = 0; i < appdata.length; i++) {
         if (
-          appdata[i].name === dataJSON.name &&
-          appdata[i].team === dataJSON.team
+          appdata[i].name.toUpperCase() === dataJSON.name.toUpperCase() &&
+          appdata[i].team.toUpperCase() === dataJSON.team.toUpperCase()
         ) {
           appdata[i] = dataJSON;
           modified = true;
@@ -67,8 +67,8 @@ const handlePost = function (request, response) {
       const dataJSON = JSON.parse(dataString);
       for (let i = 0; i < appdata.length; i++) {
         if (
-          appdata[i].name === dataJSON.name &&
-          appdata[i].team === dataJSON.team
+          appdata[i].name.toUpperCase() === dataJSON.name.toUpperCase() &&
+          appdata[i].team.toUpperCase() === dataJSON.team.toUpperCase()
         ) {
           appdata.splice(i, 1)
         }
