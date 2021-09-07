@@ -12,3 +12,5 @@ For CSS, a grid layout was used to create vertical sections of the website. The 
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: Using CSS, JS and HTML, I implemented a pop-up box for users to enter data into when adding to the Contact Log. This was done via CSS, but creating a div which contains the content and the backgound sections of the screen. With JS when a user clicks on a table entry in the databse the pop-up has the class active added to its class list, causing it to appear. Then once an action is take then pop-up disappears.
+
+- **Design Achievement 2**: Using CSS, JS and HTML, I implemented a counter to the textarea input when adding a contact. This was done via CSS, but creating a div which has the data set to the number of characters. With JS when a edits the notes textarea the div is incremented by the length in the textarea. This was done using an onEventListener of type 'input' for the textarea.
