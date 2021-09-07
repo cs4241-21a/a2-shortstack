@@ -56,9 +56,9 @@ const submit = function( e ) {
         method: "POST",
         body
     })
-    .then( function( response ) {
-        // do something with the reponse
-        console.log(response.body)
+    .then( ( response ) => response.json() )
+    .then( function( appData ) {
+        console.log(appData)
         //update(JSON.parse(response.body))
     })
 
