@@ -19,7 +19,7 @@ let updateTasks = (tasks) => {
     const holder = document.querySelector('#task-holder');
     holder.innerHTML = '';
 
-    tasks.forEach(element => {
+    tasks.forEach((element, index) => {
 
         // Create table row
         const row = document.createElement('tr');
@@ -30,7 +30,7 @@ let updateTasks = (tasks) => {
         titleInput.className = 'table-intput';
         titleData.appendChild(titleInput);
         titleInput.value = element.title;
-        titleInput.id = `title-${element.title}`;
+        titleInput.id = `title-${index}`;
 
         // Task description
         const descriptionData = document.createElement('td');
@@ -38,7 +38,7 @@ let updateTasks = (tasks) => {
         descriptionInput.className = 'table-input';
         descriptionData.appendChild(descriptionInput);
         descriptionInput.value = element.description;
-        descriptionInput.id = `description-${element.title}`;
+        descriptionInput.id = `description-${index}`;
 
         // Task priority
         const priorityData = document.createElement('td');
@@ -49,7 +49,7 @@ let updateTasks = (tasks) => {
         priorityInput.max = 10;
         priorityData.appendChild(priorityInput);
         priorityInput.value = element.priority;
-        priorityInput.id = `priority-${element.title}`;
+        priorityInput.id = `priority-${index}`;
 
         // Task creation date
         const dateCreatedData = document.createElement('td');
@@ -91,7 +91,7 @@ let updateTasks = (tasks) => {
         editBtn.appendChild(document.createTextNode('Save Edits'));
         editBtn.onclick = (e) => {
 
-            const priority = document.querySelector(`#priority-${element.title}`);
+            const priority = document.querySelector(`#priority-${index}`);
 
             if ((!priority.valueAsNumber && priority.valueAsNumber !== 0) || priority.valueAsNumber < 0 || priority.valueAsNumber > 10) {
                 alert('Priority must be 0 - 10');
@@ -102,8 +102,8 @@ let updateTasks = (tasks) => {
                 method: 'POST',
                 body: JSON.stringify({
                     oldTitle: element.title,
-                    newTitle: document.querySelector(`#title-${element.title}`).value,
-                    description: document.querySelector(`#description-${element.title}`).value,
+                    newTitle: document.querySelector(`#title-${index}`).value,
+                    description: document.querySelector(`#description-${index}`).value,
                     priority: priority.valueAsNumber
                 })
             }).then(async (data) => {
