@@ -5,6 +5,17 @@ console.log("Welcome to assignment 2!")
 // Update the tasks table data
 let updateTasks = (tasks) => {
 
+    // sort based on priority
+    tasks.sort((elem1, elem2) => {
+        if (elem1.priority > elem2.priority) {
+            return -1;
+        } else if (elem1.priority === elem2.priority) {
+            return 0;
+        } else {
+            return 1;
+        }
+    });
+
     const holder = document.querySelector('#task-holder');
     holder.innerHTML = '';
 
@@ -15,18 +26,21 @@ let updateTasks = (tasks) => {
 
         const titleData = document.createElement('td');
         const titleInput = document.createElement('input');
+        titleInput.className = 'table-intput';
         titleData.appendChild(titleInput);
         titleInput.value = element.title;
         titleInput.id = `title-${element.title}`;
 
         const descriptionData = document.createElement('td');
         const descriptionInput = document.createElement('input');
+        descriptionInput.className = 'table-input';
         descriptionData.appendChild(descriptionInput);
         descriptionInput.value = element.description;
         descriptionInput.id = `description-${element.title}`;
 
         const priorityData = document.createElement('td');
         const priorityInput = document.createElement('input');
+        priorityInput.className = 'table-input';
         priorityInput.type = 'number';
         priorityInput.min = 0;
         priorityInput.max = 10;
@@ -34,13 +48,22 @@ let updateTasks = (tasks) => {
         priorityInput.value = element.priority;
         priorityInput.id = `priority-${element.title}`;
 
+        const dateCreatedData = document.createElement('td');
+        const dateCreatedInput = document.createElement('input');
+        dateCreatedInput.className = 'table-input';
+        dateCreatedInput.readOnly = true;
+        dateCreatedData.appendChild(dateCreatedInput);
+        dateCreatedInput.value = element.dateCreated;
+
         const deadlineData = document.createElement('td');
         const deadlineInput = document.createElement('input');
+        deadlineInput.className = 'table-input';
         deadlineInput.readOnly = true;
         deadlineData.appendChild(deadlineInput);
         deadlineInput.value = element.deadline;
 
         const delBtn = document.createElement('button');
+        delBtn.className = "warn-btn";
         delBtn.appendChild(document.createTextNode('Delete'));
         delBtn.onclick = () => {
 
@@ -57,7 +80,8 @@ let updateTasks = (tasks) => {
         };
 
         const editBtn = document.createElement('button');
-        editBtn.appendChild(document.createTextNode('Edit'));
+        editBtn.className = 'secondary-btn';
+        editBtn.appendChild(document.createTextNode('Save Edits'));
         editBtn.onclick = (e) => {
 
             const priority = document.querySelector(`#priority-${element.title}`);
@@ -93,6 +117,7 @@ let updateTasks = (tasks) => {
         row.appendChild(titleData);
         row.appendChild(descriptionData);
         row.appendChild(priorityData);
+        row.appendChild(dateCreatedData);
         row.appendChild(deadlineData);
 
         row.appendChild(editBtn);
