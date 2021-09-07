@@ -1,8 +1,11 @@
 ## Race Results
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+This project is a way to store the results of a race to keep track of various information. I had the user enter both the number of laps run if the race is based on how many laps can be done in x amount of time, along with total time if the race is based on who can do a certrain number of laps the quickest.  The server will sort these entries based on the average lap time which it calculates based on the previous two fields.  You can modified an existing entry by keeping the name and team consistent, then updating the time, laps, fastest lap.  I positioned the data in a column format so it is easily readable in a desktop setting along with a mobile setting.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Submit/Modify/Remove Data**: Using a combination of json, arrays, and strings, along with using the fetch API, I was able to send data between my front end javascript and my backend js running on node.  I am using an html form for the entries which are parsed, error checked and then sent as a string'ed json over the the server using post.  Then server then handles a /submit url or a /remove url to deal with the data.  It will average the lap times and send back the entire array which holds the new object with the derrived fields.  The front end then takes the array and creates a row for each object.
+
+- **Ranking Results**: I wanted to have a way to store two differnt kinds of races.  One based on time, and another based on the number of laps.  To solve this instead of having two different forms, I have one form, and I used to derrived field to determine which type of race was being used. The fastest team in both scenarios would hold the quickest average lap time, so I sorted all incoming data with the existing data to sort the array by quickest average lap time.  This way I could use my application in two different ways using the same form and data storage solution.  Then when the front end displayed the data, I just had to display it in order and did not have to worry about reording it, having the server handle any "heavy" work.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
+- **Sorting Elements Using Flex**: I was able to sort the entire body using a flexbox.  Setting the direction to column made the single page application look clean and easy to read on desktop, along with on mobile.  This was a design goal I had in mind since I wanted my webpage to be mobile and desktop friendly.
