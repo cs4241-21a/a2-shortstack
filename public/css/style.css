@@ -1,1 +1,19 @@
-/*Style your own assignment! This is fun! */
+html {
+    height: 100%;
+    /* margin: 0; */
+    overflow:hidden;
+    color: white;
+} 
+body {
+    background-image: url('../backgrounds/default.jpeg'); 
+    height: 100%;
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    /* margin:0;
+    padding:0; */
+}
+
+  /* #background {
+    position:absolute;
+  } */

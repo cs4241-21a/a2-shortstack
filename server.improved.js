@@ -34,13 +34,17 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
+    dataString += data 
+    console.log('data', dataString)
   })
 
   request.on( 'end', function() {
+    console.log('end')
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    
+    // todo store json
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()

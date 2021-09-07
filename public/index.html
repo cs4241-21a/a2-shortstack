@@ -3,61 +3,45 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <script src="../js/rainyday.min.js"></script>
+    <script src="../js/scripts.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
   </head>
-  <body>
-    
+  <body id="body">
+
+    <h1>lofi pitter patters to study to</h1>
     <form>
-      <p>Rain Level</p>
+      <p>rain level</p>
       <input type="radio" id="light_rain" name="rain_level">
-      <label for="light_rain">Light Rain</label>
+      <label for="light_rain">lite rain</label>
       <input type="radio" id="rain" name="rain_level">
-      <label for="rain">Rain</label>
+      <label for="rain">rain</label>
       <input type="radio" id="heavy_rain" name="rain_level">
-      <label for="heavy_rain">Heavy Rain</label>
-      <p>Environment</p>
+      <label for="heavy_rain">heavy rain</label>
+    
+      <p>environment</p>
       <input type="radio" id="forest" name="environment">
-      <label for="forest">Forest</label>
+      <label for="forest">forest</label>
       <input type="radio" id="cafe" name="environment">
-      <label for="cafe">Cafe</label>
+      <label for="cafe">cafe</label>
       <input type="radio" id="car" name="environment">
-      <label for="car">Car</label>
+      <label for="car">car</label>
       <input type="radio" id="home" name="environment">
-      <label for="home">Home</label>
-      <p>Lofi</p>
+      <label for="home">home</label>
+      <p>lofi</p>
       <input type="radio" id="lofi" name="lofi_on">
       <label for="lofi">of course</label>
+    
     </form> 
     <form action="">
-      <input type='text' id='yourname' value="Name this rain mix">
-      <button>play</button>
+      <input type='text' id='rain_mix_name' value="rain mix name">
+      <button id="play">play</button>
     </form>
+    <button id="play_history">play history</button>
   </body>
   <script>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+  
 
   </script>
 </html>

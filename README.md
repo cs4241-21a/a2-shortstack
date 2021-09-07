@@ -95,3 +95,15 @@ Include a very brief summary of your project here. Be sure to include the CSS po
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
+
+
+Resources
+---
+cafe wallpaper: https://wallpapercave.com/w/wp8965856
+car wallpaper: https://wallpapercave.com/w/wp4918883
+default wallpaper: https://wallpapercave.com/w/wp4334662
+forest wallpaper: https://wallpapercave.com/w/wp4649496
+
+rain droplets: https://mubaidr.js.org/rainyday.js/
+
+rain sounds: https://mixkit.co/free-sound-effects/rain/
