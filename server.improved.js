@@ -7,10 +7,33 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { "name": "Aditya Kumar", "lang": "CSS", "starter": "Bulbasaur", "icream": "Vanilla"},
+  { "name": "Gary Oak", "lang": "HTML", "starter": "Squirtle", "icream": "Vanilla"},
+  { "name": "Seto Kaiba", "lang": "JS", "starter": "Squirtle", "icream": "Chocolate"},
+  { "name": "Yu Narukami", "lang": "HTML", "starter": "Bulbasaur", "icream": "Vanilla"},
+  { "name": "Roy Mustang", "lang": "JS", "starter": "Charmander", "icream": "Vanilla"},
+  { "name": "Raiden Shogen", "lang": "CSS", "starter": "Bulbasaur", "icream": "Vanilla"},
+  { "name": "Zeke von Genbu", "lang": "CSS", "starter": "Bulbasaur", "icream": "Chocolate"},
 ]
+
+// add entry to appdata
+function addEntry(dataString) {
+  dataEntry = JSON.parse(dataString);
+  appdata.push(dataEntry);
+}
+
+// delete entry to appdata
+function deleteEntry(dataString) {
+  json = JSON.parse(dataString);
+  appdata.splice(json["index"], 1);
+}
+
+function sendUpdate(response) {
+  const type = mime.getType(appdata);
+  response.writeHead(200, {'Content-Type': type});
+  response.write(JSON.stringify(appdata));
+  response.end()
+}
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -23,11 +46,9 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
-  }
+  if( request.url === '/' ) sendFile( response, 'public/index.html' )
+  else if (request.url === '/update') sendUpdate(response);
+  else sendFile( response, filename )
 }
 
 const handlePost = function( request, response ) {
@@ -38,9 +59,11 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    // json =  JSON.parse( dataString )
+    // console.log(json)
+    if(request.url === '/add') addEntry(dataString);
+    if(request.url === '/delete') deleteEntry(dataString);
 
-    // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()

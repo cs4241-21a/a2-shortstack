@@ -3,39 +3,80 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="js/form.js"></script>
   </head>
+
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <h1>Simple Survey for College Students</h1>
+    
+    <div class="centeredContent"><button id="modalBtn" class="button">Take Survey</button></div> <br>
+    <div class="centeredContent"><button id="statsBtn" class="button">Display Stats</button></div>
+    <div id="statistics" class="centeredContent" style="padding: 20px; justify-content: space-between;">
+      <div id="lang_stat" class="circle"><br> <h2>60%</h2> prefers BLANK</div>
+      <div id="starter_stat" class="circle"><br> <h2>60%</h2> prefers BLANK 2</div>
+      <div id="icream_stat" class="circle"><br> <h2>60%</h2> prefers BLANK 3</div>
+    </div>
+
+    <div id="promptModal" class="modal">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <span id="exitIcon" class="closeBtn">&times;</span>
+          <h2>Please answer the following questions:</h2>
+        </div>
+        
+        <div class="modal-body">
+          <form>
+            <label for="name">1) Name? </label><br>
+            <input type="text" id="name" name="name" required><br>
+            
+            <label for="lang">2) Least favorite language when designing a webpage?</label><br>
+            <input type="radio" id="html" name="lang" value="HTML" required>
+            <label for="html">HTML</label><br>
+            <input type="radio" id="css" name="lang" value="CSS">
+            <label for="css">CSS</label><br>
+            <input type="radio" id="javascript" name="lang" value="JS">
+            <label for="javascript">JS</label><br>
+
+            <label for="starter" class="centeredContent">
+              <img src="https://cdn2.bulbagarden.net/upload/thumb/2/21/001Bulbasaur.png/500px-001Bulbasaur.png" height=20% width=20%>
+              <img src="https://cdn2.bulbagarden.net/upload/thumb/7/73/004Charmander.png/500px-004Charmander.png" height=20% width=20%>
+              <img src="https://cdn2.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/500px-007Squirtle.png" height=20% width=20%>
+            </label> <br>
+            <span>3) Favorite Kanto Starter?</span> <br>
+            <input type="radio" id="bulb" name="starter" value="Bulbasaur" required>
+            <label for="bulb">Bulbasaur</label><br>
+            <input type="radio" id="char" name="starter" value="Charmander">
+            <label for="char">Charmander</label><br>
+            <input type="radio" id="squirt" name="starter" value="Squirtle">
+            <label for="squirt">Squirtle</label><br>
+
+            <label for="icream">4) Preferred ice cream flavor: </label>
+            <select id="icream" name="icream">
+              <option value="Vanilla">Vanilla</option>
+              <option value="Chocolate">Chocolate</option>
+            </select> <br> <br>
+
+            <div class="centeredContent"><input id="submitBtn" type="submit"></div>
+          </form>
+          
+        </div>
+
+        <div class="modal-footer"></div>
+
+      </div>
+    </div>
+
+    <h1>Survey Responses</h1>
+    <div id="result_container" class="table_container">
+      <table id="results"></table>
+    </div>
+
+    <script src="./js/scripts.js"></script>
+
   </body>
-  <script>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>

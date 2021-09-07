@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
+  "name": "CS4241 Assignment 2",
+  "version": "1.0",
   "description": "",
-  "author": "",
+  "author": "Aditya Kumar",
   "scripts": {
     "start": "node server.improved.js"
   },
