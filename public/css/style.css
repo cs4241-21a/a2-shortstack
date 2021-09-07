@@ -1,1 +1,53 @@
 /*Style your own assignment! This is fun! */
+
+input {
+    background-color: white;
+    border: none;
+    color: black;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: "Montserrat", monospace;
+}
+
+.grid-table {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+h1 {
+    font-family: "Montserrat", monospace;
+    justify-content: center;
+    display: flex;
+}
+
+.save {
+    display: none;
+}
+.assignmentData {
+    background-color: #0099ff;
+}
+
+#hwTable {
+    width: 100%;
+    background-color: #C3E7FF;
+} 
+
+th {
+    font-family: "Montserrat", monospace;
+    font-size: 20px;
+    text-align: center;
+    background-color: #80ccff;
+    width: 20%;
+}
+
+td {
+    font-size: 18px;
+    text-align: center;
+    background-color: #C3E7FF;
+}
+
+table, th, td {
+    font-family: "Montserrat", monospace;
+}
