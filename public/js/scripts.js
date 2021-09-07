@@ -52,10 +52,10 @@ const dateToString = function( date ) {
     let hours = "" + newDate.getHours()
 
     // translate hours into am/pm
-    let pm = false
+    let pm = "AM"
     if ( hours >= 12 ) {
         hours -= 12
-        pm = true
+        pm = "PM"
     }
 
     //stitch values back together
@@ -63,7 +63,7 @@ const dateToString = function( date ) {
                         + day + "/"
                         + year + " "
                         + hours + ":00 "
-                        + pm?"PM":"AM"
+                        + pm
 
     return dateValue
 }
