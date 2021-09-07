@@ -6,19 +6,18 @@ const task = document.getElementById( "name" )
 const period = document.getElementById( "period" )
 const deadline = document.getElementById( "deadline" )
 
+const taskContainer = document.getElementById( "task-container" )
+const taskTemplate = document.getElementById( "task-template" ).firstChild
+
 let id = NaN;
 let requestType = 0; //0 is add, 1 is edit, 2 is delete
 
-const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
+const dateToDatetimeValue = function( date ) {
     // parse deadline datetime value
-    let dateDeadline = new Date(Date.parse(deadline.value))
-    let year = "" + dateDeadline.getFullYear()
-    let month = "" + dateDeadline.getMonth()
-    let date = "" + dateDeadline.getDate()
-    let hours = "" + dateDeadline.getHours()
+    let year = "" + date.getFullYear()
+    let month = "" + date.getMonth()
+    let day = "" + day.getDate()
+    let hours = "" + date.getHours()
 
     //ensure all strings are the proper number of characters by adding 0's
     while ( year.length < 4 ) {
@@ -27,18 +26,28 @@ const submit = function( e ) {
     if ( month.length < 2) {
         month = "0" + month
     }
-    if ( date.length < 2 ) {
-        date = "0" + date
+    if ( day.length < 2 ) {
+        day = "0" + day
     }
     if ( hours.length < 2) {
         hours = "0" + hours
     }
 
     //stitch values back together in proper format
-    deadline.value = "" + year + "-"
+    let dateValue = "" + year + "-"
                         + month + "-"
-                        + date + "T"
+                        + day + "T"
                         + hours + ":00"
+    
+    return dateValue
+}
+
+const submit = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+
+    //round date to nearest hour
+    deadline.value = dateToDatetimeValue(new Date(deadline.value))
 
     const json = {id, name: task.value, period: period.value, deadline: deadline.value }
     
@@ -49,7 +58,6 @@ const submit = function( e ) {
     switch( requestType ) {
         case 0: url = "/add"; break
         case 1: url = "/edit"; break
-        case 2: url = "/remove"; break
     }
 
     fetch( url, {
@@ -58,8 +66,7 @@ const submit = function( e ) {
     })
     .then( ( response ) => response.json() )
     .then( function( appData ) {
-        console.log(appData)
-        //update(JSON.parse(response.body))
+        update( appData )
     })
 
     return false
@@ -79,10 +86,72 @@ const add = function ( e ) {
     return false
 }
 
+const getEditCallback = function( task ) {
+    const utask = task
+    return function( e ) {
+        edit( e, utask )
+    }
+}
+
+const getRemoveCallback = function( task ) {
+    const utask = task
+    return function( e ) {
+        remove( e, utask )
+    }
+}
+
+const edit = function( e, utask ) {
+    e.preventDefault()
+
+    form.removeAttribute( "hidden" )
+    formTitle.innerText = "Edit task:"
+    task.value = utask.name
+    period.value = utask.period
+    deadline.value = dateToDatetimeValue(utask.deadline)
+    requestType = 1
+    id = utask.id
+
+    return false
+}
+
+const remove = function( e, utask ) {
+    e.preventDefault()
+
+    requestType = 2
+    id = utask.id
+
+    fetch( "/remove", {
+        method: "POST",
+        body: { id }
+    })
+    .then( ( response ) => response.json() )
+    .then( function( appData ) {
+        update( appData )
+    })
+
+    return false
+}
+
 const update = function ( json ) {
     e.preventDefault()
 
-    console.log(json)
+    console.log( json )
+
+    //clear tasks
+    taskContainer.innerHTML = ""
+
+    //load tasks from json
+    json.forEach(task => {
+        let element = taskTemplate.cloneNode( true )
+        element.childNodes[0].innerText = task.name
+        element.childNodes[1].innerText = task.start
+        element.childNodes[2].innerText = task.period
+        element.childNodes[3].innerText = task.deadline
+        element.childNodes[4].childNodes[0].onclick = getEditCallback( task )
+        element.childNodes[4].childNodes[1].onclick = getRemoveCallback( task )
+
+        taskContainer.appendChild( element )
+    });
 
     return false
 }
@@ -95,5 +164,12 @@ window.onload = function() {
     addButton.onclick = add
 
     //load data from server
-    //connect edit and delete buttons to fetch requests
+    fetch( "/update", {
+        method: "POST",
+        body: ""
+    })
+    .then( ( response ) => response.json() )
+    .then( function( appData ) {
+        update( appData )
+    })
 }

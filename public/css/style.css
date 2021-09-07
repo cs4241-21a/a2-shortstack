@@ -47,16 +47,16 @@ td > * {
 
 #tasklist-table {
     display: grid;
-    grid-template-columns: 1fr 5.5rem 9rem 9rem 5rem;
+    grid-template-columns: 1fr 9rem 5.5rem 9rem 5rem;
 }
 
-#tasklist-table > * {
+#tasklist-table > *, .task {
     grid-column: span 5;
     display: grid;
     grid-template-columns: inherit;
 }
 
-#tasklist-table > * > * {
+#tasklist-header > *, .task > *{
     grid-column: span 1;
 }
 

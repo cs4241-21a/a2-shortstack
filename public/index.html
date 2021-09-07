@@ -9,12 +9,12 @@
   </head>
 
   <!--template for row of data corresponding to a task-->
-  <template>
+  <template id="task-template" >
     <div class="task">
       <span class="name">Task name</span>
+      <span class="startdate">11PM 9/30/2021</span>
       <span class="period">1 hour</span>
       <span class="deadline">12AM 10/1/2021</span>
-      <span class="startdate">11PM 9/30/2021</span>
       <span class="modify">
         <button class="edit" title="edit task"><i class="fas fa-edit"></i></button>
         <button class="delete" title="remove task"><i class="fas fa-trash"></i></button>
@@ -63,25 +63,27 @@
             <span id="startdate-header">Start Date:</span>
             <span id="modify-header">Modify:</span>
           </div>
-          <div class="task">
-            <span class="name">Test entry</span>
-            <span class="period">1 hour</span>
-            <span class="deadline">12AM 10/1/2021</span>
-            <span class="startdate">11PM 9/30/2021</span>
-            <span class="modify">
-              <button class="edit icon-button" title="Edit task"><i class="fas fa-edit"></i></button>
-              <button class="delete icon-button" title="Remove task"><i class="fas fa-trash"></i></button>
-            </span>
-          </div>
-          <div class="task">
-            <span class="name">Test entry</span>
-            <span class="period">1 hour</span>
-            <span class="deadline">12AM 10/1/2021</span>
-            <span class="startdate">11PM 9/30/2021</span>
-            <span class="modify">
-              <button class="edit icon-button" title="Edit task"><i class="fas fa-edit"></i></button>
-              <button class="delete icon-button" title="Remove task"><i class="fas fa-trash"></i></button>
-            </span>
+          <div id="task-container">
+            <div class="task">
+              <span class="name">Test entry</span>
+              <span class="startdate">11PM 9/30/2021</span>
+              <span class="period">1 hour</span>
+              <span class="deadline">12AM 10/1/2021</span>
+              <span class="modify">
+                <button class="edit icon-button" title="Edit task"><i class="fas fa-edit"></i></button>
+                <button class="delete icon-button" title="Remove task"><i class="fas fa-trash"></i></button>
+              </span>
+            </div>
+            <div class="task">
+              <span class="name">Test entry</span>
+              <span class="startdate">11PM 9/30/2021</span>
+              <span class="period">1 hour</span>
+              <span class="deadline">12AM 10/1/2021</span>
+              <span class="modify">
+                <button class="edit icon-button" title="Edit task"><i class="fas fa-edit"></i></button>
+                <button class="delete icon-button" title="Remove task"><i class="fas fa-trash"></i></button>
+              </span>
+            </div>
           </div>
         </div>
       </div>
