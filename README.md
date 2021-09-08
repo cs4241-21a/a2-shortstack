@@ -107,3 +107,10 @@ forest wallpaper: https://wallpapercave.com/w/wp4649496
 rain droplets: https://mubaidr.js.org/rainyday.js/
 
 rain sounds: https://mixkit.co/free-sound-effects/rain/
+
+lofi music:
+Green Tea by Purrple Cat | https://purrplecat.com/
+Music promoted on https://www.chosic.com/
+Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+https://creativecommons.org/licenses/by-sa/3.0/
+ 

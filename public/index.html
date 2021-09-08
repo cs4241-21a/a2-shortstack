@@ -3,38 +3,39 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-    <script src="../js/rainyday.min.js"></script>
+
+    <script type="module" src='../js/howler.js'></script>
     <script src="../js/scripts.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
   </head>
   <body id="body">
 
     <h1>lofi pitter patters to study to</h1>
-    <form>
+    <form action="" id="form">
       <p>rain level</p>
-      <input type="radio" id="light_rain" name="rain_level">
-      <label for="light_rain">lite rain</label>
+      <input type="radio" id="light_rain" name="rain_level" checked="checked">
+      <label for="light_rain">light rain</label>
       <input type="radio" id="rain" name="rain_level">
       <label for="rain">rain</label>
       <input type="radio" id="heavy_rain" name="rain_level">
       <label for="heavy_rain">heavy rain</label>
-    
       <p>environment</p>
-      <input type="radio" id="forest" name="environment">
-      <label for="forest">forest</label>
+      <input type="radio" id="home" name="environment" checked="checked">
+      <label for="home">home</label>
       <input type="radio" id="cafe" name="environment">
       <label for="cafe">cafe</label>
       <input type="radio" id="car" name="environment">
       <label for="car">car</label>
-      <input type="radio" id="home" name="environment">
-      <label for="home">home</label>
+      <input type="radio" id="forest" name="environment">
+      <label for="forest">forest</label>
       <p>lofi</p>
-      <input type="radio" id="lofi" name="lofi_on">
+      <input type="radio" id="lofi_off" name="lofi" checked="checked">
+      <label for="lofi">nah</label>
+      <input type="radio" id="lofi_on" name="lofi">
       <label for="lofi">of course</label>
     
-    </form> 
-    <form action="">
-      <input type='text' id='rain_mix_name' value="rain mix name">
+      <br>
+      <input type="text" id="mix_name" name='rain_mix_name' value="rain mix name">
       <button id="play">play</button>
     </form>
     <button id="play_history">play history</button>
