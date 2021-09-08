@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "gp2p_expense_tracker",
+  "version": "1.0",
+  "description": "A website that allows user to track their spending and income with budget",
+  "author": "GP2P",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.5.2"
   }
 }

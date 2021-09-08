@@ -1,41 +1,58 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
+<head>
+	<title>CS4241 Assignment 2</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="G3P-3D-REN-Filled-Fixed-Transparent.png">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/scripts.js"></script>
+</head>
+<body>
+<div class="cardHolder">
+	<div class="title card">
+		<h1>Expense Tracker</h1>
+		<div id="totals">
+			<p id="totalIn">Total Income: $0.00</p>
+			<p id="totalOut">Total Expense: $0.00</p>
+			<p id="budget">Budget: $0.00</p>
+		</div>
+	</div>
+</div>
+<div class="cardHolder">
+	<div class="card">
+		<form>
+			<label for="budgetNew">Update Budget:</label>
+			<input type="number" id="budgetNew" name="budget" min="0" step=".01" required>
+			<button id="submitBudget">Submit</button>
+		</form>
+	</div>
+</div>
+<div class="cardHolder">
+	<div class="card">
+		<form id="newEntry">
+			<h3>Create New Entry:</h3>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+			<label for="type">Type:</label>
+			<select id="type" name="type">
+				<option value="expense" selected>Expense</option>
+				<option value="income">Income</option>
+			</select>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+			<label for="amount">Amount:</label>
+			<input type="number" id="amount" name="amount" min="0.01" step=".01" required>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+			<label for="date">Date:</label>
+			<input type="date" id="date" name="date" required>
 
-    return false
-  }
+			<label for="category">Category:</label>
+			<input type="text" id="category" name="category">
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+			<!--<label for="notes">Notes:</label>
+			<textarea id="notes" name="message" rows="1" cols="30">The cat was playing in the garden.</textarea>-->
 
-  </script>
+			<button id="submitEntry">enter</button>
+		</form>
+	</div>
+</div>
+</body>
 </html>
