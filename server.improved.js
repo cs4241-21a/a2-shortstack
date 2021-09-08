@@ -84,7 +84,7 @@ const addTask = function( name, period, deadline ) {
   let ms = 60 * 60 * 1000 // number of milliseconds in an hour
   deadline = Math.round( deadline / ms ) * ms
 
-  let dataEntry = { 'id': id, 'name': name, 'start': Date.parse(Date()), 'period': period, 'deadline': deadline }
+  let dataEntry = { 'id': id, 'name': name, 'start': Date.parse( Date() ), 'period': period, 'deadline': deadline }
   appdata.push(dataEntry)
 
   recalculateStarts()
@@ -122,7 +122,30 @@ const removeTask = function( id ) {
 }
 
 const recalculateStarts = function() {
-  // TODO calculate latest starts based on deadlines and periods
+  // calculate latest starts based on deadlines and periods
+
+  // sort by latest deadline first
+  appdata.sort( function( entry1, entry2 ) {
+    entry1.deadline - entry2.deadline
+  })
+
+  // calculate time to start
+  const interval = 60 * 60 * 1000 // one hour in milliseconds
+  if ( appdata.length > 0 ) {
+    let effectiveDeadline = appdata[0]
+  }
+  appdata.forEach( ( task ) => {
+    if ( task.deadline < effectiveDeadline ) {
+      effectiveDeadline = task.deadline
+    }
+    task.start = effectiveDeadline - ( task.period * interval )
+    effectiveDeadline = task.start
+  })
+
+  // sort by earliest start first
+  appdata.sort( function( entry1, entry2 ) {
+    entry2.start - entry1.start
+  })
 }
 
 server.listen( process.env.PORT || port )
