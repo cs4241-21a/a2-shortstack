@@ -70,8 +70,6 @@ const submit = function(e) {
     var player = { "score": inputScore, "firstname": inputFirstname, "lastname": inputLastname, "id": id }
     var body = JSON.stringify(player)
 
-    window.location.hash = "scoreboard";
-
     reset()
 
     id++
@@ -95,6 +93,11 @@ const submit = function(e) {
 const remove = function(e) {
     // prevent default form action from being carried out
     e.preventDefault()
+
+    firstnameModify.value = ""
+    lastnameModify.value = ""
+    scoreModify.value = ""
+    editButton.disabled = true
 
     e = e || window.event;
     var target = e.target;
@@ -150,6 +153,10 @@ const edit = function(e) {
 const editRequest = function(e) {
     // prevent default form action from being carried out
     e.preventDefault()
+
+    if (scoreModify.value < 0 || scoreModify.value > 1000000 || scoreModify.value == '' || firstnameModify.value == '' || lastnameModify.value == '') {
+        return
+    }
 
     selectedPlayer = { "score": scoreModify.value, "firstname": firstnameModify.value, "lastname": lastnameModify.value, "id": idModify.value }
     console.log("Selected player: " + selectedPlayer)

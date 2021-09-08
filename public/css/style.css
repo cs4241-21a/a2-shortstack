@@ -34,9 +34,8 @@ button:disabled {
     background-color: #a3aa9d;
 }
 
-.form-div {
-    margin: auto;
-    width: 200px;
+hr {
+    margin-top: 20px;
 }
 
 
@@ -213,4 +212,16 @@ table td:nth-child(6) th:nth-child(6) {
 
 .modify {
     color: red;
+}
+
+
+/* Other class selectors */
+
+.form-div {
+    margin: auto;
+    width: 400px;
+}
+
+.helper-text {
+    font-size: 10px;
 }
