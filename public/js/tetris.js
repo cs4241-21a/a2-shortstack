@@ -1,8 +1,3 @@
-const canvas = document.getElementById("tetris");
-const context = canvas.getContext('2d');
-
-context.scale(20, 20);
-
 const allShapes = 'OISZLJT';
 const colors = [
     null,
@@ -14,6 +9,13 @@ const colors = [
     '#D9A036',
     '#188FD9'
 ]
+
+let paused = false;
+
+const canvas = document.getElementById("tetris");
+const context = canvas.getContext('2d');
+
+context.scale(20, 20);
 
 function createShape(type) {
     switch (type) {
@@ -112,7 +114,9 @@ function update(time = 0) {
         shapeDrop();
     }
     draw();
-    requestAnimationFrame(update);
+    if (paused) {
+        requestAnimationFrame(update);
+    }
 }
 
 function createArena(w, h) {
@@ -151,7 +155,8 @@ function arenaSweep() {
 }
 
 function updateScore() {
-    document.getElementById('score').innerText = player.score;
+    document.getElementById('currentScore').innerText = player.score;
+    document.getElementById('currentPlayer').innerText = player.name;
 }
 
 function shapeCollide(arena, player) {
@@ -225,6 +230,7 @@ function playerMove(dir) {
 let player = {
     currentShape: null,
     pos: { x: 0, y: 0 },
+    name: 'Player1',
     score: 0,
 }
 
@@ -264,6 +270,3 @@ document.addEventListener('keydown', e => {
 playerReset();
 updateScore();
 update();
-
-
-
