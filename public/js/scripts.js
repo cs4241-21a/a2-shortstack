@@ -138,7 +138,7 @@ window.onload = function() {
 }
 
 const numberToHoursText = function( number ) {
-    let suffix = ( number == 1 )?"s":""
+    let suffix = ( number == 1 )?"":"s"
     return "" + number + " hour" + suffix
 }
 
