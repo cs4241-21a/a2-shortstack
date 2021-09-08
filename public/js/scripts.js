@@ -11,6 +11,17 @@ window.onload = function() {
     editSubBtn.onclick = callEdit;
 }
 
+document.addEventListener('keyup', event => {
+  if (event.code === 'Space') {
+    accelerate(0.05);
+  }
+});
+document.addEventListener('keydown', event => {
+  if (event.code === 'Space') {
+  accelerate(-0.2);
+  }
+});
+
 const submit = function( e ) {
     e.preventDefault();
     const input = document.querySelector( '#yourname' ),
@@ -42,29 +53,26 @@ const submit = function( e ) {
 let count = 3;
 
 let appdata;
-const createNode = function (elt) {
-    return document.createElement(elt);
-};
 
 const makeTableHead = function () {
-    let th1 = createNode('th');
-    let th2 = createNode('th');
-    let th3 = createNode('th');
-    let th4 = createNode('th');
-    let th5 = createNode('th');
-    th1.innerHTML = 'Name';
-    th2.innerHTML = 'Score';
-    th3.innerHTML = 'Rank';
-    th4.innerHTML = "Edit";
-    th5.innerHTML = "Report";
-    let tableRow = createNode('tr');
-    tableRow.appendChild(th1);
-    tableRow.appendChild(th2);
-    tableRow.appendChild(th3);
-    tableRow.appendChild(th4);
-    tableRow.appendChild(th5);
+    let thName = document.createElement('th');
+    let thScore = document.createElement('th');
+    let thRank = document.createElement('th');
+    let thEdit = document.createElement('th');
+    let thReport = document.createElement('th');
+    thName.innerHTML = 'Name';
+    thScore.innerHTML = 'Score';
+    thRank.innerHTML = 'Rank';
+    thEdit.innerHTML = "Edit";
+    thReport.innerHTML = "Report";
+    let tableRow = document.createElement('tr');
+    tableRow.appendChild(thName);
+    tableRow.appendChild(thScore);
+    tableRow.appendChild(thRank);
+    tableRow.appendChild(thEdit);
+    tableRow.appendChild(thReport);
     dataTable.appendChild(tableRow);
-}; // working
+}; 
 
 function checkExisting(){
     const input = document.querySelector( '#editName' );
@@ -118,16 +126,16 @@ const updatePage = function () {
         makeTableHead();
         let rowNum = 1;
         appdata.map(function (row) {
-            let tableRow = createNode('tr');
-            let td1 = createNode('td');
-            let td2 = createNode('td');
-            let td3 = createNode('td');
-            let td4 = createNode('td');
-            let td5 = createNode('td');
+            let tableRow = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+            let td5 = document.createElement('td');
 
-            let pencil = createNode('i');
+            let pencil = document.createElement('i');
             pencil.id = `pencil${rowNum}`;
-            pencil.innerHTML = "&#x270F";
+            pencil.innerHTML = "&#10000";
             pencil.onclick = function (elt) {
                 elt.preventDefault();
                 document.getElementById("editName").style.display = "block";
@@ -135,11 +143,11 @@ const updatePage = function () {
                 rowNumEdit = row.yourname;
                 return false;
             };
-            let cross = createNode('i');
-            cross.id = `${rowNum}`;
-            cross.innerHTML = "&#x274C";
-            cross.onclick = function (elt) {
-                let body = cross.id;
+            let trash = document.createElement('i');
+            trash.id = `${rowNum}`;
+            trash.innerHTML = "&#128465";
+            trash.onclick = function (elt) {
+                let body = trash.id;
                 if(!window.confirm("Are you sure you want to delete someones score")){
                     return false;
                 }
@@ -158,7 +166,7 @@ const updatePage = function () {
             td2.innerHTML = row.score;
             td3.innerHTML = row.rank;
             td4.appendChild(pencil);
-            td5.appendChild(cross);
+            td5.appendChild(trash);
 
             tableRow.appendChild(td1);
             tableRow.appendChild(td2);
