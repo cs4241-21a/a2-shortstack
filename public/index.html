@@ -13,7 +13,7 @@
       <div class="grid-table">
         <div class = "assignmentData">
           <h1 id="pageHeader">Homework Agenda</h1>
-          <table align='center' cellspacing=2 cellpadding=5 id="hwTable" border=1>
+          <table id="hwTable">
             <tr>
                 <th>Assignment</th>
                 <th>Course</th>
@@ -28,14 +28,14 @@
               <td>
                 <input type="button" id="edit_button1" value="Edit" class = "edit" onclick="edit_row('1')">
                 <input type="button" id="save_button1" value="Save" class = "save" onclick="save_row('1')">
-                <input type="button" id="complete_button1" value="Mark Completed" class = "complete" onclick="mark_completed('1')"
+                <input type="button" id="complete_button1" value="Mark Completed" class = "complete" onclick="mark_completed('1')">
               </td>
             </tr>
             <tr>
               <td><input type="text" id="new_assignment" placeholder="Your assignment here"></td>
               <td><input type="text" id="new_course" placeholder="Your course here"></td>
               <td><input type="number" id="new_percentage"></td>
-              <td><text  id="new_priority"></td>
+              <td> <text id="new_priority"></td>
               <td><input type="button" id="addRow" class="add" value="Add Row"></td>
               </tr>
           </table>

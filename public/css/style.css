@@ -9,6 +9,11 @@ input {
     font-family: "Montserrat", monospace;
 }
 
+table {
+    text-align: 'center';
+    padding: 5px;
+}
+
 .grid-table {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -40,12 +45,14 @@ th {
     text-align: center;
     background-color: #80ccff;
     width: 20%;
+    border: 1px solid black;
 }
 
 td {
     font-size: 18px;
     text-align: center;
     background-color: #C3E7FF;
+    border: 1px solid black;
 }
 
 table, th, td {
