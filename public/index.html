@@ -17,11 +17,9 @@
 
 <body>
   <p id="intro">This site takes your name, date of birth and gender and calculates how far through the average
-    lifespan (according to <a href="https://www.cdc.gov/nchs/data/vsrr/VSRR10-508.pdf">the CDC</a>) you are based on
-    gender and date of birth.</p>
+    lifespan (according to <a href="https://www.cdc.gov/nchs/data/vsrr/VSRR10-508.pdf">the CDC</a>) you are.</p>
   <p id="instructions">Enter your infromation below and click the "Add" button to see how far through your life you are.
-    Or click on the
-    "Show All" button to display all data availible</p>
+  </p>
   <form id='input'>
     <label class='buttonLabel' for='yourname'>Name:
       <input type='text' id='yourname' value="">
@@ -38,7 +36,7 @@
     </label>
     <div>
       <button id='add'>Add</button>
-      <button id='all'>Show All</button>
+      <!-- <button id='all'>Show All</button> -->
     </div>
   </form>
 </body>
@@ -112,8 +110,7 @@
     return false
   }
 
-  const addExistingData = function (event) {
-    event.preventDefault()
+  const addExistingData = function () {
     if (!showingAll) {
       fetch('/all', {
         method: 'POST',
@@ -137,7 +134,7 @@
 
   const update = function (event) {
     event.preventDefault()
-    const row = event.path[1].parentElement
+    const row = event.composedPath()[2]
     console.log(row)
     const name = row.querySelector('.name')
     const dob = row.querySelector('.dob')
@@ -175,7 +172,7 @@
 
   const remove = function (event) {
     event.preventDefault()
-    const row = event.path[1].parentElement
+    const row = event.composedPath()[2]
     console.log(row)
     const name = row.querySelector('.name')
     const dob = row.querySelector('.dob')
@@ -228,8 +225,8 @@
   window.onload = function () {
     const addBtn = document.querySelector('#add')
     addBtn.onclick = add
-    const allBtn = document.querySelector('#all')
-    allBtn.onclick = addExistingData
+    //const allBtn = document.querySelector('#all')
+    addExistingData()
   }
 
 </script>
