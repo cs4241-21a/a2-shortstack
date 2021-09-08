@@ -35,6 +35,8 @@ h1{
 #form-wrapper{
     padding:8px;
     margin:auto;
+    text-align: center;
+    line-height: 2;
 }
 
 #submit{
@@ -62,6 +64,10 @@ h1{
     background-color: white;
     padding:6px;
     margin:4px;
+    position:relative;
+}
+.entry span{
+    margin: 4px 8px 4px;
 }
 
 .remove{
@@ -69,9 +75,10 @@ h1{
     font-weight: bold;
     color:white;
     border-radius: 6px;
+    position:absolute;
     padding:4px;
-    margin-left:4px;
-    float:right;
+    top: 4px;
+    right:4px;
 }
 
 #pie-wrapper{
@@ -87,3 +94,7 @@ h1{
     border-radius: 50%;
     display: inline-block;
   }
+
+a{
+    color:darkblue;
+}

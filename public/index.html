@@ -10,36 +10,38 @@
     <div id="body-wrapper">
       <h1>HORG Logger</h1>
       <h3>For classifying your <a href="https://www.horg.com/horg/">occlupanid</a> collection.</h3>
+      <h2 id="warn">Sorry, this page requires that you enable Javascript.</h2>
+      <hr>
+      <h2>Add an entry:</h2>
       <div id="form-wrapper">
         <form action="">
-          <label for="yourname">Add an entry:</label>
-          <input type='text' id='yourname' value="your name here">
-          <label for="cars">Choose a car:</label>
-  
-          <select name="cars" id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+          <label for="date">Date of Acquisition:</label>
+          <input type="date" id="date" name="acquisition-date"
+          value="2021-09-09"
+          min="2011-12-01">
+
+          <br>
+          
+          <label for="family">Taxonomic Family:</label>
+          <select name="family" id="family">
           </select> 
+
+          <br>
+
+          <label for="notes">Specimen notes:</label>
+          <input type='text' id='notes' value="color, size, etc">
+
+          <br>
+
           <button id="submit">add</button>
         </form>
       </div>
-      <h2>My current collection:</h2>
+
+      <hr>
+
+      <h2>Current collection:</h2>
       <div id="flex-wrapper">
         <div id="entries-wrapper">
-          <div class="entry">
-            <span>hello this is a horg entry guys</span>
-            <button class="remove">x</button>
-          </div>
-          <div class="entry">
-            <span>hello this is a horg entry guys2</span>
-            <button class="remove">x</button>
-          </div>
-          <div class="entry">
-            <span>hello this is a horg entry guys3</span>
-            <button class="remove">x</button>
-          </div>
         </div>
         <div id="pie-wrapper">
           <span class="dot"></span>
