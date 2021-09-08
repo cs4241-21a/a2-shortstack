@@ -1,38 +1,5 @@
 // Add some Javascript code here, to run on the front end.
 
-
-const result = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-    console.log("get in the result function!")
-    body = JSON.stringify( {} );
-  
-    fetch( '/result', {
-      method:'POST',
-      body
-    })
-    .then( response => response.json() )
-    .then( function( response ) {
-      // do something with the reponse 
-      var newContent = ""
-      if( Array.isArray(response)){
-        for(let i = 0; i < response.length; i++){
-            const thing = response[i]
-            newContent += "<tr>" +
-             "<td>" + thing.name + "</td>" +
-             "<td>" + thing.savings + "</td>" +
-             "<td>" + thing.cost + "</td>" +
-             "<td>" + (thing.savings-thing.cost) + "</td>" +
-             "</tr>"
-        }
-    }
-    newContent = "<table><tr><th>Name</th><th>Savings</th><th>Cost</th><th>Balance</th></tr>" + newContent + "</table>"
-    document.getElementById("resultDisplay").innerHTML = newContent;
-    })
-  
-    return false
-}
-
 const addData = function( e ) {
   // prevent default form action from being carried out
   e.preventDefault()
@@ -57,7 +24,7 @@ const addData = function( e ) {
              "<td>" + thing.name + "</td>" +
              "<td>" + thing.savings + "</td>" +
              "<td>" + thing.cost + "</td>" +
-             "<td>" + (thing.savings-thing.cost) + "</td>" +
+             "<td>" + thing.balance + "</td>" +
              "</tr>"
         }
     }
@@ -90,7 +57,7 @@ const deleteData = function( e ) {
              "<td>" + thing.name + "</td>" +
              "<td>" + thing.savings + "</td>" +
              "<td>" + thing.cost + "</td>" +
-             "<td>" + (thing.savings-thing.cost) + "</td>" +
+             "<td>" + thing.balance + "</td>" +
              "</tr>"
         }
     }
@@ -102,13 +69,11 @@ const deleteData = function( e ) {
 }
 
 window.onload = function() {
-  const button1 = document.getElementById( 'ServerMemory' )
-  button1.onclick = result
 
-  const button2 = document.getElementById( 'addButton' )
-  button2.onclick = addData
+  const button1 = document.getElementById( 'addButton' )
+  button1.onclick = addData
 
-  const button3 = document.getElementById( 'deleteButton' )
-  button3.onclick = deleteData
+  const button2 = document.getElementById( 'deleteButton' )
+  button2.onclick = deleteData
 }
 

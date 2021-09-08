@@ -14,7 +14,7 @@ const appdata = [
 ]
 
 var serverData = [
-  { 'name': 'Jimmy', 'savings': 100, 'cost': 5},
+  { 'name': 'Jimmy', 'savings': 100, 'cost': 5, 'balance': 95},
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -43,9 +43,22 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    if(dataString.length > 0){
+    if (dataString.indexOf(',') > -1){
       const javaObject = JSON.parse( dataString )
-      serverData.push({name: javaObject.name, savings: javaObject.savings, cost: javaObject.cost })
+      serverData.push({name: javaObject.name, savings: javaObject.savings, cost: javaObject.cost, balance: (javaObject.savings-javaObject.cost)})
+    }
+    else{
+      const javaObject = JSON.parse( dataString )
+      var tempData = []
+      for(let i = 0; i < serverData.length; i++){
+        const thing = serverData[i]
+        if(thing.name != javaObject.name){
+          tempData.push(serverData[i])
+        }
+      }
+      if(tempData != []){
+        serverData = tempData
+      }
     }
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(serverData))

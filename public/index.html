@@ -3,11 +3,10 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-    <style>
-      table, th, td {
-        border: 1px solid black;
-      }
-      </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="dataTable">
@@ -28,29 +27,25 @@
     </div>
 
     <br><br>
-    <form>
+    <form class="formClass">
       <label>Name:</label><br>
-      <input type="text" onfocus="this.value=''" id="fname"><br>
+      <input type="text" onfocus="this.value=''" id="fname" placeholder="type the name here"><br>
       <label >Savings:</label><br>
-      <input type="text" onfocus="this.value=''" id="fsavings"><br>
+      <input type="text" onfocus="this.value=''" id="fsavings" placeholder="type an integer"><br>
       <label >Cost:</label><br>
-      <input type="text" onfocus="this.value=''" id="fcost"><br><br>
+      <input type="text" onfocus="this.value=''" id="fcost" placeholder="type an integer"><br><br>
       <button id='addButton'>Add</button>
     </form> 
 
     <br><br>
 
-    <form>
+    <form class="formClass">
       <label>Name:</label>
       <input type="text" onfocus="this.value=''" id="dname">
       <button id='deleteButton'>Delete</button>
     </form>
 
     <br><br>
-
-    <button id='ServerMemory'>Show Result(In Server Memory)</button>
-    <br><br>
-    <div id="resultDisplay"></div>
     
 
 
