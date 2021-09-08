@@ -38,6 +38,7 @@ function login() {
 }
 
 function loginSuccess() {
+  document.querySelector('#username-box').innerText = `Logged in as ${loggedInUser}`
   document.querySelector( '#loginform' ).style.display = 'none'
   els = document.querySelectorAll( '.logged-in' )
   els.forEach(el => el.style.display = 'block')
@@ -95,13 +96,13 @@ function getLostItems() {
 function createElement() {
   // Get fields
   let entry = {
-    'lost' : document.querySelector( '#type1' ).checked,
-    'found' : document.querySelector( '#type2' ).checked,
-    'item' : document.querySelector( '#item' ).value,
-    'when' : document.querySelector( '#when' ).value,
-    'where' : document.querySelector( '#where' ).value,
-    'description' : document.querySelector( '#description' ).value,
-    'photo' : document.querySelector( '#photo' ).value,
+    'lost' : document.querySelector( '#type1-create' ).checked,
+    'found' : document.querySelector( '#type2-create' ).checked,
+    'item' : document.querySelector( '#item-create' ).value,
+    'when' : document.querySelector( '#when-create' ).value,
+    'where' : document.querySelector( '#where-create' ).value,
+    'description' : document.querySelector( '#description-create' ).value,
+    'photo' : document.querySelector( '#photo-create' ).value,
     'emailme' : loggedInUser
   }
   // Submit to server
@@ -159,11 +160,11 @@ function saveEdits(uid) {
   let row = document.querySelector(`#editform`)
   // Get fields
   let entry = {
-    'item' : row.querySelector( '#item' ).value,
-    'when' : row.querySelector( '#when' ).value,
-    'where' : row.querySelector( '#where' ).value,
-    'description' : row.querySelector( '#description' ).value,
-    'photo' : row.querySelector( '#photo' ).value,
+    'item' : row.querySelector( '#item-edit' ).value,
+    'when' : row.querySelector( '#when-edit' ).value,
+    'where' : row.querySelector( '#where-edit' ).value,
+    'description' : row.querySelector( '#description-edit' ).value,
+    'photo' : row.querySelector( '#photo-edit' ).value,
     'uid' : uid
   }
   // Submit to server

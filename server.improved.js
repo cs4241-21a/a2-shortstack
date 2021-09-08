@@ -137,18 +137,15 @@ const handleCreate = (data, response) => {
     'emailme' : data.emailme,
   }
   if (data.lost === true) {
-    filtered['uid'] = (data.item + data.when + data.where + '+lostItems+' + Date.now()).replace(' ', '+')
-    appdata.lostItems.push(filtered)
-    console.log("Added to lost items")
-    response.writeHeader( 200 )
-    response.end()
+    collection = "lostItems"
   } else if (data.found === true) {
-    filtered['uid'] = (data.item + data.when + data.where + '+foundItems+' + Date.now()).replace(' ', '+')
-    appdata.foundItems.push(filtered)
-    console.log("Added to found items")
-    response.writeHeader( 200 )
-    response.end()
+    collection = "foundItems"
   }
+  filtered['uid'] = (data.item + data.when + data.where + collection + Date.now()).replace(' ', '+')
+  console.log("Adding to " + collection)
+  appdata[collection].push(filtered)
+  response.writeHeader( 200 )
+  response.end()
 }
 
 const handleDelete = (data, response) => {
