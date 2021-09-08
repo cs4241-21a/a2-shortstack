@@ -4,10 +4,14 @@ button{
     background-color: antiquewhite;
 }
 h1{
+    display: flex;
+    align-items: center;
     color: skyblue;
     padding-bottom: 10px;
 }
 h2{
+    display: flex;
+    align-items: center;
     color: aqua;
     padding-bottom: 5px;
     padding-top: 20px;
@@ -16,7 +20,36 @@ body{
     background-color: dodgerblue;
 }
 input{
+    display: flex;
     align-items: center;
     font-size: 15px;
     padding: 3px 3px 20px;
+}
+table, th, td {
+    display: flex;
+    align-items: center;
+    table-layout: auto;
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+th, td {
+    size: A3;
+    overflow: visible;
+    background-color: dodgerblue;
+}
+.flex-outer li,
+.flex-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.flex-outer li button {
+    align-items: center;
+    padding: 8px 16px;
+    border: none;
+    background: #333;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
 }

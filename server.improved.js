@@ -64,10 +64,6 @@ const handlePost = function( request, response ) {
   })
 }
 
-const processReceivedData = function (){
-  /* Write some code here to process the data you have received from the client */
-}
-
 const sendFile = function( response, filename ) {
   const type = mime.getType( filename )
 

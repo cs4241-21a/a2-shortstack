@@ -8,22 +8,49 @@
 <body>
 <h1> Welcome to my Terrible Library System!</h1>
 <h2> Here is how to input books into the system</h2>
-<form action="">
-  <input type="text" id="bookname" placeholder="name of book here" />
-  <input type="text" id="length" placeholder="length of book here" />
-  <input type="text" id="author" placeholder="author of book here" />
-  <input type="hidden" id="timestamp" name="timestamp"/>
-  <button id = "submit">submit</button>
+<form action="" >
+  <ul class="flex-outer">
+    <li>
+      <input type="text" id="bookname" placeholder="name of book here" required/>
+    </li>
+    <li>
+      <input type="number" id="length" placeholder="length of book here" required/>
+    </li>
+    <li>
+      <input type="text" id="author" placeholder="author of book here" required/>
+    </li>
+    <li>
+      <input type="number" id="priority" placeholder="how long checked out" required>
+    </li>
+    <li>
+      <input type="hidden" id="timestamp" name="timestamp"/>
+    </li>
+    <li>
+      <button id = "submit">submit</button>
+    </li>
+  </ul>
 </form>
 <h2> Here is how to delete a record of a book</h2>
 <form action="">
-  <input type="text" id="pointer" size="40px" placeholder="index value to remove or remove last item">
-  <button id = "delete">remove record</button>
+  <ul class="flex-outer">
+    <li>
+      <input type="text" id="pointer" size="40px" placeholder="index value to remove or remove last item">
+    </li>
+    <li>
+      <button id = "delete">remove record</button>
+    </li>
+  </ul>
 </form>
 <h2> Here is how to show all of the books in the record</h2>
 <form action="">
-  <table id="result"></table>
-  <button id="reveal"> show all records</button>
+  <ul class="flex-outer">
+    <li>
+      <table id="result"></table>
+    </li>
+    <li>
+      <button id="reveal"> show all records</button>
+    </li>
+  </ul>
 </form>
 </body>
 <script type="text/javascript" src="js/scripts.js"></script>
