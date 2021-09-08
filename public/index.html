@@ -12,7 +12,7 @@
   <input type="text" id="bookname" placeholder="name of book here" />
   <input type="text" id="length" placeholder="length of book here" />
   <input type="text" id="author" placeholder="author of book here" />
-  <input type="hidden" id="timestamp" name="timestamp">
+  <input type="hidden" id="timestamp" name="timestamp"/>
   <button id = "submit">submit</button>
 </form>
 <h2> Here is how to delete a record of a book</h2>
@@ -26,74 +26,5 @@
   <button id="reveal"> show all records</button>
 </form>
 </body>
-<script>
-  const submit = function(e) {
-    // prevent default form action from being carried out
-    e.preventDefault();
-
-
-    const inputname = document.querySelector("#bookname"),
-            inputlength = document.querySelector("#length"),
-            inputauthor = document.querySelector("#author"),
-            letime = Date.now()
-    retime = letime.value + 604800*3;
-    const json = {
-              bookname: inputname.value, length: inputlength.value, author: inputauthor.value, checktime: letime.value,
-              returntime: retime.value
-            },
-            body = JSON.stringify(json);
-
-    fetch("/submit", {
-      method: "POST",
-      body
-    }).then(function(response) {
-      return response.json();
-    })
-            .then(function(json) {
-              console.log(json);
-            });
-
-    return false;
-  };
-
-  const delRecord = function(e){
-    e.preventDefault();
-    const body = JSON.stringify({'index' : +document.querySelector("#pointer")});
-
-    fetch("/delete", {
-      method: "POST",
-      body
-    }).then(function(response) {
-      return response.json();
-    })
-            .then(function(json) {
-              console.log(json);
-            });
-
-    return false;
-  }
-
-  const showRecords = function(e){
-    e.preventDefault();
-    const body = server.appdata;
-    fetch("/reveal", {
-      method: "POST",
-      body
-    })
-    body.forEach(el => {
-      document.getElementById('result').innerHTML +=`<div>${el}</div><br />`;
-      // here result is the id of the div present in the dom
-    });
-    return false;
-  };
-
-  window.onload = function() {
-    const submitButton = document.querySelector("#submit");
-    const deleteButton = document.querySelector("#delete");
-    const revealButton = document.querySelector("#reveal");
-    submitButton.onclick = submit;
-    deleteButton.onclick = delRecord;
-    revealButton.onclick = showRecords;
-  };
-</script>
+<script type="text/javascript" src="js/scripts.js"></script>
 </html>
