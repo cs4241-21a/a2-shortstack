@@ -3,23 +3,32 @@
 console.log("Welcome to assignment 2!")
 
 const submit = function( e ) {
-// prevent default form action from being carried out
-e.preventDefault()
+    // prevent default form action from being carried out
+    e.preventDefault()
 
-const input = document.querySelector( '#yourname' ),
-        json = { yourname: input.value },
-        body = JSON.stringify( json )
+    
+    const json = {}
+    json["courseName"] = document.getElementById("courseName").value
+    json["assignmentName"] = document.getElementById("assignmentName").value
+    json["dueDate"] = document.getElementById("dueDate").value
+    json["submissionType"] = document.getElementById("submissionType").value
+    json["description"] = document.getElementById("description").value
 
-fetch( '/submit', {
-    method:'POST',
-    body 
-})
-.then( function( response ) {
-    // do something with the reponse 
-    console.log( response )
-})
+    const body = JSON.stringify( json )
 
-return false
+    fetch( '/submit', {
+        method:'POST',
+        body 
+    })
+    .then( function( response ) {
+        return response.json()
+    }).then(function(data){
+        console.log(data)
+    })
+
+    
+
+    return false
 }
 
 window.onload = function() {

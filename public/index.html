@@ -3,9 +3,11 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <form action="">
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <form id='assignmentInfo' action="">
       <p>Course Name:</p>
       <input type='text' id='courseName'>
       <p>Assignment Name:</p>
@@ -13,7 +15,7 @@
       <p>Duedate:</p>
       <input type='datetime-local' id='dueDate'>
       <p>Submission type:</p>
-      <select id="submissionTypes" name="submissionTypes">
+      <select id="submissionType" name="submissionType">
         <option value="Canvas">Canvas</option>
         <option value="In-person">In-person</option>
         <option value="Email">Email</option>
@@ -26,7 +28,15 @@
       <br /><br />
       <button id='formSubmit'>submit</button>
     </form>
+    <table>
+      <tr>
+        <th>Course Name</th>
+        <th>Assignment Name</th>
+        <th>Duedate</th>
+        <th>Submission Type</th>
+        <th>Description</th>
+      </tr>
+    </table>
   </body>
-
-  <script type="text/javascript" src="scripts.js"></script>
+  
 </html>
