@@ -2,7 +2,7 @@ Readme
 --------
 
 ## Your Web Application Title
-Finance Tracker: https://a2-hmkyriacou.glich.me/
+Finance Tracker: https://a2-hmkyriacou.glitch.me/
 * You can sign in with the default usernames: hmkyriacou, joeSmith, cooluser
 * You can click 'sign up' to create a new user.
 * The table will display all assets of the user.
