@@ -20,31 +20,43 @@
         </tr>
       </table>
       <span class="centered">
-        <input class="form-entry" type="text" id="name" value="Jane Doe" />
-        <select class="form-entry" id="gender">
-          <option class="form-entry" value="Female">Female</option>
-          <option class="form-entry" value="Male">Male</option>
-          <option class="form-entry" value="Other">Other</option>
-        </select>
-        <input
-          class="form-entry"
-          type="date"
-          id="birthday"
-          value="2000-01-01"
-        />
-        <input
-          class="form-entry"
-          type="text"
-          id="country"
-          value="Afghanistan"
-        />
+        <div class="entry-container">
+          <b>Name</b>
+          <input
+            class="form-entry"
+            type="text"
+            id="name"
+            placeholder="Jane Doe"
+          />
+        </div>
+        <div class="entry-container">
+          <b>Gender</b>
+          <select class="form-entry" id="gender">
+            <option class="form-entry" value="Female">Female</option>
+            <option class="form-entry" value="Male">Male</option>
+            <option class="form-entry" value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <b>Birthday</b>
+          <input class="form-entry" type="date" id="birthday" />
+        </div>
+        <div>
+          <b>Country</b>
+          <input
+            class="form-entry"
+            type="text"
+            id="country"
+            placeholder="Afghanistan"
+          />
+        </div>
       </span>
       <span class="right-aligned">
         <button
           hidden="true"
           id="cancel"
           class="cancel-button button"
-          onclick="cancelEdit()"
+          onclick="exitEditMode()"
         >
           Cancel
         </button>

@@ -76,12 +76,21 @@ const deleteEntry = (uuid) => {
   }).then((res) => {
     getData();
   });
+
+  resetFormData();
 };
 
 const submit = () => {
   const body = getFormData();
-  if (editingUUID) body.uuid = editingUUID;
+  if (!body) {
+    console.log("Invalid form entry! Not submitting");
+    return;
+  }
 
+  if (editingUUID) {
+    body.uuid = editingUUID;
+    exitEditMode();
+  }
   fetch("/data", {
     method: "POST",
     body: JSON.stringify(body),
@@ -89,16 +98,28 @@ const submit = () => {
     getData();
   });
 
+  resetFormData();
+
   return false;
 };
 
-const cancelEdit = () => {
+const exitEditMode = () => {
   console.log("Canceling edit");
   editingUUID = null;
 
   // Exit edit mode
   document.getElementById("submit").innerText = "Add";
   document.getElementById("cancel").hidden = true;
+
+  resetFormData();
+};
+
+const resetFormData = () => {
+  // Fill form
+  document.getElementById("name").value = null;
+  document.getElementById("gender").value = null;
+  document.getElementById("birthday").value = null;
+  document.getElementById("country").value = null;
 };
 
 const getFormData = () => {
@@ -106,6 +127,8 @@ const getFormData = () => {
   const gender = document.getElementById("gender").value;
   const birthday = document.getElementById("birthday").value;
   const country = document.getElementById("country").value;
+
+  if (!name || !gender || !birthday || !country) return null;
 
   return { name, gender, birthday, country };
 };
