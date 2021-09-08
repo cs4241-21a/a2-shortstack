@@ -1,12 +1,13 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Todoish",
+  "version": "1.0.0",
+  "description": "Todo list web app",
+  "author": "Owen McGinley",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.4.4",
+    "luxon": "^2.0.2"
   }
 }

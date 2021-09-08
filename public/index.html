@@ -1,41 +1,58 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>Todoish</title>
     <meta charset="utf-8">
+    <script src="/js/scripts.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div id="header">
+      <h1 id="main-header">Todoish</h1>
+      <p>It's todoist...ish!</p>
+    </div>
+    <table id="main-table">
+      <thead>
+        <tr>
+          <th>Done?</th>
+          <th>Task</th>
+          <th>Category</th>
+          <th>Priority</th>
+          <th>Due Date</th>
+          <th>Importance</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="main-tbody">
+        
+      </tbody>
+    </table>
+    <div id="aboutarea">
+      <form id="inputform">
+        <h2>Enter a new task</h2>
+        <label for="input-name">Enter a name for your task: </label>
+        <input type="text" id="input-name"><br><br>
+        <!-- Category is purely cosmetic, but lots could be done (make categories more important, less important, etc)-->
+        <label for="input-name">Enter the category of your task: </label>
+        <input type="text" id="input-category" autocomplete="off"><br><br>
+        <label for="input-priority">Select a priority:</label>
+        <select id="input-priority">
+          <option value="1">1 (most important)</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4 (least important</option>
+        </select><br><br>
+        <label for="input-duedate">Enter the due date for this task.</label>
+        <input type="date" id="input-duedate"><br><br>
+        <button id="input-submit">Submit</button>
+      </form>
+      <div id="about">
+        <h2>How to use</h2>
+        Todoish tries to emulate a Todoist todo list. You can set a task's priority, due date, etc. <br><br>
+        Importance is a derived field in a range from 0% to 100%. The higher the importance, the more important that task is. <br><br>
+        Create new tasks with the panel on the side. Edit, Complete, and Delete Tasks with the inline table.
+      </div>
+    </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
