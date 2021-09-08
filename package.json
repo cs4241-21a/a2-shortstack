@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Hotel Reviews Website",
+  "version": "0.1.0",
+  "description": "WPI CS4241 Assignment 2",
+  "author": "Stefano Jordhani (started code provided by Charlie Roberts)",
   "scripts": {
     "start": "node server.improved.js"
   },

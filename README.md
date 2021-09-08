@@ -1,97 +1,27 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
-
-Due: September 9th, by 11:59 AM.
-
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
-
-Baseline Requirements
----
-
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
-
-Your application is required to implement the following functionalities:
-
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
-
-Your application is required to demonstrate the use of the following concepts:
-
-HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.
-- All pages should [validate](https://validator.w3.org)
-
-CSS:
-- CSS styling of the primary visual elements in the application
-- Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
-- CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
-
-- CSS defined in a maintainable, readable form, in external stylesheets 
-
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
-
-Deliverables
----
-
-Do the following to complete this assignment and acheive a base grade of 85%:
-
-1. Fork the starting project code (make sure to fork the 2021 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
-*Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
-
-1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
-2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
-
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+Stefano Jordhani   
+Link: 
+## Hotel Reviews
+The goal of this project was to create a prototype two-tiered web application which utilizes HTML, CSS, JS, and Node.JS functionality. The web application will include active communication between the client and the server over the life of a user session. For my project, I decided to make a hotel review website where you will enter the hotel name, location, and will give it a score based on cleanliness, service, and amenities. Once you submit a review, it will be added to the server's memory and will display in the results table where you can go back and edit/delete the review later on. You will also see that there is an additional field called 'Overall Score' that has been added. For the container around the form I used a flex-box display layout (CSS positioning technique).  
+NOTE: I tested my website mainly on Mozilla Firefox but also did some testing through Google Chrome
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Single-page App**: The web application I created is a single-page app that contains both the form to input data for new entries, as well as the results table that refreshes when changes are made to the dataset that is contained in the servers memory. 
+- **Edit/Delete Functionality**: In addition to getting the add data functionality, I also was able to get the edit and delete data functionality working. 
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Button Animation**: One small design achievement was the animation that the user sees when they hover over a button. To achieve this I simply had CSS selectors for the buttons and then created a CSS selector for the buttons with ':hover' appended to describe what should occur when the user hovers. The fade-in effect was created by adjusting the opacity of the background as a user hovers over a button. 
+- **Design Evaluations**:  
+Task: Create a hotel review, make a change and edit your review, and then delete the review.  
+#### Evaluation 1   
+1. Viera 
+2. The user did not seem to have any problems with the design. They were able to navigate the page just fine and complete the task that I specified with ease. 
+3. The user did not make any surprising comments but the user did comment on the neatness of the layout.
+4. Based on the feedback, I don’t know if there is anything that I would necessarily change. But from my own experience working on my website, if there was more time I would make changes so that the webpage behaves correctly and does not get distorted when the window is resized.
+
+#### Evaluation 2
+1. Burke 
+2. The user mentioned that instead of setting the input values (hotel name and hotel location), it would be better to just give a preview where the intial value of the input field is an empty string but the "Enter Hotel Name" still shows up as a preview. This means that as soon as the user types the preview goes away instead of having the user have to delete the "Enter Hotel Name Here". Another thing that the user mentioned was to not allow a user to submit new data without filling out the fields since currently you can add a review with the default input values. Lastly, the user made a good point that I had recognized regarding the sizing of things. The user mentioned to make the web page look the same on different sized screens and to have the whole form show upon loading the webpage. 
+3. The user did not make any comments that surprised me. They did recommend to add another field though that will allow a user to write an actual review. 
+4. Changes I would make would be to have the input fields only show as a preview and put restrictions on submitting reviews with the default values. I would also spend more time looking at the layout and figuring out how to make the visual aspect of the website the same regardless of the size of the screen that the user is viewing it from. 
