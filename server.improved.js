@@ -47,7 +47,7 @@ const handlePost = function( request, response ) {
       {
         /* whatever record you are sending */
         const json = JSON.parse(dataString);
-        appdata.splice(appdata.indexOf(json),1);
+        appdata.splice(+json.index,1);
         response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
         response.end(JSON.stringify(appdata));
       } break;

@@ -10,11 +10,11 @@
   <input type="text" id="length" value="length of book here" />
   <input type="text" id="author" value="author of book here" />
   <input type="hidden" id="timestamp" name="timestamp" value="0">
-  <button>submit</button>
+  <button id = "submit">submit</button>
 </form>
 <form action="">
   <input type="text" id="pointer" value="index value to remove">
-  <button onclick="del()">remove record</button>
+  <button id = "delete">remove record</button>
 </form>
 </body>
 <script>
@@ -27,7 +27,7 @@
             inputlength = document.querySelector("#length"),
             inputauthor = document.querySelector("#author"),
             letime = Date.now()
-            retime = letime.value + 604800*3;
+    retime = letime.value + 604800*3;
     const json = {
               bookname: inputname.value, length: inputlength.value, author: inputauthor.value, checktime: letime.value,
               returntime: retime.value
@@ -47,8 +47,9 @@
     return false;
   };
 
-  const del = function(){
-    const body = JSON.stringify(document.querySelector("#pointer"));
+  const delRecord = function(e){
+    e.preventDefault();
+    const body = JSON.stringify({'index' : +document.querySelector("#pointer")});
 
     fetch("/delete", {
       method: "POST",
@@ -56,16 +57,18 @@
     }).then(function(response) {
       return response.json();
     })
-          .then(function(json) {
-            console.log(json);
-          });
+            .then(function(json) {
+              console.log(json);
+            });
 
     return false;
   }
 
   window.onload = function() {
-    const button = document.querySelector("button");
-    button.onclick = submit;
+    const submitButton = document.querySelector("#submit");
+    const deleteButton = document.querySelector("#delete");
+    submitButton.onclick = submit;
+    deleteButton.onclick = delRecord;
   };
 </script>
 </html>
