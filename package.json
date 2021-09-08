@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-shortstack-main",
+  "version": "1.0",
+  "description": "A simple BMI calculator that allows you to calculate BMI, see previous results and edit and delete those results",
+  "author": "Vansh Patel vspatel927",
   "scripts": {
     "start": "node server.improved.js"
   },

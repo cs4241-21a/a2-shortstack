@@ -38,12 +38,16 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
+    const json = JSON.parse( dataString )
+    json.yourname += ''
+    json.feet += ''
+    json.inches += ''
+    json.weight += ''
+    json.bmi += ''
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(json))
   })
 }
 
@@ -70,3 +74,4 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+console.log(appdata)
