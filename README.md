@@ -28,7 +28,7 @@ Tasks: Add, edit, and delete an item on the TODO list.
 - UI Change: I would either need to make it more clear the only one edited task can be saved at a time or add support in the app logic that allows for the editing of multiple tasks at once. A note about the functionality was added in the paragraph at the top of the app.
 
 #### Student 2
-- Student Last Name: Black
+- Student Last Name: Blake
 - Problems: Tried to edit a part of the tasks table that was set to readonly.
 - Suprising Comments: Said that my UI didn't really have any problems.
 - UI Change: I would make it more clear that in the tasks table the deadline and creation date columns are readonly values.
