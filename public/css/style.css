@@ -5,3 +5,7 @@
 div {
     margin-bottom: 100px;
 }
+
+#editform {
+    display: none;
+}

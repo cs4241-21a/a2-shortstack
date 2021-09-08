@@ -6,32 +6,41 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const users = {
-  'fgalbiati@wpi.edu' : {'password': 'abc123'},
-  'john' : {'password': 'aaa111'},
-  'amanda' : {'password': 'ab24'},
-  'sophia' : {'password': 'asdasd5'}
-}
-
-let lostItems = {
-  '1': {
-    'item': 'Apple Pen',
-    'when': '09/01/2021',
-    'where': 'FH 311',
-    'description': 'White, pen, red cap, Apple original',
-    'photo': 'https://google.com',
-    'emailme': 'fgalbiati@wpi.edu'
-  }
-}
-
-let foundItems = {
-  '1': {
-    'item': 'Apple Pen',
-    'when': '09/01/2021',
-    'where': 'FH 311',
-    'description': 'White, pen, red cap, Apple original',
-    'photo': 'https://google.com',
-    'emailme': 'fgalbiati@wpi.edu'
+const appdata = {
+  foundItems: [
+    {
+      'item': 'Apple Pen',
+      'when': '09/01/2021',
+      'where': 'FH 311',
+      'description': 'White, pen, red cap, Apple original',
+      'photo': 'https://google.com',
+      'emailme': 'fgalbiati@wpi.edu',
+      'uid': 'ApplePen09012021FH311foundItems02012020'
+    }
+  ],
+  lostItems: [
+    {
+      'item': 'Apple Pen',
+      'when': '09/01/2021',
+      'where': 'FH 311',
+      'description': 'White, pen, red cap, Apple original',
+      'photo': 'https://google.com',
+      'emailme': 'fgalbiati@wpi.edu',
+      'uid': 'ApplePen09012021FH311lostItems01012020'
+    }
+  ],
+  users: {
+    'fgalbiati@wpi.edu' : {'password': 'abc123'},
+    'john' : {'password': 'aaa111'},
+    'amanda' : {'password': 'ab24'},
+    'sophia' : {'password': 'asdasd5'}
+  },
+  find: function(uid) {
+    let res = this.lostItems.findIndex( e => e.uid === uid)
+    if (res >= 0) { return { 'table': 'lostItems', 'idx': res } }
+    res = this.foundItems.findIndex( e => e.uid === uid)
+    if (res >= 0) { return { 'table': 'foundItems', 'idx': res } }
+    else { return undefined }
   }
 }
 
@@ -49,17 +58,17 @@ const handleGet = function( request, response ) {
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
   } else if ( request.url === '/api/lostitems') {
-    sendData(response, lostItems)
+    sendData(response, appdata.lostItems)
   } else if ( request.url === '/api/founditems') {
-    sendData(response, foundItems)
+    sendData(response, appdata.foundItems)
   } else {
     sendFile( response, filename )
   }
 }
 
 const login = function ( credentials ) {
-  if (credentials.username in users) {
-    let password = users[credentials.username].password
+  if (credentials.username in appdata.users) {
+    let password = appdata.users[credentials.username].password
     if (credentials.password === password) {
       return true
     }
@@ -77,36 +86,92 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     let data = JSON.parse( dataString )
     if (request.url === '/api/login') {
-      if (login(data)) {
-        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-        response.end()    
-        return
-      }
-      response.writeHead( 403, "Invalid login", {'Content-Type': 'text/plain' })
-      response.end()
-      return
+      handleLogin(data, response)
     } else if (request.url === '/api/create') {
-      let filtered = {
-        'item' : data.item,
-        'when' : data.when,
-        'where' : data.where,
-        'description' : data.description,
-        'photo' : data.photo,
-        'emailme' : data.emailme,
-      }
-      if (data.lost === true) {
-        lostItems['2'] = filtered
-        console.log("Added to lost items")
-        response.writeHeader( 200 )
-        response.end() 
-      } else if (data.found === true) {
-        foundItems['2'] = filtered
-        console.log("Added to found items")
-        response.writeHeader( 200 )
-        response.end() 
-      }
+      handleCreate(data, response)
+    } else if (request.url === '/api/delete') {
+      handleDelete(data, response)
+    } else if (request.url === '/api/update') {
+      handleEdit(data, response)
+    } else {
+      response.writeHead( 404, "Invalid API endpoint", {'Content-Type': 'text/plain' })
+      response.end()  
     }
   })
+}
+
+const handleEdit = (data, response) => {
+  console.log(data)
+  let dt = appdata.find(data.uid)
+  if (dt === undefined) {
+    response.writeHead( 404, "Invalid UID", {'Content-Type': 'text/plain' })
+    response.end()  
+  } else {
+    appdata[dt.table][dt.idx].item = data.item
+    appdata[dt.table][dt.idx].when = data.when
+    appdata[dt.table][dt.idx].where = data.where
+    appdata[dt.table][dt.idx].description = data.description
+    appdata[dt.table][dt.idx].photo = data.photo
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end()  
+  }
+}
+
+const handleLogin = (data, response) => {
+  if (login(data)) {
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end()    
+  } else {
+    response.writeHead( 403, "Invalid login", {'Content-Type': 'text/plain' })
+    response.end()  
+  }
+}
+
+const handleCreate = (data, response) => {
+  let filtered = {
+    'item' : data.item,
+    'when' : data.when,
+    'where' : data.where,
+    'description' : data.description,
+    'photo' : data.photo,
+    'emailme' : data.emailme,
+  }
+  if (data.lost === true) {
+    filtered['uid'] = (data.item + data.when + data.where + '+lostItems+' + Date.now()).replace(' ', '+')
+    appdata.lostItems.push(filtered)
+    console.log("Added to lost items")
+    response.writeHeader( 200 )
+    response.end()
+  } else if (data.found === true) {
+    filtered['uid'] = (data.item + data.when + data.where + '+foundItems+' + Date.now()).replace(' ', '+')
+    appdata.foundItems.push(filtered)
+    console.log("Added to found items")
+    response.writeHeader( 200 )
+    response.end()
+  }
+}
+
+const handleDelete = (data, response) => {
+  for(const [idx, e] of appdata.lostItems.entries()) {
+    if (e.uid === data.uid) {
+      console.log("Deleting " + e.uid)
+      appdata.lostItems.splice(idx, 1)
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end()    
+      return
+    }
+  }
+  for(const [idx, e] of appdata.foundItems.entries()) {
+    if (e.uid === data.uid) {
+      console.log("Deleting " + e.uid)
+      appdata.foundItems.splice(idx, 1)
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end()    
+      return
+    }
+  }
+  response.writeHead( 404, "UID not found", {'Content-Type': 'text/plain' })
+  response.end()    
 }
 
 const sendFile = function( response, filename ) {

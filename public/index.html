@@ -12,9 +12,9 @@
     <form action="" id="loginform">
       <h3>Login</h1>
       <label for="username">Username: </label>
-      <input type="text" id="username" placeholder="username@wpi.edu" required="required">
+      <input type="text" id="username" placeholder="username@wpi.edu" required="required" value='fgalbiati@wpi.edu'>
       <label for="password">Password: </label>
-      <input type="password" id="password" placeholder="*******" required="required">
+      <input type="password" id="password" placeholder="*******" required="required" value="abc123">
       <button id="login-button">Submit</button>
     </form>
     <div class="logged-in">
@@ -27,6 +27,7 @@
           <th>Description</th>
           <th>Photo</th>
           <th>Email me!</th>
+          <th>Actions</th>
         </tr>
       </table>
       <h2>Found items</h2>
@@ -38,10 +39,31 @@
           <th>Description</th>
           <th>Photo</th>
           <th>Email me!</th>
+          <th>Actions</th>
         </tr>
       </table>
     </div>
     <div class="logged-in">
+      <form action="" id="editform">
+        <h2>Edit a Lost or Found item</h2>
+        <label for="item">Item: </label>
+        <input type="text" id="item" placeholder="Apple Pen">
+        
+        <label for="when">When: </label>
+        <input type="datetime" id="when" placeholder="mm/dd/yyyy">
+
+        <label for="where">Where: </label>
+        <input type="text" id="where" placeholder="FH 311">
+        
+        <label for="description">Description: </label>
+        <input type="text" id="description" placeholder="Color, brand...">
+        
+        <label for="photo">Photo: </label>        
+        <input type="url" id="photo" name="photo">
+
+        <button id="editentry-button">Submit</button>
+      </form>
+
       <h2>Post a new Lost or Found item</h2>
       <form action="" id="createentry">
         <label for="type1">Lost</label>
@@ -64,9 +86,6 @@
         <label for="photo">Photo: </label>        
         <input type="url" id="photo" name="photo">
         
-        <label for="emailme">Who to contact: </label>        
-        <input type="email" id="emailme" placeholder="abc@wpi.edu">
-
         <button id="createentry-button">Submit</button>
       </form>
     </div>

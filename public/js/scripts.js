@@ -1,3 +1,5 @@
+let loggedInUser = undefined
+
 const getRequest = function(endpoint, data, callback) {
   fetch( endpoint, {
     method:'GET',
@@ -19,7 +21,7 @@ const postRequest = function(endpoint, data, callback) {
 
 function login() {
   document.querySelector('#error-box').innerText = ""
-  let username = document.querySelector("#username").value
+  let username = document.querySelector("#username").value.trim()
   let password = document.querySelector("#password").value
   postRequest('/api/login', {
     username,
@@ -27,6 +29,7 @@ function login() {
   }, (response) => {
     console.log("Login status: " + response.status)
     if (response.status === 200) {
+      loggedInUser = username
       loginSuccess()
     } else {
       loginFailed()
@@ -48,20 +51,36 @@ function loginFailed() {
 
 function getItems(listname) {
   getRequest('/api/' + listname, {}, (data) => {
-    console.log(data)
     let table = ""
-    for (const item in data) {
-      let info = data[item]
+    for (let info of data) {
       let row = ""
-      row += `<td>${info.item}</td>`
-      row += `<td>${info.when}</td>`
-      row += `<td>${info.where}</td>`
-      row += `<td>${info.description}</td>`
-      row += `<td>${info.photo}</td>`
-      row += `<td>${info.emailme}</td>`
-      table += `<tr>${row}</tr>`
+      row += `<td class="item">${info.item}</td>`
+      row += `<td class="when">${info.when}</td>`
+      row += `<td class="where">${info.where}</td>`
+      row += `<td class="description">${info.description}</td>`
+      row += `<td class="photo">${info.photo}</td>`
+      row += `<td class="emailme">${info.emailme}</td>`
+      if (info.emailme === loggedInUser) {
+        row += `<td><form><button class="deleteBtn">Delete</button><button class="editBtn">Edit</button></form></td>`
+      }
+      table += `<tr id="${info.uid}">${row}</tr>`
     }
-    document.querySelector('#' + listname).innerHTML = table
+    let header = '<tr><th>Item</th><th>When</th><th>Where</th><th>Description</th><th>Photo</th><th>Email me!</th><th>Actions</th></tr>'
+    document.querySelector('#' + listname).innerHTML = header + table
+    document.querySelectorAll( '.deleteBtn' )
+    .forEach( (element) => {
+      element.onclick = (e) => {
+        e.preventDefault()
+        deleteValue(e.target.parentNode.parentNode.parentNode.id)
+      }
+    });
+    document.querySelectorAll( '.editBtn' )
+    .forEach( (element) => {
+      element.onclick = (e) => {
+        e.preventDefault()
+        editValue(e.target.parentNode.parentNode.parentNode.id)
+      }
+    });
   })
 }
 
@@ -83,7 +102,7 @@ function createElement() {
     'where' : document.querySelector( '#where' ).value,
     'description' : document.querySelector( '#description' ).value,
     'photo' : document.querySelector( '#photo' ).value,
-    'emailme' : document.querySelector( '#emailme' ).value
+    'emailme' : loggedInUser
   }
   // Submit to server
   postRequest('/api/create', entry, (response) => {
@@ -92,6 +111,70 @@ function createElement() {
       console.log('Emptying fields')
       document.querySelectorAll( 'input' )
       .forEach((el) => el.value = "")
+      // Update lists
+      console.log('Updating lists')
+      getFoundItems()
+      getLostItems()
+    } else {
+      document.querySelector('#error-box').innerText = "Error, could not complete request."
+    }
+  })
+}
+
+function deleteValue(uid) {
+  // Submit to server
+  postRequest('/api/delete', { uid }, (response) => {
+    if (response.status === 200) {
+      // Update lists
+      console.log('Updating lists')
+      getLostItems()
+      getFoundItems()
+    } else {
+      document.querySelector('#error-box').innerText = "Error, could not delete item."
+    }
+  })
+}
+
+const editValue = (uid) => {
+  console.log("Editing value " + uid)
+  let values = {}
+  let row = document.querySelector(`#${uid}`)
+  row.childNodes.forEach(e => {
+    if (e.firstChild.nodeName.toUpperCase() !== "FORM") {
+      values[e.className] = e.innerText
+    }
+  })
+
+  let editForm = document.querySelector(`#editform`)
+  editForm.style.display = 'block'
+  editForm.childNodes.forEach( e => e.value = values[e.id] )
+  editForm.querySelector('#editentry-button').onclick = (e) => {
+    e.preventDefault()
+    saveEdits(uid)
+  }
+}
+
+function saveEdits(uid) {
+  console.log(`Saving edits for ${uid}`)
+  let row = document.querySelector(`#editform`)
+  // Get fields
+  let entry = {
+    'item' : row.querySelector( '#item' ).value,
+    'when' : row.querySelector( '#when' ).value,
+    'where' : row.querySelector( '#where' ).value,
+    'description' : row.querySelector( '#description' ).value,
+    'photo' : row.querySelector( '#photo' ).value,
+    'uid' : uid
+  }
+  // Submit to server
+  postRequest('/api/update', entry, (response) => {
+    if (response.status === 200) {
+      // Empty fields
+      console.log('Emptying fields')
+      document.querySelectorAll( 'input' )
+      .forEach((el) => el.value = "")
+      // Hide form 
+      document.querySelector(`#editform`).style.display = 'none'
       // Update lists
       console.log('Updating lists')
       getFoundItems()
