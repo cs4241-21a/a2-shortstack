@@ -1,15 +1,19 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>LoL Sign up</title>
     <meta charset="utf-8">
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <form action="" id = 'Form'>
+  <h1> League of Legends Team Sign Up Form</h1>
+  <p> Welcome to the sign-up form for WPI esports League of Legends Team <br> Please fill out the form so I can sort you onto a team</p>
+    <form id = 'Form'>
      Name: <input type='text' id='yourname'> <br>
       Summoner Name: <input type="text" id ="sumname"><br>
       Rank: <input type ="text" id ="rank"><br>
-      Primary Role:<select id ="prole" id="role">
+      Primary Role:<select id="prole">
       <option value="Top">Top</option>
       <option value="Jungle">Jungle</option>
       <option value="Middle">Middle</option>
@@ -20,95 +24,26 @@
       <br>
       <button>submit</button>
     </form>
+  <div class = "container">
+      <div class="outline">
+          <h3 class="title">Sign ups</h3>
     <table id ="userTable">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Summoner Name</th>
-            <th>Rank</th>
-            <th>Primary Role</th>
-            <th></th>
+            <th class = "head">Name</th>
+            <th class = "head">Summoner Name</th>
+            <th class = "head">Rank</th>
+            <th class = "head">Primary Role</th>
+            <th class = "head">Guaranteed to make a team?</th>
         </tr>
         </thead>
         <tbody id="data">
 
         </tbody>
     </table>
+      </div>
+
+      <script src="/js/scripts.js"></script>
+  </div>
   </body>
-  <script>
-
-      function updateLeaderboard(leaderboard) {
-          const holder = document.querySelector('#userTable');
-          leaderboard.forEach((element, index) => {
-              const row = document.createElement('tr');
-              // Sign-up Name
-              const userData = document.createElement('td');
-              const userInput = document.createElement('input');
-              userInput.className = 'table-input';
-              userData.appendChild(userInput);
-              userInput.value = element.yourName;
-              userInput.id = `user-${index}`;
-
-              // Summoner Name
-              const summonerData = document.createElement('td');
-              const summonerInput = document.createElement('input');
-              summonerInput.className = 'table-input';
-              summonerData.appendChild(summonerInput);
-              summonerInput.value = element.summonerName;
-              summonerInput.id = `description-${index}`;
-
-              // Rank
-              const rankData = document.createElement('td');
-              const rankInput = document.createElement('input');
-              rankInput.className = 'table-input';
-              rankData.appendChild(rankInput);
-              rankInput.value = element.rank;
-              rankInput.id = `description-${index}`;
-
-
-              // Primary Position
-              const primaryRoleData = document.createElement('td');
-              const primaryRoleInput = document.createElement('input');
-              primaryRoleInput.className = 'table-input';
-              primaryRoleData.appendChild(primaryRoleInput);
-              primaryRoleInput.value = element.primaryRole;
-              primaryRoleInput.id = `description-${index}`;
-
-
-              row.appendChild(userData);
-              row.appendChild(summonerData);
-              row.appendChild(rankData);
-              row.appendChild(primaryRoleData);
-
-              holder.appendChild(row);
-          });
-      }
-
-      const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-    const yourname = document.querySelector('#yourname');
-    const rank = document.querySelector('#rank');
-    const sumname = document.querySelector('#sumname');
-    const prole = document.querySelector('#prole');
-    const json = {yourName: yourname.value, rank: rank.value, summonerName: sumname.value, primaryRole: prole.value};
-    const body = JSON.stringify(json);
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( async function (response) {
-        const leaderboard = await response.json();
-        updateLeaderboard(leaderboard);
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>

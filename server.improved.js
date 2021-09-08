@@ -7,7 +7,7 @@ const http = require( 'http' ),
       port = 3001
 
 const appdata = []
-
+let playerCount = 0;
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -34,9 +34,19 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    appdata.push(JSON.parse(dataString))
+    let data = JSON.parse(dataString);
+    playerCount++;
+    if(playerCount%5 === 0) {
+      appdata.forEach((element) => {
+        element.makeTeam = "Yes"
+      });
+      data.makeTeam = "Yes"
+    }
+    else{
+      data.makeTeam = "No"
+    }
+    appdata.push(data);
+    console.log(JSON.parse(dataString))
     response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
     response.end(JSON.stringify(appdata));
   })
