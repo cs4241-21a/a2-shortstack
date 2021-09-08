@@ -28,6 +28,8 @@
 // todo lofi music
 
 let sound
+let howls = []
+let rain_sound, lofi_music
 
 const submit = function( e ) {
     // prevent default form action from being carried out
@@ -100,36 +102,35 @@ const submit = function( e ) {
     .then(function (json) {
       console.log('json', json)
       let newSound = getAudioFiles(json)
-      let howls = []
-      let rain_sound, lofi_music= 1
 
       // stop the previous sound
       if (howls[0] !== undefined) {
+        howls[0].stop(['rain_sound'])
         howls[0].stop()
       }
       if (howls[1] !== undefined) {
+        howls[1].stop(['lofi_music'])
         howls[1].stop()
       }
-      
+
+      // set up the Howl
       for (i = 0; i < newSound.length; i++) {
         howls[i] = new Howl({
-          src: [newSound[i]],
-          // src: "../sounds/lofi.mp3",
+          src: newSound[i],
           autoplay: true,
-          loop: true,
+          loop: true
         });
       }
 
-      // update the sound
+
+
+      // play the sound(s)
       rain_sound = howls[0].play();
-      if (howls[1] !== undefined) {
+      howls[0].volume(parseFloat(json.rain_volume));
+      if (howls[1] !== undefined)
         lofi_music = howls[1].play();
-      }
-      
+        // howls[1].volume(0.5)
     })
-
-    
-
     return false
   }
 

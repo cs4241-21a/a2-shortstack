@@ -49,9 +49,9 @@ const handlePost = function( request, response ) {
         rain_volume = 0.8
         break;
       case "rain":
-        rain_volume = 1.0
+        rain_volume = 0.4
       case "heavy_rain":
-        rain_volume = 1.2
+        rain_volume = 0.8
       default:
         break;
     }
