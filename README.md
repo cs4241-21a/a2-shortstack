@@ -21,5 +21,5 @@ For CSS, a grid layout was used to create vertical sections of the website. The 
 **Evaluation 1**:
  1. Name: Steven Tran
  2. Problems with the design: Too bright, green isn't a great color. The counter is not shown for editing notes. Cannot enter Contact without specifying notes.
- 3. Comments that surprised me: The website was inaccurate when enter unemployed as a occupation. If unemplyoed then Education Level is "Never Attended" 
+ 3. Comments that surprised me: The website was inaccurate when entering unemployed as an occupation. If unemployed then Education Level is "Never Attended" 
  4. Changes to make: Implement some type of Dark mode for users. + Request add the counter for editing notes + Create some default behavior for when users dont enter in a speicific field.
