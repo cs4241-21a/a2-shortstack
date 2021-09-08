@@ -6,10 +6,16 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+//const appdata = [
+//  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
+//  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
+//  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+//]
+
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { "foodname": "apple", "foodcategory": "fruit", "foodquantity": 3, "expirationdate": new Date("2021-09-22")},
+  { "foodname": "onion", "foodcategory": "vegetable", "foodquantity": 1, "expirationdate": new Date("2021-09-24")},
+  { "foodname": "bread", "foodcategory": "grain", "foodquantity": 4, "expirationdate": new Date("2021-09-19")}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -40,11 +46,34 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
-
+    if (request.url === "/submitAddFood"){
+      handleSubmitAddFood( request, dataString );
+    }
+    else if (request.url === "/submitRemoveFood") {
+      handleSubmitRemoveFood( request, dataString );
+    }
+    
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
   })
+}
+
+const handleSubmitAddFood = function ( request, dataString ) {
+  // ... do something with the data here!!!
+  console.log(request.url);
+  console.log("----------Processing Data------------");
+  console.log("Original AppData:");
+  console.log(appdata);
+  
+  appdata.push( JSON.parse( dataString ) );
+  
+  
+  console.log("----------New AppData----------------");
+  console.log(appdata);
+}
+
+const handleSubmitRemoveFood = function ( request, dataString ) {
+
 }
 
 const sendFile = function( response, filename ) {
