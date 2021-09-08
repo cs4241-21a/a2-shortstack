@@ -1,5 +1,6 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
+Shannen Lin - https://a2-sklin330.glitch.me
 
 ## Jump Rope Penguin
 Jump Rope Penguin is a very simple minigame where you jump rope as a penguin!
