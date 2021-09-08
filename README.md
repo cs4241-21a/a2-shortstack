@@ -23,11 +23,11 @@ For CSS, a grid layout was used to create vertical sections of the website. The 
  1. Name: Steven Tran
  2. Problems with the design: Too bright, green isn't a great color. The counter is not shown for editing notes. Cannot enter Contact without specifying notes.
  3. Comments that surprised me: The website was inaccurate when entering unemployed as an occupation. If unemployed then Education Level is "Never Attended" 
- 4. Changes to make: Implement some type of Dark mode for users. + Add the notes counter for editing notes + Create some default behavior for when users dont enter in a speicific field.
+ 4. Changes to make: Implement some type of Dark mode for users. + Add the notes counter for editing notes + Create some default behavior for when users dont enter in a speicific field. For example, if no notes entered then show an empty string in the table.
   
   
 **Evaluation 2**:
- 1. Name: Steven Tran
- 2. Problems with the design: Too bright, green isn't a great color. The counter is not shown for editing notes. Cannot enter Contact without specifying notes.
- 3. Comments that surprised me: The website was inaccurate when entering unemployed as an occupation. If unemployed then Education Level is "Never Attended" 
- 4. Changes to make: Implement some type of Dark mode for users. + Add the notes counter for editing notes + Create some default behavior for when users dont enter in a speicific field.
+ 1. Name: Andrew Kerekon
+ 2. Problems with the design: The table should be able to be sorted by age, number, occupation, etc. There is no input for values, aka you can have a negative age, and put a string of any length. There is no user login, so all the data so all the data can be seen by all users. 
+ 3. Comments that surprised me: The table should be able to be sorted by age, number, occupation, etc. This comment was surprising because I did not even consider this as an option for design elements, and it could be easy to implement. 
+ 4. Changes to make: Implement some type of user login by creating a log in screen, and storing all the user login info in a map or array. Also I can implement some bounds on the inputs, similar to the 200 character limit on the notes field. 
