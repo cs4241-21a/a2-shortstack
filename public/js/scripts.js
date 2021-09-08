@@ -140,15 +140,19 @@ const editValue = (uid) => {
   console.log("Editing value " + uid)
   let values = {}
   let row = document.querySelector(`#${uid}`)
-  row.childNodes.forEach(e => {
-    if (e.firstChild.nodeName.toUpperCase() !== "FORM") {
+  row.childNodes
+  .forEach( e => {
+    console.log(e)
+    if (e.firstChild !== null && e.firstChild.nodeName.toUpperCase() !== "FORM") {
       values[e.className] = e.innerText
     }
   })
 
   let editForm = document.querySelector(`#editform`)
   editForm.style.display = 'block'
-  editForm.childNodes.forEach( e => e.value = values[e.id] )
+  editForm.childNodes.forEach( e => {
+    if (e.nodeName.toUpperCase() === 'INPUT') { e.value = values[e.id.split('-')[0]] }
+  })
   editForm.querySelector('#editentry-button').onclick = (e) => {
     e.preventDefault()
     saveEdits(uid)
