@@ -72,9 +72,10 @@ const handlePost = function( request, response ) {
             if (user === undefined) {
                 // Make new user
                 appdata.push({username: recievedData.username, assets:[]})
+                let user = appdata.find(obj => obj.username === recievedData.username)
 
                 response.writeHead( 201, "CREATED", {'Content-Type': 'text/plain'})
-                response.end()
+                response.end(JSON.stringify(user))
 
             } else {
                 // User already exists

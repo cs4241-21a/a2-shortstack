@@ -13,10 +13,20 @@ const signin = function( e ) {
         method:'POST',
         body 
     })
-        .then(response => response.json())
-        .then( function( rec ) {
-            setupUserInfo(rec)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                if (response.status === 404) {
+                    alert("Username not found")
+                }
+                return Promise.reject(new Error("Error"))
+            }
         })
+        .then( response => {
+            setupUserInfo(response)
+        },
+        rej => console.log("Error"))
 
     return false
 }
@@ -126,10 +136,7 @@ const signup = function( e ) {
 
     if (input.value === "") {
         //Cant be empty
-        let userArea = document.querySelector( '#userinfo' )
-
-        userArea.innerHTML = "<h3>UserName Cannot be Blank</h3>"
-        userArea.style.display = "flex"
+        alert("Cannot be empty")
 
         return false;
     }
@@ -143,6 +150,11 @@ const signup = function( e ) {
         if (response.ok) {
             return response.json()
         } else {
+            
+            if (response.status === 409) {
+                alert("Username already exists")
+            }
+
             return Promise.reject(new Error("error"))
         }
     })

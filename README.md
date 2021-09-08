@@ -27,4 +27,14 @@ JavaScript:
 - **Auto-Updating logic**: When submitting changes (new assets or deleting assets), the front-end will update on submit as the backend is also updating.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Think-Aloud**: I interviewed my roomates who are in this class to get feedback for my project.
+    - Jacob Feiss
+        - UI Should have a more consistent color scheme
+        - UI should be more colorful
+        - Need some sort of notification when there is an error
+        - Dosent like the font
+    - Loren Diloreto
+        - UI is a little complicated when you are signed in
+        - Bug after trying to sign up with empty username
+        - Current price should change, maybe use an API and update
+    - I ended up doing some modifications to my color scheme and font and also fixing the bug that was encountered after getting this feedback
