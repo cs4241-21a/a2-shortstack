@@ -15,7 +15,7 @@ let requestType = 0; //0 is add, 1 is edit, 2 is delete
 const dateToDatetimeValue = function( date ) {
     // parse deadline datetime value
     let year = "" + date.getFullYear()
-    let month = "" + date.getMonth()
+    let month = "" + ( date.getMonth() + 1 )
     let day = "" + date.getDate()
     let hours = "" + date.getHours()
 
@@ -47,7 +47,7 @@ const dateToString = function( date ) {
 
     // parse deadline datetime value
     let year = "" + newDate.getFullYear()
-    let month = "" + newDate.getMonth()
+    let month = "" + ( newDate.getMonth() + 1 )
     let day = "" + newDate.getDate()
     let hours = "" + newDate.getHours()
 
