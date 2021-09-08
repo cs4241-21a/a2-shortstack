@@ -84,7 +84,7 @@ const getTodoData = function(request, response) {
       var nowdate = DateTime.DateTime.now()
       var tododate = DateTime.DateTime.fromFormat(item.duedate, "yyyy-LL-dd")
       var diffDays = tododate.diff(nowdate, 'days')
-      item.importance = 100 - Math.floor(item.priority * diffDays.toObject().days)
+      item.importance = 100 - Math.ceil(item.priority * diffDays.toObject().days)
       if (item.importance > 100) {
         item.importance = 100
       }
