@@ -7,9 +7,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  // { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
+  // { 'model': 'honda', 'year': 2004, 'mpg': 30 },
+  // { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -40,14 +40,37 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log('end')
-    console.log( JSON.parse( dataString ) )
+    json = JSON.parse( dataString )
 
-    // ... do something with the data here!!!
+    // derived field: volume
+    let rain_volume
+    switch (json.rain_level) {
+      case "light_rain":
+        rain_volume = 0.8
+        break;
+      case "rain":
+        rain_volume = 1.0
+      case "heavy_rain":
+        rain_volume = 1.2
+      default:
+        break;
+    }
+    // make rain quieter if there's lofi music
+    if (json.lofi === "lofi_on") {
+      rain_volume -= 0.2
+      
+    }
+    json.rain_volume = rain_volume.toFixed(1)
+    console.log( json )
+
+    // console.log('json in server', json)
     
-    // todo store json
+    // store json
+    appdata.push(json)
+    console.log('app data', appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(json))
   })
 }
 

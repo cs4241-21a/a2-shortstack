@@ -33,11 +33,7 @@ const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    let speed = 0
-
-    // todo calculate rain speed, add to json
     // todo get background image, add to json
-    // todo get rain sound
 
     let inputs = [
       document.getElementsByName('rain_level'),
@@ -45,9 +41,9 @@ const submit = function( e ) {
       document.getElementsByName('lofi')
     ];
     let input_values = []
+    let rain_level_index = 0, environment_index = 1, lofi_index = 2
     let mix_name = document.getElementsByName('rain_mix_name')[0].value
     let sounds = []
-    
 
     // get input values
     for (i = 0; i < inputs.length; i++) {
@@ -59,24 +55,27 @@ const submit = function( e ) {
           input_values.push(current_input[j].id)
 
           // add to sounds array
-          sounds.push(current_input[j].id)
+          if (i == rain_level_index || i == lofi_index)
+            sounds.push(current_input[j].id)
         } 
       }
     }
 
+    
+
+    
 
 
     // store data in json
     json = { 
       rain_mix_name: mix_name,
-      rain_level: input_values[0],
-      environment: input_values[1],
-      lofi: input_values[2],
-      sounds: sounds
+      rain_level: input_values[rain_level_index],
+      environment: input_values[environment_index],
+      lofi: input_values[lofi_index],
+      sounds: sounds,
+      // rain_volume: rain_volume.toFixed(1)
     },
     body = JSON.stringify( json )
-
-    // const input = document.querySelector( '#rain_mix_name' ),
         
     
 
@@ -84,25 +83,52 @@ const submit = function( e ) {
       method:'POST',
       body 
     })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+    // .then(response =>{
+    //   console.log(response);
+    //   if(response.ok){
+    //        console.log(response.json()); //first consume it in console.log
+    //       return response.json(); //then consume it again, the error happens
+    //   }
+    // }
+    .then(function(response) {
+      // console.log('response', response)
+      // console.log('response text', response.json())
+      if(response.ok)
+        // console.log('response', response.text())
+        return response.json();
+    })
+    .then(function (json) {
+      console.log('json', json)
+      let newSound = getAudioFiles(json)
+      let howls = []
+      let rain_sound, lofi_music= 1
+
+      // stop the previous sound
+      if (howls[0] !== undefined) {
+        howls[0].stop()
+      }
+      if (howls[1] !== undefined) {
+        howls[1].stop()
+      }
+      
+      for (i = 0; i < newSound.length; i++) {
+        howls[i] = new Howl({
+          src: [newSound[i]],
+          // src: "../sounds/lofi.mp3",
+          autoplay: true,
+          loop: true,
+        });
+      }
+
+      // update the sound
+      rain_sound = howls[0].play();
+      if (howls[1] !== undefined) {
+        lofi_music = howls[1].play();
+      }
+      
     })
 
-    // stop the previous sound
-    if (sound !== undefined) {
-      sound.stop()
-    }
     
-    // update the sound
-    sound = new Howl({
-      // src: ['../sounds/light-rain.wav'],
-      src: "../sounds/lofi.mp3",
-      autoplay: true,
-      loop: true,
-    });
-    
-    sound.play();
 
     return false
   }
@@ -122,3 +148,20 @@ const submit = function( e ) {
   // });
 
   // todo play history function
+
+  // get the audio file paths
+  function getAudioFiles(input_json) {
+    let result = []
+
+    // add lofi if necessary
+    if (input_json.lofi === "lofi_on") {
+      result.push('../sounds/lofi.mp3')
+    }
+
+    // add rain sound
+    result.push('../sounds/'+input_json.rain_level+'.wav')
+
+    
+    console.log('sounds', result)
+    return result
+  }
