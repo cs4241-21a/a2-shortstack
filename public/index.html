@@ -1,41 +1,43 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-  </head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/scripts.js"></script>
+</head>
   <body>
+    <h1>A Good Survey</h1>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+        <label for="name">Name: </label><input type='text' id='name' placeholder="Your name here" class="textbox" /><br />
+        <label for="age">Age: </label><input type='text' id='age' placeholder="Your age here" class="textbox" /><br />
+        <label>Favorite Color: </label>
+        <select name="color" id="color" class="dropdown" placeholder="Favorite Color">
+            <option value="red">Red</option>
+            <option value="orange">Orange</option>
+            <option value="yellow">Yellow</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="purple">Purple</option>
+            <option value="white">White</option>
+            <option value="grey">Grey</option>
+            <option value="black">Black</option>
+            <option value="brown">Brown</option>
+        </select><br /><br />
+        <button>Submit</button><br />
+        <br />
+        <br />
+        <table id="results">
+            <thread>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Favorite Color</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thread>
+        </table>
     </form>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
