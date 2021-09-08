@@ -12,7 +12,7 @@ body {
     background-repeat: no-repeat;
     
     grid-template-columns: [col0] 10px [col1] 25% [col2] 530px [col3] 20% [col4] 10px [col5] 250px [col6];
-    grid-template-rows: [row0] 50px [row1] 400px [row2] 50px [row3] 50px [row4] 50px [row5] auto  [row6] auto; 
+    grid-template-rows: [row0] 100px [row1] 400px [row2] 50px [row3] 50px [row4] 50px [row5] auto  [row6] auto; 
 
     grid-template-areas:  
         "headerArea headerArea headerArea headerArea headerArea headerArea headerArea"
@@ -36,7 +36,8 @@ body {
 #form {
     padding-left: 30px;
     padding-right: 30px;
-    padding-bottom: 220px;
+    padding-bottom: 80px;
+    padding-top: 30px;
     
     height: 80%;
     place-self: center;
@@ -50,15 +51,24 @@ form, button {
 
 
 #table {
+    width: 95%;
     grid-area: tableArea;
     color: black;
     background-color: #E7E9EB;
     font-family: 'Roboto Mono', monospace;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+td {
+    text-align: center;
+}
+
 
 th {
     height: 20px;
 }
+
 
 .staticButtons {
     width: 250px;
