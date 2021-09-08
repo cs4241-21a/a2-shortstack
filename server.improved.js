@@ -7,26 +7,45 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name': 'Amber', 'age': 19, 'color': "Red" },
+  { 'name': 'Kaeya', 'age': 27, 'color': "Blue" },
+  { 'name': 'Lisa', 'age': 32, 'color': "Purple" }
 ]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
-  }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+      handleGet(request, response);
+  } else if( request.method === 'POST' ){
+      handlePost(request, response);
   }
 })
+
+function addEntry(dataString) {
+    dataEntry = JSON.parse(dataString);
+    appdata.push(dataEntry;
+}
+
+function deleteEntry(dataString) {
+    json = JSON.parse(dataString);
+    appdata.splice(json["index"], 1);
+}
+
+function sendUpdate(response) {
+    const type = mime.getType(appdata);
+    response.writeHead(200, { 'Content-Type': type });
+    response.write(JSON.stringify(appdata));
+    response.end();
+}
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+    if (request.url === '/') {
+        sendFile(response, 'public/index.html')
+    } else if (request.url === '/update') {
+        sendUpdate(response);
+    } else {
+        sendFile(response, filename);
   }
 }
 
@@ -40,7 +59,8 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+      if(request.url === '/add') addEntry(dataString);
+      if(request.url === '/delete') deleteEntry(dataString);
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
