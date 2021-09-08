@@ -6,6 +6,8 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+let appData = []
+
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -36,8 +38,9 @@ const handlePost = function( request, response ) {
     let year = formData.year
     let d = new Date()
     let age = d.getFullYear() - year
+    formData.age = String(age);
 
-    formData.age = age;
+    appData.push(formData)
 
     console.log("json: " + JSON.stringify(formData))
 
