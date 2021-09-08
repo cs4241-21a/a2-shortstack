@@ -159,7 +159,7 @@ function getAge(age){
   else if(age < 18){
     return "Child"
   }
-  else if(age > 18 && age < 65){
+  else if(age >= 18 && age <= 65){
     return "Adult"
   }
   else {
