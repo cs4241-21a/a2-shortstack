@@ -170,7 +170,7 @@ const numberToDateValue = function( number ) {
     while ( year.length < 4 ) {
         year = "0" + year
     }
-    let month = "" + ( date.getMonth + 1 )
+    let month = "" + ( date.getMonth() + 1 )
     if ( month.length < 2 ) {
         month = "0" + month
     }
