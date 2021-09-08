@@ -23,7 +23,7 @@ This can be found in the /delete and /edit endpoints in the server POST request 
 - Student Last Name: Odell
 - Problems: Tryed to edit and save multiple tasks at one time while that functionality is not supported on the app. Was confused about why only one task saved when a 'Save Edits' button was clicked.
 - Suprising Comments: The problem he found (above) unveiled a usability bug that I didn't even consider until this point.
-- UI Change: I would either need to make it more clear the only one edited task can be saved at a time or add support in the app logic that allows for the editing of multiple tasks at once.
+- UI Change: I would either need to make it more clear the only one edited task can be saved at a time or add support in the app logic that allows for the editing of multiple tasks at once. A note about the functionality was added in the paragraph at the top of the app.
 
 #### Student 2
 - Student Last Name:
