@@ -45,8 +45,10 @@
       </li>     
     </ul>
     </form>
-    <h1>Your Schedule:</h1>
+    <h1>Your Todos:</h1>
     <table style="table-layout: auto;" id="dataTable"></table>
+    <h1>Weekly Difficulty Tracker</h1>
+    <table style="table-layout: auto;" id="dificulty"></table>
   </body>
 
   <script>
@@ -58,11 +60,15 @@
     const todoInput = document.querySelector( '#todo' )
     const dayInput = document.querySelector( '#day' )
     const priority = document.querySelector('#priority')
+   // const difficulty = document.querySelector('#difficulty')
     
           json = { todo: todoInput.value, 
                     day: dayInput.value, 
-                    priority: priority.value }
+                    priority: priority.value, 
+                    }
           body = JSON.stringify( json )
+
+
 
     fetch( '/submit', {
       method:'POST',
@@ -122,6 +128,16 @@
           td = document.createElement('td')
           td.appendChild(item)
           tr.appendChild(td)
+
+          item = document.createTextNode(data[count].difficulty)
+          td = document.createElement('td')
+          td.appendChild(item)
+          tr.appendChild(td)
+
+          item = document.createTextNode(' ')
+          td = document.createElement('td')
+          td.appendChild(item)
+          tr.appendChild(td)
         }
     }
     table.appendChild(tr);
@@ -141,5 +157,6 @@
   document.body.appendChild(table)
 
 }
+
   </script>
 </html>
