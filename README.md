@@ -1,7 +1,7 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 Stefano Jordhani   
-Link: 
+Link: https://a2-sjordhani22.glitch.me/
 ## Hotel Reviews
 The goal of this project was to create a prototype two-tiered web application which utilizes HTML, CSS, JS, and Node.JS functionality. The web application will include active communication between the client and the server over the life of a user session. For my project, I decided to make a hotel review website where you will enter the hotel name, location, and will give it a score based on cleanliness, service, and amenities. Once you submit a review, it will be added to the server's memory and will display in the results table where you can go back and edit/delete the review later on. You will also see that there is an additional field called 'Overall Score' that has been added. For the container around the form I used a flex-box display layout (CSS positioning technique).  
 NOTE: I tested my website mainly on Mozilla Firefox but also did some testing through Google Chrome
