@@ -19,4 +19,5 @@ body {
 table, th, td {
     border: 1px solid black;
     height: 2em;
+    margin-right: 3em;
 }
