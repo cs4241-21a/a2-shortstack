@@ -49,9 +49,9 @@ const handlePost = function( request, response ) {
       let prior = jsonData.priority;
       let deadline = jsonData.deadline;
       let entries = {};
-      entries["assignment"] = assignment;
-      entries["priority"] = prior;
-      entries["deadline"] = deadline;
+      entries["Assignment"] = assignment;
+      entries["Priority"] = priority;
+      entries["d=Deadline"] = deadline;
    
       appdata.push(entries);
     }
@@ -115,7 +115,7 @@ const sendFile = function( response, filename ) {
        response.end( '404 Error: File Not Found' )
 
      }
-   })
-}
+   });
+};
 
 server.listen( process.env.PORT || port )
