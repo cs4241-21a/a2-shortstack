@@ -62,9 +62,9 @@ const handlePost = function( request, response ) {
       let prior = jsonData.priority;
       let deadline = jsonData.deadline;
       let entries2 = {};
-      entries2["assignment"] = assignment;
-      entries2["priority"] = prior;
-      entries2["deadline"] = deadline;
+      entries2["Assignment"] = assignment;
+      entries2["Priority"] = prior;
+      entries2["Deadline"] = deadline;
     
       appdata(newEntries).push(newEntries);
     }
@@ -75,7 +75,7 @@ const handlePost = function( request, response ) {
       let prior = jsonData.priority;
       let deadline = jsonData.deadline;
       let entries = {};
-      entries["Name"] = assignment;
+      entries["Assignment"] = assignment;
       entries["Priority"] = prior;
       entries["Deadline"] = deadline;
       
