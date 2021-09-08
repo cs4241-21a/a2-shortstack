@@ -5,7 +5,7 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {'yourname': 'Greg', 'score': 740, 'rank': 1},
+  {'yourname': 'Greg', 'score': 745, 'rank': 1},
   {'yourname': 'Mark', 'score': 687, 'rank': 2},
   {'yourname': 'Liam', 'score': 590, 'rank': 3}
 ]
@@ -66,7 +66,6 @@ function addRow(dataString) {
   console.log("jsonApp:\n" + JSON.stringify(jsonApp))
 
   jsonApp['rank'] = 0;
-  console.log("jsonApp:\n" + JSON.stringify(jsonApp))
   for(let i = 0; i < appdata.length; i++){
     let user = appdata[i];
 
