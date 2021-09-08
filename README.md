@@ -30,10 +30,12 @@ Node.js: I used an HTTP server to store and deliver all my data for the app. It 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I had some students(one from CS4241 and one who was not) test out my webpage and give me feedback
     * Tran
-        1. 
+        1. They did not seem to have any particular trouble with the design. However, they thought it would be a good idea to move the scoreboard and editing section right next to the game as it could be a bit inconvienient to have to scroll down the page each time you want to see the scoreboard.
+        2. Overall, there wasn't really any comments that particularly surprised me. I had also noticed the issue with having to scroll down the page everytime you want to see the scoreboard or edit the scores.
+        3. One way I could try to improve the webpage is to create a more condensed design by putting the mini-game to the left of the page and putting the scoreboard and edit sections to the right.
     * Sunray(not a student from the class)
         1. They had some trouble figuring out how to edit and delete scores. This was understandable as I had only used icons for editing(a pencil) and deleting(trashcan) an entry so it might not have been obvious for everyone.
-        2. I was surprised by how much difficulty they had trying to figure out how to reset the game. They kept trying to reset the page in order to restart the minigame. This was because I had made it so that you could not replay the game until you submitted the score.
+        2. I was surprised by how much difficulty they had trying to figure out how to reset the game. They kept trying to refresh the page in order to restart the minigame. This was because I had made it so that you could not replay the game until you submitted the score.
         3. I realized that some people might not be comfortable with submitting their score just to replay the game. If I had to make changes, I would make it so that you can replay the game after you lose regardless if you submit your score or not. I should also probably add more text for certain parts of the webpage explaining how it works, like with editing and deleting.
 
 
