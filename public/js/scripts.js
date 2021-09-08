@@ -46,7 +46,7 @@ const add = function ( e ) {
     formTitle.innerText = "Add new task:"
     task.value = "Task Name"
     period.value = "1"
-    deadline.value = "2021-09-01T00:00"
+    deadline.value = numberToDateValue( Date.parse( Date() ) )
     requestType = 0
     id = NaN
 
