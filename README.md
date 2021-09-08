@@ -19,6 +19,8 @@ This can be found in the /delete and /edit endpoints in the server POST request 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: Think aloud Testing
 
+Tasks: Add, edit, and delete an item on the TODO list.
+
 #### Student 1
 - Student Last Name: Odell
 - Problems: Tryed to edit and save multiple tasks at one time while that functionality is not supported on the app. Was confused about why only one task saved when a 'Save Edits' button was clicked.
@@ -26,7 +28,7 @@ This can be found in the /delete and /edit endpoints in the server POST request 
 - UI Change: I would either need to make it more clear the only one edited task can be saved at a time or add support in the app logic that allows for the editing of multiple tasks at once. A note about the functionality was added in the paragraph at the top of the app.
 
 #### Student 2
-- Student Last Name:
-- Problems: 
-- Suprising Comments: 
-- UI Change: 
+- Student Last Name: Black
+- Problems: Tried to edit a part of the tasks table that was set to readonly.
+- Suprising Comments: Said that my UI didn't really have any problems.
+- UI Change: I would make it more clear that in the tasks table the deadline and creation date columns are readonly values.
