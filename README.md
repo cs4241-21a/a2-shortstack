@@ -1,4 +1,4 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
+Hotel Reviews  
 ===
 Stefano Jordhani   
 Link: https://a2-sjordhani22.glitch.me/
