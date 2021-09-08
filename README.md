@@ -17,11 +17,9 @@ For CSS, a grid layout was used to create vertical sections of the website. The 
 
 - **Design Achievement 2**: Using CSS, JS and HTML, I implemented a counter to the textarea input when adding a contact. This was done via CSS, by creating a div which has the innerHTML set to the number of characters. With JS when a user edits the notes textarea the div is incremented by the length in the textarea. This was done using an onEventListener of type 'input' for the textarea.
 
-Provide the last name of each student you conduct the evaluation with.
-  Tran
-What problems did the user have with your design?
-  Too bright, green isn't a great color
-What comments did they make that surprised you?
-  The website was inaccurate when you stated unemployed people didn't attend school.
-What would you change about the interface based on their feedback?
-  Dark mode
+- **Design Achievement 3**: 
+Evaluation 1:
+- Name: Steven Tran
+- Problems with the design: Too bright, green isn't a great color. The counter is not shown for editing notes. Cannot enter Contact without specifying notes.
+- Comments that surprised me: The website was inaccurate when enter unemployed as a occupation. If unemplyoed then Education Level is "Never Attended" 
+- Changes to make: Implement some type of Dark mode for users. + Request add the counter for editing notes + Create some default behavior for when users dont enter in a speicific field.
