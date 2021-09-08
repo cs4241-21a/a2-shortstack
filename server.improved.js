@@ -51,7 +51,7 @@ const handlePost = function( request, response ) {
       let entries = {};
       entries["Assignment"] = assignment;
       entries["Priority"] = priority;
-      entries["d=Deadline"] = deadline;
+      entries["Deadline"] = deadline;
    
       appdata.push(entries);
     }
@@ -63,7 +63,7 @@ const handlePost = function( request, response ) {
       let deadline = jsonData.deadline;
       let entries2 = {};
       entries2["Assignment"] = assignment;
-      entries2["Priority"] = prior;
+      entries2["Priority"] = priority;
       entries2["Deadline"] = deadline;
     
       appdata(newEntries).push(newEntries);
@@ -76,7 +76,7 @@ const handlePost = function( request, response ) {
       let deadline = jsonData.deadline;
       let entries = {};
       entries["Assignment"] = assignment;
-      entries["Priority"] = prior;
+      entries["Priority"] = priority;
       entries["Deadline"] = deadline;
       
       appdata.splice(entries);
