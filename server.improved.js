@@ -45,7 +45,15 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/js/scripts.js') {
+    sendFile( response, 'public/js/scripts.js' )
+  } else if ( request.url === '/css/style.css') {
+    sendFile( response, 'public/css/style.css' )
+  } else if ( request.url === '/resources/background.jpeg') {
+    sendFile( response, 'public/resources/background.jpeg')
+  } else if ( request.url === '/resources/logo.jpeg') {
+    sendFile( response, 'public/resources/logo.jpeg')
+  } else{
     sendAppData( response )
   }
 }

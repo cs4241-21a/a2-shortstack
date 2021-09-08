@@ -1,71 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300&family=Roboto+Mono:wght@200&display=swap');
+
 body {
     display: grid;
-    background-image: url('../resources/background2.jpg');
-    background-position: center;
     
-     //background-color: #090d0e;
+    background-color: black;
+    background-image: url('../resources/background.jpeg');
+    background-size: 1700px 1200px;
+
+
+    background-position-x: -100px;
+    background-repeat: no-repeat;
     
-    grid-template-columns: [col0] 50%[col1] 25% [col2] auto [col3];
-    grid-template-rows: [row0] 120px [row1] 300px [row2] 50px [row3] 50px [row4] 50px [row5] 300px [row6] auto;
+    grid-template-columns: [col0] 10px [col1] 25% [col2] 530px [col3] 20% [col4] 10px [col5] 250px [col6];
+    grid-template-rows: [row0] 50px [row1] 400px [row2] 50px [row3] 50px [row4] 50px [row5] auto  [row6] auto; 
 
     grid-template-areas:  
-        "headerArea headerArea headerArea"
-        "logoArea formArea ."
-        "logoArea formArea primaryButtonArea"
-        "logoArea formArea ."
-        "logoArea formArea secondaryButtonArea"
-        "logoArea formArea ."
-        "tableArea tableArea tableArea"
-        
+        "headerArea headerArea headerArea headerArea headerArea headerArea headerArea"
+        ". . . formArea . . ."
+        ". logoArea . formArea . primaryButtonArea ."
+        ". logoArea . formArea . . ."
+        ". logoArea . formArea . secondaryButtonArea ."
+        ". logoArea . formArea . . ." 
+        ". logoArea . formArea . . ."
+        "tableArea tableArea tableArea tableArea tableArea tableArea tableArea";
+    
 }
 
 #logo {
-    width: 50%;
-    height: 50%;
+    width: 300px;
+    height: 300px;
     grid-area: logoArea;
     place-self: center;
 }
 
-
-
 #form {
-    padding: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 220px;
+    
     height: 80%;
     place-self: center;
     grid-area: formArea;
     background-color: #E7E9EB;
 }
 
+form, button {
+    font-family: 'Azeret Mono', monospace;
+}
+
+
 #table {
     grid-area: tableArea;
     color: black;
     background-color: #E7E9EB;
-        
+    font-family: 'Roboto Mono', monospace;
+}
+
+th {
+    height: 20px;
 }
 
 .staticButtons {
     width: 250px;
     height: 50px;
     font-size: 16px;
+    border-radius: 10px;
+
 }
 
-.staticButtons {
-     border-radius: 10px;
-}
 
-#addButton {
+
+#primaryButton {
     grid-area: primaryButtonArea;
     justify-self: center;
     background-color: #42B72A;
     color: white;
     border-color: #42B72A;
+    width: 200px;
+    height: 40px;
    
     
 }
 
-#clearButton {
+#secondaryButton {
     grid-area: secondaryButtonArea;
     justify-self: center; 
+    width: 180px;
+    height: 30px;
 }
 
 label {
@@ -76,7 +97,7 @@ label {
 input {
     margin-bottom: 20px;
     width: 200px;
-    height: 20px;
+    height: 40px;
     padding: 5px;
     border-radius: 5px;
 }
