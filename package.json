@@ -7,6 +7,7 @@
     "start": "node server.improved.js"
   },
   "dependencies": {
+    "color": "^4.0.1",
     "mime": "^2.4.4"
   }
 }

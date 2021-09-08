@@ -1,1 +1,9 @@
 /*Style your own assignment! This is fun! */
+table{
+    table-layout: fixed;
+}
+td, th{
+    width: 300px;
+    overflow: hidden;
+    text-align: center;
+}

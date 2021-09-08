@@ -3,13 +3,14 @@ const http = require( 'http' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
+      color = require('color'),
       dir  = 'public/',
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {"hex": "#ffffffff", "rgb": [255, 255, 255], "hsl": [0, 100, 100], "alpha": 1.0},
+  {"hex": "#000000ff", "rgb": [0, 0, 0], "hsl": [0, 100, 0], "alpha": 1.0},
+  {"hex": "#660066ff", "rgb": [102, 0, 102], "hsl": [300, 100, 20], "alpha": 1.0}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,12 +39,12 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    console.log( dataString )
 
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
