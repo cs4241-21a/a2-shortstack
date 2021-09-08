@@ -51,6 +51,12 @@ const handlePost = function( request, response ) {
         response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
         response.end(JSON.stringify(appdata));
       } break;
+
+      case '/reveal':
+      {
+        const json = JSON.parse(dataString);
+
+      }
         /*
         add more cases here if you want to edit or delete and handle them accordingly
         */

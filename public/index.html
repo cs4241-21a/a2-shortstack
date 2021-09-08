@@ -3,18 +3,27 @@
 <head>
   <title>CS4241 Assignment 2</title>
   <meta charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<h1> Welcome to my Terrible Library System!</h1>
+<h2> Here is how to input books into the system</h2>
 <form action="">
-  <input type="text" id="bookname" value="name of book here" />
-  <input type="text" id="length" value="length of book here" />
-  <input type="text" id="author" value="author of book here" />
-  <input type="hidden" id="timestamp" name="timestamp" value="0">
+  <input type="text" id="bookname" placeholder="name of book here" />
+  <input type="text" id="length" placeholder="length of book here" />
+  <input type="text" id="author" placeholder="author of book here" />
+  <input type="hidden" id="timestamp" name="timestamp">
   <button id = "submit">submit</button>
 </form>
+<h2> Here is how to delete a record of a book</h2>
 <form action="">
-  <input type="text" id="pointer" value="index value to remove">
+  <input type="text" id="pointer" size="40px" placeholder="index value to remove or remove last item">
   <button id = "delete">remove record</button>
+</form>
+<h2> Here is how to show all of the books in the record</h2>
+<form action="">
+  <div id="result"></div>
+  <button id="reveal"> show all records</button>
 </form>
 </body>
 <script>
@@ -64,11 +73,27 @@
     return false;
   }
 
+  const showRecords = function(e){
+    e.preventDefault();
+    const body = server.appdata;
+    fetch("/reveal", {
+      method: "POST",
+      body
+    })
+    body.forEach(el => {
+      document.getElementById('result').innerHTML +=`<div>${el}</div><br />`;
+      // here result is the id of the div present in the dom
+    });
+    return false;
+  };
+
   window.onload = function() {
     const submitButton = document.querySelector("#submit");
     const deleteButton = document.querySelector("#delete");
+    const revealButton = document.querySelector("#reveal");
     submitButton.onclick = submit;
     deleteButton.onclick = delRecord;
+    revealButton.onclick = showRecords;
   };
 </script>
 </html>

@@ -1,1 +1,22 @@
 /*Style your own assignment! This is fun! */
+button{
+    font-size: 18px;
+    background-color: antiquewhite;
+}
+h1{
+    color: skyblue;
+    padding-bottom: 10px;
+}
+h2{
+    color: aqua;
+    padding-bottom: 5px;
+    padding-top: 20px;
+}
+body{
+    background-color: dodgerblue;
+}
+input{
+    align-items: center;
+    font-size: 15px;
+    padding: 3px 3px 20px;
+}
