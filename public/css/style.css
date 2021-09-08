@@ -47,7 +47,7 @@ td > * {
 
 #tasklist-table {
     display: grid;
-    grid-template-columns: 1fr 10.5rem 5.5rem 10.5rem 5.5rem;
+    grid-template-columns: 1fr 10.5rem 9.5rem 10.5rem 5.5rem;
 }
 
 #tasklist-table > *, .task {
