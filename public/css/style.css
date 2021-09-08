@@ -47,7 +47,7 @@ td > * {
 
 #tasklist-table {
     display: grid;
-    grid-template-columns: 1fr 9rem 5.5rem 9rem 5rem;
+    grid-template-columns: 1fr 10.5rem 5.5rem 10.5rem 5.5rem;
 }
 
 #tasklist-table > *, .task {
@@ -97,6 +97,7 @@ td > * {
 
 #tasklist-header > span + span, .task > span + span {
     padding-left: 0.5rem;
+    padding-right: 0.5rem;
     border-left: 1px solid #bbb;
 }
 

@@ -110,7 +110,7 @@ const update = function ( json ) {
         let element = taskTemplate.cloneNode( true )
         element.children[0].innerText = task.name
         element.children[1].innerText = numberToDateText( task.start )
-        element.children[2].innerText = task.period
+        element.children[2].innerText = "" + task.period + " hour" + ( task.period == 1 )?"":"s"
         element.children[3].innerText = numberToDateText( task.deadline )
         element.children[4].children[0].onclick = getEditCallback( task )
         element.children[4].children[1].onclick = getRemoveCallback( task )
@@ -155,7 +155,7 @@ const numberToDateText = function( number ) {
         hours = 12
     }
 
-    return "" + month + "/" + day + "/" + year + " " + hours + ":00 " + pm
+    return "" + hours + ":00 " + pm + " " + month + "/" + day + "/" + year
 }
 
 const numberToDateValue = function( number ) {
