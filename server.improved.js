@@ -133,15 +133,16 @@ const recalculateStarts = function() {
   const interval = 60 * 60 * 1000 // one hour in milliseconds
   if ( appdata.length > 0 ) {
     let effectiveDeadline = appdata[0]
-  }
-  appdata.forEach( ( task ) => {
-    if ( task.deadline < effectiveDeadline ) {
-      effectiveDeadline = task.deadline
-    }
-    task.start = effectiveDeadline - ( task.period * interval )
-    effectiveDeadline = task.start
-  })
 
+    appdata.forEach( ( task ) => {
+      if ( task.deadline < effectiveDeadline ) {
+        effectiveDeadline = task.deadline
+      }
+      task.start = effectiveDeadline - ( task.period * interval )
+      effectiveDeadline = task.start
+    })
+  }
+  
   // sort by earliest start first
   appdata.sort( function( entry1, entry2 ) {
     entry2.start - entry1.start
