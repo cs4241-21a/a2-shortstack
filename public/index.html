@@ -1,14 +1,41 @@
 <!doctype html>
 <html lang="en">
+  <link rel="stylesheet" href="css/style.css">
   <head>
     <title>CS4241 Assignment 2</title>
+    <h1>Book Keeper App</h1>
     <meta charset="utf-8">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div class="flex-container">
+      <div style="width: 60%;">
+        <h3>Books</h3>
+        <table id="books">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Score (1-5)</th>
+              <th>Notes</th>
+              <th>Year Read</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div style="width: 40%;">
+        <form action="" autocomplete="off">
+          <p>Add Book</p>
+          <div><label for="title">Title: </label><input type='text' id='title' placeholder="Title"/></div>
+          <div><label for="author">Author: </label><input type='text' id='author' placeholder="Author"/></div>
+          <div><label for="score">Score (1-5): </label><input type='number' id='score' placeholder="Score" min="1" max="5"/></div>
+          <div><label for="notes">Notes: </label><input type='text' id='notes' placeholder="Notes"/></div>
+          <div><label for="year">Year Read: </label><input type='number' id='year' placeholder="Year Read" min="1900" max="2021"/></div>
+          <button>submit</button>
+        </form>
+      </div>
+    </div>
   </body>
   <script>
 
