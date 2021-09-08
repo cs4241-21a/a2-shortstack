@@ -82,36 +82,24 @@ const addTask = function( name, period, deadline ) {
   let id = highestId + 1
   highestId++;
 
-  let numPeriod = Number.parseInt(period)
-
-  let dateDeadline = Date.parse(deadline)
-
-  let dataEntry = { 'id': id, 'name': name, 'start': Date.parse(Date()), 'period': numPeriod, 'deadline': dateDeadline }
+  let dataEntry = { 'id': id, 'name': name, 'start': Date.parse(Date()), 'period': period, 'deadline': deadline }
   appdata.push(dataEntry)
 
   recalculateStarts()
 }
 
 const editTask = function( id, name, period, deadline ) {
-  let numId = Number.parseInt(id)
-
-  let numPeriod = Number.parseInt(period)
-
-  let dateDeadline = Date.parse(deadline)
-
-  let i = appdata.findIndex( ( entry ) => entry.id === numId )
+  let i = appdata.findIndex( ( entry ) => entry.id === id )
 
   appdata[i].name = name
-  appdata[i].period = numPeriod
-  appdata[i].deadline = dateDeadline
+  appdata[i].period = period
+  appdata[i].deadline = deadline
 
   recalculateStarts()
 }
 
 const removeTask = function( id ) {
-  let numId = Number.parseInt(id)
-
-  let i = appdata.findIndex( ( entry ) => entry.id === numId )
+  let i = appdata.findIndex( ( entry ) => entry.id === id )
 
   appdata.splice(i, 1)
 

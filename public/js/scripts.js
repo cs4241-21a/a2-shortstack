@@ -12,68 +12,9 @@ const taskTemplate = document.getElementById( "task-template" ).content.children
 let id = NaN;
 let requestType = 0; //0 is add, 1 is edit, 2 is delete
 
-const dateToDatetimeValue = function( date ) {
-    // parse deadline datetime value
-    let year = "" + date.getFullYear()
-    let month = "" + ( date.getMonth() + 1 )
-    let day = "" + date.getDate()
-    let hours = "" + date.getHours()
-
-    //ensure all strings are the proper number of characters by adding 0's
-    while ( year.length < 4 ) {
-        year = "0" + year
-    }
-    if ( month.length < 2) {
-        month = "0" + month
-    }
-    if ( day.length < 2 ) {
-        day = "0" + day
-    }
-    if ( hours.length < 2) {
-        hours = "0" + hours
-    }
-
-    //stitch values back together in proper format
-    let dateValue = "" + year + "-"
-                        + month + "-"
-                        + day + "T"
-                        + hours + ":00"
-    
-    return dateValue
-}
-
-const dateToString = function( date ) {
-    let newDate = new Date( date )
-
-    // parse deadline datetime value
-    let year = "" + newDate.getFullYear()
-    let month = "" + ( newDate.getMonth() + 1 )
-    let day = "" + newDate.getDate()
-    let hours = "" + newDate.getHours()
-
-    // translate hours into am/pm
-    let pm = "AM"
-    if ( hours >= 12 ) {
-        hours -= 12
-        pm = "PM"
-    }
-
-    //stitch values back together
-    let dateValue = "" + month + "/"
-                        + day + "/"
-                        + year + " "
-                        + hours + ":00 "
-                        + pm
-
-    return dateValue
-}
-
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
-
-    //round date to nearest hour
-    deadline.value = dateToDatetimeValue( new Date( deadline.value ) )
 
     const json = { id, name: task.value, period: period.value, deadline: deadline.value }
     
@@ -133,7 +74,7 @@ const edit = function( e, utask ) {
     formTitle.innerText = "Edit task:"
     task.value = utask.name
     period.value = utask.period
-    deadline.value = dateToDatetimeValue( new Date( utask.deadline ) )
+    deadline.value = utask.deadline
     requestType = 1
     id = utask.id
 
@@ -168,9 +109,9 @@ const update = function ( json ) {
     json.forEach(task => {
         let element = taskTemplate.cloneNode( true )
         element.children[0].innerText = task.name
-        element.children[1].innerText = dateToString( task.start )
+        element.children[1].innerText = task.start
         element.children[2].innerText = task.period
-        element.children[3].innerText = dateToString( task.deadline )
+        element.children[3].innerText = task.deadline
         element.children[4].children[0].onclick = getEditCallback( task )
         element.children[4].children[1].onclick = getRemoveCallback( task )
 
