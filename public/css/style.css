@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', Arial;
+    background-color: #4E87F2;
 }
 
 #grid {
@@ -8,16 +9,44 @@ body {
     grid-gap: 1em;
 }
 
-#myh2 {
+h1, h2 {
     text-align: center;
 }
 
+h3 {
+    font-size: 1.5em;
+}
+
+caption {
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-bottom: 0.5em;
+    padding-top: 1.25em;
+}
+
 #carform {
-    margin-left: 10em;
+    margin-left: 9em;
 }
 
 table, th, td {
-    border: 1px solid black;
+    border: 0.15em solid black;
+    border-collapse: collapse;
+    padding: 0.5em;
     height: 2em;
-    margin-right: 3em;
+    margin-right: 2em;
+    text-align: center;
+}
+
+th {
+    background-color: #934AE8;
+}
+
+td {
+    background-color: #4AAAE8;
+}
+
+#carform {
+    font-weight: bold;
+    padding-left: 1em;
+    padding-bottom: 1em;
 }
