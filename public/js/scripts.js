@@ -143,7 +143,7 @@ const numberToDateText = function( number ) {
     let date = new Date( number )
 
     let year = date.getFullYear()
-    let month = date.getMonth + 1
+    let month = date.getMonth() + 1
     let day = date.getDate()
     let hours = date.getHours()
     let pm = "AM"
