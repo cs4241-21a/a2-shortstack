@@ -1,97 +1,46 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
+Shannen Lin - https://a2-sklin330.glitch.me
 
-Due: September 9th, by 11:59 AM.
+## Jump Rope Penguin
+Jump Rope Penguin is a very simple minigame where you jump rope as a penguin!
 
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
+After a game over, users are able to input in their first and last name before submitting their score. The score will then appear on the scoreboard. The scoreboard allows the user to check out all of their scores, as well as delete or modify their score. When editing the scoreboard, entries will update automatically!
 
-Baseline Requirements
----
+My server stores multiple fields: the player's score, first name, last name, unique ID, and their rank.
 
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
+My derived field is the rank score. Based on their minigame score, users are ranked starting from 1st place. Those with the same score are also given the same rank.
 
-Your application is required to implement the following functionalities:
+HTML: I used multiple html tags including h1, div, form, button, and table. The HTMl validated when using https://validator.w3.org/#validate_by_uri
 
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
+CSS: I used various CSS styling in an external CSS stylesheet. I used various selectors, including element selectors, class selectors, and ID selectors. I used a CSS grid for laying our parts of my webpage, such as placing my buttons next to each other as well as to allow me to place multiple elements on top of each other. I also used Google Fonts instead of the regular font.
 
-Your application is required to demonstrate the use of the following concepts:
+Javascript: I used javascript for sending/fetching data from the server as well as to make the minigame.
 
-HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.
-- All pages should [validate](https://validator.w3.org)
+Node.js: I used an HTTP server to store and deliver all my data for the app. It also contains the functions for determining the rank for each game entry.
 
-CSS:
-- CSS styling of the primary visual elements in the application
-- Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
-- CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
+**This webpage was tested and developed in Firefox.**
 
-- CSS defined in a maintainable, readable form, in external stylesheets 
-
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
-
-Deliverables
----
-
-Do the following to complete this assignment and acheive a base grade of 85%:
-
-1. Fork the starting project code (make sure to fork the 2021 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
-*Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
-
-1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
-2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
-
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: I created a mini game. I used animations to create a jump rope type mini game where the user can click a button to jump. I had to take into account the different logics for making a game, like how to start it and when does the game end.
+- **Tech Achievement 2**: Single page application that always shows the current state of the server-side data. Whenever any of the buttons(Submit, Edit, Delete) are called on the page, it also immediately calls a function that makes a post request to the server, which then modifes the data and returns it. The returned modified data also immediately calls a function that updates the results table visible on the page.
+- **Tech Achievement 2**: Added ability to edit/delete data from table
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design Achievement 1**: I had some students(one from CS4241 and one who was not) test out my webpage and give me feedback
+    * Tran
+        1. They did not seem to have any particular trouble with the design. However, they thought it would be a good idea to move the scoreboard and editing section right next to the game as it could be a bit inconvienient to have to scroll down the page each time you want to see the scoreboard.
+        2. Overall, there wasn't really any comments that particularly surprised me. I had also noticed the issue with having to scroll down the page everytime you want to see the scoreboard or edit the scores.
+        3. One way I could try to improve the webpage is to create a more condensed design by putting the mini-game to the left of the page and putting the scoreboard and edit sections to the right.
+    * Sunray(not a student from the class)
+        1. They had some trouble figuring out how to edit and delete scores. This was understandable as I had only used icons for editing(a pencil) and deleting(trashcan) an entry so it might not have been obvious for everyone.
+        2. I was surprised by how much difficulty they had trying to figure out how to reset the game. They kept trying to refresh the page in order to restart the minigame. This was because I had made it so that you could not replay the game until you submitted the score.
+        3. I realized that some people might not be comfortable with submitting their score just to replay the game. If I had to make changes, I would make it so that you can replay the game after you lose regardless if you submit your score or not. I should also probably add more text for certain parts of the webpage explaining how it works, like with editing and deleting.
+
+
+---
+
+Referenced code from the following pages to make the jump rope minigame:
+https://github.com/Beat0154/easiest-game-ever
+https://codepen.io/johanmouchet/pen/OMgwMg

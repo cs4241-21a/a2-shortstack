@@ -1,41 +1,93 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono&family=Mountains+of+Christmas&display=swap" rel="stylesheet">
+</head>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+<body>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    <h1>Jump Rope Penguin</h1>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+    <div id="game">
+        <div class="layer" id="backrope"></div>
+        <img src="assets/penguin.png" alt="Penguin" class="layer" id="character">
+        <div class="layer" id="frontrope"></div>
+        <div class="layer" id="bar"></div>
+    </div>
 
-    return false
-  }
+    <br>
+    <div class="game_controls">
+        <button id="startButton">START</button>
+        <button id="jumpButton">JUMP</button>
+    </div>
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+    <div class="form-div">
+        <form>
+            <div>
+                <br>
+                <label for="score">Score:</label>
+                <input type='number' id='score' value="" readonly>
+                <br>
+                <label for="firstname">Your First Name:</label>
+                <input type='text' id='firstname' value="Anonymous">
+                <br>
+                <label for="lastname">Your Last Name:</label>
+                <input type='text' id='lastname' value="A">
+                <br>
+            </div>
+        </form>
+    </div>
 
-  </script>
+    <button id="submitButton">SUBMIT</button>
+    <hr>
+    <h2>Scoreboard</h2>
+    <table id="scoreboard">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Score</th>
+                <th class="modify">Delete</th>
+                <th class="modify">Edit</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
+    </table>
+    <hr>
+    <h2>Edit</h2>
+    <p class="helper-text">Please enter a valid score between 0 and 1000000</p>
+    <div class="form-div">
+        <form id="modify">
+            <div>
+                <label for="score-modify">Score:</label>
+                <input type='number' id='score-modify' value="" min="0" max="1000000">
+                <br>
+                <label for="firstname-modify">First Name:</label>
+                <input type='text' id='firstname-modify' value="">
+                <br>
+                <label for="lastname-modify">Last Name:</label>
+                <input type='text' id='lastname-modify' value="">
+                <input type='text' id='id-modify' style="display: none;">
+                <br>
+            </div>
+        </form>
+    </div>
+    <button id="editButton">EDIT</button>
+
+    <hr>
+    <div style="top: 50px; font-size: 8px;">Icons made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+
 </html>
