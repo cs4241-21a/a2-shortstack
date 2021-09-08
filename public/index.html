@@ -8,11 +8,13 @@
 
   <body>
     <form action="">
-      <input type='text' id='yourcolor' value="Color">
-      <select id="input-type">
+      <div id="entry-fields">
+
+      </div>
+      <select id="input-type" onchange="inputTypeChange(this)">
         <option value="hex">Hex</option>
-        <option value="rgba">RGBA</option>
-        <option value="hsla">HSLA</option>
+        <option value="rgb">RGB</option>
+        <option value="hsl">HSL</option>
       </select>
       <button>submit</button>
     </form>
@@ -24,7 +26,6 @@
           <th>Hex</th>
           <th>RGB</th>
           <th>HSL</th>
-          <th>Alpha</th>
         </tr>
       </thead>
       <tbody>
@@ -38,13 +39,86 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourcolor' ),
-          json = { yourcolor: input.value },
+    const format = document.getElementById("input-type").value
+    let input
+    switch(format){
+      case "hex":
+        input = document.getElementById("hex-input").value
+        break
+      case "rgb":
+        input = [parseInt(document.getElementById("r").value),
+                 parseInt(document.getElementById("g").value),
+                 parseInt(document.getElementById("b").value)]
+      break
+      case "hsl":
+        input = [parseInt(document.getElementById("h").value),
+                 parseInt(document.getElementById("s").value),
+                 parseInt(document.getElementById("l").value)]
+        break
+    }
+
+    const json = { input, format },
           body = JSON.stringify( json )
 
     fetch( '/submit', {
       method:'POST',
       body 
+    })
+    .then(response => response.json())
+    .then(function(json){
+      console.log(json)
+      const table = document.querySelector("tbody")
+      const child = document.createElement("tr")
+      child.innerHTML = createRow(json)
+      table.appendChild(child)
+    })
+
+    return false
+  }
+
+  /*
+   * Creates an HTML table row from the given JSON object.
+   * The object must take the form {hex: <data>, rgb: <data>, hsl: <data>}
+   */
+  function createRow(jsonobj){
+    let ret = `<td style=\"background-color: ${jsonobj.hex}\"></td>`
+    ret += `<td>${jsonobj.hex}</td> <td>${jsonobj.rgb}</td> <td>${jsonobj.hsl}</td>`
+    return ret
+  }
+
+  /*
+   * Called when the input type is changed (hex, rgb, or hsl)
+   */
+  function inputTypeChange(selectObj){
+    const format = selectObj.value
+    const fieldDiv = document.getElementById("entry-fields")
+    fieldDiv.textContent = ""
+    switch(format){
+      case "hex":
+        fieldDiv.innerHTML = `<input id="hex-input" type="text" value="#beeeef">`
+        break
+      case "rgb":
+        fieldDiv.innerHTML = `<input id="r" type="number" value="0" min="0" max="255">
+                              <input id="g" type="number" value="0" min="0" max="255">
+                              <input id="b" type="number" value="0" min="0" max="255">`
+        break
+      case "hsl":
+        fieldDiv.innerHTML = `<input id="h" type="number" value="0" min="0" max="360">
+                              <input id="s" type="number" value="0" min="0" max="100">
+                              <input id="l" type="number" value="0" min="0" max="100">`
+        break
+    }
+  }
+
+  window.onload = function() {
+    const button = document.querySelector( 'button' )
+    button.onclick = submit
+
+    inputTypeChange(document.getElementById("input-type"))
+
+    fetch( '/submit', {
+      method:'POST',
+      body: JSON.stringify({})
     })
     .then(response => response.json())
     .then(function(json){
@@ -56,19 +130,6 @@
         table.appendChild(child)
       })
     })
-
-    return false
-  }
-
-  function createRow(jsonobj){
-    let ret = `<td style=\"background-color: ${jsonobj.hex}\"></td>`
-    ret += `<td>${jsonobj.hex}</td> <td>${jsonobj.rgb}</td> <td>${jsonobj.hsl}</td> <td>${jsonobj.alpha}</td>`
-    return ret
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
   }
   </script>
 </html>

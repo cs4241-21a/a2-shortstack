@@ -8,9 +8,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {"hex": "#ffffffff", "rgb": [255, 255, 255], "hsl": [0, 100, 100], "alpha": 1.0},
-  {"hex": "#000000ff", "rgb": [0, 0, 0], "hsl": [0, 100, 0], "alpha": 1.0},
-  {"hex": "#660066ff", "rgb": [102, 0, 102], "hsl": [300, 100, 20], "alpha": 1.0}
+  {"hex": "#ffffff", "rgb": [255, 255, 255], "hsl": [0, 100, 100]},
+  {"hex": "#000000", "rgb": [0, 0, 0], "hsl": [0, 100, 0]},
+  {"hex": "#660066", "rgb": [102, 0, 102], "hsl": [300, 100, 20]}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -40,11 +40,18 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( dataString )
+    if(dataString === "{}"){
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(appdata))
+      return
+    }
 
-    // ... do something with the data here!!!
-
+    const inp = JSON.parse(dataString)
+    let col = color(inp.input, inp.format)
+    let data = {"hex":col.hex(), "rgb":col.rgb().round().array(), "hsl":col.hsl().round().array()}
+    appdata.push(data)
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(appdata))
+    response.end(JSON.stringify(data))
   })
 }
 
