@@ -100,8 +100,6 @@ const remove = function( e, utask ) {
 }
 
 const update = function ( json ) {
-    console.log( json )
-
     //clear tasks
     taskContainer.innerHTML = ""
 

@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'id': 0, 'name': 'Test Task', 'start': Date.parse('2021-09-07T00:00'), 'period': 20 , 'deadline': Date.parse('2021-09-09T12:00') },
-  { 'id': 1, 'name': 'Placeholder', 'start': Date.parse('2021-09-07T20:00'), 'period': 20 , 'deadline': Date.parse('2021-09-09T12:00') },
-  { 'id': 2, 'name': 'Something', 'start': Date.parse('2021-09-08T16:00'), 'period': 20 , 'deadline': Date.parse('2021-09-09T12:00') } 
-]
+const appdata = []
 
 let highestId = 2
 
@@ -126,7 +122,7 @@ const recalculateStarts = function() {
 
   // sort by latest deadline first
   appdata.sort( function( entry1, entry2 ) {
-    entry1.deadline - entry2.deadline
+    return entry2.deadline - entry1.deadline
   })
 
   // calculate time to start
@@ -143,10 +139,8 @@ const recalculateStarts = function() {
     })
   }
 
-  // sort by earliest start first
-  appdata.sort( function( entry1, entry2 ) {
-    entry2.start - entry1.start
-  })
+  // sort by earliest start first by reversing array
+  appdata.reverse()
 }
 
 server.listen( process.env.PORT || port )
