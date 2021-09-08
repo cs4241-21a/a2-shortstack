@@ -1,40 +1,345 @@
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>XXXL Gym Admin Page</title>
+   
+    <meta charset='utf-8'>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
 
-  const submit = function( e ) {
+    <img id = 'logo' src = 'resources/logo.jpeg' alt = 'XXXL Gym Logo' width = 25%  height = 25%> 
+
+    <form id = 'form' action=''>
+
+      <label for='id' disabled> ID: </label><br> 
+      <input type='number' id = 'id' name = 'name' disabled> <br>
+
+      <label for='fname'>First name:</label><br>
+      <input type='text' id='fname' name='fname' required='required' pattern='[A-Za-z0-9]{1,20}'><br>
+      
+      <label for='lname'>Last name:</label><br>
+      <input type='text' id='lname' name='lname' required='required' pattern='[A-Za-z0-9]{1,20}'><br>
+
+      <label for='sex'> Sex:</label><br>
+      <select id='sex' name='sex'>
+        <option value='Male'>Male</option>
+        <option value='Female'>Female</option>
+      </select> <br>
+      
+      <label for='class'> Age Class:</label><br>
+      <select id='class' name='ageClass'>
+        <option value='Teen'>Teen</option>
+        <option value='Junior'>Junior</option>
+        <option value='Open'>Open</option>
+        <option value='Master1'>Master1</option>
+        <option value='Master2'>Master2</option>
+        <option value='Master3'>Master3</option>
+      </select> <br>
+      
+      <label for='dateJoined'>Date Joined:</label><br>
+      <input type='date' id='dateJoined' name='fname' onchange='updateExpireDate()'><br>
+      
+      <label for='membershipType'>Membership Type:</label><br>
+      <select id='membershipType' name='membershipType' onchange='updateExpireDate()'>
+        <option value='Monthly'>Monthly</option>
+        <option value='Yearly'>Yearly</option>
+        <option value='Lifetime'>Lifetime</option>
+      </select> <br>
+      
+      <label for='expireDate' disabled>Expire Date:</label><br>
+      <input type='date' id='expireDate' name='lname'><br>
+    </form>
+      
+    <button id='addButton' class='staticButtons'>Add New Member</button>
+    <button id='clearButton' class='staticButtons'>Clear Contents</button>
+  
+
+    <table id='table'>
+     <thead> 
+      <colgroup>
+        <col id='idCol' />
+        <col id='fnameCol' />
+        <col id='lnameCol' />
+        <col id='sexCol' />
+        <col id='classCol' />
+        <col id='dateJoinedCol' />
+        <col id='membershipTypeCol' />
+        <col id='expireDateCol' />
+      </colgroup>
+      <tr>
+          <th onclick='sortTable(0)'><span class='glyphicon glyphicon-sort'></span>&nbspID&nbsp</th>
+          <th onclick='sortTable(1)'><span class='glyphicon glyphicon-sort'></span>&nbspFirst&nbspName</th>
+          <th onclick='sortTable(2)'><span class='glyphicon glyphicon-sort'></span>&nbspLast&nbsp&nbspName</th>
+          <th onclick='sortTable(2)'><span class='glyphicon glyphicon-sort'></span>&nbspSex</th>
+          <th onclick='sortTable(3)'><span class='glyphicon glyphicon-sort'></span>&nbspAge&nbspClass</th>
+          <th onclick='sortTable(4)'><span class='glyphicon glyphicon-sort'></span>&nbspDate&nbspJoined</th>
+          <th onclick='sortTable(5)'><span class='glyphicon glyphicon-sort'></span>&nbspMembership&nbspType</th>
+          <th onclick='sortTable(6)'><span class='glyphicon glyphicon-sort'></span>&nbspExpire&nbspDate</th>
+      </tr>
+    </thead> 
+    <tbody id='oldTbody'></tbody>
+    </table>
+  </body>
+
+
+  <script>
+  tableData = []
+
+  const buttonsDiv = document.getElementById( 'buttons' );
+
+  const inputId = document.getElementById( 'id' )
+  const inputFname = document.getElementById( 'fname' )
+  const inputLname = document.getElementById( 'lname' )
+  const inputSex = document.getElementById( 'sex' )
+  const inputClass = document.getElementById( 'class' )
+  const inputDateJoined = document.getElementById( 'dateJoined' )
+  const inputMembershipType = document.getElementById( 'membershipType' )
+  const newExpireDate = document.getElementById( 'expireDate' )
+
+  document.addEventListener( 'DOMContentLoaded', retrieve ); // retrieve is the function name that will fire on page load
+  
+
+
+  function retrieve(){
+    fetch( '/retrieve')
+    .then(response => response.json())
+          .then(function(data) {
+              tableData = data 
+              populateTable()
+            })
+  }
+
+  function populateTable() {
+    console.log('running populate table')
+    const tableElement = document.getElementById( 'table' )
+    let old_tbody = document.getElementById( 'oldTbody')
+    let new_tbody = document.createElement('tbody');
+    new_tbody.setAttribute('id', 'newTbody') 
+    tableData.forEach(function(object) {
+        let tr = document.createElement('tr');
+       tr.setAttribute('id', 'row'+ object.id)
+
+        tr.innerHTML = 
+        '<td id=\'row'+ object.id + '\'>' + object.id + '</td>' +
+        '<td id=\'fname'+ object.id + '\'>' + object.fname + '</td>' +
+        '<td id=\'lname'+ object.id + '\'>' + object.lname + '</td>' +
+        '<td id=\'sex'+ object.id + '\'>' + object.sex + '</td>' +
+        '<td id=\'class'+ object.id + '\'>' + object.ageClass + '</td>' + 
+        '<td id=\'dateJoined'+ object.id + '\'>' + object.dateJoined + '</td>' +
+        '<td id=\'membershipType'+ object.id + '\'>' + object.membershipType + '</td>' +
+        '<td id=\'expireDate'+ object.id + '\'>' + object.expireDate + '</td>' +
+        '<button onClick=\'modifyInputBoxes(' + object.id + ')\' >Mod'+object.id+'</button>' +
+        '<button onClick=\'deleteEntry(' + object.id + ')\' >Del'+object.id+'</button>'
+        ; 
+         new_tbody.appendChild(tr);
+        
+
+          });
+      tableElement.replaceChild(new_tbody, old_tbody)
+      new_tbody.setAttribute('id', 'oldTbody') 
+  }
+
+  const modifyInputBoxes = function ( id ) {
+
+    copyCellsToInputFields(id)
+    
+    if (document.getElementById('modifyButton') === null) {
+      let modifyButton = document.createElement('button')
+      let cancelModifyButton = document.createElement('button')
+
+      modifyButton.setAttribute('id', 'modifyButton')
+      cancelModifyButton.setAttribute('id', 'cancelModifyButton')
+    
+      modifyButton.innerHTML = 'Modify'
+      cancelModifyButton.innerHTML = 'Cancel'
+
+      modifyButton.onclick = modifyEntry;
+      cancelModifyButton.onclick = cancelModify
+
+      buttonsDiv.appendChild(modifyButton)
+      buttonsDiv.appendChild(cancelModifyButton)
+    }
+      
+    let addButton = document.getElementById('addButton')
+    let clearButton = document.getElementById('clearButton')
+
+    if (addButton !== null) {
+        addButton.remove()
+        clearButton.remove()
+    }
+
+  }
+
+  const copyCellsToInputFields = function ( id ) {
+    inputId.value = id
+    inputFname.value = document.getElementById( 'fname' +id).innerHTML
+    inputLname.value  = document.getElementById( 'lname' +id).innerHTML
+    inputSex.value  = document.getElementById( 'sex' + id).innerHTML
+    inputClass.value = document.getElementById( 'class' +id).innerHTML
+    inputDateJoined.value  = document.getElementById( 'dateJoined' +id).innerHTML
+    inputMembershipType.value = document.getElementById( 'membershipType' +id).innerHTML
+    newExpireDate.value = document.getElementById( 'expireDate' +id).innerHTML
+  }
+
+  const cancelModify = function(e) {
+
+      e.preventDefault()
+      clearForm(e);
+
+      let addButton = document.createElement('button')
+      addButton.onclick = addEntry
+      addButton.innerHTML = 'Add'
+      addButton.setAttribute('id', 'addButton')
+      buttonsDiv.appendChild(addButton)
+
+      let clearButton = document.createElement('button')
+      clearButton.onclick = clearForm
+      clearButton.innerHTML = 'Clear'
+      clearButton.setAttribute('id', 'clearButton')
+      buttonsDiv.appendChild(clearButton)
+
+      document.getElementById('modifyButton').remove()
+      document.getElementById('cancelModifyButton').remove()
+ 
+  }
+
+  
+  const addEntry = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault(e)
+
+    json = createJson('add')
+    
+    if (verifyJson(json)) {
+      body = JSON.stringify( json )
+      sendPost(body)
+      return false
+    }
+    alert('One or more form fields are empty')
+  }
+
+  const modifyEntry = function ( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    json = createJson('modify')
 
+    if (verifyJson(json)) {
+      body = JSON.stringify( json )
+      sendPost(body)
+      return false
+    }
+    alert('One or more form fields are empty')
+  }
+
+  const deleteEntry = function ( idToDelete ) {
+    json = createJson('delete')
+
+    body = JSON.stringify( json )
+    sendPost(body)
+    return false
+  }
+
+  const createJson = function (action) {
+    return  { 
+            requestType: action,
+            id: inputId.value,
+            fname: inputFname.value,
+            lname: inputLname.value,
+            sex: inputSex.value,
+            ageClass: inputClass.value,
+            dateJoined: inputDateJoined.value,
+            membershipType: inputMembershipType.value,
+            expireDate: newExpireDate.value  
+          }
+  }
+
+  
+
+  //returns false if there are empty fields in the form
+  const verifyJson = function ( json ) {
+    d = new Date(json.dateJoined)
+    dateIsValid = (d.getTime() === d.getTime())
+    if (json.fname === '' || json.lname === '' || !dateIsValid
+      ||  json.ageClass === '' || json.membershipType === '')
+      {
+      return false
+      }
+
+    return true
+  }
+
+  const updateExpireDate = function ( ) {
+     newDate = new Date(inputDateJoined.value)
+
+    switch (inputMembershipType.value) { 
+      case 'Monthly':
+        newDate.setMonth(newDate.getMonth() + 1)
+        break;
+      case 'Yearly': 
+        newDate.setFullYear(newDate.getFullYear() + 1)
+        break;
+      case 'Lifetime':
+        newDate.setFullYear(newDate.getFullYear() + 100)
+        break;
+      default:
+        console.log('Unknown membership type' + inputMembershipType.value)
+    }
+
+    month = (newDate.getMonth() + 1)
+    date = newDate.getDate()
+
+    let stringMonth = month
+    if (month < 10) {
+      stringMonth = '0' + stringMonth
+    } 
+    let stringDate = date
+    if (date < 10) {
+      stringDate = '0' + stringDate
+    }
+
+    newExpireDate.value = newDate.getFullYear() + '-' + stringMonth + '-' + stringDate
+  }
+
+  
+
+  const clearForm = function (e) {
+
+    e.preventDefault()
+
+    inputId.value = ''
+    inputFname.value = ''
+    inputFname.value = ''
+    inputSex.value = ''
+    inputClass.value = ''
+    inputDateJoined.value = ''
+    inputMembershipType.value = ''
+    newExpireDate.value = ''
+  }
+
+  const sendPost = function (body) {
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
+      retrieve()
       console.log( response )
     })
-
-    return false
   }
-
+  
   window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
+
+    const addButton = document.getElementById( 'addButton' )
+    const clearButton = document.getElementById( 'clearButton' )
+
+    addButton.onclick = addEntry
+    clearButton.onclick = clearForm
+
+    document.getElementById('expireDate').disabled = true
+
+    
   }
 
   </script>

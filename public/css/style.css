@@ -1,1 +1,94 @@
-/*Style your own assignment! This is fun! */
+body {
+    display: grid;
+    background-image: url('../resources/background2.jpg');
+    background-position: center;
+    
+     //background-color: #090d0e;
+    
+    grid-template-columns: [col0] 50%[col1] 25% [col2] auto [col3];
+    grid-template-rows: [row0] 120px [row1] 300px [row2] 50px [row3] 50px [row4] 50px [row5] 300px [row6] auto;
+
+    grid-template-areas:  
+        "headerArea headerArea headerArea"
+        "logoArea formArea ."
+        "logoArea formArea primaryButtonArea"
+        "logoArea formArea ."
+        "logoArea formArea secondaryButtonArea"
+        "logoArea formArea ."
+        "tableArea tableArea tableArea"
+        
+}
+
+#logo {
+    width: 50%;
+    height: 50%;
+    grid-area: logoArea;
+    place-self: center;
+}
+
+
+
+#form {
+    padding: 30px;
+    height: 80%;
+    place-self: center;
+    grid-area: formArea;
+    background-color: #E7E9EB;
+}
+
+#table {
+    grid-area: tableArea;
+    color: black;
+    background-color: #E7E9EB;
+        
+}
+
+.staticButtons {
+    width: 250px;
+    height: 50px;
+    font-size: 16px;
+}
+
+.staticButtons {
+     border-radius: 10px;
+}
+
+#addButton {
+    grid-area: primaryButtonArea;
+    justify-self: center;
+    background-color: #42B72A;
+    color: white;
+    border-color: #42B72A;
+   
+    
+}
+
+#clearButton {
+    grid-area: secondaryButtonArea;
+    justify-self: center; 
+}
+
+label {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+input {
+    margin-bottom: 20px;
+    width: 200px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+select {
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 215px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+
+

@@ -17,7 +17,7 @@ Your application is required to implement the following functionalities:
 - a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
 - a `Results` functionality which shows the entire dataset residing in the server's memory
 - a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
+- a `Server Logic` which, upon receiving new or modified 'incoming' data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
 - the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
 For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
 
