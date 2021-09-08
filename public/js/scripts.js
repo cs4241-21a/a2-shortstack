@@ -101,34 +101,9 @@ const submit = function( e ) {
     })
     .then(function (json) {
       console.log('json', json)
-      let newSound = getAudioFiles(json)
-
-      // stop the previous sound
-      if (howls[0] !== undefined) {
-        howls[0].stop(['rain_sound'])
-        howls[0].stop()
-      }
-      if (howls[1] !== undefined) {
-        howls[1].stop(['lofi_music'])
-        howls[1].stop()
-      }
-
-      // set up the Howl
-      for (i = 0; i < newSound.length; i++) {
-        howls[i] = new Howl({
-          src: newSound[i],
-          autoplay: true,
-          loop: true
-        });
-      }
-
-
-
-      // play the sound(s)
-      rain_sound = howls[0].play();
-      howls[0].volume(parseFloat(json.rain_volume));
-      if (howls[1] !== undefined)
-        lofi_music = howls[1].play();
+      
+      playNewSound(json)
+      setBG(json.environment)
         // howls[1].volume(0.5)
     })
     return false
@@ -142,7 +117,12 @@ const submit = function( e ) {
     
   }
 
-  
+
+function setBG(environment) {
+  let bg = document.getElementById("body")
+
+  bg.style.backgroundImage = "url(../backgrounds/"+environment+".jpeg)"
+}
 
   // sound.once('load', function(){
   //   sound.play();
@@ -150,19 +130,51 @@ const submit = function( e ) {
 
   // todo play history function
 
-  // get the audio file paths
-  function getAudioFiles(input_json) {
-    let result = []
+// get the audio file paths
+function getAudioFiles(input_json) {
+  let result = []
 
-    // add lofi if necessary
-    if (input_json.lofi === "lofi_on") {
-      result.push('../sounds/lofi.mp3')
-    }
-
-    // add rain sound
-    result.push('../sounds/'+input_json.rain_level+'.wav')
-
-    
-    console.log('sounds', result)
-    return result
+  // add lofi if necessary
+  if (input_json.lofi === "lofi_on") {
+    result.push('../sounds/lofi.mp3')
   }
+
+  // add rain sound
+  result.push('../sounds/'+input_json.rain_level+'.wav')
+
+  
+  console.log('sounds', result)
+  return result
+}
+
+// play the new sounds
+function playNewSound(json) {
+  let newSound = getAudioFiles(json)
+
+  // stop the previous sound
+  if (howls[0] !== undefined) {
+    howls[0].stop(['rain_sound'])
+    howls[0].stop()
+  }
+  if (howls[1] !== undefined) {
+    howls[1].stop(['lofi_music'])
+    howls[1].stop()
+  }
+
+  // set up the Howl
+  for (i = 0; i < newSound.length; i++) {
+    howls[i] = new Howl({
+      src: newSound[i],
+      autoplay: true,
+      loop: true
+    });
+  }
+
+
+
+  // play the sound(s)
+  rain_sound = howls[0].play();
+  howls[0].volume(parseFloat(json.rain_volume));
+  if (howls[1] !== undefined)
+    lofi_music = howls[1].play();
+}
