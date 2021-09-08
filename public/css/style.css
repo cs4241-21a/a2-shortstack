@@ -1,1 +1,75 @@
-/*Style your own assignment! This is fun! */
+h1,h2,h3,h4,h5,h6,p,input,button,table {
+    font-family: 'Source Sans Pro', monospace;
+}
+button {
+    color: black;
+    background-color: rgb(221, 0, 0);
+    border: 0ch;
+    display: block;
+    width: 8em;
+    height: 2em;
+}
+.gameActions {
+    color: transparent;
+    background-color: transparent;
+}
+#signOutButton {
+    visibility: hidden;
+    margin: 1em
+}
+/* h1,h2,h3,h4,h5,h6,p,input,button,table,input,label {
+    display: flex;
+    justify-content: center;
+} */
+/* input {
+    display: block;
+    margin: auto;
+} */
+#bottom-container {
+    display: flex;
+    justify-content: center;
+}
+#leaderboard-title {
+    display: flex;
+    justify-content: center;
+}
+#edit-data-title {
+    display: flex;
+    justify-content: center;
+    order: 1
+}
+/* #edit-data {
+    color: blue;
+    /* display: flex;
+    justify-content: center; 
+} */
+label {
+    display: flex;
+    justify-content: center;
+}
+form {
+    display: flex;
+    justify-content: space-evenly;
+}
+#sign-in {
+    display: flex;
+}
+#sign-in-status {
+    display: flex;
+    align-items: center;
+}
+#hands {
+    display: flex;
+    justify-content: space-around;
+}
+#blackjack {
+    font-size: 5em;
+    text-align: center;
+    margin: 0;
+}
+table {
+    background-color: rgb(247, 243, 226);
+}
+body {
+    background-image: linear-gradient(rgb(8, 94, 0), rgb(0, 156, 0))
+}

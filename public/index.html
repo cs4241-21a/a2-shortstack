@@ -5,37 +5,98 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div id="sign-in">
+      <input type="text" id="loginField" placeholder="username">
+      <button id="loginButton" onclick="signIn()">LOGIN</button>
+    </div>
+    <div id="sign-in-status">
+      <p id="loginStatus"></p>
+      <button id="signOutButton" onclick="logoutUser()">SIGN OUT</button>
+    </div>
+    <h1 id="blackjack">BLACKJACK</h1>
+    <div id="hands">
+      <h2 id="curValue">Current Hand: 0</h2>
+      <h2 id="dealerHand">Dealer's Hand: 0</h2>
+    </div>
+    <h3 id="wallet">Wallet: 1000</h3>
+    <h3 id="gameStatus">WAITING</h3>
+    <input type="text" id="bet" placeholder="wager">
+    <button id="play" onclick="submitBet()">PLAY</button>
+    <button id="hit" class="gameActions" onclick="hit()">HIT</button>
+    <button id="stand" class="gameActions" onclick="stand()">STAND</button>
+    <div id="bottom-container">
+      <div id="leaderboard">
+        <h1 id="leaderboard-title">Leaderboard</h1>
+        <div id="table"></div>
+          <table>
+            <thead>
+              <tr>
+                <th>USERNAME</th>
+                <th>BALANCE</th>
+                <th>WINS</th>
+                <th>LOSSES</th>
+                <th>NET PROFIT</th>
+                <th>INITIAL BALANCE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>loren</th>
+                <th>5000</th>
+                <th>20</th>
+                <th>15</th>
+                <th>500</th>
+                <th>4500</th>
+              </tr>
+              <tr>
+                <th>jake</th>
+                <th>2000</th>
+                <th>3</th>
+                <th>3</th>
+                <th>0</th>
+                <th>2000</th>
+              </tr>
+              <tr>
+                <th>gas</th>
+                <th>1340</th>
+                <th>200</th>
+                <th>235</th>
+                <th>-150</th>
+                <th>1490</th>
+              </tr>
+              <tr>
+                <th>harrison</th>
+                <th>150</th>
+                <th>3</th>
+                <th>11</th>
+                <th>-400</th>
+                <th>550</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="edit-data">
+        <h1 id="edit-data-title">Add or Edit Data</h1>
+        <form action="">
+          <label>Username:</label>
+          <input type='text' id='username' placeholder="username">
+          <label>Balance:</label>
+          <input type='text' id='balance' placeholder="1000">
+          <label>Wins:</label>
+          <input type='text' id='wins' placeholder="0">
+          <label>Losses:</label>
+          <input type='text' id='losses' placeholder="0">
+          <label>Initial Balance:</label>
+          <input type='text' id='initialBalance' placeholder="1000">
+          <button id="submitButton">SUBMIT</button>
+        </form>
+      </div>
+    </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  <script src="js/scripts.js"></script>
 </html>
