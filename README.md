@@ -15,4 +15,9 @@ https://a2-jasonodell2001.glitch.me
 - **Tech Achievement 1**: 
 My page always shows the server-side data in the sign-ups list below the form. It was difficult for me to implement because I struggled 
 with understanding how to receive a response from the server, and then I was struggling with having it display on my HTML page. 
-
+## Design Achivements
+- **Design Achievement 1**: 
+1. Last name: Goon 
+2. User was surprised by fields showing as editable but not actually saving and that there was previous information on the server that did not initialize. Made off handed comment about the data table not having border. 
+3. There were no surprising comments
+4. I would have it update the server on initial load and have it actually allow the user to edit and save their edits
