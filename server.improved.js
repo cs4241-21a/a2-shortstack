@@ -13,9 +13,9 @@ const appdata = [
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
-var storeData = {
-  "listOfThings":[]
-}
+var serverData = [
+  { 'name': 'Jimmy', 'savings': 100, 'cost': 5},
+]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -39,29 +39,16 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
-      if(data != ""){
-        storeData.listOfThings.push({data})
-      }
+      dataString += data
   })
 
   request.on( 'end', function() {
-    const javaObject = JSON.parse( dataString )
-    //console.log(dataString)
-    //console.log(javaObject)
-    if(dataString == ""){
-      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(storeData))
+    if(dataString.length > 0){
+      const javaObject = JSON.parse( dataString )
+      serverData.push({name: javaObject.name, savings: javaObject.savings, cost: javaObject.cost })
     }
-    else{
-      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(javaObject))
-    }
-    //console.log( json )
-    //javaObject.yourname += 'HelloWorld'
-    // ... do something with the data here!!!
-
-    
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(serverData))
   })
 }
 
