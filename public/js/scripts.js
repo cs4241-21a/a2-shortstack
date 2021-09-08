@@ -16,7 +16,7 @@ const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const json = { id, name: task.value, period: period.value, deadline: deadline.value }
+    const json = { id, name: task.value, period: Number.parseInt(period.value), deadline: Date.parse(deadline.value) }
     
     const body = JSON.stringify( json )
 
@@ -74,7 +74,7 @@ const edit = function( e, utask ) {
     formTitle.innerText = "Edit task:"
     task.value = utask.name
     period.value = utask.period
-    deadline.value = utask.deadline
+    deadline.value = numberToDateValue( utask.deadline )
     requestType = 1
     id = utask.id
 
@@ -109,9 +109,9 @@ const update = function ( json ) {
     json.forEach(task => {
         let element = taskTemplate.cloneNode( true )
         element.children[0].innerText = task.name
-        element.children[1].innerText = task.start
+        element.children[1].innerText = numberToDateText( task.start )
         element.children[2].innerText = task.period
-        element.children[3].innerText = task.deadline
+        element.children[3].innerText = numberToDateText( task.deadline )
         element.children[4].children[0].onclick = getEditCallback( task )
         element.children[4].children[1].onclick = getRemoveCallback( task )
 
@@ -137,4 +137,46 @@ window.onload = function() {
     .then( function( appData ) {
         update( appData )
     })
+}
+
+const numberToDateText = function( number ) {
+    let date = new Date( number )
+
+    let year = date.getFullYear()
+    let month = date.getMonth + 1
+    let day = date.getDate()
+    let hours = date.getHours()
+    let pm = "AM"
+    if ( hours >= 12 ) {
+        pm = "PM"
+        hours -= 12
+    }
+    if ( hours === 0 ) {
+        hours = 12
+    }
+
+    return "" + month + "/" + day + "/" + year + " " + hours + ":00 " + pm
+}
+
+const numberToDateValue = function( number ) {
+    let date = new Date( number )
+    
+    let year = "" + date.getFullYear()
+    while ( year.length < 4 ) {
+        year = "0" + year
+    }
+    let month = "" + ( date.getMonth + 1 )
+    if ( month.length < 2 ) {
+        month = "0" + month
+    }
+    let day = "" + date.getDate()
+    if ( day.length < 2 ) {
+        day = "0" + day
+    }
+    let hours = "" + date.getHours()
+    if ( hours.length < 2 ) {
+        hours = "0" + hours
+    }
+
+    return year + "-" + month + "-" + day + "T" + hours + ":00"
 }

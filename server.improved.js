@@ -41,7 +41,6 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     let json = JSON.parse( dataString )
-    console.log( json )
 
     // ... do something with the data here!!!
     switch( request.url ){
@@ -82,6 +81,9 @@ const addTask = function( name, period, deadline ) {
   let id = highestId + 1
   highestId++;
 
+  let ms = 60 * 60 * 1000 // number of milliseconds in an hour
+  deadline = Math.round( deadline / ms ) * ms
+
   let dataEntry = { 'id': id, 'name': name, 'start': Date.parse(Date()), 'period': period, 'deadline': deadline }
   appdata.push(dataEntry)
 
@@ -90,6 +92,9 @@ const addTask = function( name, period, deadline ) {
 
 const editTask = function( id, name, period, deadline ) {
   let i = appdata.findIndex( ( entry ) => entry.id === id )
+
+  let ms = 60 * 60 * 1000 // number of milliseconds in an hour
+  deadline = Math.round( deadline / ms ) * ms
 
   appdata[i].name = name
   appdata[i].period = period
