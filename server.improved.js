@@ -6,10 +6,8 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let appdata = [
+  
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -39,8 +37,72 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
+    console.log( "recieved" )
+
+     dataObj = JSON.parse(dataString)
+
+    if(dataObj.id == -1){ //indicates add
+      dataObj.id = appdata.length
+      appdata.push(JSON.stringify(dataObj))
+    }
+    else if(dataObj.load == -1) //indicates deletion
+    {
+      newappdata = []
+      for(let i = 0; i < dataObj.id; i++){
+        newappdata.push(appdata[i])
+        
+      }
+
+      for(let i = dataObj.id + 1; i < appdata.length; i++){
+          let aline = JSON.parse(appdata[i])
+          aline.id = aline.id - 1
+          newappdata.push(JSON.stringify(aline))
+      }
+
+    }
+    else{ // indicates modify
+      appdata[i].dataString
+    }
+
+    //load re-calculation
+    let sortnames = []
+    
+    for (let i = 0; i < appdata.length; i++){//start with sorted list of names
+      let aline = JSON.parse(appdata[i])
+      sortnames.push(aline.name)
+    }
+    sortnames.sort()
+    let allnames = []
+    let namescount = []
+    let lastname = sortnames[0]
+    allnames.push(sortnames[0])
+    namescount.push(1)
+    let countindex = 0;
+    for (let i = 1; i < sortnames.length; i++){//get counts
+      if(!(lastname === sortnames[i])){
+        allnames.push(sortnames[i])
+        namescount.push(1)
+        lastname = sortnames[i]
+        countindex++
+      }
+      else{
+        namescount[countindex] =  namescount[countindex] + 1
+      }
+    }
+
+    console.log(namescount)
+
+    for (let i = 0; i < appdata.length; i++){
+      let aline = JSON.parse(appdata[i])
+
+      aline.load = namescount[(allnames.indexOf(aline.name))]
+
+      appdata[i] = JSON.stringify(aline)
+    }
 
     // ... do something with the data here!!!
+    console.log( appdata)
+
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
