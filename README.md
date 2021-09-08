@@ -1,6 +1,5 @@
 ## Grocery List Simulator
-Paloma González Gálvez
-a2-palomagonzalez.glitch.me
+Paloma González Gálvez: a2-palomagonzalez.glitch.me
 
 My web application can be used to input grocery items, their brand and unit prices to create a grocery list.
 The derived field calculates the total price for a specific grocery item by multiplying the quantity and the unit price.
