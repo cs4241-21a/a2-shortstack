@@ -1,1 +1,5 @@
 /*Style your own assignment! This is fun! */
+
+table, th, td, tr{
+    border:1px solid black;
+}

@@ -22,7 +22,7 @@
             <option value="Wednesday">Wednesday</option>
             <option value="Thursday">Thursday</option>
             <option value="Friday">Friday</option>
-            <option value="Saturdday">Saturday</option>
+            <option value="Saturday">Saturday</option>
         </select>
       </li>
       <li>
@@ -46,27 +46,7 @@
     </ul>
     </form>
     <h1>Your Schedule:</h1>
-    <table style="width:100%">
-      <tr>
-        <th>Sunday</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-      </tr>
-      <tr>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-      </tr>
-      <tr>
-        <td>Centro comercial Moctezuma</td>
-        <td>Francisco Chang</td>
-        <td>Mexico</td>
-      </tr>
-    </table>
+    <table style="table-layout: auto;" id="dataTable"></table>
   </body>
 
   <script>
@@ -79,17 +59,6 @@
     const dayInput = document.querySelector( '#day' )
     const priority = document.querySelector('#priority')
     
-    /*
-    const lowPriorityInput = document.querySelector( '#lowPriority' )
-    const highPriorityInput = document.querySelector( '#highPriority' )
-
-      let priority = lowPriorityInput.value
-
-    if(highPriorityInput.checked){
-       priority = highPriorityInput.value
-    }
-*/
-
           json = { todo: todoInput.value, 
                     day: dayInput.value, 
                     priority: priority.value }
@@ -100,9 +69,13 @@
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+        return response.json()
     })
+    .then(function(json){
+        console.log(json)
+        document.getElementById('dataTable').remove()
+        createTable(json)
+    });
 
     return false
   }
@@ -112,35 +85,61 @@
     button.onclick = submit
   }
 
-  const schedule = document.querySelector('schedule')
+ function createTable(data) {
+    let table = document.createElement('table')
+    let tr = document.createElement('tr')
+    let tableHeaders = ['Day of the Week', 'Items/Priorities...']
 
-  const createSchedule = () => {
-    while(schedule.firstChild) schedule.removeChild(schedule.firstChild)
+    for (let count = 0; count < tableHeaders.length; count++) {
+      let header = document.createTextNode(tableHeaders[count])
+      let th = document.createElement('th')
+      th.appendChild(header)
+      tr.appendChild(th)
+    }
+    table.appendChild(tr)
+    tr = document.createElement('tr');
 
-    let scheduleTable = document.createObject('table')
-    scheduleTable.className = 'scheduleTable'
+    function populateDay(day){
+      let dayOfWeek = document.createTextNode(day)
+      let td = document.createElement('td')
 
-    let scheduleTableHead = document.createObject('thead')
-    scheduleTableHead.className = 'scheduleTableHead'
+      td.appendChild(dayOfWeek)
+      tr.appendChild(td)
 
-    let scheduleTableHeaderRow = document.createElement('tr')
-    scheduleTableHeaderRow.className = 'scheduleTableHeaderRow'
+      for (let count = 0; count < data.length; count++){
+        if(data[count].day === day){
+          let item = document.createTextNode(data[count].todo)
+          let td = document.createElement('td')
+          td.appendChild(item)
+          tr.appendChild(td)
 
+          item = document.createTextNode(data[count].priority)
+          td = document.createElement('td')
+          td.appendChild(item)
+          tr.appendChild(td)
 
-    tableHeaders.forEach(header => {
-    
-    let scheduleHeader = document.createElement('th') // Creates the current header cell during a specific iteration
-    scheduleHeader.innerText = header
-    scheduleTableHeaderRow.append(scheduleHeader) // Appends the current header cell to the header row
-})
+          item = document.createTextNode(' ')
+          td = document.createElement('td')
+          td.appendChild(item)
+          tr.appendChild(td)
+        }
+    }
+    table.appendChild(tr);
+    tr = document.createElement('tr');
 
-    scheduleTableHead.append(scheduleTableHeaderRow) // Appends the header row to the table header group element
-    scheduleTable.append(scheduleTableHead)
-    let scheduleTableBody = document.createElement('tbody') // Creates the table body group element
-    scheduleTableBody.className = "scheduleTable-Body"
-    scheduleTable.append(scheduleTableBody) // Appends the table body group element to the table
-    schedule.append(scheduleTable) // Appends the table to the scoreboard div
+  }
+    table.id = 'dataTable'
+
+  populateDay("Sunday")
+  populateDay("Monday")
+  populateDay("Tuesday")
+  populateDay("Wednesday")
+  populateDay("Thursday")
+  populateDay("Friday")
+  populateDay("Saturday")
+
+  document.body.appendChild(table)
+
 }
-
   </script>
 </html>

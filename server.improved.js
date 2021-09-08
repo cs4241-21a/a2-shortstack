@@ -36,13 +36,18 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    dataString = JSON.parse( dataString )
+    console.log( dataString )
 
   appdata.push(dataString)
+
+  // do server operations
+
   console.log(appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(appdata))
+    response.write(JSON.stringify(appdata))
+    response.end()
   })
 }
 
