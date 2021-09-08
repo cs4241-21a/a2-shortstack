@@ -53,9 +53,12 @@
     .then( function( response ) {
       // do something with the reponse 
       console.log( response )
-    })
+      response.json().then((data) => {
+        console.log(data);
+      });
+    });
 
-    return false
+    return false;
   }
 
   window.onload = function() {

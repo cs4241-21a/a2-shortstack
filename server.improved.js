@@ -52,9 +52,12 @@ const handlePost = function( request, response ) {
     else if (request.url === "/submitRemoveFood") {
       handleSubmitRemoveFood( request, dataString );
     }
-    
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    //console.log(response);
+    //response.body = ( JSON.stringify( appdata ));
+    //console.log(response.body);
+    response.end( JSON.stringify( appdata ))
   })
 }
 
@@ -64,8 +67,12 @@ const handleSubmitAddFood = function ( request, dataString ) {
   console.log("----------Processing Data------------");
   console.log("Original AppData:");
   console.log(appdata);
+
+  data = JSON.parse( dataString);
+  data.foodquantity = parseInt(data.foodquantity);
+  data.expirationdate = new Date(data.expirationdate);
   
-  appdata.push( JSON.parse( dataString ) );
+  appdata.push( data );
   
   
   console.log("----------New AppData----------------");
