@@ -1,1 +1,110 @@
 /*Style your own assignment! This is fun! */
+
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@600&family=Proza+Libre&display=swap');
+
+.flex-container {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  .flex-item {
+    font-family: 'Proza Libre', sans-serif;
+    background: #9dbaea;
+    padding: 5px;
+    width: 18%;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 20px;
+    margin:3px;
+    color: #f9f8f4;
+    font-size: 1em;
+    text-align: center;
+    border-radius: 3px;
+  }
+
+  
+  body{
+    background-image: url("stars_sheer.png");
+    background-size: 20%;
+    background-repeat: repeat;
+    text-align: center;
+  }
+  
+
+  input{
+      border:none;
+      border-radius: 30px;
+      background-color: #4068cf ;
+      padding: 10px;
+      margin: 10px;
+      margin-top: 0px;
+      color: #f9f8f4;
+      font-family: 'Proza Libre', sans-serif;
+      text-align: center;
+      font-size: 1em;
+  }
+
+  .header-img {
+    width: auto;
+    height: 275px;
+  }
+
+  h1{
+    font-family: 'Overpass', sans-serif;
+    color: #4068cf;
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
+
+  #submitBtn {
+    font-family: 'Proza Libre', sans-serif;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 30px;
+    background-color: #f9f8f4;
+    color: #4068cf;
+    border: 2px solid #4068cf;
+    font-size: 1em;
+
+    transition-duration: 0.4s;
+
+  }
+
+  #submitBtn:hover {
+    background-color: #9dbaea;
+    color: #f9f8f4;
+    border: 2px solid #4068cf;
+  }
+
+  #deleteBtn {
+    font-family: 'Proza Libre', sans-serif;
+    background-color: #9dbaea;
+    padding: 8px;
+    color: #f9f8f4;
+    font-size: 1em;
+    border: solid;
+    border-radius: 3px;
+
+    transition-duration: 0.4s;
+
+  }
+
+  #deleteBtn:hover {
+    background-color: #4068cf;
+  }
+
+  label {
+    color: #4068cf;
+    font-family: 'Overpass', sans-serif;
+    text-align: center;
+    font-size: 1em;
+  }
+
+
+  
