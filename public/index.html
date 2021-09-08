@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="flex-container">
-      <div style="width: 60%;">
+      <div style="width: 70%;">
         <h3>Books</h3>
         <table id="books">
           <thead>
@@ -24,15 +24,15 @@
           </thead>
         </table>
       </div>
-      <div style="width: 40%;">
+      <div style="width: 30%;">
         <form action="" autocomplete="off">
           <p>Add Book</p>
-          <div><label for="title">Title: </label><input type='text' id='title' placeholder="Title"/></div>
-          <div><label for="author">Author: </label><input type='text' id='author' placeholder="Author"/></div>
-          <div><label for="score">Score (1-5): </label><input type='number' id='score' placeholder="Score" min="1" max="5"/></div>
-          <div><label for="notes">Notes: </label><input type='text' id='notes' placeholder="Notes"/></div>
-          <div><label for="year">Year Read: </label><input type='number' id='year' placeholder="Year Read" min="1900" max="2021"/></div>
-          <button>submit</button>
+          <div><label for="title" class="theLabels">Title: </label><input type='text' id='title' placeholder="Title" class="theInputs"/></div>
+          <div><label for="author" class="theLabels">Author: </label><input type='text' id='author' placeholder="Author" class="theInputs"/></div>
+          <div><label for="score" class = "theLabels">Score (1-5): </label><input type='number' id='score' placeholder="Score" min="1" max="5" class="theInputs"/></div>
+          <div><label for="notes" class="theLabels">Notes: </label><input type='text' id='notes' placeholder="Notes" class="theInputs"/></div>
+          <div><label for="year" class="theLabels">Year Read: </label><input type='number' id='year' placeholder="Year Read" min="1900" max="2021" class="theInputs"/></div>
+          <div><button>Submit</button></div>
         </form>
       </div>
     </div>
