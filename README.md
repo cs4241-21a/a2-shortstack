@@ -13,8 +13,8 @@ Hello! This is basically a work database that determines if a person is a part t
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
 1. Andrew Kerekon
-    -Problems with design:
-    -Comments that surprised me:
+    -Problems with design: Layout is very nice, but delete button doesn't function as expected and refresh seems to bring back old values.
+    -Comments that surprised me: The 'do not click' button leads to sonmething wildly unexpected!
     -Changes based on feedback:
 2. Michael Zeolla
     -Problems with design:
