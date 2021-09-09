@@ -1,41 +1,36 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/scripts.js">
+  </script>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
   </head>
   <body>
+    <h1>Information about Internet Lurkers in The Database</h1>
+    <table><tr>
+      <th>Names:</th>
+      <th>Birth Years:</th>
+      <th>Year Timestamp:</th>
+      <th>Age Timestamp:</th>
+    </tr>
+    <td> yourName</td>
+    <td> 1111</td>
+    <td> 2222</td>
+    <td> 1111</td>
+    <tr>
+
+    </tr> 
+  
+  </table>
     <form action="">
       <input type='text' id='yourname' value="your name here">
+      <input type='text' id='birth' value="your birth year">
+      <input type='text' id='cur' value="current year">
       <button>submit</button>
     </form>
+
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
+  

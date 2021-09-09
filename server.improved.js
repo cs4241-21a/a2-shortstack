@@ -7,9 +7,7 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name': 'yourName', 'Birthday Year': 1111, 'Current Year': 2222, 'Age Estimate': 1111 },
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -29,6 +27,7 @@ const handleGet = function( request, response ) {
     sendFile( response, filename )
   }
 }
+    // ... do something with the data here!!!
 
 const handlePost = function( request, response ) {
   let dataString = ''
@@ -38,12 +37,18 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    const json = JSON.parse( dataString ) 
+    json.yourname += ' is a cool name!'
+    json.birth += ' is an amazing birth year!'
+    json.cur += ', wow time flies by!'
+    
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(json))
+
+    //Storing to server, with derived estimated age
+   appdata[appdata.length] = (json.yourname, json.birth, json.cur, (parseInt(json.cur) - parseInt(json.birth)))
+
   })
 }
 
