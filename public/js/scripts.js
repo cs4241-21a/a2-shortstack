@@ -48,9 +48,7 @@ const submit = function( e )
     })
     .then(response => response.json())
     .then( function( response )
-    {
-        console.log( response );
-        
+    {        
         // Add the new contestant
         const newContestantData = response.newContestantData;
         addTableRow(newContestantData.contestant,
