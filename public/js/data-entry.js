@@ -16,7 +16,6 @@ class DataEntry extends HTMLDivElement {
         headerDiv.className = 'data-header';
         const header = document.createElement('h2');
 
-
         const dataDiv = document.createElement('div');
         dataDiv.className = 'data-div';
 
@@ -27,6 +26,9 @@ class DataEntry extends HTMLDivElement {
 
         const wordInfo = document.getElementById('word-info');
 
+        // this is an array of [word start index, word end index]
+        // we sort it so that the largest index is first
+        // this is so that as we modify the text, the earlier indexes remain correct
         let wordSpans = Object.keys(entry.words)
             .flatMap(word => entry.words[word].positions
                 .map(pos => [pos, pos + word.length]))
@@ -95,6 +97,7 @@ class DataEntry extends HTMLDivElement {
         });
         return deleteButton;
     }
+
     makeDeleteButton(title) {
         const deleteButton = document.createElement('button');
         deleteButton.innerText = "Delete";
@@ -116,12 +119,6 @@ class DataEntry extends HTMLDivElement {
         return deleteButton;
     }
 }
-
-const valid_char_regex = /[a-zA-Z0-9\s]/;
-const cleanUpText = (text) => {
-    return Array.from(text).filter(chr => valid_char_regex.test(chr)).reduce((a, b) => a + b).toLowerCase();
-}
-
 
 const handleWordEvents = (idTitle, word, wordInfo, allWords, title) => {
     if (word.className === 'word') {

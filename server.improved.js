@@ -10,7 +10,6 @@ const port = 3000;
 // the annotation numbers were removed, but everything else was retained
 // files were run through the form handler to create these json files
 const startingDataFileNames = ["emperor's new clothes.json", "cinderella.json", "golden goose.json"];
-// const startingDataFileNames = ["emperor's new clothes.json"];
 const appdata = startingDataFileNames.map((filename) => JSON.parse(fs.readFileSync(filename)));
 
 const server = http.createServer(function(request, response) {
@@ -34,27 +33,8 @@ const handleGet = function(request, response) {
     }
 }
 
-const printOutData = (data) => {
-    data.forEach((datum) => {
-        console.log(`\n`);
-        console.log(datum.title);
-        const MAX_DEBUG_TEXT_LENGTH = 100;
-        console.log(datum.text.slice(0, MAX_DEBUG_TEXT_LENGTH));
-
-        console.log(`-------------------\nWords: `);
-        let words = Object.keys(datum.words);
-        words.forEach(word => {
-            console.log(`${word}: ${datum.words[word].positions}`);
-        });
-
-    });
-}
-
-const valid_char_regex = /[a-zA-Z0-9\s]/;
-const cleanUpText = (text) => {
-    return Array.from(text).filter(chr => valid_char_regex.test(chr)).reduce((a, b) => a + b).toLowerCase();
-}
-
+// a word has some number of letter or number characters, and apostrophes and hypens
+// this ends up matching "--", but fixing it would make the regex pretty unplesant so I didn't
 const WORD = RegExp(/[’'-\w]+/, 'g');
 const getWords = (text) => {
     let matchedWords = text.matchAll(WORD);
@@ -62,6 +42,7 @@ const getWords = (text) => {
     for (let match of matchedWords) {
         matches.push([match[0].toLowerCase(), match.index]);
     }
+
     let words = {};
     matches.forEach((elm) => {
         if (words[elm[0]]) {
@@ -72,6 +53,8 @@ const getWords = (text) => {
     });
     return words;
 }
+
+
 const addDataToDB = (data) => {
     const title = data.title;
 
@@ -108,18 +91,12 @@ const handlePost = function(request, response) {
         const title = parsed.title;
         const text = parsed.text;
         const action = parsed.action;
+
         if (action === "delete") {
             removeFromDB(title);
         } else {
             const words = getWords(title + ' ' + text);
             const data = { title, text, words };
-            fs.writeFile('words.json', JSON.stringify(data), 'utf-8', (err) => {
-                if (err) {
-                    console.log(err)
-                }
-                console.log('write words.json');
-
-            });
 
             addDataToDB(data);
         }
