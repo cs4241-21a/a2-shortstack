@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "CS 4241 Assignment 2",
+  "version": "0.1.0",
+  "description": "A little math game the keeps track of high scores.",
+  "author": "Joseph Scheufele",
   "scripts": {
     "start": "node server.improved.js"
   },
