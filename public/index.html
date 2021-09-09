@@ -1,41 +1,93 @@
-<!doctype html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Glory&display=swap" rel="stylesheet">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <div class = "box">
+       <h1>
+      Streamable Collection of Movies & Shows
+     </h1>
+    </div>
+
+    <div class = "box">
+          <table id = "streamingTable">
+        <tr>
+          
+          <th>Streaming Service</th>
+          <th>Currently Subscribed (yes or no)</th>
+          <th>Name</th>
+          <th>Watch Again (yes or no)?</th>
+          <th>Rating (1-10)</th>
+          <th>Recommendation (yes or no)</th>
+          
+        </tr>
+      </table>
+    </div>
+
+    <br>
+
+    <div class = "box">    
+    <form id="streamerForm">      
+      <div class = "flex-container">
+      <input style="text-align:left;" type='text' id='streamingServiceItem' tempItem="What Streaming service?">
+      <input type='text' id='subscriptionItem' tempItem="Are you currently subscribed (yes or no)?">
+      <input type='text' id='nameOfItem' tempItem="Name of the show/film?">
+      <input type='text' id='watchAgainItem' tempItem="Would you watch it again?">
+      <input type='text' id='ratingItem' tempItem="Rating of the show/film (1-10)?">
+      <input type='text' id='recommendItem' tempItem="Would you recommend this to a friend (yes or no)?">
+          <div class = "alerts">
+                <input type="button" onclick="alert('Are you happy with your entries? If so, click ok and click on: \n \t Add to Collections')" value="Do or Do Not! There is no TRY!">
+          </div>
+          <div class = "alertz">
+            <input type="button" onclick="alert('Yesterday is history, tomorrow is a mystery, and today is a gift... that's why they call it present - Master Oogway')" value="There are no accidents - Master Oogway">
+          </div>
+        <button> Add to Collections</button>
+      </div>
     </form>
-  </body>
-  <script>
+    </div>
+      <script src="js/scripts.js"></script>
+     <script>
+
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
+    console.log("this is a twitch stream jk we only watch DrLupo on YouTube")
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const streamingServiceInput = document.querySelector( '#streamingServiceItem' )
+    const subcriberInput = document.querySelector('#subscriptionItem')
+    const nameOfInput = document.querySelector('#nameOfItem')
+    const watchAgainInput = document.querySelector('#watchAgainItem')
+    const ratingInput = document.querySelector('#ratingItem')
+    const recommendInput = document.querySelector('#recommendItem'),
+
+          json = { streamingServiceItem: streamingServiceInput.value, subscriptionItem: subscriberInput.value, nameOfItem: nameOfInput.value, watchAgainItem: watchAgainInput.value, ratingItem: ratingInput.value, recommendItem: recommendItem.value},
           body = JSON.stringify( json )
 
+    document.getElementById("streamerForm").reset();
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
       // do something with the reponse 
-      console.log( response )
+      response.text().then(function(text){
+        console.log(text)
+        updateCollections(text)                                              
+    })
     })
 
     return false
-  }
-
-  window.onload = function() {
+    
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
-
   </script>
+  </body>
+  <link rel="stylesheet" href="style.css">
+
 </html>
