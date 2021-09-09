@@ -7,7 +7,7 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'name': 'yourName', 'Birthday Year': 1111, 'Current Year': 2222, 'Age Estimate': 1111 },
+  { 'name': 'yourName', 'Birthday Year': '1111', 'Current Year': '2222', 'Age Estimate': 1111 },
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -41,13 +41,14 @@ const handlePost = function( request, response ) {
     json.yourname += ' is a cool name!'
     json.birth += ' is an amazing birth year!'
     json.cur += ', wow time flies by!'
-    
-
+    // json.arr = appdata;
+//Storing to server, with derived estimated age
+   appdata[appdata.length] = (json.yourname, json.birth, json.cur, (parseInt(json.cur) - parseInt(json.birth)))
+   
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(json))
 
-    //Storing to server, with derived estimated age
-   appdata[appdata.length] = (json.yourname, json.birth, json.cur, (parseInt(json.cur) - parseInt(json.birth)))
+    
 
   })
 }

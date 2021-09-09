@@ -8,8 +8,8 @@
 
       p {
         font-family: "Ubuntu";
-        text-align: center;
-        line-height: 20pt;
+        text-align: center ;
+        line-height: 10pt;
       }
 
       a {
@@ -38,8 +38,12 @@
         text-align: center;
       }
 
+      h1 {
+        text-align: center;
+      }
+
       form {
-        text-align: center;}
+        text-align: right;}
         
       #birth {
         color: red;
