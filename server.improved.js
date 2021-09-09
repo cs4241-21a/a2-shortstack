@@ -7,9 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  // some examples:
+  // { "foodname": "apple", "foodcategory": "fruit", "foodquantity": 3, "expirationdate": new Date("2021-09-22"), "percentofcategory": 100},
+  // { "foodname": "onion", "foodcategory": "vegetable", "foodquantity": 1, "expirationdate": new Date("2021-09-24"), "percentofcategory": 100},
+  // { "foodname": "bread", "foodcategory": "grain", "foodquantity": 4, "expirationdate": new Date("2021-09-19"), "percentofcategory": 100}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -40,11 +41,77 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+    if (request.url === "/submitAddFood"){
+      handleSubmitAddFood( request, dataString );
+    }
+    else if (request.url === "/submitRemoveFood") {
+      handleSubmitRemoveFood( request, dataString );
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end( JSON.stringify( appdata ))
   })
+}
+
+const handleSubmitAddFood = function ( request, dataString ) {
+
+  data = JSON.parse( dataString);
+  data.foodquantity = parseInt(data.foodquantity);
+  data.expirationdate = new Date(data.expirationdate);
+  data.percentofcategory = 0;
+
+  for (let i = 0; i < appdata.length; i++) {
+    if (data.foodname === appdata[i].foodname
+      && data.expirationdate.getTime() === appdata[i].expirationdate.getTime()) {
+        // add to matching item
+        appdata[i].foodquantity += data.foodquantity;
+        updateDerivedField(data.foodcategory);
+        return;
+      }
+  }
+  
+  appdata.push( data );
+  updateDerivedField(data.foodcategory);
+}
+
+const handleSubmitRemoveFood = function ( request, dataString ) {
+  console.log(request.url);
+  console.log(appdata);
+
+  data = JSON.parse(dataString);
+  data.foodquantity = parseInt(data.foodquantity);
+  data.expirationdate = new Date(data.expirationdate);
+
+  for (let i = 0; i < appdata.length; i++) {
+    if (data.foodname === appdata[i].foodname
+      && data.expirationdate.getTime() === appdata[i].expirationdate.getTime()) {
+        // remove matching item
+        appdata[i].foodquantity -= data.foodquantity;
+        if (appdata[i].foodquantity <= 0) {
+          appdata.splice(i, 1);
+        }
+      }
+  }
+
+  updateDerivedField(data.foodcategory);
+}
+
+const updateDerivedField = function ( category ) {
+
+  // Find the total quantity for the given category
+  let quantitySum = 0;
+  for (let i = 0; i < appdata.length; i++) {
+    if (appdata[i].foodcategory === category) {
+      quantitySum += appdata[i].foodquantity;
+    }
+  }
+
+  // Find the proportion of each item relative to the total quantity.
+  for (let j = 0; j < appdata.length; j++) {
+    if (appdata[j].foodcategory === category) {
+      appdata[j].percentofcategory = (appdata[j].foodquantity / quantitySum) * 100;
+    }
+  }
 }
 
 const sendFile = function( response, filename ) {
