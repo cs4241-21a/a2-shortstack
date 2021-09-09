@@ -1,1 +1,77 @@
 /*Style your own assignment! This is fun! */
+body {
+    background-color: gray;
+    display: flex;
+    flex-direction: row;
+}
+
+body.results {
+    align-items: start;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+    margin: auto;
+    width: 600px;
+  
+    padding: 2em;
+    border: 3px solid #333333;
+}
+
+form div + div {
+    margin-top: 2em;
+}
+
+label {
+    display: flex;
+  
+    width: 200px;
+    text-align: left;
+}
+
+input, textarea {
+
+    font: 1em 'Roboto', sans-serif;
+    background-color: white;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 5px solid #3d0227;
+}
+
+input:focus, textarea:focus {
+    /* highlight */
+    border-color: #ebc7dd;
+}
+
+textarea {
+    
+    vertical-align: text-top;
+    height: 7em;
+}
+
+.button {
+    padding-left: 80px; 
+}
+
+button {
+    margin-left: 10em;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+th {
+    border: 2px solid black;
+    background-color: #ebc7dd;
+}
+
+table {
+    width: 400px;
+    background-color: #999999;
+}
+.col{display:inline-block; border-bottom:1px dashed #333333;width:100px;}
