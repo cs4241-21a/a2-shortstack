@@ -3,39 +3,47 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <div class="grid-container">
+    <div class="description">
+    <h1>Give Me All Your Passwords Please!</h1>
+    <h4>Hi there, I'm Kyle McFatter. You may know me for my appearance on the
+      show <i>"Law and Order: Special Victims Unit"</i>, as well as the classic PBS
+      Kids show "Fetch! With Ruff Ruff Man".
+
+      I am here to do a public service, which is collecting all the passwords
+      so <i>you</i> don't have to! I won't do anything else with them, don't worry!</h4>
+    </div>
+    <form action="" id="formElem">
+      <table class="inputData">
+        <tr>
+          <td>Name of Website</td>
+          <td><input class="textBox" type='text' id='websiteName' name="websiteName" value=""></td>
+        </tr>
+        <tr>
+          <td>Your Username/Email</td>
+          <td><input class="textBox" type='text' id='username' name="username" value=""></td>
+        </tr>
+        <tr>
+          <td>Your Password</td>
+          <td><input class="textBox" type='text' id='pw' name="pw" value=""></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td id="submitButton"><button>Save Password!</button></td>
+        </tr>
     </form>
+    <table id="heldData">
+    </table>
+  </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
+  <script src="js/scripts.js">
   </script>
 </html>
