@@ -20,9 +20,15 @@ const submit = function( e ) {
   })
   .then( function( json ) {
     document.querySelector('form').reset();
+    document.getElementById('books').remove();
+    updateTable(json);
   })
 
   return false
+}
+
+function updateTable(data) {
+  console.log("here");
 }
 
 window.onload = function() {
