@@ -63,3 +63,6 @@
         flex-grow: 1;
       }
       
+      .flex-container.spacious {
+          color: black;
+      }
