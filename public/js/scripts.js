@@ -13,8 +13,8 @@ const submit = function (e) {
         return false;
     }
 
-    json = { name: name.value, age: age.value, color: color.value }
-    body = JSON.stringify(json)
+    let json = { name: name.value, age: age.value, color: color.value }
+    let body = JSON.stringify(json)
 
     fetch('/submit', {
         method: 'POST',
