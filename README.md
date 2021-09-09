@@ -14,6 +14,6 @@ The data can be both updated and deleted through the table.
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
 1. Goon
-2. He tried to edit the rating which can't be edited since its the derived field.
+2. He ried to editing the rating which can't be edited since its the derived field.
 3. I was suprised that not clarifying that high value for priority meant higher priority was abit confusing.
-4. The changes I would make is to clarify the priority level and changing the rating column to make it look like it can't be edited.
+4. The changes I would make is the clarify the priority level and changing the rating column to make it look like it can't be edited.
