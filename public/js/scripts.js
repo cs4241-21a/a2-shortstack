@@ -19,6 +19,10 @@ function addRoll() {
                   update(response)
                   return true;
               }
+              else {
+                console.log("ERROR:")
+                console.log(response)
+              }
           });
 
           return false;
@@ -27,7 +31,8 @@ function addRoll() {
 function deleteRoll() {
     const input = document.getElementById("delete"),
     json = {
-      id: input.elements[0].value
+      id: input.elements[0].value,
+      character: input.elements[1].value
     }
     body = JSON.stringify(json);
 
@@ -48,6 +53,20 @@ function deleteRoll() {
 
 function clearRolls() {
     fetch( '/clear', {
+      method:'GET',
+    }).then(function( response ) {
+
+      if(response.status === 200){
+          update(response);
+          return true;
+      }
+
+    });
+    return false;
+}
+
+function sortRolls() {
+    fetch( '/sort', {
       method:'GET',
     }).then(function( response ) {
 

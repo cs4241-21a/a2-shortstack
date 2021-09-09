@@ -18,7 +18,6 @@ const rollDice = function( type, quantity, mod) {
     let baseRoll = Math.floor(Math.random() * parseInt(type,10));
     totalRoll += (baseRoll + 1)
   }
-
   return(totalRoll + parseInt(mod,10))
 }
 
@@ -26,7 +25,8 @@ const rollDice = function( type, quantity, mod) {
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )
-  }else if( request.method === 'POST' ){
+  }
+  else if( request.method === 'POST' ){
     handlePost( request, response )
   }
 })
@@ -40,6 +40,9 @@ const handleGet = function( request, response ) {
   }
   else if ( request.url === "/clear") {
     clearRolls(response)
+  }
+  else if ( request.url === "/sort") {
+    sortRolls(response)
   }
   else if (request.url === "/load") {
     sendTable(response)
@@ -130,13 +133,38 @@ const deleteRoll = function(data) {
     ID must not be : NaN, < 0, > id
     Charater must not be: "" if ID is none.
   */
-  if (data.id < 0 || data.id > id || isNaN(data.id)) {
-    return false
+  if (data.id < 0 || data.id > id || isNaN(data.id) || data.id.length == 0) {
+    console.log("DELETE VIA CHAR NAME")
+
+    if(data.character.length == 0) {
+      console.log("Here>")
+      return false
+    }
+    else {
+      // Delete via character instead.
+      newList = []
+      newCount = dataCount
+      for(let j = 0; j < dataCount; j++) {
+        console.log(appdata[j].character + " === " + data.character)
+        if(appdata[j].character === data.character) {
+          console.log("TO DELETE:")
+          console.log(appdata[j])
+          newCount--
+          continue
+        }
+        newList.push(appdata[j])
+      }
+      appdata = newList
+      dataCount = newCount
+
+      return true
+    }
   }
 
   // Loop Through the data to find correct row.
   let index = -1
   for(let i = 0; i < dataCount; i++) {
+      console.log(appdata[i].id + " == " + data.id)
       if (appdata[i].id == data.id) {
         index = i
         break
@@ -162,6 +190,17 @@ const clearRolls = function(response) {
   appdata = []
   dataCount = 0
   id = 0
+  sendTable(response)
+}
+
+const sortRolls = function(response) {
+  // Thanks Stack Overflow for helping me on this one.
+  // https://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
+  appdata.sort( function(a, b) {
+      if(a.character < b.character) { return -1; }
+      if(a.character > b.character) { return 1; }
+      return 0;
+  })
   sendTable(response)
 }
 

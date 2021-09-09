@@ -3,24 +3,19 @@
 body {
   background: #FFA17F;
   background: linear-gradient(to top, #00223E, #FFA17F) no-repeat center center fixed;
+  font-family: 'Averia Serif Libre', cursive;
 }
 
 h1 {
   font-family: 'Marck Script', cursive;
   text-align: center;
-
 }
 
 h3 {
   text-align: center;
 }
 
-.forms {
-  font-family: 'Averia Serif Libre', cursive;
-}
-
 .form_grid {
-  /* border: 5px solid red; */
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -33,9 +28,10 @@ h3 {
   width: 32%;
   border: 1px  solid white;
   border-radius: 5px;
-  display: inline-block;
 
-  /* display: flex; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   margin-left: 10px;
   margin-right: 10px;
@@ -56,33 +52,34 @@ h3 {
   justify-content: center;
 }
 
-table {
+.table {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
   border: 1px solid black;
 }
 
-td, th {
+.table td, th {
     text-align: center;
     padding: 5px;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
 }
 
-th {
+.table th {
     background-color: #00223E;
     color: lightgrey
 }
 
-tr {
+.table tr {
   background-color: #454450;
   color: white;
 }
 
 input, select {
-  float: right;
+  float: left;
   clear: both;
+  margin-bottom: 5px;
 }
 
 .line {
@@ -91,15 +88,32 @@ input, select {
   top: 50%;
 }
 
+label {
+  float: left;
+  clear: both;
+}
+
 button {
   width: 100%;
   transition-duration: 0.4s;
   height: 30px;
   display: table-cell;
-  vertical-align: bottom;
-  position: absolute;
-  right:    0;
-  bottom:   0;
+  align-self: flex-end;
+}
+
+.b3 {
+  margin-bottom: 10px;
+}
+
+.buttonSpace, form {
+  width: 100%;
+}
+
+.error_box {
+  align-self: flex-end;
+  text-align: center;
+  border: 1px solid red;
+  width: 100%;
 }
 
 .b1:hover {

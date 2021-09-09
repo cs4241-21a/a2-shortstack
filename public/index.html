@@ -37,10 +37,9 @@
               <br><br>
               <label for="Quantity">Quantity</label>
               <input type="text" id="quantity" required>
-              <br><br>
+              <!-- <br><br> -->
               <label for="Modifier">Modifier</label>
               <input type="text" id="modifier" required>
-              <br><br>
               <button class="b1" type="button" onclick="addRoll()">Add</button>
             </form>
           </div>
@@ -56,16 +55,23 @@
               <label for="Character">Character</label>
               <input type="text" id="character">
               <button class="b2" type="button" onclick="deleteRoll()">Delete</button>
+              <br>
+              <p> Note: The two boxes are each individual options. Specifying a value for both will result deletion via solely ID. </p>
             </form>
           </div>
 
           <div class=line></div>
 
           <div class = "form_box" id = "button_box">
-            <span class="buttonSpace">
+            <div class="buttonSpace">
               <h3>Other Options</h3>
               <button class="b3" type="button" onclick="clearRolls()">Clear</button>
-            </span>
+              <button class="b3" type="button" onclick="sortRolls()">Sort by Name</button>
+            </div>
+            <h3> Error Messages </h3>
+            <div class="error_box">
+              <p id="err"> error message </p>
+            </div>
           </div>
       </div>
 
