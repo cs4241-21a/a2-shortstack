@@ -62,3 +62,16 @@ This project is a website that allows user to track their spending and income wi
 				- "I like the classic little calendar thing... reminds me of SoftEng"
 				- "I do like the shadow affect of the boxes to make them look like they are elevated"
 				- "Overall I really like the UI (very clean) and it all seems pretty straightforward to use"
+		- Christopher Vieira
+			- Was able to use the webapp without instructions
+			- Problems:
+				- Was able to submit 0 and negative values (I had restrictions, but they stopped working after some
+				  changes)
+				- Cards are not sorted by time (Plan to implement more functionalities when we can use a database)
+			- Surprise Comments:
+				- "I had no trouble completing all the tasks you asked me to do, it was super straight forward!"
+			- Things I would change:
+				- As mentioned above for each problem!
+			- Other comments:
+				- "I really like the layout and design, it looks great! The color scheme works well"
+				- "I like each set of income and expenses being under a tab for each date"
