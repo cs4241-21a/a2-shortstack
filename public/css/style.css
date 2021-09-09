@@ -57,3 +57,6 @@ body {
     color: #FFFFFF;
   }
   
+  input {
+    font-family: "Times New Roman", Times, serif;
+  }

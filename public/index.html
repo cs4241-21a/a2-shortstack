@@ -70,7 +70,7 @@
       for(let i = 0; i<json.length; i++){
         //let obj = json[i]
         
-        console.log(json[i]["id"])
+      
         htmlStr = htmlStr + "<tr>" 
           + "<td>" + JSON.parse(json[i]).id + "</td>"
           + "<td>" + JSON.parse(json[i]).name + "</td>"
@@ -90,7 +90,6 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    console.log( "response" )
 
     const inputName = document.querySelector( '#name' )
     const inputChore = document.querySelector( '#chore' )
@@ -100,6 +99,17 @@
     if(inputName.value === "" || inputChore.value === "" || inputComplete.value === "" || inputId.value === ""){
       return false;
     }
+
+    if(isNaN(inputId.value)){
+      return false;
+    }
+    else if(inputId.value.includes(".")){//decimal
+      return false;
+    }
+    else if(parseInt(inputId.value) < 0){
+      return false;
+    }
+    
 
           json = {name: inputName.value, chore: inputChore.value , complete:inputComplete.value, load:0, id:inputId.value}
           body = JSON.stringify( json )
@@ -113,11 +123,18 @@
     })
     .then (function(json){
 
+
+      if(json.length > 0){
+        if(JSON.parse(json[0]).load == -1){
+          return false;
+        }
+      }
+
       let htmlStr = "<tr id='headers'><th>Item #</th><th>Assigned To</th><th>Task</th><th>Status</th><th>Tasks Assigned</th></tr>"//header row 
       for(let i = 0; i<json.length; i++){
         //let obj = json[i]
         
-        console.log(json[i]["id"])
+        
         htmlStr = htmlStr + "<tr>" 
           + "<td>" + JSON.parse(json[i]).id + "</td>"
           + "<td>" + JSON.parse(json[i]).name + "</td>"
@@ -143,6 +160,17 @@
     if(inputId.value === ""){
       return false;
     }
+
+    if(isNaN(inputId.value)){
+      return false;
+    }
+    else if(inputId.value.includes(".")){//decimal
+      return false;
+    }
+    else if(parseInt(inputId.value) < 0){
+      return false;
+    }
+    
           json = {name: "n/a", chore: "n/a" , complete:"n/a", load:-1, id:parseInt(inputId.value)}
           body = JSON.stringify( json )
 
@@ -155,11 +183,18 @@
     })
     .then (function(json){
 
+      if(json.length > 0){
+        if(JSON.parse(json[0]).load == -1){
+          return false;
+        }
+      }
+
+
       let htmlStr = "<tr id='headers'><th>Item #</th><th>Assigned To</th><th>Task</th><th>Status</th><th>Tasks Assigned</th></tr>"//header row 
       for(let i = 0; i<json.length; i++){
         //let obj = json[i]
         
-        console.log(json[i]["id"])
+      
         htmlStr = htmlStr + "<tr>" 
           + "<td>" + JSON.parse(json[i]).id + "</td>"
           + "<td>" + JSON.parse(json[i]).name + "</td>"
@@ -176,7 +211,7 @@
   };
 
   window.onload = function() {
-    console.log("ver0.0.1")
+
     
     const subbutton = document.querySelector( '#submit' )
     subbutton.onclick = submit
