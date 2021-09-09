@@ -77,31 +77,31 @@ const handlePost = function (request, response) {
 						{
 							"isIn": false,
 							"date": received.date,
-							"amount": received.amount,
+							"amount": (+received.amount).toFixed(2),
 							"category": received.category
 						})
-					searched.O += +received.amount
+					searched.O += +(+received.amount).toFixed(2)
 				} else {
 					searched.transactions.push(
 						{
 							"isIn": true,
 							"date": received.date,
-							"amount": received.amount,
+							"amount": (+received.amount).toFixed(2),
 							"category": received.category
 						})
-					searched.I += +received.amount
+					searched.I += +(+received.amount).toFixed(2)
 				}
 			} else if (received.type === "expense") {
 				appdata.push(
 					{
 						"date": received.date,
 						"I": 0.00,
-						"O": +received.amount,
+						"O": +(+received.amount).toFixed(2),
 						"transactions": [
 							{
 								"isIn": false,
 								"date": received.date,
-								"amount": received.amount,
+								"amount": (+received.amount).toFixed(2),
 								"category": received.category
 							}
 						]
@@ -110,13 +110,13 @@ const handlePost = function (request, response) {
 				appdata.push(
 					{
 						"date": received.date,
-						"I": +received.amount,
+						"I": +(+received.amount).toFixed(2),
 						"O": 0.00,
 						"transactions": [
 							{
 								"isIn": true,
 								"date": received.date,
-								"amount": received.amount,
+								"amount": (+received.amount).toFixed(2),
 								"category": received.category
 							}
 						]

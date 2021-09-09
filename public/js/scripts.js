@@ -6,7 +6,6 @@ window.onload = function () {
 	document.getElementById('submitBudget').onclick = submitBudget
 	document.getElementById('submitEntry').onclick = submitEntry
 	document.getElementById('date').value = new Date().toLocaleDateString('en-CA')
-	refreshBudget(JSON.stringify({type: "getBudget"}))
 	refreshData()
 }
 
@@ -63,7 +62,7 @@ const refreshBudget = function (body) {
 			else budget = json
 
 			document.getElementById('budget').innerText = "Budget: $" + json
-			document.getElementById('budgetNew').value = 0;
+			document.getElementById('budgetNew').placeholder = json;
 
 
 			if (totalOut > budget) {
@@ -92,6 +91,9 @@ const refreshData = function () {
 }
 
 function getData(json) {
+	totalIn = 0;
+	totalOut = 0;
+
 	json.forEach(eachDay => {
 		const cardHolder = document.createElement('div')
 		cardHolder.className += "cardHolder item"
@@ -150,9 +152,5 @@ function getData(json) {
 	document.getElementById('totalIn').innerText = "Total Income: $" + totalIn.toFixed(2)
 	document.getElementById('totalOut').innerText = "Total Expense: $" + totalOut.toFixed(2)
 
-	console.log(totalOut)
-	console.log(budget)
-	if (totalOut > budget) {
-		alert("You are over budget!")
-	}
+	refreshBudget(JSON.stringify({type: "getBudget"}))
 }
