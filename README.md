@@ -19,4 +19,4 @@ You can submit your name, gender, and money to the leaderboard, and your "Best P
 - **Tech Achievement 1**: Pressing the submit button will automatically update the leaderboard with your data. In addition, the leaderboard will automatically update every 5 seconds.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design Achievement 1**: I had Nicholas Markou test my project. They thought my project was clear and easy to use. They were surprised by the "Best Player?" cell. They said that something I should improve is that your player's Money should be visible as soon as the application is launched.
