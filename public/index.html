@@ -1,41 +1,45 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
-  </head>
-  <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/data-entry.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+<body>
+    <div class="content">
+        <h1>Text Info</h1>
+        <div class="enter-data">
+            <h2>Enter/Modify Documents</h2>
+            <p>If the title already exists, that document will be modified to have the new text. If the title does not already exist, it will be added.</p>
+            <form action="" form="document-form">
+                <input type='text' id='doc-title' value="Document Title">
+                <button>submit</button>
+            </form>
+            <textarea rows="4" cols="50" name="document-text" form="document-form" id="doc-text">Enter document text... </textarea>
+        </div>
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+        <h2>Data</h2>
+        <p>
+            Mouse over a word to see all the occurances of that word in that document highlighted. At the bottom you can see information about that word in the document, including its occurances and frequency.
+        </p>
 
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
+        <div id="data-view">
 
-    return false
-  }
+        </div>
+    </div>
 
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
+    <div id="word-info">
 
-  </script>
+    </div>
+</body>
+<script>
+</script>
+
 </html>
