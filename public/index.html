@@ -1,41 +1,44 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>CS4241 Assignment 2 by Mike Rossetti</title>
     <meta charset="utf-8">
-  </head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@300&family=Carrois+Gothic+SC&family=Six+Caps&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/scripts.js">
+  </script>
+   </head>
   <body>
+  <h1>Licensed Driver Check</h1>
+  <div class="grid-container" id="table">
+    <div class="grid-item-label">Driver Name</div>
+    <div class="grid-item-label">Driver Age</div>
+    <div class="grid-item-label">Type of License</div>
+    <div class="grid-item-label">Legal Driver?</div>
+  </div>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+      <h2>Enter Driver Information</h2>
+      <ul>
+        <li>Driver Name:</li>
+        <li>
+          <input class = "input" type='text' id='name' value="">
+        </li>
+        <li>Driver Age:</li>
+        <li>
+          <input class = "input" type='text' id='age' value="">
+        </li>
+        <li>
+          <label>Type of License:</label>
+          <select id="license" value="None">
+            <option>None</option>
+            <option>Drivers Permit</option>
+            <option>Drivers License</option>
+          </select>
+        </li>
+      <button>Submit Information</button>
+      </ul>
     </form>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
