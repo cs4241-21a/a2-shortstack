@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
+  "name": "Assignment 2 - Short Stack",
+  "version": "1.0",
   "description": "",
-  "author": "",
+  "author": "Matthew Spofford",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.5.2"
   }
 }

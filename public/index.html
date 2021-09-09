@@ -3,39 +3,34 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link href="index.css"  rel="stylesheet" type="text/css" />
+    <script src="index.js"></script>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <h1>
+      Homework Agenda
+    </h1>
+
+    <div class="homework-list-group">
+      <button id="addHWBtn">New Homework</button>
+      <table id="assignments">
+      </table>
+    </div>
+
+    <div id="overlay">
+      <div class="newHomeworkPrompt">
+        <label>Homework Name:</label>
+        <input type='text' id='homeworkName' value="">
+
+        <label>Course Name:</label>
+        <input type='text' id='homeworkCourse' value="">
+
+        <label>Due Date: (YYYY-MM-DD)</label>
+        <input type='text' id='homeworkDue' value="">
+
+        <button id="newHWCancel">Cancel</button>
+        <button id="newHWSubmit">Submit</button>
+      </div>
+    </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
