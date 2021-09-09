@@ -148,9 +148,15 @@ const checkForSecretMessage = function(inputstr, newdata){
   }
   else if (message.includes("hint")){
     newdata.name = "agebyehintwhowhatterminateexitkilloldhellotestduncan";
+    secret = true;
   }
   else if (message.includes("duncan")){
     newdata.name = "way to break the 4th wall (try hint for many hints)";
+    secret = true;
+  }
+  else if (message.includes("helpme")){
+    newdata.name = "hint";
+    secret = true;
   }
   else if (savedinput === "69"){
     newdata.name += " (nice)";
