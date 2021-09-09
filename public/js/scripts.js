@@ -7,22 +7,24 @@ function clearTable() {
 const renderTable = function() {
   let tableIndexCount = 0;
   clearTable();
+  console.log("Now Printing the Contents of tableEntrys");
+  for(let i = 0; i < tableEntries[0].length; i++){
 
-  tableEntries.forEach((element, idx, array) => {
+    console.log(tableEntries[0][i]);
+    let element = tableEntries[0][i];
     let car_name = element.car_name;
     let purchase_price = element.purchase_price;
     let age = 2021 - element.purchase_year;
     let num_repairs = element.repairs;
     let miles_driven = element.miles;
-    let estimated_value =
-      purchase_price * 0.8 - age * 100 - miles_driven / 10 - num_repairs * 100;
+    let estimated_value = element.estimated_value;
 
     // Acquire the table that we want to add to
     const tableRef = document.getElementById("car_table");
     let newRow = tableRef.insertRow(-1);
 
     // Construct a new Row
-    if (idx === array.length - 1) {
+    if (i === tableEntries[0].length - 1) {
       newRow.setAttribute("id", "lastRow");
     } else {
       newRow.setAttribute("id", tableIndexCount);
@@ -60,14 +62,9 @@ const renderTable = function() {
     newTest_cell.appendChild(newTest_text);
 
     tableIndexCount++;
-  });
+  }
 };
 let tableEntries = [];
-
-function addEntry(json) {
-  tableEntries.push(json);
-}
-let counter = 0;
 const submit = function(e) {
   // prevent default form action from being carried out
   e.preventDefault();
@@ -84,7 +81,6 @@ const submit = function(e) {
     purchase_year: purchase_year.value,
     repairs: repairs.value,
     miles: miles.value,
-    id: counter++
   };
 
   body = JSON.stringify(json);
@@ -93,29 +89,31 @@ const submit = function(e) {
     method: "POST",
     body
   }).then(function(response) {
-    clearTable();
-    renderTable(tableEntries);
-    console.log(response);
-  });
-  addEntry(json);
+    return response.json();
+  }).then(function(json){
+    tableEntries = [];
+    tableEntries.push(json);
+    renderTable();
+  })
   return false;
 };
 
-const deleteEntryButton = function(e) {
+const deleteEntry = function(e) {
   // prevent default form action from being carried out
   e.preventDefault();
 
-  // Get the index of table with checked boxs
-  getCheckedBoxs(document.querySelector("table"));
 
-  json = {
-    car_name: 0,
-    purchase_price: 0
-  };
 
   // acquire the table entrys that are selected.
-  body = JSON.stringify(json);
+  let table = document.getElementById("car_table")
+  json = getCheckedBox(table)
+  tableEntries[0].splice(json, 1);
+  document.getElementById("car_table").deleteRow(++json);
+  console.log("Returning from checkedBox");
+  console.log(json);
 
+  body = JSON.stringify(json);
+  console.log(body);
   fetch("/deleteEntry" + 0, {
     method: "DELETE",
     headers: {
@@ -124,8 +122,18 @@ const deleteEntryButton = function(e) {
     },
     body
   }).then(function(response) {
-    console.log(response);
-    //console.log(body)
+    console.log(response.json);
+    return response.json();
+  }).then(function(json){
+
+    console.log("JSON Response from server");
+    console.log(json);
+    if(json.length === 0){
+      // Manually Delete Row
+      document.getElementById("car_table").deleteRow(1);
+    }else {
+      renderTable()
+    }
   });
 
   return false;
@@ -135,42 +143,14 @@ window.onload = function() {
   button.onclick = submit;
 
   const deleteButton = document.getElementById("deleteButton");
-  deleteButton.onclick = deleteEntryButton;
+  deleteButton.onclick = deleteEntry;
 };
-function getCheckedBoxs(table) {
-  let listOfCheckedRow = [];
+function getCheckedBox(table) {
   for (let i = 1, row; (row = table.rows[i]); i++) {
     //iterate through rows
     if (row.cells[6].querySelector("input").checked) {
       // Add the index to the listofChecked row
-      listOfCheckedRow.push({
-        id: i
-      });
+      return --i; // to get true index
     }
   }
-  console.log(listOfCheckedRow);
-  if (listOfCheckedRow.length >= 1) {
-    deleteRows(listOfCheckedRow);
-  }
 }
-
-function deleteRows(listOfCheckedRow) {
-  console.log("reached here");
-  // listOfCheckedRow contains place in table to be deleted.
-  console.log(listOfCheckedRow);
-  listOfCheckedRow.forEach(element => {
-    // Remove from table based on ID
-    let table = document.getElementById("car_table");
-
-    tableEntries.remove(table, element.id);
-  });
-  console.log(tableEntries);
-  renderTable();
-}
-
-Array.prototype.remove = function(table, index) {
-  console.log("printing index " + index);
-  console.log("Removing Table Entry");
-  table.deleteRow(index);
-  tableEntries.splice(index - 1, 1);
-};
