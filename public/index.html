@@ -3,39 +3,61 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo" type="text/css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <header>
+      <h1>Math Game</h1>
+      <h2>How many in a row can you get and how fast can you do it?</h2>
+    </header>
+    <div id="hide_game">
+      <button id="start">Start</button>
+      <h3 id="timer">Timer</h3>
+      <h2 id="prompt">X + Y = </h2>
+      <h2 id="answer">Answer</h2>
+      <h2 id="running_correct">Correct: 0</h2>
+    </div>
+    <form action="#" id="leaderboard_form">
+      <h2>Congratulations! You finally messed up!</h2>
+      <label for="name">Nickname</label>
+      <input type='text' id='name' value="">
+
+      <label for="age">Age</label>
+      <input type='text' id='age' value="">
+
+      <label for="region_dropdown">Region</label>
+      <select name="region" id="region_dropdown">
+        <option value="New England">New England</option>
+        <option value="South">South</option>
+        <option value="South East">South East</option>
+        <option value="South West">South West</option>
+        <option value="North West">North West</option>
+        <option value="Midwest">Midwest</option>        
+      </select>
     </form>
+    <div id="hide_end">
+      <h3 id="correct">Number Correct: 0</h3>
+      <h3 id="total_time">Total Time: 0</h3>
+      <button id="submit">Submit</button>
+      <button id="retry" onclick="window.location.reload()">Play Again</button>
+      <button id="results">View Past Results</button>
+    </div>
+    <p id="hide_text">Submitted</p>
+    <table id="table_hide">
+      <thead>
+        <tr>
+          <th>Nickname</th>
+          <th>Age</th>
+          <th>Region</th>
+          <th>Number Correct</th>
+          <th>Total Time</th>
+          <th>Speed (Seconds/correct)</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <script src="js/scripts.js"></script>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>

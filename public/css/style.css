@@ -1,1 +1,23 @@
-/*Style your own assignment! This is fun! */
+* {
+    font-family: 'Exo';
+}
+
+body {
+    margin: 0 auto;
+    max-width: 50em;
+    line-height: 1.5;
+    padding: 4em 1em;
+    color: #555;
+  }
+
+code, pre {
+    background: #eee;
+}
+
+#timer, #prompt, #answer, #running_correct {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
