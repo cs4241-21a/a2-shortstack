@@ -3,7 +3,7 @@
 // console.log("Welcome to assignment 2!")
 
 let storedMessages = []
-
+import "./tinycolor.js"
 
 /**
  * Submit
@@ -77,18 +77,25 @@ const loadMessages = function (){
  * @param message
  */
 const makeMessage = function (name, color, message){
-    //TODO: Add colored styling
+    var secondary = tinycolor(color);
+    secondary.darken(30)
+    let textColor = secondary.complement()
+
     const messageWrapper = document.createElement("message")
+    messageWrapper.style.backgroundColor = color
     const nameTag = document.createElement("h3")
+    nameTag.style.color = textColor.toHexString()
     const nameNode = document.createTextNode(name)
     nameTag.appendChild(nameNode)
     const messageBody = document.createElement("p")
+    messageBody.style.backgroundColor = secondary.toHexString()
     const messageNode = document.createTextNode(message)
     messageBody.appendChild(messageNode)
     messageWrapper.appendChild(nameTag)
     messageWrapper.appendChild(messageBody)
     const documentBody = document.getElementById("main")
     documentBody.insertBefore(messageWrapper, documentBody.childNodes[0])
+
 }
 
 window.onload = function() {

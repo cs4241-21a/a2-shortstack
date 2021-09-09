@@ -1,5 +1,5 @@
 {
-  "name": "Colorful Communitator",
+  "name": "colorful-communitator",
   "version": "1.0",
   "description": "Communicate in color!",
   "author": "Lia Davis",
@@ -7,6 +7,7 @@
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.4.4",
+    "tinycolor2": "^1.4.2"
   }
 }

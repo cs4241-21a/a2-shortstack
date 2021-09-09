@@ -75,22 +75,13 @@ const handlePost = function( request, response ) {
         const json = JSON.parse( dataString )
         console.log("Received datastring to /submit: " + dataString)
 
-
-        //TODO: modify the data
+        //Derived field
+        json.message = json.name + " says \"" + json.message + "\""
 
         appdata.push(json)
 
         response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
         response.end(JSON.stringify(appdata))
-
-        // const json = JSON.parse(dataString);
-        // appdata.push({
-        //   'name': json.name,
-        //   'color': json.color,
-        //   'message': json.message,
-        // });
-        // response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
-        // response.end(JSON.stringify(appdata));
       }
         break;
         /*
@@ -99,16 +90,21 @@ const handlePost = function( request, response ) {
     }
 
 
-  })
+  }, 'end')
 }
 
-/**
- *
- * @param primaryColor
- */
-const colorModifier = function (primaryColor){
-//TODO: modify the colors
-}
+// /**
+//  *
+//  * @param primaryColor
+//  */
+// const colorModifier = function (primaryColor){
+//   let red = primaryColor.slice(1,3)
+//   let green = primaryColor.slice(3,5)
+//   let blue = primaryColor.slice(5, 7)
+//
+//   red = Math.min(parseInt(red) + )
+//   return true
+// }
 
 /**
  * sendFile

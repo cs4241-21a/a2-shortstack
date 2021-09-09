@@ -29,24 +29,24 @@ Your application is required to demonstrate the use of the following concepts:
 - ~~All pages should [validate](https://validator.w3.org)~~
 
   
-CSS:
+~~CSS:~~
 - ~~CSS styling of the primary visual elements in the application~~
-- Various CSS Selector functionality must be demonstrated:
+- ~~Various CSS Selector functionality must be demonstrated:~~
     - ~~Element selectors~~
-    - ID selectors 
+    - ~~ID selectors~~ 
     - ~~Class selectors~~
-- CSS positioning and styling of the primary visual elements in the application:
+- ~~CSS positioning and styling of the primary visual elements in the application:~~
     - ~~Use of either a CSS grid or flexbox for layout~~
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
+    - ~~Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like~~ [Google Fonts](http://fonts.google.com/)
 
 - ~~CSS defined in a maintainable, readable form, in external stylesheets~~ 
 
 ~~JavaScript:~~
 - ~~At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.~~
 
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
+~~Node.js:~~
+- ~~An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
+A starting point is provided in this repository.~~
 
 Deliverables
 ---
@@ -88,12 +88,23 @@ You'll need to use sometype of collaborative software that will enable you both 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+## Colorful Communicator
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+This project provides a system for customizing the color of the message box for messages posted to a bullitin board. 
+This project uses the flexbox positioning technique to layout each of the messages
+The project is quite self explanatory:
+1. write your name
+2. choose a color
+3. write your message
+4. click send!
 
 ## Technical Achievements
 - **Tech Achievement 1**: Used JS to create new message elements on the page. An order property of -1 for the header keeps it at the top
-- **Tech Achievement 2**: Enabled multi-user communication (via refresh) in bulletin-board style. Each client receives all messages sent and stored (temporarily) on the server from any other client
+- **Tech Achievement 2**: Enabled multi-user communication (via refresh) in bulletin-board style. Each client receives all messages sent and stored (temporarily) on the server from any other client (Form for users to submit data and displays the current state of the server-side data)
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design Achievement 1**: Conducted 1 user study:
+  1. Lee
+  2. problems
+  3. surprising comments
+  4. pot. changes to UI

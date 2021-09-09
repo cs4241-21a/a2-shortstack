@@ -2,15 +2,15 @@
  * Styling for the main body, where all the messages and the header are
  * - Defines flexbox display style and direction
  */
-body {
+#main {
     margin: 10px;
     display: flex;
     flex-flow: column wrap;
     height: 50vw;
     align-content: flex-start;
     background-color: #690086;
+    font-family: 'Crafty Girls', cursive;
 }
-/*TODO: change font*/
 
 /**
  * Header form styles (message input form)
@@ -32,6 +32,7 @@ input {
     background-color: #9c71db;
     border-radius: 5px;
     border-color: #804ec8 ;
+    font-family: 'Crafty Girls', cursive;
 }
 
 
@@ -40,7 +41,8 @@ textarea {
     height: 60px;
     background-color: #9c71db;
     border-radius: 5px;
-    border-color: #804ec8 ;
+    border-color: #804ec8;
+    font-family: 'Crafty Girls', cursive;
 }
 
 .header-btn{
@@ -48,10 +50,12 @@ textarea {
     background-color: #7e47ca;
     color: white;
     border-color: blueviolet;
+    font-family: 'Crafty Girls', cursive;
 }
 
 ::placeholder{
     color: #4f0064;
+    font-family: 'Crafty Girls', cursive;
 }
 
 
@@ -70,6 +74,6 @@ message{
 }
 message p{
     margin: 0;
-    background-color: #9c71db;
+    background-color: #6935d2;
     word-wrap: break-word
 }
