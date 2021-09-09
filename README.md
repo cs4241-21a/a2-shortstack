@@ -2,7 +2,7 @@
 
 <https://a2-MatthewSpofford.glitch.me>
 
-## Your Web Application Title
+# Homework Agenda
 
 My project is a homework todo list web application. The user can add multiple homework assignments with various properties such as the assignment name, course, and due date. Based on the date that the assignment was created on the server, it will then calculate the derived priority level field of the homework based on how soon the due date is. Currently the priority level is hardcoded as the following:
 
