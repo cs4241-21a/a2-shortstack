@@ -3,18 +3,13 @@ const http = require( 'http' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
+      data = require("./data.json"),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
-
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
+    handleGet( request, response )
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
   }
@@ -38,12 +33,12 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
+    obj = JSON.parse( dataString )
+    obj.speed = obj.time/obj.correct
+    data.game_data.push( obj )
+    console.log( obj )
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end( JSON.stringify( data.game_data ) )
   })
 }
 
