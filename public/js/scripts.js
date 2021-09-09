@@ -23,7 +23,7 @@ function mark_completed( no ) {
     assignment: assignment_data,
     course: course_data,
     percentage: parseInt(percentage_data),
-    priority: document.getElementById("percentage_row"+no).innerHTML,
+    priority: document.getElementById("priority_row"+no).innerHTML,
     itemIndex: parseInt(no)
   }
 
@@ -130,7 +130,7 @@ const add_row = function( elt ) {
   document.getElementById("new_assignment").value="";
   document.getElementById("new_course").value="";
   document.getElementById("new_percentage").value="";
-  document.getElementById("new_priority").value="TBD";
+  document.getElementById("new_priority").value="calculated automatically";
   itemIndex++;
 
   return false
@@ -177,27 +177,19 @@ function refreshComplete() {
   }).then(function (data) {
     appdata = data;
 
-    console.log("\nPARSED Data" + JSON.stringify(appdata))
-
     if(appdata.length == 0) {
       document.getElementById("hwTable").deleteRow(1);
     }
-    else if(appdata.length === (document.getElementById("hwTable").rows.length-3)) {//Math.max.apply(Math, appdata.map(function(o) { return o.itemIndex; }))) {
-      
-      document.getElementById("hwTable").deleteRow(document.getElementById("hwTable").rows.length-2);
-    }
     else {
       let no = 0;
-      for (let i = 0; i < appdata.length; i++) {
+        for (let i = 0; i < appdata.length; i++) {
         no = i+1;
         document.getElementById("assignment_row"+no+"").innerHTML= appdata[i].assignment;
         document.getElementById("course_row"+no+"").innerHTML= appdata[i].course;
         document.getElementById("percentage_row"+no+"").innerHTML= appdata[i].percentage;
         document.getElementById("priority_row"+no+"").innerHTML = appdata[i].priority;
-      }
-      document.getElementById("hwTable").deleteRow(no);
+        }
+        document.getElementById("hwTable").deleteRow(no+1);
     }
   })
 }
-
-

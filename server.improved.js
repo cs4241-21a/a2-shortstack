@@ -7,7 +7,7 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'assignment': 'Read Chapter 4', 'course': 'CS 4241', 'percentage': 2, 'priority': "Low", 'itemIndex': 1},
+  { 'assignment': 'Example Assignment', 'course': 'Fake Course', 'percentage': 5, 'priority': "Low", 'itemIndex': 1},
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -53,7 +53,6 @@ function calculatePriority(hw) {
       return "Low";
     else 
       return "Medium";
-
 }
 
 function addRow(dataString) {

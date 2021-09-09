@@ -13,6 +13,11 @@
       <div class="grid-table">
         <div class = "assignmentData">
           <h1 id="pageHeader">Homework Agenda</h1>
+          <p>
+            Instructions: Use the homework agenda to manage and view a list of your ongoing assignments. Simply enter
+            the relevant fields and the agenda will determine the priority of each assignment based on 
+            how much it is worth.
+          </p> 
           <table id="hwTable">
             <tr>
                 <th>Assignment</th>
@@ -36,8 +41,8 @@
               <td><input type="text" id="new_assignment" placeholder="Your assignment here"></td>
               <td><input type="text" id="new_course" placeholder="Your course here"></td>
               <td><input type="number" id="new_percentage" min="0" max="100" ></td>
-              <td><input type ="text" id="new_priority" placeholder="TBD" disabled></td>
-              <td><input type="button" id="addRow" class="add" value="Add Row"></td>
+              <td><input id="new_priority" readonly placeholder="calculated automatically" disabled></td>
+              <td><input type="button" id="addRow" class="add" value="Add Assignment"></td>
               </tr>
           </table>
         </div>

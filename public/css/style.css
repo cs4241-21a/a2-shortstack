@@ -21,7 +21,7 @@ table {
     grid-row-end: 3;
 }
 
-h1 {
+h1, p {
     font-family: "Montserrat", monospace;
     justify-content: center;
     display: flex;
@@ -30,6 +30,7 @@ h1 {
 .save {
     display: none;
 }
+
 .assignmentData {
     background-color: #0099ff;
 }
@@ -38,6 +39,10 @@ h1 {
     width: 100%;
     background-color: #C3E7FF;
 } 
+
+#newPriority {
+     background-color: #C3E7FF;
+}
 
 th {
     font-family: "Montserrat", monospace;
