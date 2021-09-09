@@ -10,6 +10,11 @@
 
     <!-- Importing JS Script -->
     <script src="js/scripts.js"></script>
+
+    <!-- Importing Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Glory:wght@100&display=swap" rel="stylesheet">
   </head>
   <body class="center-container">
     <h3>Investment Calculator</h3>
@@ -18,8 +23,8 @@
       <table>
         <tr>
           <th>Investment</th>
-          <th>Cost</th>
-          <th>Revenue</th>
+          <th>Cost ($)</th>
+          <th>Revenue ($)</th>
           <th>
             <span class="tooltip">
               ROI
@@ -46,18 +51,18 @@
       </table>
     </div>
 
-    <form class="flex-box" action="" hidden>
+    <form class="flex-box" hidden>
       <div class="flex-item">
         <label>Investment Name:</label>
         <input type="text" id="investment" placeholder="GME Stock">
       </div>
       <div class="flex-item">
         <label>Total Cost:</label>
-        <input type="text" id="cost" placeholder="$100.00">
+        <input type="number" id="cost" placeholder="100.00">
       </div>
       <div class="flex-item">
         <label>Total Revenue:</label>
-        <input type="text" id="revenue" placeholder="$10000.00">
+        <input type="number" id="revenue" placeholder="1000.00">
       </div>
       <div class="flex-item">
         <button id="submit-button" value="">Save Investment</button>
