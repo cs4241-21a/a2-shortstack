@@ -1,1 +1,88 @@
-/*Style your own assignment! This is fun! */
+body {
+    font-size: 30px;
+    font-family: Helvetica, sans-serif;
+    padding: 10px 50px;
+    background-color: #bcf5c1;
+}
+
+h1 {
+    color: #419148;
+    font-size: 80px;
+    -webkit-text-stroke: 2px black;
+}
+
+label {
+    color: #47944d;
+    font-size: 25px;
+}
+
+.textbox {
+    background-color: #72d499;
+    font-size: 20px;
+    height: 25px;
+    outline: 2px solid #47944d;
+    border: none;
+}
+
+.textbox:hover {
+    background-color: #8ff2b6;
+}
+
+.textbox:focus {
+    background-color: #8ff2b6;
+}
+
+.dropdown {
+    background-color: #72d499;
+    font-size: 20px;
+    height: 25px;
+    outline: 2px solid #47944d;
+    border: none;
+}
+
+.dropdown:hover {
+    background-color: #8ff2b6;
+}
+
+.dropdown:focus {
+    background-color: #8ff2b6;
+}
+
+.button {
+    font-size: 20px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #72d499;
+    border-radius: 5px;
+    border: none;
+}
+
+.button:hover {
+    background: #8ff2b6;
+}
+
+.button:active {
+    background: #daf5e4;
+}
+
+table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    margin-top: 50px;
+    background: #419148;
+    gap: 30px;
+}
+
+th {
+    background-color: #b7f7df;
+    padding: 10px 50px;
+}
+
+td {
+    background-color: #d7faed;
+    padding: 10px 50px;
+}

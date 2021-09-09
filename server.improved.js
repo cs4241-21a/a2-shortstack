@@ -6,27 +6,21 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
-
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
-  }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+      handleGet(request, response);
+  } else if( request.method === 'POST' ){
+      handlePost(request, response);
   }
 })
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+    if (request.url === '/') {
+        sendFile(response, 'public/index.html')
+    } else {
+        sendFile(response, filename);
   }
 }
 
@@ -38,12 +32,23 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+      const json = JSON.parse(dataString);
+      let poggage = '',
+      age = parseInt(json.age),
+      color = json.color;
 
-    // ... do something with the data here!!!
+      if (age <= 15 || age >= 40) {
+          poggage = "No";
+      } else if (color === "Brown" || color === "Yellow" || color === "Orange" || color === "Blue" || color === "Red") {
+          poggage = "A bit";
+      } else {
+          poggage = "Yes";
+      }
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+      json.poggage = poggage;
+
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(json));
   })
 }
 
