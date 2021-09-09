@@ -4,7 +4,6 @@
   "description": "CS 4241 HW2",
   "author": "Mark Forte",
   "scripts": {
-    "prestart": "npm pull",
     "start": "node server.js"
   },
   "dependencies": {
