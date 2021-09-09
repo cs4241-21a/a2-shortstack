@@ -20,6 +20,7 @@ body{
     background-color: dodgerblue;
 }
 input{
+    white-space: nowrap;
     display: flex;
     align-items: center;
     font-size: 15px;
@@ -29,13 +30,13 @@ table, th, td {
     display: flex;
     align-items: flex-start;
     table-layout: auto;
-    border: 1px solid white;
+    border: 1px solid gray;
     border-collapse: collapse;
     white-space: nowrap;
 }
 th, td {
     size: A3;
-    background-color: dodgerblue;
+    background-color: aliceblue;
 }
 .flex-outer li,
 .flex-inner {
