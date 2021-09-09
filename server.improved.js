@@ -6,10 +6,10 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+      // EXAMPLE ENTRY: { 'name': 'toyota', 'age': 1999, 'score': 23, 'pro': true }
+      // champion is a derived field based on if they have a score of above a certain value
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -33,17 +33,37 @@ const handleGet = function( request, response ) {
 const handlePost = function( request, response ) {
   let dataString = ''
 
+  
+
   request.on( 'data', function( data ) {
       dataString += data 
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    
+    let newEntry
+    newEntry = JSON.parse(dataString)
+    //console.log(newEntry)
 
-    // ... do something with the data here!!!
+    if(parseInt(newEntry.yourscore) >= 100){
+      newEntry.isPro = true
+    }else{
+      newEntry.isPro = false
+    }
+
+    // one at a time, I believe
+    appdata.push(newEntry)
+
+    console.log(appdata)
+
+
+
+    let json = JSON.stringify(appdata)
+
+
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(json)
   })
 }
 
