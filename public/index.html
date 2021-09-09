@@ -9,30 +9,51 @@
 </head>
 
 <body>
-  <!-- TODO: Create form with fields for the data -->
-  <h1>Basic Server Demo</h1>
-  <h2>Enter Your info:</h2>
-  <form class="form" action="">
-    <div>
-      <label class="form-label">First Name: <input class="form-text-input" type='text' name='first' value=""
-          required></label>
-      <label class="form-label">Last Name: <input class="form-text-input" type='text' name='last' value=""
-          required></label>
-      <label class="form-label">Comment: <input class="form-text-input" type='text' name='comment' value=""></label>
-    </div>
-    <div class="form-radio-group">
-      <input type="radio" id="true" name="bool" value="true" checked>
-      <label for="true">True</label>
+  <div class="header">
+    <h1>Basic Server Demo</h1>
+    <h2>How many jelly beans?</h2>
+  </div>
 
-      <input type="radio" id="false" name="bool" value="false">
-      <label for="false">False</label>
-    </div>
-
-    <button>Submit</button>
-  </form>
-
-  <div id="table">
+  <div class="columns">
+    <img id="jellybean" src="/photo">
     
+    <form class="form" action="">
+
+      <table>
+        <tr>
+          <td><label class="form-label">First Name: </label></td>
+          <td><input class="form-text-input" type='text' name='name' value="" required maxlength="15"></td>
+        </tr>
+
+        <tr>
+          <td><label class="form-label">Email: </label></td>
+          <td><input class="form-text-input" type='text' name='email' value="" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="form-label">Guess: </label></td>
+          <td><input class="form-text-input" type='number' name='guess' value="" required min="0" max="65535"></td>
+        </tr>
+      </table>
+
+      <div class="form-radio-group">
+        <label>Over 18?</label>
+        <input type="radio" id="true" name="consent" value="true" checked>
+        <label for="true">True</label>
+
+        <input type="radio" id="false" name="consent" value="false">
+        <label for="false">False</label>
+      </div>
+
+      <button>Submit</button>
+    </form>
+
+    <div class="table-disp">
+      <h2>Your Guesses: </h2>
+      <table id="table">
+  
+      </table>
+    </div>
   </div>
 </body>
 

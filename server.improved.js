@@ -14,14 +14,31 @@ const server = http.createServer(function (request, response) {
   }
 })
 
+// json database
+var appdata = []
+const images = ['public/img/jellybean1.jpeg', 'public/img/jellybean2.jpg', 'public/img/jellybean3.png']
+const values = [920, 1261, 608]
+currentImage = 0
+
 const handleGet = function (request, response) {
   const filename = dir + request.url.slice(1)
 
+  let urlwithoutquery = request.url.split('?')[0]
   if (request.url === '/') {
     sendFile(response, 'public/index.html')
+  } else if (urlwithoutquery === '/photo') {
+    sendFile(response, images[currentImage])
+  } else if (request.url == '/guesses') {
+    sendAppData(response)
   } else {
     sendFile(response, filename)
   }
+}
+
+const sendAppData = function (response) {
+  response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
+  response.write(JSON.stringify(appdata))
+  response.end()
 }
 
 const handlePost = function (request, response) {
@@ -33,10 +50,15 @@ const handlePost = function (request, response) {
 
   request.on('end', function () {
     data = JSON.parse(dataString)
-    console.log(data)
 
-    // ... do something with the data here!!!
     appdata.push(data)
+
+    // if the guess was close to the real answer
+    if (Math.abs(parseInt(data.guess) - values[currentImage]) < 10) {
+      currentImage = (currentImage + 1) % images.length
+      appdata = [] // clear the guesses
+    }
+
     response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
     response.write(JSON.stringify(appdata))
     response.end()
