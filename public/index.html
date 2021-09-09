@@ -1,67 +1,25 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>Image Board</title>
     <meta charset="utf-8">
+    <script src="js/scripts.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100&display=swap" rel="stylesheet">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='title' value="title for image">
+    <h1>Image Board</h1>
+    <form>
+      <input type='text' id='title' placeholder="Title for image">
       <br>
-      <input type='text' id='description' value="description for image">
+      <input type='text' id='description' placeholder="Description for image">
       <br>
-      <label for="imgUpload">Upload an image:</label>
+      <input type='text' id='imgLink' placeholder="Link to image">
       <br>
-      <input type='file' id='fileUp' name="imgUpload" accept="image/png, image/jpeg, image/gif">
       <button>submit</button>
     </form>
+    <div id="loadimages"></div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const title= document.querySelector('#title')
-
-    fetch( '/submitTitle', {
-      method:'POST',
-      body: title.value,
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    const description= document.querySelector('#description')
-
-    fetch( '/submitDescription', {
-      method:'POST',
-      body: description.value,
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    /*
-    const image = document.querySelector( '#fileUp' )
-    fetch( '/submitImg', {
-      method:'POST'
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-    */
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
