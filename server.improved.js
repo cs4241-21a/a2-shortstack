@@ -43,10 +43,12 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
+    // for add data
     if (dataString.indexOf(',') > -1){
       const javaObject = JSON.parse( dataString )
       serverData.push({name: javaObject.name, savings: javaObject.savings, cost: javaObject.cost, balance: (javaObject.savings-javaObject.cost)})
     }
+    // for delete data
     else{
       const javaObject = JSON.parse( dataString )
       var tempData = []
@@ -60,6 +62,7 @@ const handlePost = function( request, response ) {
         serverData = tempData
       }
     }
+    // send back response
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(serverData))
   })
