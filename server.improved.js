@@ -7,16 +7,17 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name': 'AAA', 'score': 43, 'game': 'Mario Bros.', 'highscore': true, 'id': 0},
+  { 'name': 'ABC', 'score': 67, 'game': 'Donkey Kong', 'highscore': true, 'id': 1},
+  { 'name': 'ZZZ', 'score': 168, 'game': 'Street Racing', 'highscore': true, 'id': 2},
+  { 'name': 'E', 'score': 2, 'game': 'Mario', 'highscore': false, 'id': 3}
 ]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
+    handleGet( request, response );
   }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+    handlePost( request, response );
   }
 })
 
@@ -24,9 +25,14 @@ const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
   if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+    sendFile( response, 'public/index.html' );
+  } else if(request.url === '/update') {
+    const type = mime.getType(appdata);
+    response.writeHead(200, {'Content-Type': type});
+    response.write(JSON.stringify(appdata));
+    response.end();
+  } else {
+    sendFile( response, filename );
   }
 }
 
@@ -38,9 +44,28 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    const json = JSON.parse(dataString)
+    console.log(json);
 
-    // ... do something with the data here!!!
+    if(request.url === '/delete') {
+      for(let i = 0; i < appdata.length; i++) {
+        if(appdata[i].id === json.id) { // ID Matches
+          appdata[i] = null;
+          console.log("Deletion complete");
+          break;
+        }
+      }
+    } else if(request.url === '/submit') {
+      appdata[appdata.length+1] = json;
+    } else if(request.url === '/modify') {
+      for(let i = 0; i < appdata.length; i++) {
+        if(appdata[i].id === json.id) { // ID Matches
+          appdata[i] = json;
+          console.log("Modify complete");
+          break;
+        }
+      }
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
