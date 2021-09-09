@@ -1,32 +1,43 @@
-let data = []
+let submitted = false
 const submit = function( e ) {
-// prevent default form action from being carried out
-    e.preventDefault()
-    
-    const nickname = document.querySelector( '#name' ),
-          age = document.querySelector( '#age' ),
-          region = document.querySelector( '#region_dropdown' ),
-          json = { nickname: nickname.value,
-                   age: age.value, 
-                   region: region.value,
-                   correct: correct,
-                   time: final_time/100 },
-            body = JSON.stringify( json )
+    if (!submitted){
+        submitted = true
+        let data = []
+        // prevent default form action from being carried out
+        e.preventDefault()
+        
+        const nickname = document.querySelector( '#name' ),
+            age = document.querySelector( '#age' ),
+            region = document.querySelector( '#region_dropdown' ),
+            json = { nickname: nickname.value,
+                    age: age.value, 
+                    region: region.value,
+                    correct: correct,
+                    time: final_time/100 },
+                body = JSON.stringify( json )
 
-    document.getElementById("hide_text").style.visibility = "visible"
+        document.getElementById("hide_text").style.visibility = "visible"
 
-    fetch( '/submit', {
-        method:'POST',
-        body
-    })
-    .then( function( response ) {
-        return response.json()
-    })
-    .then( function( json ){
-        data = json
-        console.log( data )
-    })
-    
+        fetch( '/submit', {
+            method:'POST',
+            body
+        })
+        .then( function( response ) {
+            return response.json()
+        })
+        .then( function( json ){
+            data = json
+            console.log( data )
+            document.querySelector('tbody').innerHTML = ""
+            for (let i = 0; i < data.length; i++) {
+                entry = data[i]
+                console.log(entry.nickname, entry.age, entry.region, entry.correct, entry.time, entry.speed)
+                tbody = "<tr><td>" + entry.nickname + "</td><td>" + entry.age + "</td><td>" + entry.region + "</td><td>" + entry.correct + "</td><td>" + entry.time + "</td><td>" + entry.speed + "</td></tr>"
+                document.querySelector('tbody').insertAdjacentHTML("afterbegin", tbody)
+            }
+        })
+    }
+
     return false
 }
 
@@ -40,10 +51,11 @@ const timer = function() {
 }
 
 let started = false
+let clock = 0
 const start = function( e ) {
     if (!started) {
         time = 0
-        setInterval(timer, 10)
+        clock = setInterval(timer, 10)
         document.addEventListener('keydown', handleKeys)
         makeQuiz()
         started = true
@@ -57,7 +69,7 @@ let ans = ""
 const makeQuiz = function () {
     X = Math.floor(Math.random() * 100)
     Y = Math.floor(Math.random() * 100)
-    document.getElementById("prompt").innerText = X + " + " + Y + " = " 
+    document.getElementById("prompt").innerText = X + " + " + Y + " = "
 }
 
 const handleKeys = function ( e ) {
@@ -96,28 +108,28 @@ const end = function() {
     document.getElementById("total_time").innerText = "Elapsed Time: " + time/100 + " s"
     document.getElementById("correct").innerText = "Number Correct: " + correct
     document.removeEventListener('keydown', handleKeys)
+    clearInterval(clock)
     final_time = time
+    document.getElementById("timer").innerText = "Timer"
 }
 
-
-const results = function(){
-    document.getElementById("table_hide").style.visibility = "visible"
-    for (let i = 0; i < data.length; i++) {
-        entry = data[i]
-        console.log(entry.nickname, entry.age, entry.region, entry.correct, entry.time, entry.speed)
-        tbody = "<tr><td>" + entry.nickname + "</td><td>" + entry.age + "</td><td>" + entry.region + "</td><td>" + entry.correct + "</td><td>" + entry.time + "</td><td>" + entry.speed + "</td></tr>"
-        document.querySelector('tbody').insertAdjacentHTML("afterbegin", tbody)
-    }
-    
+const restart = function() {
+    document.getElementById("hide_game").style.visibility = "visible"
+    document.getElementById("leaderboard_form").style.visibility = "hidden"
+    document.getElementById("hide_end").style.visibility = "hidden"
+    document.getElementById("hide_text").style.visibility = "hidden"
+    document.getElementById("hide_congrats").style.visibility = "hidden"
+    started=false
+    submitted=false
+    document.getElementById("timer").innerText = "Timer"
 }
-
 
 window.onload = function() {
     document.getElementById("hide_game").style.visibility = "visible"
     document.getElementById("leaderboard_form").style.visibility = "hidden"
     document.getElementById("hide_end").style.visibility = "hidden"
     document.getElementById("hide_text").style.visibility = "hidden"
-    document.getElementById("table_hide").style.visibility = "hidden"
+    //document.getElementById("table_hide").style.visibility = "hidden"
     document.getElementById("hide_congrats").style.visibility = "hidden"
 
     const start_button = document.querySelector( "#start" )
@@ -126,7 +138,8 @@ window.onload = function() {
     const submit_button = document.querySelector( "#submit" )
     submit_button.onclick = submit
 
-    const result_button = document.querySelector( "#results" )
-    result_button.onclick = results
+    const retry_button = document.querySelector( "#retry" )
+    retry_button.onclick = restart
+
 }
 

@@ -7,25 +7,6 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-/*const game_data = [
-  {
-      "nickname":"twitty",
-      "age":23,
-      "region":"New England",
-      "correct":0,
-      "time":1,
-      "speed":0
-  },
-  {
-      "nickname":"schmitty",
-      "age":43,
-      "region":"South",
-      "correct":0,
-      "time":1,
-      "speed":0
-  }
-]*/
-
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )

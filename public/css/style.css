@@ -40,13 +40,16 @@ code, pre {
     order: 1;
 }
 
-#hide_game {
-
-}
-
 table {
     border: 1px solid black;
+    border-collapse: collapse;
     color: #2D51E3
+}
+
+td, th { 
+    border: solid thin; 
+    text-align: center;
+    padding: 5px;
 }
 
 #timer {
