@@ -53,12 +53,12 @@ class DataEntry extends HTMLDivElement {
         const bodyWords = bodyDiv.childNodes;
 
         for (let word of bodyWords) {
-            handleWordEvents(idTitle, word, wordInfo, entry.words);
+            handleWordEvents(idTitle, word, wordInfo, entry.words, entry.title);
         }
 
         const headerWords = header.childNodes;
         for (let word of headerWords) {
-            handleWordEvents(idTitle, word, wordInfo, entry.words);
+            handleWordEvents(idTitle, word, wordInfo, entry.words, entry.title);
         }
 
         dataDiv.append(bodyDiv);
@@ -85,7 +85,7 @@ const cleanUpText = (text) => {
 }
 
 
-const handleWordEvents = (idTitle, word, wordInfo, allWords) => {
+const handleWordEvents = (idTitle, word, wordInfo, allWords, title) => {
     if (word.className === 'word') {
         const wordCount = Object.keys(allWords)
             .map(word => allWords[word].positions.length)
@@ -107,16 +107,19 @@ const handleWordEvents = (idTitle, word, wordInfo, allWords) => {
         })
         word.addEventListener('mouseover', event => {
             const text = event.target.innerText.toLowerCase();
+            const titleDiv = document.createElement('div');
             const wordDiv = document.createElement('div');
             const infoDiv = document.createElement('div');
             const documentFreqDiv = document.createElement('div');
+
+            titleDiv.innerText = title;
             wordDiv.innerText = `Word: ${text}`;
             const wordOccurances = allWords[text.toLowerCase()].positions.length
             infoDiv.innerText = `This word appears ${wordOccurances} times`;
             const documentFrequency = wordOccurances / wordCount;
             documentFreqDiv.innerText = `This is ${(100 * documentFrequency).toFixed(4)}% of words in this document`;
             wordInfo.innerHTML = '';
-            wordInfo.append(wordDiv, infoDiv, documentFreqDiv);
+            wordInfo.append(titleDiv, wordDiv, infoDiv, documentFreqDiv);
         })
     }
 }

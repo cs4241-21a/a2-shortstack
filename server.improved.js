@@ -9,8 +9,8 @@ const port = 3000;
 // data is a slightly modified version of what is at https://surlalunefairytales.com/annotated-a-g.html
 // the annotation numbers were removed, but everything else was retained
 // files were run through the form handler to create these json files
-// const startingDataFileNames = ["emperor's new clothes.json", "cinderella.json", "golden goose.json"];
-const startingDataFileNames = ["emperor's new clothes.json"];
+const startingDataFileNames = ["emperor's new clothes.json", "cinderella.json", "golden goose.json"];
+// const startingDataFileNames = ["emperor's new clothes.json"];
 const appdata = startingDataFileNames.map((filename) => JSON.parse(fs.readFileSync(filename)));
 
 const server = http.createServer(function(request, response) {
@@ -101,10 +101,16 @@ const handlePost = function(request, response) {
         const text = parsed.text;
         const words = getWords(title + ' ' + text);
         const data = { title, text, words };
-        fs.writeFile('words.json', JSON.stringify(data), 'utf-8', (err) => console.log(err));
+        fs.writeFile('words.json', JSON.stringify(data), 'utf-8', (err) => {
+            if (err) {
+                console.log(err)
+            }
+            console.log('write words.json');
+
+        });
 
         addDataToDB(data);
-        printOutData(appdata);
+        // printOutData(appdata);
 
 
         response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
