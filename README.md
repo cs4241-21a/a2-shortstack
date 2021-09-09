@@ -69,29 +69,71 @@ Below are suggested technical and design achievements. You can use these to help
 - (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
 
 *Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
+- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. 
+  Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
 
 1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
 2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
+3. If users get stuck to the point where they give up, you can then provide instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
 
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
+You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. 
+After completing each study, briefly (one to two sentences for each question) address the following in your README:
 
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
+
 
 *You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+## Car Value Generator
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 
+This project assignment attempts to place a price on the car based on the following 4 factors: 
+Purchase Price, Age of the Car, Number of Major Repairs, and Miles Driven.
+Based on these 4 factors, the server will spit out the approximate value of the car using dollar notation. 
+
+Regarding the CSS positioning techniques
+###Form
+The form was positioned using the grid technique.
+
+###Table 
+The table was positioned using the flex technique.
+
+There are no other instructions that are needed to use this site. One important note however is that the site is designed 
+to only delete one element from the table at a time. (while deleting 2 at the same time seems to work, deleting 3 seems to 
+cause problems.)
+
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: Based on the discord messages and clarification provided adding the delete implementation can count as a Tech Achievement.
+After adding a car (row), you can simply delete the row by checking the box on the right-hand column and then pressing the delete entry
+button. 
+  
+- **Tech Achievement 2**: One cool feature I added was fading in the most recent element to the row. This combined with the
+black text allows the user to better identify which row was just added to the table. To do this I had to do some array manipulation
+to set a custom ID for the last element of the array then use CSS and JS to manipulate the DOM to change the color and fade it in. 
+
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design Achievement 1**: For my first Design Achievement I am piggybacking off the second Tech Achievement. The animation
+used for the new entry's in the table helps the users identify which row was most recently added to the list. If I were to expand on this
+project, I would use that feature to make the last row "easily editable" (not sure how yet) since if a user were to make
+a mistake it would likely happen on the most recently added row. 
+
+- **Design Achievement 2**: User Study
+
+GOAL: Add some cars to the list and generate some "Estimated Value"'s then delete the entry's to return to an empty list. 
+
+1. Provide the last name of each student you conduct the evaluation with.
+   <br> <br>
+   <u> </u>
+2. What problems did the user have with your design?
+   <br> <br>
+   <u> </u>
+3. What comments did they make that surprised you?
+   <br> <br>
+   <u> </u>
+4. What would you change about the interface based on their feedback?
+   <br> <br>
+   <u> </u>
+

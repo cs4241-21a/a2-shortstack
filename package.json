@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Ashwin Pai",
+  "version": "1",
+  "description": "This project assignment attempts to place a price on the car based on the following 4 factors: \nPurchase Price, Age of the Car, Number of Major Repairs, and Miles Driven.\nBased on these 4 factors, the server will spit out the approximate value of the car using dollar notation. ",
+  "author": "Ashwin Pai",
   "scripts": {
     "start": "node server.improved.js", 
     "live": "nodemon server.improved.js"
