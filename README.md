@@ -1,4 +1,4 @@
-## <a href="https://a2-aburke.glitch.me/">Tip Calculator</a>
+## <a href="https://a2-aburke921.glitch.me/">Tip Calculator</a>
 The idea of this web application is if a group (or single person) goes out to dinner and needs to divide the bill evenly amongst it's group members. The user may give in the webpage, the number of people that the bill should be divided by, the total amount due for the bill and the amount of money they would like to give as a tip. Once the user gives the amount due, some auto generated tip values are shown to make it easy for the user to determine what type of tip they should give. After the user hits the calculate button, the form will be submitted and a saved version will show up beneath the original form. The user has the ability to edit this form where they can either delete it entirely or edit the values they originally gave.
 
 ## Technical Achievements
