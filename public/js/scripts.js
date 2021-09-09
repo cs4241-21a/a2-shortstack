@@ -1,37 +1,41 @@
-const submit = function( e ) {
+const submit = function (e) {
   // prevent default form action from being carried out
-  e.preventDefault()
+  e.preventDefault();
 
-  const title = document.querySelector( '#title' ),
-    author = document.querySelector(' #author '),
-    score = document.querySelector(' #score '),
-    notes = document.querySelector(' #notes '),
-    year = document.querySelector(' #year' ),
-        json = { title: title.value, author: author.value, score: Number(score.value), notes: notes.value, year: Number(year.value)},
-        body = JSON.stringify( json )
+  const form = document.querySelector("form"),
+    json = {
+      title: form.title.value,
+      author: form.author.value,
+      score: form.score.value,
+      notes: form.notes.value,
+      year: form.year.value,
+    },
+    body = JSON.stringify(json);
 
-  fetch( '/submit', {
-    method:'POST',
-    body 
+  fetch("/submit", {
+    method: "POST",
+    body
   })
-  .then( function( response ) {
-    // do something with the reponse 
-    console.log( response )
-  })
-  .then( function( json ) {
-    document.querySelector('form').reset();
-    document.getElementById('books').remove();
-    updateTable(json);
-  })
+    .then(function (response) {
+      // do something with the reponse
+      console.log(response);
+      return response.json();
+    })
 
-  return false
-}
+    .then(function (json) {
+      document.querySelector("form").reset();
+      let row = document.querySelector("#table").insertRow();
+      row.insertCell(0).innerHTML = json.title;
+      row.insertCell(1).innerHTML = json.author;
+      row.insertCell(2).innerHTML = json.score;
+      row.insertCell(3).innerHTML = json.notes;
+      row.insertCell(4).innerHTML = json.year;
+    });
 
-function updateTable(data) {
-  console.log("here");
-}
+  return false;
+};
 
-window.onload = function() {
-  const button = document.querySelector( 'button' )
-  button.onclick = submit
-}
+window.onload = function () {
+  const button = document.querySelector("button");
+  button.onclick = submit;
+};

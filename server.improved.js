@@ -41,9 +41,11 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    let jsonDS = JSON.parse( dataString )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    console.log(JSON.stringify(jsonDS))
+    response.end(JSON.stringify(jsonDS))
   })
 }
 
