@@ -1,4 +1,7 @@
 /*Style your own assignment! This is fun! */
+button{
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+}
 body {
   font-family: "IBM Plex Sans Arabic", sans-serif;
   text-align: center;
