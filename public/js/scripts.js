@@ -7,6 +7,8 @@ const submit = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
+    //can we use the uuid npm package to give our entries unique identifiers?
+
     const date = document.querySelector('#date'),
         family = document.querySelector('#family'),
         notes = document.querySelector('#notes'),
