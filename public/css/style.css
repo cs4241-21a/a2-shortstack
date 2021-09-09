@@ -1,1 +1,56 @@
-/*Style your own assignment! This is fun! */
+
+*{font-family: 'Roboto', sans-serif; text-align: center;}
+form{
+ margin-top:50px;
+}
+
+Input, button{
+  background-color: #5a6b82; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+Input:disabled, button:disabled{
+  background-color: #2e3742; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+h1{
+ color:white;
+ font-size:48px;
+}
+#table{
+ margin-top:50px;
+ color:white;
+ background-color: rgba(64,74,87,.8);
+ border-spacing:15px;
+}
+
+.formHeader{
+    color: white;
+    font-size:24px;
+}
+
+.flex-container{
+    display:flex;
+    justify-content:center;
+}
+::placeholder{
+    color:white;
+    opacity:.5;
+}
+body{
+background-color: #e5e5f7;
+opacity: 1;
+background-image: linear-gradient(45deg, #000000 50%, #181c21 50%);
+background-size: 10px 10px;
+}
