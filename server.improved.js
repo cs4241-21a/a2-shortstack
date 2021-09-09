@@ -9,13 +9,14 @@ const http = require( 'http' ),
 const appdata = {
   foundItems: [
     {
-      'item': 'Apple Pen',
-      'when': '09/01/2021',
+      'item': 'AirPods',
+      'when': '10/01/2021',
       'where': 'FH 311',
-      'description': 'White, pen, red cap, Apple original',
-      'photo': 'https://google.com',
-      'emailme': 'fgalbiati@wpi.edu',
-      'uid': 'ApplePen09012021FH311foundItems02012020'
+      'description': 'Red case',
+      'photo': 'https://apple.com',
+      'emailme': 'fgalbiati',
+      'uid': 'ApplePen09012021FH311foundItems1631163168733',
+      'timestamp': '1631163168733'
     }
   ],
   lostItems: [
@@ -25,12 +26,13 @@ const appdata = {
       'where': 'FH 311',
       'description': 'White, pen, red cap, Apple original',
       'photo': 'https://google.com',
-      'emailme': 'fgalbiati@wpi.edu',
-      'uid': 'ApplePen09012021FH311lostItems01012020'
+      'emailme': 'fgalbiati',
+      'uid': 'ApplePen09012021FH311lostItems1631163183361',
+      'timestamp': '1631163183361'
     }
   ],
   users: {
-    'fgalbiati@wpi.edu' : {'password': 'abc123'},
+    'federico' : {'password': 'abc123'},
     'john' : {'password': 'aaa111'},
     'amanda' : {'password': 'ab24'},
     'sophia' : {'password': 'asdasd5'}
