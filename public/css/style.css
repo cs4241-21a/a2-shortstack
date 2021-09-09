@@ -1,1 +1,71 @@
 /*Style your own assignment! This is fun! */
+
+body {
+  font-family: Courier New, Arial;
+  background-image: url("https://cdn.glitch.com/7e128269-4002-4f9c-a3a9-cce30cfef37d%2Ftravel_background.jpg?v=1631125863434");
+  background-size: auto;
+  font-size: 24px;
+  padding: 0px;
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#location-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+tr {
+  display: flex;
+  width: 1000px;
+  justify-content: space-around;
+}
+
+form {
+  padding-top: 50px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+input,
+td,
+button,
+label,
+th {
+  width: 150px;
+  text-align: center;
+  font-size: 24px;
+  font-family: Courier New, Arial;
+}
+
+input,
+td {
+  border: 3px solid black;
+  background-color: lightblue;
+}
+
+button {
+  background-color: red;
+  font-weight: bold;
+}
+
+.update-button {
+  background-color: green;
+}
+
+#submit-button {
+  margin-left: 10px;
+  width: auto;
+  background-color: #11359c;
+  border-radius: 5px;
+}
+
+label {
+  font-weight: bold;
+}
