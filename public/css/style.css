@@ -36,7 +36,7 @@ table {
 th, td {
     padding: 5px;
     width: 20%;
-    text-align: left;
+    text-align: center;
 }
 
 th {
@@ -114,10 +114,6 @@ td {
 
 .delete-icon {
     padding: 1px 0 1px 0;
-}
-
-.empty-cell {
-    text-align: center;
 }
 
 form {

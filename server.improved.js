@@ -4,10 +4,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let serverData = [
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -22,10 +19,17 @@ const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
   if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+    sendFile(response, 'public/index.html');
+  } else if (request.url === '/api' ) {
+    handleGetData(request, response);
+  } else {
+    sendFile(response, filename);
   }
+}
+
+const handleGetData = (request, response) => {
+  response.setHeader('Content-Type', 'application/json');
+  response.end(JSON.stringify(serverData));
 }
 
 const handlePost = function( request, response ) {
@@ -36,9 +40,18 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    const json = JSON.parse(dataString);
+    const index = json["index"];
+    const item = json["item"];
+    
+    if (index > serverData.length - 1) {
+      serverData = serverData.concat(item);
+    } else if (item === undefined) {
+      serverData.splice(index, 1);
+    } else {
+      serverData[index] = item;
+    }
+    console.log(serverData);
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()

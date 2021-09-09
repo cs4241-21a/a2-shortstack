@@ -1,82 +1,181 @@
-window.onload = function() {
+let entryCount = 0;
+
+window.onload = () => {
+    loadServerData();
+
     const addButton = document.querySelector("#add-button")
-    addButton.onclick = addEntry;
+    addButton.onclick = () => openForm(entryCount);
+
+    const submitButton = document.querySelector("#submit-button");
+    submitButton.onclick = submitData;
 }
 
-const addEntry = () => {
-    addTableRow();
-    openForm();
+const loadServerData = () => {
+    fetch( "/api", {
+        method:"GET",
+    })
+    .then(res => res.json())
+    .then(res => { 
+        res.forEach((item, index) => {
+            addTableRow(entryCount);    
+            setEntry(index, item);
+            entryCount++;
+        });
+    })
 }
 
-// Creates a new row on the table
-const addTableRow = () => {
-    const emptyRow = document.querySelector("#empty-row");
-    const newRow = emptyRow.cloneNode(true);
-    newRow.setAttribute("id", "");
-    const iconButtonCell = newRow.querySelector(".icon-button-cell");
-    iconButtonCell.innerHTML = "";
-    iconButtonCell.appendChild(addOptionButtons(0));
-    emptyRow.before(newRow);
-}
+//#region Table Handling
+    // Sets the table data of a given entry for row identified by index
+    const setEntry = (index, entry) => {
+        const tableRows = document.getElementsByClassName("table-row");
+        const entryRow = tableRows[index];
 
-// Creates the option buttons for an existing row on the table
-const addOptionButtons = (row) => {
-    const onClickEdit = (e) => {
-        console.log(`${row} onClickEdit triggered`)
+        const tableDatas = entryRow.querySelectorAll("td");
+        tableDatas[0].innerText = entry["investment"];
+        tableDatas[1].innerText = entry["cost"];
+        tableDatas[2].innerText = entry["revenue"];
+        tableDatas[3].innerText = parseFloat(entry["roi"]).toFixed(2) + "%";
     }
 
-    const onClickDelete = (e) => {
-        console.log(`${row} onClickDelete triggered`)
+    // Creates a new row on the table
+    const addTableRow = (index) => {
+        const emptyRow = document.querySelector("#empty-row");
+        const newRow = emptyRow.cloneNode(true);
+        newRow.setAttribute("id", "");
+        newRow.setAttribute("class", "table-row");
+        
+        const iconButtonCell = newRow.querySelector(".icon-button-cell");
+        iconButtonCell.innerHTML = "";
+        iconButtonCell.appendChild(addOptionButtons(index));
+
+        emptyRow.before(newRow);
     }
 
-    const btnContainer = document.createElement("div");
-    btnContainer.setAttribute("class", "icon-button-container");
+    // Creates the option buttons for an existing row on the table
+    const addOptionButtons = (index) => {
+        const onClickEdit = (e) => {
+            setForm(index);
+            openForm(index);
+        }
 
-    const btnEdit = document.createElement("button");
-    btnEdit.setAttribute("class", "icon-button");
-    btnEdit.onclick = onClickEdit;
-    
-    const imgEdit = document.createElement("img");
-    imgEdit.setAttribute("class", "icon edit-icon");
-    imgEdit.setAttribute("src", "img/edit.svg");
-    imgEdit.setAttribute("title", "Edit Entry");
-    
-    const btnDelete =  document.createElement("button");
-    btnDelete.setAttribute("class", "icon-button");
-    btnDelete.onclick = onClickDelete;
+        const onClickDelete = (e) => {
+            deleteData(index);
+        }
 
-    const imgDelete = document.createElement("img");
-    imgDelete.setAttribute("class", "icon delete-icon");
-    imgDelete.setAttribute("src", "img/delete.svg");
-    imgDelete.setAttribute("title", "Delete Entry");
+        const btnContainer = document.createElement("div");
+        btnContainer.setAttribute("class", "icon-button-container");
 
-    btnEdit.appendChild(imgEdit);
-    btnDelete.appendChild(imgDelete);
-    btnContainer.appendChild(btnEdit);
-    btnContainer.appendChild(btnDelete);
+        const btnEdit = document.createElement("button");
+        btnEdit.setAttribute("class", "icon-button");
+        btnEdit.onclick = onClickEdit;
+        
+        const imgEdit = document.createElement("img");
+        imgEdit.setAttribute("class", "icon edit-icon");
+        imgEdit.setAttribute("src", "img/edit.svg");
+        imgEdit.setAttribute("title", "Edit Entry");
+        
+        const btnDelete =  document.createElement("button");
+        btnDelete.setAttribute("class", "icon-button");
+        btnDelete.onclick = onClickDelete;
 
-    return btnContainer;
-}
+        const imgDelete = document.createElement("img");
+        imgDelete.setAttribute("class", "icon delete-icon");
+        imgDelete.setAttribute("src", "img/delete.svg");
+        imgDelete.setAttribute("title", "Delete Entry");
 
-const openForm = () => {
-    const form = document.querySelector("form");
-    form.hidden = false;
-}
+        btnEdit.appendChild(imgEdit);
+        btnDelete.appendChild(imgDelete);
+        btnContainer.appendChild(btnEdit);
+        btnContainer.appendChild(btnDelete);
 
-// const submit = function( e ) {
-//     e.preventDefault()
+        return btnContainer;
+    }
+//#endregion
 
-//     const input = document.querySelector( "#yourname" ),
-//           json = { yourname: input.value },
-//           body = JSON.stringify( json )
+//#region Form Handling
+    const openForm = (index) => {
+        const form = document.querySelector("form");
+        form["submit-button"].value = index;
+        form.hidden = false;
+    }
 
-//     fetch( "/submit", {
-//         method:"POST",
-//         body 
-//     })
-//     .then( function( response ) {
-//         console.log( response )
-//     })
+    const hideForm = () => {
+        const form = document.querySelector("form");
+        form.hidden = true;
+    }
 
-//     return false
-// }
+    const setForm = (index) => {
+        const tableRows = document.getElementsByClassName("table-row");
+        const entryRow = tableRows[index];
+        const tableDatas = entryRow.querySelectorAll("td");
+
+        const form = document.querySelector("form");
+
+        form.investment.value = tableDatas[0].innerText;
+        form.cost.value = tableDatas[1].innerText;
+        form.revenue.value = tableDatas[2].innerText;
+    }
+
+    const clearForm = () => {
+        const form = document.querySelector("form");
+        form.investment.value = "";
+        form.cost.value = "";
+        form.revenue.value = "";
+    }
+
+    // Calculates a ROI as a percent
+    const calculateROI = (cost, rev) => {
+        return ((rev - cost) / cost) * 100;
+    }
+
+    const submitData = e => {
+        e.preventDefault();
+
+        const form = document.querySelector("form");
+
+        const investment = form["investment"].value;
+        const cost = form["cost"].value;
+        const revenue = form["revenue"].value;
+        const roi = calculateROI(cost, revenue);
+
+        const index = e.target.value;
+
+        const json = {
+            index,
+            item: {
+                investment, 
+                cost,
+                revenue,
+                roi
+            }
+        }
+        const body = JSON.stringify(json);
+
+        fetch( "/submit", {
+            method:"POST",
+            body 
+        })
+        .then(() => {
+            if (index >= entryCount) {
+                addTableRow(entryCount);
+                entryCount++;
+            }
+            setEntry(index, json["item"]);
+        })
+
+        clearForm();
+        hideForm();
+    }
+
+    const deleteData = (index) => {
+        const body = JSON.stringify({index});
+
+        fetch( "/submit", {
+            method:"POST",
+            body 
+        })
+        .then(() => {
+            window.location.replace(window.location.href);
+        })
+    }
+//#endregion
