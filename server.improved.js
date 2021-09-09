@@ -41,9 +41,15 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
-
+    let jsonDS = JSON.parse( dataString )
+    
+    //Calculates days left
+    let currentDate = new Date()
+    let dueDate = new Date(jsonDS.date)
+    jsonDS.calculated = Math.round((dueDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60* 24))
+    
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(jsonDS))
   })
 }
 
