@@ -3,14 +3,9 @@ const http = require( 'http' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
+      hostname = '127.0.0.1',
       dir  = 'public/',
       port = 3000
-
-const appdata = [
-  { 'name': 'Amber', 'age': 19, 'color': "Red" },
-  { 'name': 'Kaeya', 'age': 27, 'color': "Blue" },
-  { 'name': 'Lisa', 'age': 32, 'color': "Purple" }
-]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -20,30 +15,11 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
-function addEntry(dataString) {
-    dataEntry = JSON.parse(dataString);
-    appdata.push(dataEntry);
-}
-
-function deleteEntry(dataString) {
-    json = JSON.parse(dataString);
-    appdata.splice(json["index"], 1);
-}
-
-function sendUpdate(response) {
-    const type = mime.getType(appdata);
-    response.writeHead(200, { 'Content-Type': type });
-    response.write(JSON.stringify(appdata));
-    response.end();
-}
-
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
     if (request.url === '/') {
         sendFile(response, 'public/index.html')
-    } else if (request.url === '/update') {
-        sendUpdate(response);
     } else {
         sendFile(response, filename);
   }
@@ -57,13 +33,23 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+      const json = JSON.parse(dataString);
+      let poggage = '',
+      age = parseInt(json.age),
+      color = json.color;
 
-      if(request.url === '/add') addEntry(dataString);
-      if(request.url === '/delete') deleteEntry(dataString);
+      if (age <= 15 || age >= 40) {
+          poggage = "No";
+      } else if (color === "Brown" || color === "Yellow" || color === "Orange" || color === "Blue" || color === "Red") {
+          poggage = "A bit";
+      } else {
+          poggage = "Yes";
+      }
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+      json.poggage = poggage;
+
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(json));
   })
 }
 
@@ -76,8 +62,8 @@ const sendFile = function( response, filename ) {
      if( err === null ) {
 
        // status code: https://httpstatuses.com
-       response.writeHeader( 200, { 'Content-Type': type })
-       response.end( content )
+       response.writeHeader( 200, { 'Content-Type': 'text/plain' })
+       response.end( JSON.stringify(json) )
 
      }else{
 

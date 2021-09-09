@@ -48,7 +48,7 @@ label {
     background-color: #8ff2b6;
 }
 
-button {
+.button {
     font-size: 20px;
     padding: 10px;
     padding-left: 20px;
@@ -58,17 +58,31 @@ button {
     border: none;
 }
 
-button:hover {
+.button:hover {
     background: #8ff2b6;
 }
 
-button:active {
+.button:active {
     background: #daf5e4;
 }
 
 table {
-    display: compact;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
     margin-top: 50px;
     background: #419148;
+    gap: 30px;
+}
+
+th {
+    background-color: #b7f7df;
+    padding: 10px 50px;
+}
+
+td {
+    background-color: #d7faed;
+    padding: 10px 50px;
 }
