@@ -9,7 +9,7 @@
 <body>
 <h1> Welcome to my Terrible Library System!</h1>
 <h2> Here is how to input books into the system</h2>
-<form >
+<form>
   <ul class="flex-outer">
     <li>
       <input type="text" id="bookname" placeholder="name of book here" required />
@@ -24,10 +24,7 @@
       <input type="number" id="priority" placeholder="how long checked out" required />
     </li>
     <li>
-      <input type="hidden" id="timestamp" name="timestamp"/>
-    </li>
-    <li>
-      <button id = "submit">submit</button>
+      <button id = "submit">Submit</button>
     </li>
     <li>
       <h3 id="insertconf"></h3>
@@ -38,7 +35,7 @@
 <form>
   <ul class="flex-outer">
     <li>
-      <input type="text" id="pointer" placeholder="index value to remove" title="leave blank to remove index 0">
+      <input type="text" id="pointer" placeholder="index value to remove" title="leave blank to remove index 0" required>
     </li>
     <li>
       <button id = "delete">remove record</button>
