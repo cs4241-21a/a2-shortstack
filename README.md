@@ -95,3 +95,5 @@ Include a very brief summary of your project here. Be sure to include the CSS po
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
+
+Ashwin Pai, typing in the date manually is annoying, table view didn't have clear borders, likes the concept and thinks the percent field could be applied in other ways. Could add "1 week" etc. for expiration date
