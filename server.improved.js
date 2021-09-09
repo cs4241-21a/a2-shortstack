@@ -4,12 +4,11 @@ const http = require( 'http' ),
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
       dir  = 'public/',
-      port = 3000
+      port = 3001
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'streamingServiceItem': 'Disney+', 'subscriptionItem': 'yes', 'nameOfItem': 'Star Wars: The Clone Wars (2008 TV Series)', 'watchAgainItem': 'yes', 'ratingItem': '10', 'recommendItem': 'yes'},
+  { 'streamingServiceItem': 'Disney+', 'subscriptionItem': 'yes', 'nameOfItem': 'Bridge to Terabithia', 'watchAgainItem': 'no', 'ratingItem': '4', 'recommendItem': 'no'}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -41,9 +40,22 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    let parsedInfo = JSON.parse(dataString)
+    let resultant1 = parsedInfo.watchAgainItem;
+    let resultant2 = parsedInfo.recommendItem;
+    
+    
+    
+    if(request.url == '/submit'){
+         if ((resultant1 && resultant2 == "yes") || (resultant1 && resultant2 == "Yes")){ 
+           parsedInfo.theVerdict = "Yes"
+        } else parsedInfo.theVerdict = "No"
+
+      appdata.push(parsedInfo);
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
