@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Stardos+Stencil:wght@400;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="js/scripts.js"></script>
     </head>
@@ -16,7 +16,7 @@
             <h1>Calculator</h1>
         </header>
 
-        <div class="container">
+        <div id="0" class="container">
 
 
             <form action='' id="num_people_container">
@@ -67,63 +67,7 @@
             </form>
 
             <button id = "footer" onclick="submit(this)">Calculate <span class="material-icons"> save_alt </span></button>
-  
-
         </div>
-
-
-
-
-
-
-
-
-        <div id="box" class="saved_container">
-
-            <p id="time_stamp"> Saved on September 8, 2021 at 11:19am </p>
-            
-            <span id = "edit_button" class="material-icons" onclick="edit_mode(this)">
-                edit
-            </span>
-            <form action='' id="num_people_container">
-                <label id = "people_input"> 2 </label>
-                <label> people </label>
-            </form>
-
-            <div id="provided_calculation_1" class="calculation">
-                <p> 20% </p>
-                <p id="20%_value"> $_.__ </p>
-            </div>
-
-            <div id="provided_calculation_2" class="calculation">
-                <p> 17.5% </p>
-                <p id="17.5%_value"> $_.__ </p>
-            </div>
-
-            <div id="provided_calculation_3" class="calculation">
-                <p> 15% </p>
-                <p id="15%_value"> $_.__ </p>
-            </div>
-
-
-            <label id="amount_due"> Amount Due : </label>
-
-            <form action='' id="form_amount_due" class="form_container">
-                <p> $100.00</p>
-            </form>
-
-            <label id="tip">  + Tip : </label>
-
-            <form action='' id="form_tip" class="form_container">
-                <p id="given_amount">$20.00</p>
-            </form>
-
-            
-            <p id="footer"> = Total / Person: </p>
-            <p id="final_calculation"> $0.00 </p>
-            
-        </div>
-        
     </body>
 </html>
 

@@ -72,7 +72,7 @@ function handle_tip(input, blur){
     }
 }
 
-function generateNewForm(delete_container, id){
+function generateNewForm(id){
 
     
 
@@ -259,11 +259,6 @@ function generateNewForm(delete_container, id){
     //Adds everything to the webpage
     document.body.insertBefore(new_saved_container, previously_saved_form);
 
-    
-    if(delete_container !== undefined){
-        delete_container.remove();
-    }
-
     return new_saved_container;
 
 
@@ -280,6 +275,14 @@ function generateNewForm(delete_container, id){
 
 function delete_form(delete_button){
     let container = delete_button.parentElement;
+
+    let id = container.id;
+
+    let json = getAppropriateJSON(id);
+
+    let index = appdata.indexOf(json);
+
+    appdata.pop(index);
     container.remove();
 }
 
@@ -709,12 +712,33 @@ function submit(calculate_button) {
         console.log("json", json);
         appdata = json;
 
-        generateNewForm(undefined, json[json.length - 1].id);
+        generateNewForm(json[json.length - 1].id);
+        if(parent_container.id === "0"){
+            refresh_form();
+        }
+        else{
+            parent_container.remove();
+        }
+        // generateNewForm(undefined, json[json.length - 1].id);
         
         
     })
 
     return false
+}
+
+function refresh_form(){
+    let container = document.getElementById("0");
+
+    container.children[0].children[0].value = 1;
+    container.children[1].children[1].innerHTML = "$_.__";
+    container.children[2].children[1].innerHTML = "$_.__";
+    container.children[3].children[1].innerHTML = "$_.__";
+    container.children[5].children[0].value = "";
+    container.children[6].innerHTML = "+ Tip :";
+    container.children[7].children[0].value = "";
+    // container.children[3].children[1].innerHTML = "$_.__";
+
 }
 
 

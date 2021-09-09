@@ -182,6 +182,9 @@ input {
 }
 
 
+.calculation:hover {
+    cursor: not-allowed;
+}
 
 p {
     width: fit-content;

@@ -51,7 +51,7 @@ const handlePost = function( request, response ) {
 
     let price_per_person = (amount_due + tip) / num_of_people;
 
-    json[json.length - 1]['price_per_person'] = price_per_person.toString();
+    json[json.length - 1]['price_per_person'] = "$" + price_per_person.toFixed(2).toString();
     json[json.length - 1]['id'] = count.toString();
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
