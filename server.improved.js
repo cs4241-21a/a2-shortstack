@@ -36,6 +36,11 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 )
 
+  /**
+   * sendMessages
+   * Basically sends everything from the appdata variable (all the messages stored on the server)
+   * @param response
+   */
   function sendMessages(response) {
     response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
     response.end(JSON.stringify(appdata))
@@ -64,17 +69,25 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    JSON.parse( dataString )
+    const json = JSON.parse( dataString )
     console.log("Received datastring: " + dataString)
-    // const json = JSON.parse(appdata)
-    // json.yourname += " the first!"
 
-    // ... do something with the data here!!!
-    //TODO: work with data here
+
+    //TODO: modify the data
+
+    appdata.push(json)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(appdata))
   })
+}
+
+/**
+ *
+ * @param primaryColor
+ */
+const colorModifier = function (primaryColor){
+
 }
 
 /**
