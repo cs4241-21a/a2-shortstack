@@ -1,3 +1,5 @@
+const { parse } = require('path')
+
 const http = require('http'),
   fs = require('fs'),
   // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -7,8 +9,10 @@ const http = require('http'),
   port = 3000
 
 let appdata = [
-  { 'name': 'GTWFam', 'score': 250 },
-  { 'name': 'Hoang', 'score': 3000 },
+  { 'name': 'Bill', 'score': 50, 'attempt': 1 },
+  { 'name': 'Hoang', 'score': 1270, 'attempt': 2 },
+  { 'name': 'Hoang', 'score': 500, 'attempt': 1 },
+  { 'name': 'Ivan', 'score': 40, 'attempt': 1 },
 ]
 
 const server = http.createServer(function (request, response) {
@@ -33,8 +37,11 @@ const handlePost = function (request, response) {
 
   request.on('data', function (data) {
     console.log(JSON.parse(data));
-    let parsed = JSON.parse(data)
-    appdata.push({ 'name': parsed['playerName'], 'score': parsed['score'] });
+    let parsed = JSON.parse(data);
+    let playerName = parsed['playerName'];
+    let score = parsed['score'];
+    let attempt = appdata.filter(p => p.name === playerName).length + 1
+    appdata.push({ 'name': playerName, 'score': score, 'attempt': attempt });
   })
 
   request.on('end', function () {

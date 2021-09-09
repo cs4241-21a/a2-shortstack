@@ -7,11 +7,14 @@ let data = [];
 const resFunc = async function (response) {
     data = await response.json();
     data.sort((a, b) => (a.score <= b.score) ? 1 : -1);
-    document.getElementById('otherScores').innerText = '';
-    document.getElementById('otherPlayers').innerText = '';
+    let scores = document.getElementById('otherScores');
+    let players = document.getElementById('otherPlayers');
+    players.innerText = '';
+    scores.innerText = '';
+
     data.map(player => {
-        document.getElementById('otherScores').innerText += player['score'] + '\n';
-        document.getElementById('otherPlayers').innerText += player['name'] + '\n';
+        players.innerText += player['name'] + '\n';
+        scores.innerText += player['score'] + " try #" + player['attempt'] + '\n';
     });
 }
 
