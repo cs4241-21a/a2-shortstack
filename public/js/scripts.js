@@ -127,7 +127,6 @@ function generateNewForm(id){
 
 
     let new_people_form = document.createElement("form");
-    new_people_form.setAttribute("action", "");
     new_people_form.setAttribute("id", "num_people_container");
 
     let new_num_people = document.createElement("label");
@@ -207,7 +206,6 @@ function generateNewForm(id){
 
 
     let new_form_amount_due = document.createElement("form");
-    new_form_amount_due.setAttribute("action", "");
     new_form_amount_due.setAttribute("id", "form_amount_due");
     new_form_amount_due.setAttribute("class", "form_container");
 
@@ -230,7 +228,6 @@ function generateNewForm(id){
 
 
     let new_form_tip = document.createElement("form");
-    new_form_tip.setAttribute("action", "");
     new_form_tip.setAttribute("id", "form_tip");
     new_form_tip.setAttribute("class", "form_container");
 
