@@ -1,16 +1,93 @@
-// Add some Javascript code here, to run on the front end.
+let tableEntries = [];
+
+const submit = function(e) {
+  // prevent default form action from being carried out
+  e.preventDefault();
+
+  const car_name = document.querySelector("#carname");
+  const purchase_price = document.querySelector("#purchaseprice");
+  const purchase_year = document.querySelector("#purchaseyear");
+  const repairs = document.querySelector("#repairs");
+  const miles = document.querySelector("#miles");
+
+  json = {
+    car_name: car_name.value,
+    purchase_price: purchase_price.value,
+    purchase_year: purchase_year.value,
+    repairs: repairs.value,
+    miles: miles.value,
+  };
+
+  body = JSON.stringify(json);
+
+  fetch("/submit", {
+    method: "POST",
+    body
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json){
+    tableEntries = [];
+    tableEntries.push(json);
+    renderTable();
+  })
+  return false;
+};
+
+const deleteEntry = function(e) {
+  // prevent default form action from being carried out
+  e.preventDefault();
+
+  // acquire the table entrys that are selected.
+  let table = document.getElementById("car_table")
+  json = getCheckedBox(table);
+  body = JSON.stringify(json);
+  fetch("/deleteEntry" + 0, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json){
+
+    tableEntries[0] = json;
+    renderTable();
+  });
+
+  return false;
+};
+window.onload = function() {
+  if(document.getElementById("car_table").rows.length === 1){
+    document.getElementById("deleteButton").style.visibility = "hidden"
+  }
+  else{
+    document.getElementById("deleteButton").style.visibility = "visible"
+  }
+
+  const button = document.querySelector("button");
+  button.onclick = submit;
+
+  const deleteButton = document.getElementById("deleteButton");
+  deleteButton.onclick = deleteEntry;
+};
+
+/**
+ * clearTable --> removes all rows from the table for re-rendering
+ */
 function clearTable() {
   let table = document.querySelector("table");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 }
 
+/**
+ * renderTable --> renders in the new table based on tableEntries[0]
+ */
 const renderTable = function() {
   let tableIndexCount = 0;
   clearTable();
-  console.log("Now Printing the Contents of tableEntrys");
   for(let i = 0; i < tableEntries[0].length; i++){
-
-    console.log(tableEntries[0][i]);
     let element = tableEntries[0][i];
     let car_name = element.car_name;
     let purchase_price = element.purchase_price;
@@ -62,84 +139,20 @@ const renderTable = function() {
     newTest_cell.appendChild(newTest_text);
 
     tableIndexCount++;
-    window.onload;
+    if(document.getElementById("car_table").rows.length === 1){
+      document.getElementById("deleteButton").style.visibility = "hidden"
+    }
+    else{
+      document.getElementById("deleteButton").style.visibility = "visible"
+    }
   }
 };
-let tableEntries = [];
-const submit = function(e) {
-  // prevent default form action from being carried out
-  e.preventDefault();
 
-  const car_name = document.querySelector("#carname");
-  const purchase_price = document.querySelector("#purchaseprice");
-  const purchase_year = document.querySelector("#purchaseyear");
-  const repairs = document.querySelector("#repairs");
-  const miles = document.querySelector("#miles");
-
-  json = {
-    car_name: car_name.value,
-    purchase_price: purchase_price.value,
-    purchase_year: purchase_year.value,
-    repairs: repairs.value,
-    miles: miles.value,
-  };
-
-  body = JSON.stringify(json);
-
-  fetch("/submit", {
-    method: "POST",
-    body
-  }).then(function(response) {
-    return response.json();
-  }).then(function(json){
-    tableEntries = [];
-    tableEntries.push(json);
-    renderTable();
-  })
-  return false;
-};
-
-const deleteEntry = function(e) {
-  // prevent default form action from being carried out
-  e.preventDefault();
-
-
-
-  // acquire the table entrys that are selected.
-  let table = document.getElementById("car_table")
-  json = getCheckedBox(table)
-  console.log("Returning from checkedBox");
-  console.log(json);
-
-  body = JSON.stringify(json);
-  console.log(body);
-  fetch("/deleteEntry" + 0, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body
-  }).then(function(response) {
-    console.log(response.json);
-    return response.json();
-  }).then(function(json){
-
-    console.log("JSON Response from server");
-    tableEntries[0] = json;
-    console.log(tableEntries[0]);
-    renderTable();
-  });
-
-  return false;
-};
-window.onload = function() {
-  const button = document.querySelector("button");
-  button.onclick = submit;
-
-  const deleteButton = document.getElementById("deleteButton");
-  deleteButton.onclick = deleteEntry;
-};
+/**
+ * getCheckedBox gets the index of the row that the user would like to delete.
+ * @param table
+ * @returns {number}
+ */
 function getCheckedBox(table) {
   for (let i = 1, row; (row = table.rows[i]); i++) {
     //iterate through rows
