@@ -13,9 +13,9 @@ const http = require( 'http' ),
 //]
 
 const appdata = [
-  { "foodname": "apple", "foodcategory": "fruit", "foodquantity": 3, "expirationdate": new Date("2021-09-22"), "percentofcategory": 100},
-  { "foodname": "onion", "foodcategory": "vegetable", "foodquantity": 1, "expirationdate": new Date("2021-09-24"), "percentofcategory": 100},
-  { "foodname": "bread", "foodcategory": "grain", "foodquantity": 4, "expirationdate": new Date("2021-09-19"), "percentofcategory": 100}
+  // { "foodname": "apple", "foodcategory": "fruit", "foodquantity": 3, "expirationdate": new Date("2021-09-22"), "percentofcategory": 100},
+  // { "foodname": "onion", "foodcategory": "vegetable", "foodquantity": 1, "expirationdate": new Date("2021-09-24"), "percentofcategory": 100},
+  // { "foodname": "bread", "foodcategory": "grain", "foodquantity": 4, "expirationdate": new Date("2021-09-19"), "percentofcategory": 100}
 ]
 
 const server = http.createServer( function( request,response ) {

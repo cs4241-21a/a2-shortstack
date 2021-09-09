@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "food_inventory_manager",
+  "version": "1.0.0",
+  "description": "A way to add and remove simple food data to and from a table.",
+  "author": "Alan Healy",
   "scripts": {
     "start": "node server.improved.js"
   },
