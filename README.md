@@ -1,4 +1,5 @@
 Matt Johannesen (m-d-jo) - A2 Short Stack - CS 4241
+View site at https://a2-m-d-jo.glitch.me/
 
 ## The Pit
 This is a very rudimentary game, where the player creates a fighter to enter "The Pit".  The form provides the server with a few variables (an elemental Strength and a "balance" level), then the server generates more data from that (an elemental Weakness and separate Power/Agility numbers based on the "balance"). After getting set up, the server runs a 10-turn battle between the new fighter and a random opponent from the Roster table - when they're done, the results get posted.
