@@ -38,13 +38,14 @@
         <th>Best Dining Hall?</th>
         <th>Favorite Spot?</th>
         <th>Additional Notes</th>
+        <th>Change Data</th>
       </tr>
     </table>
 
     <h3 class='centerText'>Add A Rating:</h3>
 
     <div id='addRating' class='addRating centerText autoMargin'>
-      <form action="">
+      <form onSubmit="return false;" action="">
         <label for='name'>What is your name?</label>
         <input type='text' id='name' value="">
       </form>
@@ -91,12 +92,12 @@
 
       <br>
 
-      <form action="">
+      <form onSubmit="return false;" action="">
         <label for='favoriteSpot'>What is your favorite spot on campus?</label>
         <input type='text' id='favoriteSpot' value="">
       </form>
 
-      <form action="">
+      <form onSubmit="return false;" action="">
         <label for='notes'>Do you have any additional notes?</label>
         <input type='text' id='notes' value="">
       </form>

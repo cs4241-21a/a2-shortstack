@@ -1,23 +1,30 @@
 let numberOfElements = 1;
+let seal = false;
 
 function stepOnSeal() {
-    alert("You stepped on the seal! All students now graduate 1 year later than expected!");
-
-    updateTable(true);
-
+    seal = true;
+    let table = document.getElementById("ratings");
+    table.rows[0].cells[3].innerHTML = "<th>Years Till Graduation (Seal Stepped!)</th>"
+    updateTable();
+    alert("You stepped on the seal! All students now graduate 1 year later than their expected graduation year until the next reload!\n\nFirst-Years:     4 --> 5 years\nSophomores: 3 --> 4 years\nJuniors:          2 --> 3 years\nSeniors:         1 --> 2 years");
 }
 
-function updateTable(incrementGradYear) {
+function updateTable() {
     let table = document.getElementById("ratings");
-    
+    if (seal) {
+        table.innerHTML = '<tr><th>Response ID</th><th>Name</th><th>Academic Year</th><th>Years Till Graduation (Seal Stepped!)</th><th>Best Dorm?</th><th>Best Dining Hall?</th><th>Favorite Spot?</th><th>Additional Notes</th><th>Change Data</th></tr>';
+    } else {
+        table.innerHTML = '<tr><th>Response ID</th><th>Name</th><th>Academic Year</th><th>Years Till Graduation</th><th>Best Dorm?</th><th>Best Dining Hall?</th><th>Favorite Spot?</th><th>Additional Notes</th><th>Change Data</th></tr>';
+    }
     fetch('/getData', {
         method: 'GET'
     })
-    .then(response => response.json)
+    .then(response => response.json())
     .then(function(json) {
-        for (let rowData of Object.keys(json)) {
-            alert(rowData);
-            numberOfElements = json[rowData].responseID;
+        console.log(json);
+        let rowIndex = 0;
+        for (let rowData of json) {
+            numberOfElements = rowData.responseID;
             let row = table.insertRow(-1);
 
             let responseID = row.insertCell(0);
@@ -28,23 +35,28 @@ function updateTable(incrementGradYear) {
             let favoriteDining = row.insertCell(5);
             let favoriteSpot = row.insertCell(6);
             let notes = row.insertCell(7);
+            let modify = row.insertCell(8);
 
-            row.cells[0].innerHTML = json[rowData].responseID;
-            row.cells[1].innerHTML = json[rowData].name;
-            row.cells[2].innerHTML = json[rowData].studentYear;
-            row.cells[3].innerHTML = json[rowData].yearsRemaining + sealIncrement(json[rowData].studentYear, incrementGradYear);
-            row.cells[4].innerHTML = json[rowData].favoriteDorm;
-            row.cells[5].innerHTML = json[rowData].favoriteDining;
-            row.cells[6].innerHTML = json[rowData].favoriteSpot;
-            row.cells[7].innerHTML = json[rowData].notes;
+            row.cells[0].innerHTML = rowData.responseID;
+            row.cells[1].innerHTML = rowData.name;
+            row.cells[2].innerHTML = rowData.studentYear;
+            row.cells[3].innerHTML = rowData.yearsRemaining + sealIncrement(rowData.studentYear);
+            row.cells[4].innerHTML = rowData.favoriteDorm;
+            row.cells[5].innerHTML = rowData.favoriteDining;
+            row.cells[6].innerHTML = rowData.favoriteSpot;
+            row.cells[7].innerHTML = rowData.notes;
+
+            row.cells[8].innerHTML = "<button class='deleteButton' onclick='deleteRow(" + rowIndex + ")'>Delete!</button>"
+
+            rowIndex++;
         }
     })
 }
 
-function sealIncrement(studentYear, incrementGradYear) {
-    let increment = 0;
+function sealIncrement(studentYear) {
+    let increment = '';
 
-    if (incrementGradYear) {
+    if (seal) {
         switch (studentYear) {
             case 'First-Year':
                 increment = 1;
@@ -73,8 +85,6 @@ function sealIncrement(studentYear, incrementGradYear) {
 const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault();
-
-    numberOfElements++;
   
     /*const input = document.querySelector( '#name' ),
          json = { yourname: input.value },
@@ -91,26 +101,27 @@ const submit = function( e ) {
         alert("To obtain accurate data, please be sure to respond to every question (except for additional notes)!")
         return false;
     } else {
+        numberOfElements++;
+        
         const jsonData = {
             responseID: numberOfElements,
             name: name,
             studentYear: studentYear,
-            yearsRemaining: getYearsRemaining(studentYear),
             favoriteDorm: favoriteDorm,
             favoriteDining: favoriteDining,
             favoriteSpot: favoriteSpot,
             notes: notes
         }
 
-        const body = JSON.stringify(jsonData);
+        let body = JSON.stringify(jsonData);
   
         fetch( '/submit', {
          method:'POST',
          body 
         })
         .then( function( response ) {
-           updateTable(false);
-           clearForm();
+            updateTable();
+            clearForm();
         })
   
         return true;
@@ -126,35 +137,27 @@ function clearForm() {
     document.getElementById('notes').value = '';
 }
 
-function getYearsRemaining(studentYear) {
-    let years = -1;
-    
-    switch (studentYear) {
-        case 'First-Year':
-            years = 4;
-            break;
-        case 'Sophomore':
-            years = 3;
-            break;
-        case 'Junior':
-            years = 2;
-            break;
-        case 'Senior':
-            years = 1;
-            break;
-        case 'Graduate Student':
-            years = '∞';
-            break;
-        default:
-            years = 'N/A';
-            break; 
+function deleteRow(rowIndex) {
+    let confirmDelete = confirm("Are you sure you'd like to delete this row?");
+    if (confirmDelete) {
+        const json = {
+            deletingItem: rowIndex
+        }
+
+        let body = JSON.stringify(json);
+        fetch('/delete', {
+            method: 'POST',
+            body
+        })
+        .then( function() {
+            updateTable();
+        })
     }
-    return years;
 }
   
 window.onload = function() {
     const button = document.querySelector( 'button' );
     button.onclick = submit;
 
-    updateTable(false);
+    updateTable();
 }
