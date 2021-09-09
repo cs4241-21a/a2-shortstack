@@ -1,1 +1,61 @@
 /*Style your own assignment! This is fun! */
+body {
+  font-family: Montserrat, sans-serif;
+  text-align: center;
+  background-color: #379683;
+  color: #EDF5E1;
+}
+
+table {
+  text-align: left;
+  background-color: #5CDB95;
+  border-radius: 15px;
+  padding: 2em;
+  color: black;
+}
+
+input[type=text] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+
+button {
+  transition-duration: 0.4s;
+  padding: 1em;
+  border-radius: 15px;
+  border-color: transparent;
+}
+
+button:hover {
+  background-color: #05386B; /* Green */
+  color: white;
+}
+
+.inputData {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.description {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 3em;
+  width: 40em;
+  display: inline-block;
+}
+
+.grid-container {
+  display: inline-grid;
+}
+
+#submitButton {
+  text-align: right;
+}
+
+#heldData {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #05386B;
+  color: white;
+}
