@@ -46,7 +46,7 @@ window.onload = function () {
 }
 
 function getDept(code) {
-    tag = code.slice(0, 2 + isNaN(code[2]))
+    tag = code.slice(0, 2 + isNaN(code[2]) + isNaN(code[3]))
     switch (tag) {
         case 'AE': return 'Aerospace Engineering'; break;
         case 'BB': return 'Biology'; break;
@@ -79,7 +79,7 @@ function getDept(code) {
         case 'PW':
         case 'PWR': return 'Professional Writing'; break;
         case 'RBE': return 'Robotics Engineering'; break;
-        case 'SSPS': return 'ocial Science and Policy Studies'; break;
+        case 'SSPS': return 'Social Science and Policy Studies'; break;
         default: return 'Unknown'
     }
 }
