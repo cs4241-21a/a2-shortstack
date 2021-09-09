@@ -14,9 +14,11 @@ const appdata = [
 
 let logins = [
   { "username": "loren", "balance": 5000, "wins": 20, "losses": 15, "netProfit": 500, "initialBalance": 4500},
-  { "username": "harrison", "balance": 150, "wins": 3, "losses": 11, "netProfit": -400, "initialBalance": 550 },
+  { "username": "harrison", "balance": 5500, "wins": 10, "losses": 1, "netProfit": 5000, "initialBalance": 500 },
   { "username": "jake", "balance": 2000, "wins": 3, "losses": 3, "netProfit": 0, "initialBalance": 2000 },
   { "username": "gas", "balance": 1340, "wins": 200, "losses": 235, "netProfit": -150, "initialBalance": 1490 },
+  { "username": "professor", "balance": 6450, "wins": 1340, "losses": 3, "netProfit": 6250, "initialBalance": 200 },
+  { "username": "patriot", "balance": 1202, "wins": 47, "losses": 49, "netProfit": -48, "initialBalance": 1250 },
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -28,7 +30,6 @@ const server = http.createServer( function( request,response ) {
 })
 
 const handleGet = function( request, response ) {
-  console.log("get")
   const filename = dir + request.url.slice( 1 ) 
 
   if( request.url === '/' ) {

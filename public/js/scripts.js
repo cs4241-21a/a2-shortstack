@@ -4,7 +4,6 @@ window.onload = function() {
 }
 
 const submit = function( e ) {
-  console.log("nice")
   // prevent default form action from being carried out
   e.preventDefault()
 
@@ -18,6 +17,8 @@ const submit = function( e ) {
   if (!wins.value) { wins.value = "none" }
   if (!losses.value) { losses.value = "none" }
   if (!initialBalance.value) { initialBalance.value = "none" }
+  const user = username.value
+  const bal = balance.value
 
   const json = { username: username.value, balance: balance.value, wins: wins.value, 
                 losses: losses.value, initialBalance: initialBalance.value },
@@ -32,10 +33,12 @@ const submit = function( e ) {
     return response.json()
   })
   .then( function( json ) {
-    console.log( json )
     let newJson = sortByBalance(json)
     deleteTable()
     createTable(newJson)
+    if (loggedIn && currentUser === user) {
+      updateWallet(parseInt(parseInt(bal)))
+    }
   })
 
   return false
@@ -54,9 +57,7 @@ function signIn() {
     return response.json()
   })
   .then( function( json ) {
-    console.log( json )
     if (json.username === input.value) {
-      console.log("Success")
       loginUser(json)
     }
   })
@@ -67,7 +68,6 @@ function signIn() {
 function updateAccount(username, bet, win) {
   const json = { "username": username, "bet": bet, "win": win },
         body = JSON.stringify( json )
-  console.log(username)
 
   fetch( '/updateAccount', {
     method:'POST',
@@ -78,7 +78,6 @@ function updateAccount(username, bet, win) {
     return response.json()
   })
   .then( function( json ) {
-    console.log( json )
     let newJson = sortByBalance(json)
     deleteTable()
     createTable(newJson)
@@ -88,7 +87,6 @@ function updateAccount(username, bet, win) {
 function refreshTable() {
   const json = { "test": 1 }
   body = JSON.stringify( json )
-  console.log("refresh")
 
   fetch( '/refreshTable', {
     method:'POST',
@@ -118,12 +116,12 @@ function refreshTable() {
 refreshTable()
 console.log("Welcome to assignment 2!")
 
-const suits = ["spades", "diamonds", "clubs", "hearts"]
+const suits = ["spades", "diams", "clubs", "hearts"]
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 let currentHand = 0
 let currentDealerHand = 0
 let previousCards = ""
-const CARD = 0, VALUE = 1
+const SUIT = 0, VALUE = 1
 let playingState = "Waiting"
 let wallet = 1000;
 let currentBet = 10;
@@ -153,34 +151,34 @@ function playHand() {
 }
 
 function dealCards() {
+  deleteCards()
   let firstCard = randomCard()
+  addCard("player", firstCard[VALUE], firstCard[SUIT])
   let secondCard = randomCard()
-  currentHand += firstCard[VALUE] + secondCard[VALUE]
+  addCard("player", secondCard[VALUE], secondCard[SUIT])
+  currentHand += getCardValue(firstCard[VALUE]) + getCardValue(secondCard[VALUE])
   document.getElementById("curValue").innerText = "Current Hand: " + currentHand
   let firstDealerCard = randomCard()
-  currentDealerHand = firstDealerCard[VALUE]
+  addCard("dealer", firstDealerCard[VALUE], firstDealerCard[SUIT])
+  currentDealerHand = getCardValue(firstDealerCard[VALUE])
   document.getElementById("dealerHand").innerText = "Dealer's Hand: " + currentDealerHand
 }
 
 function randomCard() {
   let randomCard = values[Math.floor(Math.random() * 13)]
-  let newCard = [randomCard, getCardValue(randomCard)]
-  // let randomSuit = Math.floor(Math.random() * 4)
+  let randomSuit = getSuitValue(Math.floor(Math.random() * 4))
+  let newCard = [randomSuit, randomCard]
   return newCard
 }
 
 function invisibleButtons() {
-  document.getElementById("hit").style.backgroundColor = "transparent"
-  document.getElementById("hit").style.color = "transparent"
-  document.getElementById("stand").style.backgroundColor = "transparent"
-  document.getElementById("stand").style.color = "transparent"
+  document.getElementById("hit").style.visibility = "hidden"
+  document.getElementById("stand").style.visibility = "hidden"
 }
 
 function visibleButtons() {
-  document.getElementById("hit").style.backgroundColor = "blue";
-  document.getElementById("hit").style.color = "black"
-  document.getElementById("stand").style.backgroundColor = "blue";
-  document.getElementById("stand").style.color = "black"
+  document.getElementById("hit").style.visibility = "visible"
+  document.getElementById("stand").style.visibility = "visible"
 }
 
 function getCardValue(card) {
@@ -198,10 +196,15 @@ function getCardValue(card) {
   }
 }
 
+function getSuitValue(card) {
+      return suits[card]
+}
+
 function hit() {
   if (playingState == "PlayerChoice") {
     let newCard = randomCard()
-    currentHand += newCard[VALUE]
+    addCard("player", newCard[VALUE], newCard[SUIT])
+    currentHand += getCardValue(newCard[VALUE])
     document.getElementById("curValue").innerText = "Current Hand: " + currentHand
     if (currentHand > 21) {
       document.getElementById("curValue").style.color = "red"
@@ -220,10 +223,12 @@ function stand() {
 
 function dealerCards() {
   let secondCard = randomCard()
-  currentDealerHand += secondCard[VALUE]
+  addCard("dealer", secondCard[VALUE], secondCard[SUIT])
+  currentDealerHand += getCardValue(secondCard[VALUE])
   while (currentDealerHand < 17) {
     let thirdCard = randomCard()
-    currentDealerHand += thirdCard[VALUE]
+    addCard("dealer", thirdCard[VALUE], thirdCard[SUIT])
+    currentDealerHand += getCardValue(thirdCard[VALUE])
   }
   document.getElementById("dealerHand").innerText = "Dealer's Hand: " + currentDealerHand
   if (currentDealerHand > 21) {
@@ -251,7 +256,7 @@ function updateWallet(amount) {
 
 function win() {
   document.getElementById("gameStatus").innerText = "WIN"
-  document.getElementById("gameStatus").style.color = "green"
+  document.getElementById("gameStatus").style.color = "#90fc03"
   addToWallet(currentBet)
   playingState = "GameOver"
   if (loggedIn) {
@@ -282,7 +287,7 @@ function loginUser(user) {
   document.getElementById("signOutButton").style.visibility = "visible"
   initialize()
   loggedIn = true
-  currentUser = user
+  currentUser = user.username
 }
 
 function logoutUser() {
@@ -362,4 +367,36 @@ function colorRow(row, index) {
     row.style.backgroundColor = "#CD7F32"
   }
   return row
+}
+
+function deleteCards() {
+  const playerCards = document.getElementById("playerCards")
+  const dealerCards = document.getElementById("dealerCards")
+  while (playerCards.firstChild) {
+    playerCards.removeChild(playerCards.lastChild)
+  }
+  while (dealerCards.firstChild) {
+    dealerCards.removeChild(dealerCards.lastChild)
+  }
+}
+
+function addCard(player, value, suit) {
+  if (player === "player") {
+    side = document.getElementById("playerCards")
+  }
+  else if (player === "dealer") {
+    side = document.getElementById("dealerCards")
+  }
+  else { return }
+  let divClass = document.createElement("div")
+  let spanRank = document.createElement("span")
+  let spanSuit = document.createElement("span")
+  divClass.setAttribute("class", "card rank-7 " + suit)
+  side.appendChild(divClass)
+  spanRank.setAttribute("class", "rank")
+  spanSuit.setAttribute("class", "suit")
+  spanRank.innerText = value
+  spanSuit.innerHTML = "&" + suit + ";"
+  divClass.appendChild(spanRank)
+  divClass.appendChild(spanSuit)
 }

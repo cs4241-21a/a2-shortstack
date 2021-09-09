@@ -14,16 +14,42 @@
       <button id="signOutButton" onclick="logoutUser()">SIGN OUT</button>
     </div>
     <h1 id="blackjack">BLACKJACK</h1>
+    <h3 id="gameStatus">WAITING</h3>
     <div id="hands">
       <h2 id="curValue">Current Hand: 0</h2>
       <h2 id="dealerHand">Dealer's Hand: 0</h2>
     </div>
-    <h3 id="wallet">Wallet: 1000</h3>
-    <h3 id="gameStatus">WAITING</h3>
-    <input type="text" id="bet" placeholder="wager">
-    <button id="play" onclick="submitBet()">PLAY</button>
-    <button id="hit" class="gameActions" onclick="hit()">HIT</button>
-    <button id="stand" class="gameActions" onclick="stand()">STAND</button>
+    <div id="cards">
+      <div id="playerCards" class="playingCards fourColours faceImages simpleCards inText rotateHand">
+        <div class="card rank-7 spades">
+          <span class="rank">A</span>
+          <span class="suit">&spades;</span>
+        </div>
+        <div class="card rank-7 diams">
+          <span class="rank">A</span>
+          <span class="suit">&spades;</span>
+        </div>
+      </div>
+      <div id="dealerCards" class="playingCards fourColours faceImages simpleCards inText rotateHand">
+        <div class="card rank-7 clubs">
+          <span class="rank">A</span>
+          <span class="suit">&spades;</span>
+        </div>
+        <div class="card rank-7 hearts">
+          <span class="rank">A</span>
+          <span class="suit">&spades;</span>
+        </div>
+      </div>
+    </div>
+    <div id="gameActions" class="invisible">
+      <button id="hit" class="gameActions" onclick="hit()">HIT</button>
+      <button id="stand" class="gameActions" onclick="stand()">STAND</button>
+    </div>
+    <div id="betting">
+      <input type="text" id="bet" placeholder="wager">
+      <button id="play" onclick="submitBet()">PLAY</button>
+      <h3 id="wallet">Wallet: 1000</h3>
+    </div>
     <div id="bottom-container">
       <div id="leaderboard">
         <h1 id="leaderboard-title">Leaderboard</h1>
@@ -95,6 +121,7 @@
     </div>
   </body>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/cards.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">

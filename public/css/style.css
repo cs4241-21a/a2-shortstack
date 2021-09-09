@@ -9,22 +9,25 @@ button {
     width: 8em;
     height: 2em;
 }
+button:hover {
+    background-color: rgb(184, 0, 0);
+}
+button:active {
+    color: white;
+}
 .gameActions {
-    color: transparent;
-    background-color: transparent;
+    visibility: hidden;
+    width: 5em;
+    height: 1.5em;
+    font-size: 2em;
+}
+.gameActions:hover {
+    background-color: rgb(184, 0, 0);
 }
 #signOutButton {
     visibility: hidden;
     margin: 1em
 }
-/* h1,h2,h3,h4,h5,h6,p,input,button,table,input,label {
-    display: flex;
-    justify-content: center;
-} */
-/* input {
-    display: block;
-    margin: auto;
-} */
 #bottom-container {
     display: flex;
     justify-content: center;
@@ -72,4 +75,39 @@ table {
 }
 body {
     background-image: linear-gradient(rgb(8, 94, 0), rgb(0, 156, 0))
+}
+#cards {
+    display: flex;
+    justify-content: space-between;
+}
+#dealerCards {
+    width: 50%;
+}
+#gameActions {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 35%;
+    margin-right: 35%;
+}
+#gameStatus {
+    margin: 0;
+    text-align: center;
+    font-size: 2em;
+}
+#loginButton {
+    margin-left: 0.5em;
+}
+#betting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#wallet {
+    margin-left: 1em;
+}
+#play {
+    margin-left: 0.5em;
+}
+input {
+    border: 0;
 }
