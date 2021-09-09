@@ -49,7 +49,7 @@ const handlePost = function( request, response ) {
       json.poggage = poggage;
 
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(json));
+      response.end();
   })
 }
 
@@ -63,7 +63,7 @@ const sendFile = function( response, filename ) {
 
        // status code: https://httpstatuses.com
        response.writeHeader( 200, { 'Content-Type': 'text/plain' })
-       response.end( JSON.stringify(json) )
+       response.end()
 
      }else{
 
