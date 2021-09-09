@@ -1,1 +1,78 @@
 /*Style your own assignment! This is fun! */
+
+/*ADD A FONT */
+
+body {
+  font-family: "Noto Sans";
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex-container > p {
+  text-align: center;
+  width: 75%;
+  align-self: center;
+}
+
+.fvalue {
+  height: 50px;
+  width: 300px;
+  font-size: 25px;
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}
+
+.foperator {
+  height: 50px;
+  width: 20px;
+  font-size: 25px;
+  text-align: center;
+}
+
+#titles {
+  width: 50%;
+  align-self: center;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+  margin: 10px;
+}
+
+#computeform {
+  flex-direction: row;
+  width: 75%;
+  align-self: center;
+}
+
+#notesandconvert {
+  flex-direction: row;
+  align-self: center;
+  width: 70%;
+  margin-top: 40px;
+}
+
+#notesandconvert > div {
+  width: 35%;
+  margin: 20px;
+}
+
+#warning {
+  color: red;
+  font-weight: bold;
+}
+
+table {
+  width: 80%;
+  align-self: center;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
