@@ -103,13 +103,8 @@ const handlePost = function( request, response ) {
       appdata[i] = JSON.stringify(aline)
     }
 
-    // ... do something with the data here!!!
-
-    console.log( appdata)
-
-
     response.writeHead( 200, "OK", {'appdata': appdata })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
