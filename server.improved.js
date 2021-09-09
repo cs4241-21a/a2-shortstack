@@ -6,10 +6,15 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+// json
 const appdata = [
   { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
   { 'model': 'honda', 'year': 2004, 'mpg': 30 },
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+]
+
+var serverData = [
+  { 'name': 'Jimmy', 'savings': 100, 'cost': 5, 'balance': 95},
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -34,16 +39,32 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
+      dataString += data
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
+    // for add data
+    if (dataString.indexOf(',') > -1){
+      const javaObject = JSON.parse( dataString )
+      serverData.push({name: javaObject.name, savings: javaObject.savings, cost: javaObject.cost, balance: (javaObject.savings-javaObject.cost)})
+    }
+    // for delete data
+    else{
+      const javaObject = JSON.parse( dataString )
+      var tempData = []
+      for(let i = 0; i < serverData.length; i++){
+        const thing = serverData[i]
+        if(thing.name != javaObject.name){
+          tempData.push(serverData[i])
+        }
+      }
+      if(tempData != []){
+        serverData = tempData
+      }
+    }
+    // send back response
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(serverData))
   })
 }
 
