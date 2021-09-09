@@ -53,6 +53,10 @@ const handleGet = function( request, response ) {
     sendFile( response, 'public/resources/background.jpeg')
   } else if ( request.url === '/resources/logo.jpeg') {
     sendFile( response, 'public/resources/logo.jpeg')
+  } else if ( request.url === '/resources/modify.png') {
+    sendFile( response, 'public/resources/modify.png')
+  } else if ( request.url === '/resources/delete.png') {
+    sendFile( response, 'public/resources/delete.png')
   } else{
     sendAppData( response )
   }

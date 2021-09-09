@@ -26,6 +26,22 @@ body {
     
 }
 
+.modifyButtons {
+    background-image: url('../resources/modify.png');
+    background-size: 20px 20px;
+    height: 20px;
+    width: 20px;
+    display: block;
+}
+
+.deleteButtons {
+    background-image: url('../resources/delete.png');
+    background-size: 20px 20px;
+    height: 20px;
+    width: 20px;
+    display: block;
+}
+
 #logo {
     width: 300px;
     height: 300px;

@@ -45,8 +45,8 @@ tableData = []
         '<td id=\'dateJoined'+ object.id + '\'>' + object.dateJoined + '</td>' +
         '<td id=\'membershipType'+ object.id + '\'>' + object.membershipType + '</td>' +
         '<td id=\'expireDate'+ object.id + '\'>' + object.expireDate + '</td>' +
-        '<i class="glyphicon glyphicon-edit" onClick=\'modifyInputBoxes(' + object.id + ')\'> </i>'+
-        '<i class="glyphicon glyphicon-remove" onClick=\'deleteEntry(' + object.id + ')\'> </i>'
+        '<td> <span class=\'modifyButtons\' onClick=\'modifyInputBoxes(' + object.id + ')\'> </span> </td>'+
+        '<td> <span class=\'deleteButtons\' onClick=\'deleteEntry(' + object.id + ')\'> </span> </td>'
         ; 
          new_tbody.appendChild(tr);
         
