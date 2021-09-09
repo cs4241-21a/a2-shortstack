@@ -60,7 +60,7 @@ const updatePage = function() {
       serverData.map(function(row) {
         let pencil = createNode("i");
         pencil.id = `pencil${rowNum}`;
-        pencil.innerHTML =  "<img src=\'https://cdn.glitch.com/8f4da487-6973-4029-9294-3a9b03bac40d%2Fthumbnails%2Fsaas-content-marketing-green.png?1631187318027' width=\'50px\' height=\'40px\'>";
+        pencil.innerHTML =  "<img src=\'https://cdn.glitch.com/511c05de-bd0a-4d03-8457-593d610c8123%2Fthumbnails%2Fsaas-content-marketing-green.png?1631193082927' width=\'50px\' height=\'40px\'>";
         pencil.onclick = function(elt) {
           editRow(pencil, row);
           elt.preventDefault();
@@ -68,7 +68,7 @@ const updatePage = function() {
         };
         let deleteIcon = createNode("i");
         deleteIcon.id = `cross${rowNum}`;
-        deleteIcon.innerHTML = "<img src=\'https://cdn.glitch.com/8f4da487-6973-4029-9294-3a9b03bac40d%2Fthumbnails%2Fdelete-icon-14.jpg?1631186667591' width=\'40px\' height=\'40px\'>";
+        deleteIcon.innerHTML = "<img src=\'https://cdn.glitch.com/511c05de-bd0a-4d03-8457-593d610c8123%2Fthumbnails%2Fdelete-icon-14.jpg?1631193069518' width=\'40px\' height=\'40px\'>";
         deleteIcon.onclick = function(elt) {
           let body = deleteIcon.id;
           fetch("/delete", {
