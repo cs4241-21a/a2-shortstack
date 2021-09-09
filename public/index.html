@@ -3,6 +3,7 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Libraries -->
     <script src="https://unpkg.com/vue@next"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -12,32 +13,33 @@
     <div id="app">
       <div id="header">
         <h1>Eat</h1>
+        <br>
       </div>
-      <br>
       <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <form action="" class="row">
-              <div class="col-12 input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Name</span>
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-              </div>
-              <div class="col-6">
-                <h3>Score: {{score}}</h3>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-primary w-100">submit</button>
-              </div>
-            </form>
-            <hr>
+        <div id="sidebar">
+          <div class="row">
+            <div class="col-12 input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Name</span>
+              <input v-model="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="col-6">
+              <h4>Score: {{score}}</h4>
+            </div>
+            <div class="col-6">
+              <button v-on:click="submitScore" :disabled="username.length === 0" class="btn btn-primary w-100">Submit</button>
+            </div>
+          </div>
+          <hr>
+          <div v-if="scores.length > 0">
             <h4>Live Scores</h4>
             <ul class="list-group">
-              <li v-for="result in results" class="list-group-item"><b>{{result.name}}</b>: {{result.score}}</li>
+              <li v-for="score in scores" :key="score.username" class="list-group-item"><b>{{score.username}}</b>: {{score.score}}</li>
             </ul>
+            <br>
           </div>
-          <div class="col-md-8">
-            <canvas id="canvas" width="640" height="640"></canvas>
-          </div>
+        </div>
+        <div id="game">
+          <canvas id="canvas" width="480" height="480"></canvas>
         </div>
       </div>
     </div>

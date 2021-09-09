@@ -5,7 +5,9 @@ const mime = require('mime')
 const DIR = 'public/'
 const PORT = 3000
 
-const server = http.createServer(function(request,response) {
+const scores = {'Liam': 26}
+
+const server = http.createServer(function(request, response) {
   if (request.method === 'GET') {
     handleGet(request, response)    
   } else if (request.method === 'POST'){
@@ -18,7 +20,10 @@ const handleGet = function(request, response) {
 
   if (request.url === '/') {
     sendFile(response, 'public/index.html')
-  } else {
+  } else if (request.url === '/scores') {
+    response.writeHead(200, "OK", {'Content-Type': 'application/json' })
+    response.end(JSON.stringify(scores))
+  } else if (request.url !== '/?') {
     sendFile(response, filename)
   }
 }
@@ -31,34 +36,29 @@ const handlePost = function(request, response) {
   })
 
   request.on('end', function() {
-    console.log(JSON.parse(dataString))
+    let data = JSON.parse(dataString)
 
-    // ... do something with the data here!!!
+    if (scores[data.username]) {
+      scores[data.username] += data.score
+    } else {
+      scores[data.username] = data.score
+    }
 
-    response.writeHead(200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.writeHead(200, "OK", {'Content-Type': 'application/json' })
+    response.end(JSON.stringify(scores))
   })
 }
 
 const sendFile = function(response, filename) {
   const type = mime.getType(filename) 
-
   fs.readFile(filename, function(err, content) {
-
-  // if the error = null, then we've loaded the file successfully
-  if(err === null) {
-
-    // status code: https://httpstatuses.com
-    response.writeHeader(200, { 'Content-Type': type })
-    response.end(content)
-
-  }else{
-
-    // file not found, error code 404
-    response.writeHeader(404)
-    response.end('404 Error: File Not Found')
-
-  }
+    if (err === null) {
+      response.writeHeader(200, { 'Content-Type': type })
+      response.end(content)
+    } else {
+      response.writeHeader(404)
+      response.end('404 Error: File Not Found')
+    }
   })
 }
 

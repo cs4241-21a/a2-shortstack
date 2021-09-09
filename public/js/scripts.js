@@ -8,11 +8,11 @@ const FOOD_COLOR = '#7FB285'
 const MAX_X = 8
 const MAX_Y = 8
 
-const CANVAS_X = 640
-const CANVAS_Y = 640
+const CANVAS_X = 480
+const CANVAS_Y = 480
 const SCALE = 1 //window.devicePixelRatio
 
-const OBJECT_SIZE = 80
+const OBJECT_SIZE = 60
 
 function randomCoords() {
   return [Math.floor(Math.random() * MAX_X), Math.floor(Math.random() * MAX_Y)]
@@ -46,11 +46,19 @@ const app = Vue.createApp({
         user: [],
         food: [],
       },
+      username: '',
       score: 0,
       intervalID: 0,
-      results: [
-        { name: 'Liam', score: 13 },
-      ]
+      results: {}
+    }
+  },
+  computed: {
+    scores() {
+      let scores = []
+      Object.keys(this.results).forEach(key => {
+        scores.push({username: key, score: this.results[key]})
+      })
+      return scores.sort((a, b) => b.score - a.score)
     }
   },
   mounted: function() {
@@ -89,8 +97,22 @@ const app = Vue.createApp({
       }
       render(ctx, this.game.user, this.game.food)
     }, 50)
+
+    this.getScores()
   },
   methods: {
+    async getScores() {
+      let response = await fetch('/scores', {method: 'GET'})
+      this.results = await response.json()
+    },
+    async submitScore() {
+      let response = await fetch('/scores', {
+        method: 'POST',
+        body: JSON.stringify({username, score} = this)
+      })
+      this.results = await response.json()
+      this.score = 0
+    },
     moveLeft() {
       if (this.game.user[0] > 0) {
         this.game.user[0]--

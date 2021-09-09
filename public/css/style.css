@@ -1,1 +1,29 @@
 /*Style your own assignment! This is fun! */
+
+#app {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+#header {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+h1 {
+  margin: 0.5em;
+}
+
+@media (min-width: 720px) {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #sidebar {
+    width: 35%;
+  }
+  #game {
+    width: 65%;
+  }
+}
