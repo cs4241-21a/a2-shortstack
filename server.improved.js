@@ -7,8 +7,9 @@ const http = require("http"),
   port = 3000;
 
 const MSG_ERROR_NAME_BLANK = "Task Name field is required.";
-const MSG_ERROR_FIELD_INVALID = "Priority and Due Date must be both blank or both populated.";
-const MSG_ERROR_NEW_TASK = "For a new task, both Priority must be populated.";
+const MSG_ERROR_FIELD_INVALID =
+  "Priority and Due Date must be both blank or both populated.";
+const MSG_ERROR_NEW_TASK = "For a new task, both Priority and Due Date must be populated.";
 const MSG_SUCCESS_ADD = "Successfully added a new task.";
 const MSG_SUCCESS_MODIFY = "Successfully modified an existing task.";
 const MSG_SUCCESS_DELETE = "Successfully deleted a task.";
@@ -53,7 +54,7 @@ function handleInput(reply, input) {
   }
   if (input.duedate == "" || input.duedate == null) {
     if (input.priority != "") {
-      reply.message = "test";
+      reply.message = MSG_ERROR_FIELD_INVALID;
       reply.action = ACTION_NONE;
       return;
     }
@@ -142,3 +143,4 @@ const sendFile = function(response, filename) {
 };
 
 server.listen(process.env.PORT || port);
+
