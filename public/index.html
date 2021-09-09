@@ -81,42 +81,17 @@ const submit = function( e ) {
 let mod=-1;
   const modify = function (e) {
      e.target.setAttribute('value','save')
-      //e.preventDefault()
       mod = Number(e.target.id.substring(4))
       console.log(mod)
       let entry = dataArr[Number(e.target.id.substring(4))]
-  //    entry.yourname="asd"
-      //entry.password="a"
-    //  entry.age="12"
-      //send new json line and current index to backened
 
       document.querySelector('#yourname').value = entry.yourname
       document.querySelector('#password').value = entry.password
       document.querySelector('#age').value = entry.age
-      //now when save is pressed then update line with given things at the top and update the table
 
-      //dataArr.splice(Number(e.target.id.substring(4)), 1);
-//      console.log("Current dataArr when editing: " + JSON.stringify(dataArr))
-    //dataArr.splice(Number(e.target.id.substring(6)), 1);
-    //console.log("Current dataArr after deletion: " + JSON.stringify(dataArr))
-    //WAIT FOR UPDATED INFO
     console.log(entry,dataArr)
-    //console.log(document.getElementById("table").rows[0])
     body = e.target.id.toString()
     console.log(body)
-    /*fetch( '/modify', {
-      method:'POST',
-      body 
-    }) 
-    .then( function( response ) {
-      return response.text()
-    })
-
-    .then( function ( text ) {
-        console.log(text)
-        updateTable();
-    })*/
-      //UPDATE WHEN SAAVE PRESSED
       updateTable();
     }
 
@@ -159,7 +134,6 @@ const save = function( e ) {
   const remove = function (e) {
     e.preventDefault()
 
-    //Gets the id of the row that needs to be deleted
     dataArr.splice(Number(e.target.id.substring(6)), 1);
     console.log("Current dataArr after deletion: " + JSON.stringify(dataArr))
     body = e.target.id.toString()
@@ -178,27 +152,6 @@ const save = function( e ) {
     })
  
       
-  /*       body = JSON.stringify( dataArr )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      return response.text()
-    })
-
-    .then( function ( text ) {
-        console.log(text)
-        dataArr = (JSON.parse(text));
-        updateTable();
-        console.log("dataArr: " + JSON.stringify(dataArr));
-    })
-
-    return false
-*/
-      updateTable()
-
   }
 
   window.onload = function() {
@@ -259,7 +212,6 @@ const save = function( e ) {
                     newText = document.createElement('Input')
                     newText.setAttribute('type','button')
                     newText.setAttribute('value', 'Edit')
-                    newText.className = 'editButton';
                     if(mod>=0 && index!=mod){
                     newText.disabled=true
                     }else if(mod>=0 && index==mod){
@@ -268,17 +220,14 @@ const save = function( e ) {
                     break;
                    
                 case 5:
-                    //Creates a new cell that contains the Remove button
                     newText = document.createElement('Input')
                     newText.setAttribute('type','button')
-                    newText.setAttribute('value', 'Remove')
-                    newText.className = 'removeButton';
+                    newText.setAttribute('value', 'Delete')
                     if(mod>=0){
                     newText.disabled=true
                     }
                    break;
            }
-            //Adds an event to the Edit button
             if (cell === 4) {
                 newText.id = "Edit" + index.toString()
                 newText.onclick = modify;
@@ -286,16 +235,13 @@ const save = function( e ) {
                     newText.onclick = save;
                 }
             }
-            //Adds an event to the Remove button
             if (cell === 5) {
                 newText.id = "Delete" + index.toString()
                 newText.onclick = remove;
             }
-            //Placing each text to there appropriate cell and placing each cell to a row
             newCell.appendChild(newText)
             newRow.appendChild(newCell)
         }
-        //Placing the row in the tbody
         tbody.appendChild(newRow)
     }
   }  </script>
