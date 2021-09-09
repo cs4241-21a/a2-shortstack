@@ -52,6 +52,7 @@ td {
 #car_submit {
   background-color: orange;
   border-radius: 10px;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
 }
 .title {
   font-size: x-large;
