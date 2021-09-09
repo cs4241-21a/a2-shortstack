@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let appdata = [];
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -31,6 +27,7 @@ const handleGet = function( request, response ) {
 }
 
 const handlePost = function( request, response ) {
+  if(request.url === '/submit'){
   let dataString = ''
 
   request.on( 'data', function( data ) {
@@ -38,13 +35,101 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    const entry = JSON.parse( dataString );
 
-    // ... do something with the data here!!!
+    const d = new Date();
+    let dTime = "unknown";
+    let hours;
+    let minutes;
+    if(entry.distance === "Not Far"){
+      if(d.getHours() > 12){
+        hours = d.getHours() - 12;
+      }
+      else{
+        hours = d.getHours();
+      }
+
+      if(d.getMinutes() + 10 > 60){
+        if(hours === 12){
+          hours = 0
+        }
+        hours = hours + 1;
+        minutes = d.getMinutes() + 10 - 60;
+      }
+      else{
+        minutes = d.getMinutes() + 10;
+      }
+    }
+    if(entry.distance === "Decently Far"){
+      if(d.getHours() > 12){
+        hours = d.getHours() - 12;
+      }
+      else{
+        hours = d.getHours();
+      }
+
+      if(d.getMinutes() + 25 > 60){
+        if(hours === 12){
+          hours = 0
+        }
+        hours = hours + 1;
+        minutes = d.getMinutes() + 25 - 60;
+      }
+      else{
+        minutes = d.getMinutes() + 25;
+      }
+    }
+    if(entry.distance === "Far"){
+      if(d.getHours() > 12){
+        hours = d.getHours() - 12;
+      }
+      else{
+        hours = d.getHours();
+      }
+
+      if(d.getMinutes() + 40 > 60){
+        if(hours === 12){
+          hours = 0
+        }
+        hours = hours + 1;
+        minutes = d.getMinutes() + 40 - 60;
+      }
+      else{
+        minutes = d.getMinutes() + 40;
+      }
+      
+    }
+    if(minutes < 10){
+      dTime = (hours + 8) + ":0" + minutes
+    }
+    else{
+      dTime = (hours + 8) + ":" + minutes
+    }
+
+    entry.dropTime = dTime;
+    appdata.push(entry);
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(entry))
   })
+}
+else if(request.url === '/delete'){
+  let dataString = ''
+
+  request.on( 'data', function( data ) {
+      dataString += data 
+  })
+
+  request.on( 'end', function() {
+    const removeEntry = JSON.parse( dataString );
+    
+    const dlt = appdata.filter(ntry => ntry.yourname != removeEntry.yourname);
+    appdata = dlt;
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(dataString)
+  })
+}
 }
 
 const sendFile = function( response, filename ) {
