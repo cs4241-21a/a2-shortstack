@@ -1,10 +1,10 @@
-## Your Web Application Title
+## A simple todo list app
 
 This project is a simple todo prioritizing app. It can take todos, the day they need to be done, and their perceived difficulty, and display them in a table of the week. An extra field assumes certain multipliers for given days of the week and includes adjusted difficulties for each todo item.
 
 In the CSS, each of the types of tags are either centered, have their fonts altered or both. The background color for the entire page was changed as well.
 
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+The website is hosted at https://broadleaf-insidious-mollusk.glitch.me
 
 ## Technical Achievements
 - **Tech Achievement 1**:
