@@ -18,6 +18,7 @@ I used numerous css selectors, element selectors like: body, table, td, th, *. I
 
 I used the google Exo font throughout the project.
 
+Lin to glitch website: https://a2-jcscheufele.glitch.me/
 
 
 ## Technical Achievements
