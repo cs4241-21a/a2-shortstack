@@ -1,4 +1,4 @@
-## Jelly Bean Guessing Game
+## [Jelly Bean Guessing Game](https://a2-mgovilla.glitch.me/)
 This is a basic guessing game combining a jelly bean guessing and hot or cold. The major features of the project include:
 - Flexible layout 
 - HTML form that validates the inputs
