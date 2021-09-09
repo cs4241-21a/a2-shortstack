@@ -7,21 +7,19 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+
 ]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
+    handleGet( request, response )
   }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+    handlePost( request, response )
   }
 })
 
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
+  const filename = dir + request.url.slice( 1 )
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
@@ -34,21 +32,33 @@ const handlePost = function( request, response ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
+      dataString += data
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    console.log( JSON.parse( dataString ).pw > 5 )
+    let newEntry = JSON.parse( dataString )
+    if (newEntry.pw.length < 5) {
+      newEntry.critique = "That's a very weak password!"
+    } else if (newEntry.pw.length < 10) {
+      newEntry.critique = "That's a decent password!"
+    } else {
+      newEntry.critique = "That's a great password! Nice job!"
+    }
 
-    // ... do something with the data here!!!
+    console.log( newEntry )
+    appdata.push( newEntry )
+
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write( JSON.stringify( appdata ) )
+    console.log(appdata)
     response.end()
   })
 }
 
 const sendFile = function( response, filename ) {
-   const type = mime.getType( filename ) 
+   const type = mime.getType( filename )
 
    fs.readFile( filename, function( err, content ) {
 
@@ -70,3 +80,4 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+
