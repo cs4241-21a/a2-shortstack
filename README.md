@@ -3,6 +3,8 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 
 Due: September 9th, by 11:59 AM.
 
+https://a2-ksincaglia.glitch.me
+
 ## Social Media Username Generator
 Ever have trouble coming up with a username for your social media? Well this page is here to help! The form takes the user's name and outputs a fun, unique username! I made the background color a nice appealing light pink, and used the Lato font for the whole page (sourced from Google Fonts). These was applied using CSS to the whole body. I also added an image of social media company logos. 
 
