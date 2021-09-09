@@ -1,5 +1,28 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
+### Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
+
+## A Random Survey About Destiny (The Game)
+Michael Lai http://a2-azinxtheonix.glitch.me
+
+With this assignment, I've created a scoreboard for people to record their highscores to. This scoreboard also keeps track who has the highscore in each game.
+
+For the technical side of the project, it shows that I can design an application that involves sending data to a server and sending data back to the client to update. I used CSS grids to position items.
+
+As for instructions on how to use the application, I've already put them in the site itself.
+
+NOTE: There's an error that's stating the receiving end does not exist, which in turn causes the whole application not to work. From debugging, it seems to be a server side error when it tries to unsuccessfully load the site in node.js (try node ./server.improved.js in console, go to the localhost on port 3000, and loading the local.html file; it won't work). I've looked through my code and but I can't see what's causing this. I'm fairly certain that the rest of the code works (if the client can connect properly).
+
+The server should also be calculating the highscore as the derived data, but with the server connection bug, nothing can be seen.
+
+## Technical Achievements
+**1 - Updating Data:**
+The code here should work if it weren't for the weird server connection bug that's going on right now. Essentially what the code should be doing is every time a delete, submit, or modify action is taken, it will beforehand update the client side data to make sure the data the action working with is up to date. After the action is complete, then the table is updated (with another call to the server for the JSON data).
+
+## Design/Evaluation Achievements
+N/A
+
+## Old Readme Below
+---
 
 Due: September 9th, by 11:59 AM.
 
@@ -83,15 +106,3 @@ You'll need to use sometype of collaborative software that will enable you both 
 4. What would you change about the interface based on their feedback?
 
 *You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
-
-## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
-
-### Design/Evaluation Achievements
-- **Design Achievement 1**: 
