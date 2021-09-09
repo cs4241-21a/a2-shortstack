@@ -1,1 +1,52 @@
-/*Style your own assignment! This is fun! */
+body {
+    font-family: 'Roboto', Arial;
+    background-color: #4E87F2;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: 30em 45em;
+    grid-gap: 1em;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+caption {
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-bottom: 0.5em;
+    padding-top: 1.25em;
+}
+
+#carform {
+    margin-left: 9em;
+}
+
+table, th, td {
+    border: 0.15em solid black;
+    border-collapse: collapse;
+    padding: 0.5em;
+    height: 2em;
+    margin-right: 2em;
+    text-align: center;
+}
+
+th {
+    background-color: #934AE8;
+}
+
+td {
+    background-color: #4AAAE8;
+}
+
+#carform {
+    font-weight: bold;
+    padding-left: 1em;
+    padding-bottom: 1em;
+}
