@@ -69,16 +69,43 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    const json = JSON.parse( dataString )
-    console.log("Received datastring: " + dataString)
+    switch(request.url) {
+      case '/submit':
+      {
+        const json = JSON.parse( dataString )
+        console.log("Received datastring to /submit: " + dataString)
 
 
-    //TODO: modify the data
+        //TODO: modify the data
 
-    appdata.push(json)
+        appdata.push(json)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(appdata))
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end(JSON.stringify(appdata))
+
+        // const json = JSON.parse(dataString);
+        // appdata.push({
+        //   'name': json.name,
+        //   'color': json.color,
+        //   'message': json.message,
+        // });
+        // response.writeHead(200, 'OK', { 'Content-Type': 'text/plain' });
+        // response.end(JSON.stringify(appdata));
+      }
+        break;
+        /*
+        ADD MORE CASES HERE /DELETE, /EDIT
+        */
+    }
+
+
+
+
+
+
+
+
+
   })
 }
 

@@ -27,43 +27,21 @@ const submit = function( e ) {
         body
     })
         .then( function( response ) {
-            document.getElementById("inputMessage").value = ""
-
-            //"Submission response: " +
-            console.log(response)
-            // do something with the response
-            return response.json()
+            if (response.ok){
+                //Clear message box
+                document.getElementById("inputMessage").value = ""
+                return response.json()
+            }else {
+                return false
+            }
         }).then( function ( json ) {
-            loadMessages()
+            if (json){
+                loadMessages()
+            }else {
+                console.log("Error submitting data")
+            }
 
-        // console.log('Server response: ' + json)
-        // if(Array.isArray(json)){
-        //     for(let car of json){
-        //         const model = car.model
-        //         const upperModel = model[0].toUpperCase() + model.slice(1)
-        //         console.log(upperModel)
-        //     }
-        // }
 
-        // if(Array.isArray(json)){
-        //   json
-        //     .map(car => car.model)
-        //     .map(model => model[0].toUpperCase() + model.slice(1))
-        //     .forEach( m => console.log(m))
-        // }
-
-        // if (Array.isArray(json)) {
-        //   for (let i = 0; i < json.length; i++) {
-        //     const car = json[i]
-        //     const model = car.model
-        //     const upperModel = model[0].toUpperCase() + model.slice(1)
-        //     console.log(upperModel)
-        //   }
-        // }
-
-        // const field = document.querySelector('#responseField')
-        // field.textContent = json.yourname
-        // console.log( json )
     })
 
     return false
@@ -109,7 +87,7 @@ const makeMessage = function (name, color, message){
     messageWrapper.appendChild(nameTag)
     messageWrapper.appendChild(messageBody)
     const documentBody = document.getElementById("main")
-    documentBody.appendChild(messageWrapper)
+    documentBody.insertBefore(messageWrapper, documentBody.childNodes[0])
 }
 
 window.onload = function() {
