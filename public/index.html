@@ -4,11 +4,12 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
 
   <body>
     
-    <form action="">
+    <form>
 
       <label for="foodname">Name:</label><br>
       <input type="text" id="foodname" value=""><br><br>
@@ -19,12 +20,28 @@
       <label for="foodquantity">Quantity:</label><br>
       <input type="text" id="foodquantity" value=""><br><br>
 
-      <label for="expirationdate">Expiration Date (mm/dd/yyyy):</label><br>
+      <label for="expirationdate">Expiration Date (yyyy-mm-dd):</label><br>
       <input type="text" id="expirationdate" value=""><br><br>
 
-      <button>submit</button>
+      <input type="button" id="addFoodButton" value="Add">
+      <input type="button" id="removeFoodButton" value="Remove">
+
 
     </form>
+
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Expiration Date</th>
+          <th>Percent of Category Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
     
   </body>
 
@@ -55,16 +72,74 @@
       console.log( response )
       response.json().then((data) => {
         console.log(data);
+        createResultsTable(data);
       });
     });
 
     return false;
   }
 
+  const submitRemoveFood = function( event ) {
+    event.preventDefault()
+
+    const nameInput = document.querySelector( "#foodname" );
+    const categoryInput = document.querySelector( "#foodcategory" );
+    const quantityInput = document.querySelector( "#foodquantity" );
+    const expirationDateInput = document.querySelector( "#expirationdate" );
+
+    json = { foodname: nameInput.value, 
+      foodcategory: categoryInput.value,
+      foodquantity: quantityInput.value,
+      expirationdate: expirationDateInput.value };
+
+    body = JSON.stringify( json )
+
+    fetch( '/submitRemoveFood', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {
+      // do something with the reponse 
+      console.log( response )
+      response.json().then((data) => {
+        console.log(data);
+        createResultsTable(data);
+      });
+    });
+
+    return false;
+  }
+
+  const createResultsTable = function ( resultsData ) {
+    let table = document.getElementById("resultsTable");
+    let tbody = document.createElement("tbody");
+    for (let i = 0; i < resultsData.length; i++) {
+      let row = tbody.insertRow(i);
+      let name = row.insertCell(0);
+      name.innerHTML = resultsData[i].foodname;
+
+      let category = row.insertCell(1);
+      category.innerHTML = resultsData[i].foodcategory;
+
+      let quantity = row.insertCell(2);
+      quantity.innerHTML = resultsData[i].foodquantity;
+
+      let expirationDate = row.insertCell(3);
+      expirationDate.innerHTML = resultsData[i].expirationdate.slice(0, 10);
+
+      let percentTotal = row.insertCell(4);
+      percentTotal.innerHTML = resultsData[i].percentofcategory;
+    }
+    table.replaceChild(tbody, table.getElementsByTagName("tbody")[0]);
+}
+
   window.onload = function() {
 
-    const button = document.querySelector( 'button' )
-    button.onclick = submitAddFood
+    const addButton = document.getElementById( "addFoodButton" );
+    addButton.onclick = submitAddFood;
+
+    const removeButton = document.getElementById( "removeFoodButton" );
+    removeButton.onclick = submitRemoveFood;
 
   }
 

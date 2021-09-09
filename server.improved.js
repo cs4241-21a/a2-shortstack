@@ -13,9 +13,9 @@ const http = require( 'http' ),
 //]
 
 const appdata = [
-  { "foodname": "apple", "foodcategory": "fruit", "foodquantity": 3, "expirationdate": new Date("2021-09-22")},
-  { "foodname": "onion", "foodcategory": "vegetable", "foodquantity": 1, "expirationdate": new Date("2021-09-24")},
-  { "foodname": "bread", "foodcategory": "grain", "foodquantity": 4, "expirationdate": new Date("2021-09-19")}
+  { "foodname": "apple", "foodcategory": "fruit", "foodquantity": 3, "expirationdate": new Date("2021-09-22"), "percentofcategory": 100},
+  { "foodname": "onion", "foodcategory": "vegetable", "foodquantity": 1, "expirationdate": new Date("2021-09-24"), "percentofcategory": 100},
+  { "foodname": "bread", "foodcategory": "grain", "foodquantity": 4, "expirationdate": new Date("2021-09-19"), "percentofcategory": 100}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -54,33 +54,69 @@ const handlePost = function( request, response ) {
     }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    //console.log(response);
-    //response.body = ( JSON.stringify( appdata ));
-    //console.log(response.body);
     response.end( JSON.stringify( appdata ))
   })
 }
 
 const handleSubmitAddFood = function ( request, dataString ) {
-  // ... do something with the data here!!!
-  console.log(request.url);
-  console.log("----------Processing Data------------");
-  console.log("Original AppData:");
-  console.log(appdata);
 
   data = JSON.parse( dataString);
   data.foodquantity = parseInt(data.foodquantity);
   data.expirationdate = new Date(data.expirationdate);
+  data.percentofcategory = 0;
+
+  for (let i = 0; i < appdata.length; i++) {
+    if (data.foodname === appdata[i].foodname
+      && data.expirationdate.getTime() === appdata[i].expirationdate.getTime()) {
+        // add to matching item
+        appdata[i].foodquantity += data.foodquantity;
+        updateDerivedField(data.foodcategory);
+        return;
+      }
+  }
   
   appdata.push( data );
-  
-  
-  console.log("----------New AppData----------------");
-  console.log(appdata);
+  updateDerivedField(data.foodcategory);
 }
 
 const handleSubmitRemoveFood = function ( request, dataString ) {
+  console.log(request.url);
+  console.log(appdata);
 
+  data = JSON.parse(dataString);
+  data.foodquantity = parseInt(data.foodquantity);
+  data.expirationdate = new Date(data.expirationdate);
+
+  for (let i = 0; i < appdata.length; i++) {
+    if (data.foodname === appdata[i].foodname
+      && data.expirationdate.getTime() === appdata[i].expirationdate.getTime()) {
+        // remove matching item
+        appdata[i].foodquantity -= data.foodquantity;
+        if (appdata[i].foodquantity <= 0) {
+          appdata.splice(i, 1);
+        }
+      }
+  }
+
+  updateDerivedField(data.foodcategory);
+}
+
+const updateDerivedField = function ( category ) {
+
+  // Find the total quantity for the given category
+  let quantitySum = 0;
+  for (let i = 0; i < appdata.length; i++) {
+    if (appdata[i].foodcategory === category) {
+      quantitySum += appdata[i].foodquantity;
+    }
+  }
+
+  // Find the proportion of each item relative to the total quantity.
+  for (let j = 0; j < appdata.length; j++) {
+    if (appdata[j].foodcategory === category) {
+      appdata[j].percentofcategory = (appdata[j].foodquantity / quantitySum) * 100;
+    }
+  }
 }
 
 const sendFile = function( response, filename ) {
