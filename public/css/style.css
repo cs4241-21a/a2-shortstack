@@ -1,1 +1,78 @@
 /*Style your own assignment! This is fun! */
+table{
+    margin: 1%;
+}
+
+th{
+    background-color: gray;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: larger;
+    color: white;
+  }
+  
+td{
+  border:1px solid black;
+  border-radius: 4px;
+  text-align: center;
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: larger;
+}
+
+h1{
+    background-color: #d92323;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    text-align: center;
+}
+h2{
+    color: gray;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+h3{
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+body{
+    margin: 0;
+}
+
+input[type=text], select{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 1;
+    font-size: large;
+}
+
+.button{
+    margin: 2%;
+    background-color: #d92323;
+    border: 0px;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: larger;
+    transition-duration: 0.4s;
+    padding: 10px;
+    width: 8%;
+}
+
+.button:hover {
+    background-color: #ad1f1f
+}
+
+.container{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.center{
+    display: inline-block;
+}
