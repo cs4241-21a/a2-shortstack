@@ -8,18 +8,20 @@
   <body>
     <div id="wrapper"></div>
       <h1>Rate Your Books</h1>
-      <h2>Rate a Book!</h2>
-      <form action="">
-        <label for="ftitle">Title:</label>
-        <input type='text' id='ftitle'>
-        <label for="fauthor">Author:</label>
-        <input type='text' id='fauthor'>
-        <label for="fyear">Release Year:</label>
-        <input type='text' id='fyear'>
-        <label for="frating">Rating:</label>
-        <input type='text' id='frating'>
-        <button id="submit">Submit</button>
-      </form>
+      <div id="enterForm">
+        <h2>Enter Your Book Below</h2>
+        <form action="">
+          <label for="ftitle">Title:</label>
+          <input type='text' id='ftitle'>
+          <label for="fauthor">Author (First Last):</label>
+          <input type='text' id='fauthor'>
+          <label for="fyear">Release Year:</label>
+          <input type='text' id='fyear'>
+          <label for="frating">Rating (1-5):</label>
+          <input type='text' id='frating'>
+          <button id="submit">Submit</button>
+        </form>
+      </div>
 
       <h2>All Your Ratings</h2>
       <table>
@@ -46,20 +48,33 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#ftitle' ),
-          json = { ftitle: input.value },
+    const ftitle = document.querySelector( '#ftitle' ),
+          fauthor = document.querySelector( '#fauthor' ),
+          fyear = document.querySelector( '#fyear' ),
+          frating = document.querySelector( '#frating' ),
+          json = { title: ftitle.value, author: fauthor.value, year: fyear.value, rating: frating.value },
           body = JSON.stringify( json )
 
-    console.log(`submit body: ${body}`);
+    // console.log(`submit body: ${body}`);
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
       // do something with the reponse 
-      console.log( `submit response:` );
-      console.log(response);
-      return response;
+      // console.log( `submit response:` );
+      // console.log(response);
+      // return response;
+      return response.json()
+    })
+    .then( function( json ) {
+      console.log(json)
+
+      const element = document.createElement('tr')
+      element.innerHTML = `<td>${json.title}</td><td>${json.author}</td><td>${json.year}</td><td>${json.rating}</td><td>${json.rank}</td>`
+      // element.innerText = json.title
+      // document.body.appendChild(element)
+      document.querySelector('table').appendChild(element)
     })
 
     return false

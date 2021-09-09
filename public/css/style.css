@@ -52,6 +52,10 @@ td {
     display: flex;
 }
 
+#enterForm {
+    justify-content: center;
+}
+
 #submit {
     background-color: var(--purple-light);
     color: var(--purple-dark);

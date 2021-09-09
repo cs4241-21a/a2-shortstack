@@ -38,13 +38,14 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    const json = JSON.parse( dataString )
+    json.rank = 3s
 
     // ... do something with the data here!!!
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain', 'Content-Disposition': 'appdata[0]' })
-    response.write(JSON.stringify(appdata[0]));
-    response.end()
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    // response.write(JSON.stringify(appdata[0]));
+    response.end(JSON.stringify(json))
   })
 }
 
