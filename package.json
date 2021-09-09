@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Colorful Communitator",
+  "version": "1.0",
+  "description": "Communicate in color!",
+  "author": "Lia Davis",
   "scripts": {
     "start": "node server.improved.js"
   },

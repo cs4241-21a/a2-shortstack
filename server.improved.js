@@ -8,9 +8,9 @@ const http = require( 'http' ),
 
 
 const appdata = [
-  { name: 'Jane Doe', color: '#ff55ff', message: 'Sometimes all you need is a little splash of color1' },
-  { name: 'Jane Doe', color: '#ffff55', message: 'Sometimes all you need is a little splash of color2' },
-  { name: 'Jane Doe', color: '#55ffff', message: 'Sometimes all you need is a little splash of color3' }
+  // { name: 'Jane Doe', color: '#ff55ff', message: 'Sometimes all you need is a little splash of color1' },
+  // { name: 'Jane Doe', color: '#ffff55', message: 'Sometimes all you need is a little splash of color2' },
+  // { name: 'Jane Doe', color: '#55ffff', message: 'Sometimes all you need is a little splash of color3' }
 ]
 
 /**
@@ -99,13 +99,6 @@ const handlePost = function( request, response ) {
     }
 
 
-
-
-
-
-
-
-
   })
 }
 
@@ -114,7 +107,7 @@ const handlePost = function( request, response ) {
  * @param primaryColor
  */
 const colorModifier = function (primaryColor){
-
+//TODO: modify the colors
 }
 
 /**

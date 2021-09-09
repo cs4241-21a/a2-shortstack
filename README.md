@@ -23,25 +23,26 @@ For example, a `todo` dataset with `task`, `priority`, and `creation_date` may g
 
 Your application is required to demonstrate the use of the following concepts:
 
-HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.
-- All pages should [validate](https://validator.w3.org)
+~~HTML:~~
+- ~~One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application~~
+- ~~A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.~~
+- ~~All pages should [validate](https://validator.w3.org)~~
 
+  
 CSS:
-- CSS styling of the primary visual elements in the application
+- ~~CSS styling of the primary visual elements in the application~~
 - Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
+    - ~~Element selectors~~
+    - ID selectors 
+    - ~~Class selectors~~
 - CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
+    - ~~Use of either a CSS grid or flexbox for layout~~
     - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
 
-- CSS defined in a maintainable, readable form, in external stylesheets 
+- ~~CSS defined in a maintainable, readable form, in external stylesheets~~ 
 
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
+~~JavaScript:~~
+- ~~At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.~~
 
 Node.js:
 - An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
@@ -52,11 +53,11 @@ Deliverables
 
 Do the following to complete this assignment and acheive a base grade of 85%:
 
-1. Fork the starting project code (make sure to fork the 2021 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
+1. ~~Fork the starting project code (make sure to fork the 2021 repo!). This repo contains some starter code that may be used or discarded as needed.~~
+2. ~~Implement your project with the above requirements.~~
 3. Test your project to make sure that when someone goes to your main page, it displays correctly.
 4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
+5. ~~Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.~~
 6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
 7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
 
@@ -91,7 +92,8 @@ Sample Readme (delete the above when you're ready to submit, and modify the belo
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: Used JS to create new message elements on the page. An order property of -1 for the header keeps it at the top
+- **Tech Achievement 2**: Enabled multi-user communication (via refresh) in bulletin-board style. Each client receives all messages sent and stored (temporarily) on the server from any other client
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 

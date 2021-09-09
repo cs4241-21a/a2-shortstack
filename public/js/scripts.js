@@ -77,6 +77,7 @@ const loadMessages = function (){
  * @param message
  */
 const makeMessage = function (name, color, message){
+    //TODO: Add colored styling
     const messageWrapper = document.createElement("message")
     const nameTag = document.createElement("h3")
     const nameNode = document.createTextNode(name)
