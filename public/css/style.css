@@ -13,6 +13,14 @@
 
 h1 {
   margin: 0.5em;
+  font-family: 'Permanent Marker', cursive;
+}
+
+.split {
+  display: flex;
+}
+.split > button {
+  margin-left: auto;
 }
 
 @media (min-width: 720px) {
@@ -21,9 +29,10 @@ h1 {
     flex-wrap: wrap;
   }
   #sidebar {
-    width: 35%;
+    width: 30%;
   }
   #game {
-    width: 65%;
+    width: 70%;
+    text-align: center;
   }
 }

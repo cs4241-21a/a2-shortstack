@@ -73,17 +73,21 @@ const app = Vue.createApp({
     let ctx = canvas.getContext('2d')
     ctx.scale(SCALE, SCALE)
 
-    document.onkeyup = (ev) => {
-      switch (ev.key) {
+    document.onkeyup = (event) => {
+      switch (event.key) {
+        case 'a':
         case 'ArrowLeft':
           this.moveLeft()
           break
+        case 'd':
         case 'ArrowRight':
          this.moveRight()
           break
+        case 'w':
         case 'ArrowUp':
           this.moveUp()
           break
+        case 's':
         case 'ArrowDown':
           this.moveDown()
           break
