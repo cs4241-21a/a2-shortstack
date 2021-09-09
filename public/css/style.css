@@ -1,1 +1,17 @@
-/*Style your own assignment! This is fun! */
+*{
+  background-color: #E6E6FA;
+  font-family: "Tahoma";
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+#newContact{
+  margin-left: 100px;
+  border: black, solid;
+}
+
+.b{
+  font-weight: bold;
+}
