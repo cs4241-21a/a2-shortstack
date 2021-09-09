@@ -14,9 +14,9 @@ const appdata = {
       'where': 'FH 311',
       'description': 'Red case',
       'photo': 'https://apple.com',
-      'emailme': 'fgalbiati',
+      'emailme': 'john',
       'uid': 'ApplePen09012021FH311foundItems1631163168733',
-      'timestamp': '1631163168733'
+      'timestamp': 1631163168733
     }
   ],
   lostItems: [
@@ -26,9 +26,9 @@ const appdata = {
       'where': 'FH 311',
       'description': 'White, pen, red cap, Apple original',
       'photo': 'https://google.com',
-      'emailme': 'fgalbiati',
+      'emailme': 'federico',
       'uid': 'ApplePen09012021FH311lostItems1631163183361',
-      'timestamp': '1631163183361'
+      'timestamp': 1631163183361
     }
   ],
   users: {
@@ -137,6 +137,7 @@ const handleCreate = (data, response) => {
     'description' : data.description,
     'photo' : data.photo,
     'emailme' : data.emailme,
+    'timestamp' : Date.now()
   }
   if (data.lost === true) {
     collection = "lostItems"
@@ -197,6 +198,11 @@ const sendFile = function( response, filename ) {
 
 const sendData = function( response, data ) {
   response.writeHeader( 200, { 'Content-Type': 'application/json' })
+  for (let i = 0; i < data.length; i++) {
+    let timestampDate = new Date(data[i].timestamp)
+    let elapsed = ((Date.now() - timestampDate) / (24 * 60 * 60 * 1000));
+    data[i].created = Math.round(elapsed)
+  }
   response.end(JSON.stringify(data))
 }
 

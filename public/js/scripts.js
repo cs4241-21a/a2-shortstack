@@ -61,12 +61,13 @@ function getItems(listname) {
       row += `<td class="description">${info.description}</td>`
       row += `<td class="photo">${info.photo}</td>`
       row += `<td class="emailme">${info.emailme}</td>`
+      row += `<td class="timestamp">${info.created} days ago</td>`
       if (info.emailme === loggedInUser) {
         row += `<td><form><button class="deleteBtn">Delete</button><button class="editBtn">Edit</button></form></td>`
       }
       table += `<tr id="${info.uid}">${row}</tr>`
     }
-    let header = '<tr><th>Item</th><th>When</th><th>Where</th><th>Description</th><th>Photo</th><th>Email me!</th><th>Actions</th></tr>'
+    let header = '<tr><th>Item</th><th>When</th><th>Where</th><th>Description</th><th>Photo</th><th>Email me!</th><th>Created</th><th>Actions</th></tr>'
     document.querySelector('#' + listname).innerHTML = header + table
     document.querySelectorAll( '.deleteBtn' )
     .forEach( (element) => {
