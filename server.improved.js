@@ -7,9 +7,8 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {"titleEntry":"Dune","directorEntry":"Denis Villaneuve","genreEntry":"Sci-fi",
+   "yearEntry":"2021","isInTheaters":true,"leavingSoon":"No"}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,12 +37,29 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
+  //  console.log( JSON.parse( dataString ) )
     // ... do something with the data here!!!
-
+    let newElement = JSON.parse(dataString);
+    let movieYear = parseInt(newElement.yearEntry);
+    let currentYear = new Date().getFullYear();
+    let yearNumber = Number(currentYear);
+    
+    
+    if(request.url == '/submit'){
+         if (newElement.isInTheaters && yearNumber != movieYear){ 
+           newElement.leavingSoon = "Yes"
+        } else newElement.leavingSoon = "No"
+      
+      appdata.push(newElement);
+    }
+    
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata)) //cahnge to app data
+    console.log(newElement)
+    console.log(movieYear)
+    console.log(currentYear)
+    console.log(newElement.isInTheaters)
+
   })
 }
 
@@ -68,5 +84,8 @@ const sendFile = function( response, filename ) {
      }
    })
 }
+
+
+
 
 server.listen( process.env.PORT || port )
