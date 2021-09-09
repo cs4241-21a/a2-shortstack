@@ -1,7 +1,8 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 
-Car Registry
+Car Registry Site
+Glitch Link: https://a2-emllewellyn.glitch.me
 
 ## Your Web Application Title
 My project is a simple car registry website. All you have to do is enter in the required fields and press "Submit Information" and it will appear in the table on the right. The derived field I have is the age of the car, which is determined based off the year the car was made and the current year. The CSS positioning technique I used was grid layout. I have two headers above the grid and then the form and table are side by side in the grid. I was only able to test on Google Chrome. 
@@ -14,4 +15,4 @@ My project is a simple car registry website. All you have to do is enter in the 
 - **Tech Achievement 3**: My form performs many error checks on the user's input. First, it checks if all the fields are filled in. Second, it checks if the year inputted is actually a number. Then (if the year is a number), it checks if the year given is between 1886 and the current year (this is because cars were first invented in 1886 so it's impossible to have one older than that and, for the purpose of this app you can only, you can only have a car model that goes up to the current year). If any check fails it alerts the user and allows them to make edits. Then there is a check on whether the plate number is the appropriate length (between 5 and 8 characters according to US standards). Lastly, it checks if the plate number inputted is already in the registry, and if it is they won't be allowed to add it.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- N/A
