@@ -1,12 +1,12 @@
 {
-  "name": "",
+  "name": "a2-bplima",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "CS4241 Assignment 2: Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js",
+  "author": "Bryan Lima",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.5.2"
   }
 }
