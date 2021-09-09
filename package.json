@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Maxine Shi",
+  "version": "0.1.0",
+  "description": "WPI CS4241 Webware Assignment 2",
+  "author": "aamaxaa",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.5.2"
   }
 }

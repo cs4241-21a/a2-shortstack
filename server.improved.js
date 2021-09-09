@@ -1,72 +1,103 @@
-const http = require( 'http' ),
-      fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
-      mime = require( 'mime' ),
-      dir  = 'public/',
-      port = 3000
+const http = require("http"),
+  fs = require("fs"),
+  // IMPORTANT: you must run `npm install` in the directory for this assignment
+  // to install the mime library used in the following line of code
+  mime = require("mime"),
+  dir = "public/",
+  port = 3000;
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
-
-const server = http.createServer( function( request,response ) {
-  if( request.method === 'GET' ) {
-    handleGet( request, response )    
-  }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+  {
+    itemName: "SpongeBob Gogurt",
+    itemDescription: "yogurt on the go with spongebob",
+    itemExpiration: "expiration-long"
+    
+  },
+  {
+    itemName: "Fairlife Milk",
+    itemDescription: "Lactose Free Milk for Tommy",
+    itemExpiration: "expiration-short"
+    
+  },
+  {
+    itemName: "Tofu Soft",
+    itemDescription: "for miso soup",
+    itemExpiration: "expiration-med"
+ 
+  },
+  {
+    itemName: "beansprout",
+    itemDescription: "for stirfry or hot boiled",
+    itemExpiration: "expiration-med"
+   
   }
-})
+];
 
-const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+const server = http.createServer(function(request, response) {
+  if (request.method === "GET") {
+    handleGet(request, response);
+  } else if (request.method === "POST") {
+    handlePost(request, response);
   }
-}
+});
 
-const handlePost = function( request, response ) {
-  let dataString = ''
+const handleGet = function(request, response) {
+  const filename = dir + request.url.slice(1);
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+  if (request.url === "/") {
+    sendFile(response, "public/index.html");
+  } else {
+    sendFile(response, filename);
+  }
+};
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+const handlePost = function(request, response) {
+  let dataString = "";
 
-    // ... do something with the data here!!!
+  request.on("data", function(data) {
+    dataString += data;
+  });
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
-  })
-}
+  request.on("end", function() {
+    const json = JSON.parse(dataString);
+    let urgency = "";
 
-const sendFile = function( response, filename ) {
-   const type = mime.getType( filename ) 
+    if (json.itemExpiration === "expiration-long") {
+      urgency = "Take Your Time";
+    } else if (json.itemExpiration === "expiration-med") {
+      urgency = "Finish it Soon";
+    } else if (json.itemExpiration === "expiration-short") {
+      urgency = "Finish it Now";
+    } else {
+      urgency = "Finish it Soon";
+    }
+    appdata.push(json);
+    json.itemUrgency = urgency;
 
-   fs.readFile( filename, function( err, content ) {
+    console.log("json: " + JSON.stringify(json));
 
-     // if the error = null, then we've loaded the file successfully
-     if( err === null ) {
+    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    response.end(JSON.stringify(json));
+  });
+};
 
-       // status code: https://httpstatuses.com
-       response.writeHeader( 200, { 'Content-Type': type })
-       response.end( content )
 
-     }else{
 
-       // file not found, error code 404
-       response.writeHeader( 404 )
-       response.end( '404 Error: File Not Found' )
+const sendFile = function(response, filename) {
+  const type = mime.getType(filename);
 
-     }
-   })
-}
+  fs.readFile(filename, function(err, content) {
+    // if the error = null, then we've loaded the file successfully
+    if (err === null) {
+      // status code: https://httpstatuses.com
+      response.writeHeader(200, { "Content-Type": type });
+      response.end(content);
+    } else {
+      // file not found, error code 404
+      response.writeHeader(404);
+      response.end("404 Error: File Not Found");
+    }
+  });
+};
 
-server.listen( process.env.PORT || port )
+server.listen(process.env.PORT || port);
