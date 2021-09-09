@@ -6,12 +6,6 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
-
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -25,7 +19,11 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else if (request.url==='/imgData.json') {
+    sendFile(response, 'imgData.json')
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -38,12 +36,21 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    console.log(dataString);
+    fs.readFile('imgData.json', function(err, result) {
+      jsonData = JSON.parse(result);
+      jsonData.push(dataString);
+      fs.writeFile('imgData.json', JSON.stringify(jsonData).replaceAll('<','').replaceAll('>',''), function(err, result) {
+        if (err) {
+          response.writeHead( 500, "Error", {'Content-Type': 'text/plain'});
+          response.end();
+        }
+        else {
+          response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+          response.end();
+        }
+      });
+    });
   })
 }
 
