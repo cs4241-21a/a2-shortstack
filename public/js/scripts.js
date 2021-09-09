@@ -1,3 +1,97 @@
-// Add some Javascript code here, to run on the front end.
+  function fetchData() {
+     fetch( '/load', {
+        method:'POST'
+      })
+    fetch('/getUpcoming')
+        .then(response => response.json())
+        .then(data => {
+          let tableData = "";
+         for (let i = 0; i < data.length; i++) {
+            tableData += "<tr>";
+            tableData += `<td>${data[i].flightNum}</td>`;
+            tableData += `<td>${data[i].depAirport}</td>`;
+            tableData += `<td>${data[i].arrAirport}</td>`;
+            tableData += `<td>${data[i].date}</td>`;
+            tableData += "</tr>";
+          }
+          document.getElementById("upcomingData").innerHTML = tableData;
+        });
 
-console.log("Welcome to assignment 2!")
+    fetch('/getPast')
+        .then(response => response.json())
+        .then(data => {
+          let tableData = "";
+          for (let i = 0; i < data.length; i++) {
+            tableData += "<tr>";
+            tableData += `<td>${data[i].flightNum}</td>`;
+            tableData += `<td>${data[i].depAirport}</td>`;
+            tableData += `<td>${data[i].arrAirport}</td>`;
+            tableData += `<td>${data[i].date}</td>`;
+            tableData += "</tr>";
+          }
+          document.getElementById("pastData").innerHTML = tableData;
+        });
+  }
+
+  const submit = function (e) {
+    // prevent default form action from being carried out
+    e.preventDefault();
+
+    const desc = document.querySelector("#flightNum"),
+        depAirport = document.querySelector("#depAirport"),
+        arrAirport = document.querySelector("#arrAirport"),
+        date = document.querySelector("#date");
+
+    const json = {flightNum: desc.value, depAirport: depAirport.value, arrAirport: arrAirport.value, date: date.value};
+
+    fetch("/add", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(json),
+    }).then(function (_) {
+      fetchData();
+    });
+
+    return false;
+  };
+ 
+
+function refresh() {
+    window.location.href = window.location.pathname + window.location.search;
+};
+
+function clearUpcomingData() {
+  let table = document.getElementById("upcomingResult");
+
+  for(var i = table.rows.length - 1; i > 0; i--)
+  {
+    table.deleteRow(i);
+  }
+  
+
+}
+
+function clearPastData() {
+  let table = document.getElementById("pastResult");
+
+
+  for(var i = table.rows.length - 1; i > 0; i--)
+  {
+    table.deleteRow(i);
+  }
+}
+
+
+
+  window.onload = function () {
+    
+    fetchData();
+    
+    const button = document.querySelector("button");
+    button.onclick = submit;
+
+    
+  };
