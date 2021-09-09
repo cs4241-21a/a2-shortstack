@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3001
 
-let appdata = [
-  { 'task': 'read', 'priority': 'low', 'creationDate': '9/8/2021' },
-  { 'task': 'eat', 'priority': 'high', 'creationDate': '9/8/2021' },
-  { 'task': 'homework', 'priority': 'medium', 'creationDate': '9/8/2021' },
-]
+let appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {

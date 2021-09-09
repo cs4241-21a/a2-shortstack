@@ -9,6 +9,13 @@ h1 {
     text-align: center;
 }
 
+h3 {
+    text-align: center;
+    margin: 10px;
+    margin-top: 0;
+    font-weight: normal;
+}
+
 #content {
     display: flex;
     justify-content: center;
@@ -20,7 +27,10 @@ form {
     height: 400px;
     padding: 4px;
 
-    border: 1px solid red;
+    border: 2px solid #888;
+    border-radius: 10px;
+    background-color: #ddd;
+    box-shadow: #0008 3px 3px 10px;
 }
 
 #task {
@@ -43,7 +53,10 @@ form {
     align-items: start;
 
     border-collapse: collapse;
-    border: 1px solid red;
+    border: 2px solid #888;
+    border-radius: 10px;
+    background-color: #ddd;
+    box-shadow: #0008 3px 3px 10px;
 }
 
 #dataContent {
@@ -54,6 +67,17 @@ form {
     align-items: start;
 }
 
+#dataKey {
+    border-top: none;
+}
+
+#dataKey div {
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    background-color: unset;
+    text-align: center;
+}
+
 .dataRow {
     width: 100%;
     display: flex;
@@ -61,18 +85,53 @@ form {
     align-items: start baseline;
     padding: 4px;
     
-    border: 1px solid red;
+    border-top: 1px solid black;
 }
 
 .dataRow div, .dataRow input, .dataRow select {
     width: 25%;
-    padding: 2px;
+    padding: 4px;
     padding-left: 6px;
     font-size: 12pt;
     
-    border: 1px solid red;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    background-color: #eee;
+}
+
+.dataRow input, .dataRow select {
+    width: 25%;
+    padding: 4px;
+    padding-left: 6px;
+    font-size: 12pt;
+    
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    border-top: none;
+    border-bottom: none;
+    background-color: #ffc;
+}
+
+.dataRow div:nth-last-child(1), .dataRow div:nth-last-child(2) {
+    padding-right: 6px;
 }
 
 .dataRow button {
     width: 100%;
+
+    border: 1px outset #888;
+    border-radius: 4px;
+}
+
+.dataRow div:nth-last-child(2) button {
+    background-color: #dfd;
+}
+
+.dataRow div:nth-last-child(1) button {
+    background-color: #fcc;
+}
+
+.dataRow button:active {
+    border-style: inset;
+    transform: translate(1px, 1px);
 }
