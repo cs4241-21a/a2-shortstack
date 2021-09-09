@@ -35,3 +35,22 @@ How To Use:
     4. What would you change about the interface based on their feedback?
 
         I would not make any changes to the interface itself based on this feedback, I did change the front-end to be Firefox compatible, however. 
+        
+- **Design Achievement 1** (5 points): User study 2 was completed and is listed below.
+
+    1. Provide the last name of each student you conduct the evaluation with.
+
+        Yihong Xu
+
+    2. What problems did the user have with your design?
+
+        The issue he encountered was having difficulty with the update field, it isn't as straight forward as it should be as you enter the new entries and update entries in the same area. 
+
+    3. What comments did they make that surprised you?
+
+        I was not surprised by any comments, they all were fairly expected.
+
+    4. What would you change about the interface based on their feedback?
+
+        I would probably spend some extra time to change how update works, whether it uses separate input fields or whether it is a two step process as it is a little confusing. 
+
