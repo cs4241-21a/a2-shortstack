@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
       rel="stylesheet"
     />
+    <script src="js/scripts.js"></script>
   </head>
   <body>
     <h1>Short Stack Securities Portfolio</h1>
@@ -24,7 +25,6 @@
             onfocus="this.value=''"
             value="Enter Name of Security Here"
             size="30"
-            height="10"
           />
           <p class="input-title">Ticker:</p>
           <input
@@ -33,7 +33,6 @@
             onfocus="this.value=''"
             value="Enter Ticker Symbol Here"
             size="30"
-            height="10"
           />
           <p class="input-title">Price:</p>
           <input
@@ -42,7 +41,6 @@
             onfocus="this.value=''"
             value="Enter Price of Security Here"
             size="30"
-            height="10"
           />
           <p class="input-title">Shares:</p>
           <input
@@ -51,7 +49,6 @@
             onfocus="this.value=''"
             value="Enter Shares Owned Here"
             size="30"
-            height="10"
           /><br />
           <button id="submit">Submit</button>
         </form>
@@ -75,7 +72,7 @@
           <b>Submit</b> button.
         </p>
       </div>
-      <table id="securities-table" border="1">
+      <table id="securities-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -91,5 +88,4 @@
       </table>
     </div>
   </body>
-  <script src="js/scripts.js"></script>
 </html>
