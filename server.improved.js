@@ -58,7 +58,7 @@ const handlePost = function( request, response ) {
 
   for(let i = 0; i < appdata.length; i++) {
       let row = appdata[i];
-      row.yearsRemaining = getYearsRemaining(row.studentYear);
+      row.yearsRemaining = getYearsRemaining(row.studentYear, row.name);
   }
 
   console.log( appdata )
@@ -72,8 +72,10 @@ const deleteItem = function(jsonData) {
   appdata.splice(jsonData['deletingItem'], 1);
 }
 
-function getYearsRemaining(studentYear) {
+function getYearsRemaining(studentYear, name) {
   let years = -1;
+  
+  console.log(name);
   
   switch (studentYear) {
       case 'First-Year':
@@ -93,8 +95,12 @@ function getYearsRemaining(studentYear) {
           break;
       default:
           years = 'N/A';
-          break; 
+          break;
   }
+  
+      if (name === 'Gompei') {
+        years = 100;
+      }
   return years;
 }
 
