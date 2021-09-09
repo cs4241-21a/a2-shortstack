@@ -2,7 +2,9 @@ Readme
 ---
 
 ## Rate Your Books
-*Link*
+**Links**:
+Github: https://github.com/lewasserman/a2-shortstack
+Glitch: https://a2-lewasserman.glitch.me/
 
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 
