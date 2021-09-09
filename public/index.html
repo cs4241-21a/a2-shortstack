@@ -30,12 +30,12 @@
         <p>Notes:</p>
         <ul>
           <li>Supported operations are +, -, *, /, and ^.</li>
-          <li>Whitespace is supported within numbers.</li>
+          <li>Whitespace is supported within numbers, but not by the binary parser.</li>
           <li>01110100 01110010 01111001 00100000 01110100 01100101 01110011 01110100</li>
         </ul>
       </div>
       <div>
-        <p>The "convert" button converts text to the decimal equivalent of its binary representation. Use this to avoid accidentally communicating with the calculator with the decimal equivalent of some binary phrase.</p>
+        <p>The "convert" button converts text to the decimal equivalent of the text's binary representation. Use this to avoid accidentally communicating with the calculator by having your computation result be the decimal equivalent of some binary phrase.</p>
         <input type = "text" id ="bintext">
         <input id="bintextconv"/>
         <button id = "convert">convert</button>

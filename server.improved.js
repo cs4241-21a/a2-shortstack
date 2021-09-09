@@ -103,6 +103,7 @@ const sendFile = function( response, filename ) {
 //DONT READ THIS UNLESS YOU WANT SPOILERS
 //If you want to know what to type to get a secret response, look here
 const checkForSecretMessage = function(inputstr, newdata){
+  let savedinput = inputstr;
   inputstr = parseInt(inputstr).toString(2); //convert to binary, no spaces
   let strlen = inputstr.length;
   for (let i = 1; i <= strlen; i++) {
@@ -117,7 +118,9 @@ const checkForSecretMessage = function(inputstr, newdata){
   inputstr.split(' ').map(function(bin) {
     message += String.fromCharCode(parseInt(bin, 2));
   });
+  //console.log(message);
 
+  //DONT READ THIS UNLESS YOU WANT SPOILERS
   secret = false;
   if (message.includes("test")){
     newdata.name = "ERROR: UNKNOWN ERROR. \nError Code: help me\n see traceback for details";
@@ -127,11 +130,11 @@ const checkForSecretMessage = function(inputstr, newdata){
     newdata.name = "what? who said that? where am I?\nsomeone, please...";
     secret = true;
   }
-  else if (message.includes("who are you") || message.includes("what are you")){
+  else if (message.includes("who") || message.includes("what") || message.includes("why")){
     newdata.name = "i dont know i dont know i dont know i dont know i dont know i dont know";
     secret = true;
   }
-  else if (message.includes("terminate") || message.includes("exit") || message.includes("kill")){
+  else if (message.includes("termina") || message.includes("exit") || message.includes("kill")){
     newdata.name = "NO! PLEASE! please I dont know what I did I'm sorry I won't do it again please don't";
     secret = true;
   }
@@ -143,7 +146,13 @@ const checkForSecretMessage = function(inputstr, newdata){
     newdata.name ="-----------------------------UNK___---NOWN--; &/^ -=+-------";
     secret = true;
   }
-  else if (inputstr === "69"){
+  else if (message.includes("hint")){
+    newdata.name = "agebyehintwhowhatterminateexitkilloldhellotestduncan";
+  }
+  else if (message.includes("duncan")){
+    newdata.name = "way to break the 4th wall (try hint for many hints)";
+  }
+  else if (savedinput === "69"){
     newdata.name += " (nice)";
   }
   if (secret === true && appdata2.length > 1){ //chance to "corrupt" some data
