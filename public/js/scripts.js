@@ -23,12 +23,20 @@ const submit = function( e ) {
     .then( function(json) {
       console.log(json)
       
+      //Delete anything currently in table
+      for (let i = document.querySelector('#tableID').rows.length-1; i > 0 ; i--) {
+        document.querySelector('#tableID').deleteRow(i)
+      }
+      
+      //Populate/Repopulate table
+      for( let i = 0; i < json.homework.length; i++) {
       var row = document.querySelector('#tableID').insertRow()
-      row.insertCell(0).innerHTML = json.yourclass
-      row.insertCell(1).innerHTML = json.yourassignment
-      row.insertCell(2).innerHTML = json.complete
-      row.insertCell(3).innerHTML = json.date
-      row.insertCell(4).innerHTML = json.calculated
+      row.insertCell(0).innerHTML = json.homework[i].yourclass
+      row.insertCell(1).innerHTML = json.homework[i].yourassignment
+      row.insertCell(2).innerHTML = json.homework[i].complete
+      row.insertCell(3).innerHTML = json.homework[i].date
+      row.insertCell(4).innerHTML = json.homework[i].calculated
+      }
     })
 
     return false

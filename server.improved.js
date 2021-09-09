@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let homeworkdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -46,11 +42,33 @@ const handlePost = function( request, response ) {
     //Calculates days left
     let currentDate = new Date()
     let dueDate = new Date(jsonDS.date)
-    jsonDS.calculated = Math.round((dueDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60* 24))
+    jsonDS.calculated = Math.round((dueDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60* 24)) + 1
+    
+    //Attempted to modify assignments when complete field changed
+    modifyCompletion(jsonDS)
+    
+    jsonDS.homework = homeworkdata;
     
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(jsonDS))
   })
+}
+
+const modifyCompletion = function(theobject) {
+  for (let i = 0; i < homeworkdata; i++) {
+    if(homeworkdata[i].yourassignment == theobject.yourassignment) {
+      homeworkdata[i].complete = theobject.complete
+      return
+    }
+  }
+  let homework = {
+    yourclass: theobject.yourclass,
+    yourassignment: theobject.yourassignment,
+    complete: theobject.complete,
+    date: theobject.date,
+    calculated: theobject.calculated
+  }
+  homeworkdata.push(homework)
 }
 
 const sendFile = function( response, filename ) {
