@@ -3,7 +3,6 @@ const http = require('http'),
     // IMPORTANT: you must run `npm install` in the directory for this assignment
     // to install the mime library used in the following line of code
     mime = require('mime'),
-    dir = 'public/',
     port = 3000
 
 let dataCounter = 6;
@@ -150,6 +149,7 @@ function unknownRoute(request, response) {
     response.end("Unknown route: " + request.method + ": " + request.url)
 }
 
+// DIY route handling
 const routes = {
     "GET": {
         "/api/values": apiGetValues,
@@ -177,16 +177,6 @@ const server = http.createServer(function (request, response) {
     }
 
     unknownRoute(request, response)
-
-    // if (request.url.startsWith("/api")) {
-    //     handleAPI(request, response)
-    // } else {
-    //     if (request.method === 'GET') {
-    //         handleGet(request, response)
-    //     } else if (request.method === 'POST') {
-    //         handlePost(request, response)
-    //     }
-    // }
 })
 
 server.listen(process.env.PORT || port)

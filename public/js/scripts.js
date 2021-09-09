@@ -1,5 +1,3 @@
-
-
 function updateLeaderboard(values) {
     const elements = Object.entries(values)
         .sort(([, a], [, b]) => b.score - a.score)
