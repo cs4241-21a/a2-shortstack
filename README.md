@@ -2,6 +2,9 @@
 ---
 
 ## Locations to Travel to
+
+Denver Blake: https://a2-denver-blake.glitch.me
+
 The site is list of locations you want to travel to with cost, the price of traveling there, and priority, 
 how much you want to go there, and the server derives the rating of that location based on the cost and priority. 
 The locations inputed in by the form through the submit button at the bottom of the page stores the data in the server which updates
