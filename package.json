@@ -9,5 +9,8 @@
   "dependencies": {
     "mime": "^2.4.4",
     "luxon": "^2.0.2"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }

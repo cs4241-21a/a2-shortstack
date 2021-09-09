@@ -23,7 +23,7 @@ function renderTable() {
             row.cells[3].innerHTML = item.priority
             row.cells[4].innerHTML = item.duedate
             // TODO: Importance NEEDS to get figured out automatically
-            row.cells[5].innerHTML = item.importance + "%"
+            row.cells[5].innerHTML = item.importance
             row.cells[6].innerHTML = "<button onclick='updateItem(" + index + ")'>Edit</button>"
             row.cells[7].innerHTML = "<button onclick='deleteItem(" + index + ")'>Delete</button>"
             index++;

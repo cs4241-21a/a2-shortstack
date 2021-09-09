@@ -24,4 +24,10 @@ Luxon is used to calculate date differences for the importance field. Although t
 The table is rendered on the client side using data retrieved from the server. 
 
 ## Design achievements
-No user feedback research was done, but I used the standard Arial web font.
+
+### Design Feedback - Student 1
+1. Last name: Rubin (this is a student outside of WebWare)
+2. The user said that the Delete and Done buttons are the same thing, and would like a confirmation before deletion, wanted to see past tasks, bulk delete, confusion on the purpose of the category field, importance is a bit unintuitive, and if you have a large number of tasks you have to scroll down. Lastly, because validation isn't present in the code, you can confuse the web app.
+3. There were some bugs in the code that I didn't test that the user mentioned. I should have also had confirmation about deleting a task, and having past tasks is a good idea.
+4. I'd definitely have to make a lot of changes - but clarifying importance, having confirmation on deletion, viewing past tasks, improving the way todo tasks are added, and adding validation.
+
