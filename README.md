@@ -1,97 +1,33 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
+Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js
 ===
+Ivan Martinovic
+Link: https://a2-imartinovic-dzaja.glitch.me/
 
 Due: September 9th, by 11:59 AM.
 
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
+## XXXL Gym Admin Page
+This web page is supposed to be a web page for managing gym memberships of a gym I used to go to back home in Bosnia (the gym doesn't have any official website, except for a facebook page: https://m.facebook.com/profile.php?id=100057309077774&refsrc=deprecated&_rdr
 
-Baseline Requirements
----
+The website allows (presumably the admin of the page) to add new gym members to a pre-existing data set, by filling out a form. There are two derived fields: the first one being the id of each individual member and the expiration date which signifies when the membership for a given member expires (and both of these fields are always disabled). The expiration date depends on the join date, and the type of membership (Monthly, Yearly and Lifetime). Please note that the expiration date input field calculated automatically upon changes to the two previously mentioned fields on the client side (for the convenience of the person entering the info) and then after adding the members also on the server side for security purposes. 
+The project used a grid positioning CSS technique. It includes an unused header area (possibly in the future a menu/navigation bar) could be put there; an area for positioning the Gym Logo, an area for positioning the form, an area for positioning the primary and secondary buttons, and finally an area for positioning the table.
+Using the site should be straight forward: to add a new member simply fill out the form and click the big green button that says "Add New Member" (note: both the client and the server will prevent the insertion of an entry with one or more empty fields). To clear the fields, just click on the "Clear Contents" button.
+On the bottom of the website is a table which lists the information about all members which go to the gym. On the right side of each entry there are two buttons/icons: a modify button and a delete button (both can be identified by howevering the cursor over them which displays a label). The delete button deletes the entry. The modify button copies the fields of the corresponding table row into the input fields of the form. It also changes the primary button for adding a new member, to a yellow button which says "modify" (notice also how the Id field now reflects the id of the member we are modifying). Once we make the desired changes to the form's fields, we simply click the yellow button which modifies the entry. To cancel modifying an entry, click on the "Cancel" button. 
 
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
-
-Your application is required to implement the following functionalities:
-
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
-
-Your application is required to demonstrate the use of the following concepts:
-
-HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.
-- All pages should [validate](https://validator.w3.org)
-
-CSS:
-- CSS styling of the primary visual elements in the application
-- Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
-- CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
-
-- CSS defined in a maintainable, readable form, in external stylesheets 
-
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
-
-Deliverables
----
-
-Do the following to complete this assignment and acheive a base grade of 85%:
-
-1. Fork the starting project code (make sure to fork the 2021 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
-*Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
-
-1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
-2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
-
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Single Page App With Form and Current Server-side data**:  Created a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. With every request (that isn't a file request) sent to the server, the server responds with by sending the tabular data back to the client. For example: when an entry is modified the client sends the new modified data to the server, the server processes the request, updates its data set, and sends a copy of the dataset back to the client. The client then uses this new dataset to reconstruct the table. 
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Tested User Interface with Jake Feiss**:
+1. Last Name: Feiss
+2. The user made comments about the contrast and opacity of the table in relation to the background image. He suggested that they should blend together more.
+3. The user liked the page design, which I didn't expect since it was only my second ever webpage.
+4. I would edit the CSS file by adding some transparency to the form and table elements and by making their color darker.
+
+- **Tested User Interface with Hoang Phan Pham**:
+1. Last Name: Pham
+2. The user suggested scrolling down to the bottom of the table to show the newly inserted entry. The user also suggested that the "Cancel" button has a non-intuitive name
+3. The user really liked the design of the page as well
+4. I would add some javascript which would scroll to the bottom of the page showing the newly created entry. I would also make the "Cancel" button say "Cancel Modify" in the html
+
+
