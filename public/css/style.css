@@ -40,7 +40,22 @@
 
       form {
         text-align: center;}
+        
       #birth {
-        color: rgba(red, green, blue, alpha);
+        color: red;
+      }
+
+      .spacious {
+        margin: 2em;
+      }   
+      
+      .spaciousLight {
+        margin: 1em;
+      }      
+      
+      .flex-container {
+        flex-wrap: wrap;
+        white-space: initial;
+        flex-grow: 1;
       }
       
