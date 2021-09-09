@@ -62,6 +62,7 @@ const renderTable = function() {
     newTest_cell.appendChild(newTest_text);
 
     tableIndexCount++;
+    window.onload;
   }
 };
 let tableEntries = [];
@@ -107,8 +108,6 @@ const deleteEntry = function(e) {
   // acquire the table entrys that are selected.
   let table = document.getElementById("car_table")
   json = getCheckedBox(table)
-  tableEntries[0].splice(json, 1);
-  document.getElementById("car_table").deleteRow(++json);
   console.log("Returning from checkedBox");
   console.log(json);
 
@@ -127,13 +126,9 @@ const deleteEntry = function(e) {
   }).then(function(json){
 
     console.log("JSON Response from server");
-    console.log(json);
-    if(json.length === 0){
-      // Manually Delete Row
-      document.getElementById("car_table").deleteRow(1);
-    }else {
-      renderTable()
-    }
+    tableEntries[0] = json;
+    console.log(tableEntries[0]);
+    renderTable();
   });
 
   return false;
