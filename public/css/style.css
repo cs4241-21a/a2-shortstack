@@ -9,14 +9,30 @@ body{
 h1{
     font-family: Allison;
     font-size: 50px;
+    text-align: center;
 }
 
-ul{
+h2{
+    margin-top: 5px;
+    margin:  5px;
+    font-family: Allison;
+    font-size: 50px;
+}
+
+p{
+    font-family: comfortaa;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+ul, li{
+text-align: center;
+list-style-position: inside;
 font-family: Varela;
 font-size: 20px;
 }
 
 table, th, td, tr{
     border:1px solid black;
-    font-family: comfortaa 
+    font-family: comfortaa;
 }

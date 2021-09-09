@@ -49,25 +49,25 @@ const handlePost = function( request, response ) {
     for(let count = 0; count < appdata.length; count++){
       
       if(appdata[count].day === 'Sunday'){
-        appdata[count].difficulty = appdata[count].priority *= 5
+        appdata[count].difficulty = appdata[count].priority * 5
       }
       else if(appdata[count].day === 'Monday'){
-        appdata[count].difficulty = appdata[count].priority *= 10
+        appdata[count].difficulty = appdata[count].priority * 10
       }
       else if(appdata[count].day === 'Tuesday'){
-        appdata[count].difficulty = appdata[count].priority *= 7
+        appdata[count].difficulty = appdata[count].priority * 7
       }
       else if(appdata[count].day === 'Wednesday'){
-        appdata[count].difficulty = appdata[count].priority *= 6
+        appdata[count].difficulty = appdata[count].priority * 6
       }
       else if(appdata[count].day === 'Thursday'){
-        appdata[count].difficulty = appdata[count].priority *= 10
+        appdata[count].difficulty = appdata[count].priority * 10
       }
       else if(appdata[count].day === 'Friday'){
-        appdata[count].difficulty = appdata[count].priority *= 6
+        appdata[count].difficulty = appdata[count].priority * 6
       }
       else if(appdata[count].day === 'Saturday'){
-        appdata[count].difficulty = appdata[count].priority *= 5
+        appdata[count].difficulty = appdata[count].priority * 5
       }
     }
 
