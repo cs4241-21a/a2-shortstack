@@ -24,6 +24,7 @@ const submit = function (e) {
 
     .then(function (json) {
       document.querySelector("form").reset();
+      
       let row = document.querySelector("#table").insertRow();
       row.insertCell(0).innerHTML = json.title;
       row.insertCell(1).innerHTML = json.author;
@@ -38,4 +39,4 @@ const submit = function (e) {
 window.onload = function () {
   const button = document.querySelector("button");
   button.onclick = submit;
-};
+}

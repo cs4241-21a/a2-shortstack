@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3001
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let appdata = [];
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -25,6 +21,9 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }else if(request.url === '/getAppdata') {
+    response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
+    response.end(JSON.stringify(appdata));
   }else{
     sendFile( response, filename )
   }
@@ -42,7 +41,17 @@ const handlePost = function( request, response ) {
 
     // ... do something with the data here!!!
     let jsonDS = JSON.parse( dataString )
+    let obj = {
+      title: jsonDS.value,
+      author: jsonDS.value,
+      score: jsonDS.value,
+      notes: jsonDS.value,
+      year: jsonDS.value,
+    }
 
+    appdata[appdata.length] = jsonDS
+
+    console.log(appdata)
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     console.log(JSON.stringify(jsonDS))
     response.end(JSON.stringify(jsonDS))
