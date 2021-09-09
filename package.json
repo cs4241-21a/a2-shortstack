@@ -1,12 +1,13 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "colorful-communicator",
+  "version": "1.0",
+  "description": "Communicate in color!",
+  "author": "Lia Davis",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.4.4",
+    "tinycolor2": "^1.4.2"
   }
 }

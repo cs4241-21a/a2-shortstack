@@ -6,12 +6,18 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
+
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  // { name: 'Jane Doe', color: '#ff55ff', message: 'Sometimes all you need is a little splash of color1' },
+  // { name: 'Jane Doe', color: '#ffff55', message: 'Sometimes all you need is a little splash of color2' },
+  // { name: 'Jane Doe', color: '#55ffff', message: 'Sometimes all you need is a little splash of color3' }
 ]
 
+/**
+ * HTTP Server
+ *
+ * Delegates requests based on method calls
+ */
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -20,33 +26,93 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
+/**
+ * handleGet
+ *
+ * Processes all GET requests
+ * @param request
+ * @param response
+ */
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
+  const filename = dir + request.url.slice( 1 )
+
+  /**
+   * sendMessages
+   * Basically sends everything from the appdata variable (all the messages stored on the server)
+   * @param response
+   */
+  function sendMessages(response) {
+    response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+    response.end(JSON.stringify(appdata))
+  }
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }else if(request.url === '/messages') {
+    sendMessages(response)
   }else{
     sendFile( response, filename )
   }
 }
 
+/**
+ * handlePost
+ *
+ * Processes all POST requests
+ * @param request
+ * @param response
+ */
 const handlePost = function( request, response ) {
   let dataString = ''
-
   request.on( 'data', function( data ) {
       dataString += data 
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    switch(request.url) {
+      case '/submit':
+      {
+        const json = JSON.parse( dataString )
+        console.log("Received datastring to /submit: " + dataString)
 
-    // ... do something with the data here!!!
+        //Derived field
+        json.message = json.name + " says \"" + json.message + "\""
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
-  })
+        appdata.push(json)
+
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end(JSON.stringify(appdata))
+      }
+        break;
+        /*
+        ADD MORE CASES HERE /DELETE, /EDIT
+        */
+    }
+
+
+  }, 'end')
 }
 
+// /**
+//  *
+//  * @param primaryColor
+//  */
+// const colorModifier = function (primaryColor){
+//   let red = primaryColor.slice(1,3)
+//   let green = primaryColor.slice(3,5)
+//   let blue = primaryColor.slice(5, 7)
+//
+//   red = Math.min(parseInt(red) + )
+//   return true
+// }
+
+/**
+ * sendFile
+ *
+ * Sends the requested file back to the client, if the file exists. If not, it returns 404
+ * @param response
+ * @param filename
+ */
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
 
