@@ -8,6 +8,8 @@ The project is quite self-explanatory:
 3. Write your message
 4. Click send!
 
+[View the Glitch project here](https://a2-evans-notch.glitch.me)
+
 ## Technical Achievements
 - **Tech Achievement 1**: Used JS to create new message elements on the page. An order property of -1 for the header keeps it at the top
 - **Tech Achievement 2**: Enabled multi-user communication (via refresh) in bulletin-board style. Each client receives all messages sent and stored (temporarily) on the server from any other client (Form for users to submit data and displays the current state of the server-side data)
