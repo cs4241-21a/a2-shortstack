@@ -19,9 +19,15 @@ On the bottom of the website is a table which lists the information about all me
 
 ### Design/Evaluation Achievements
 - **Tested User Interface with Jake Feiss**:
-1. Feiss
+1. Last Name: Feiss
 2. The user made comments about the contrast and opacity of the table in relation to the background image. He suggested that they should blend together more.
-3. The user liked the page, which I didn't expect since it was only my second ever webpage.
-4. I would add some transparency to the form and table elements, and possibly make their color darker.
+3. The user liked the page design, which I didn't expect since it was only my second ever webpage.
+4. I would edit the CSS file by adding some transparency to the form and table elements and by making their color darker.
+
+- **Tested User Interface with Hoang Phan Pham**:
+1. Last Name: Pham
+2. The user suggested scrolling down to the bottom of the table to show the newly inserted entry. The user also suggested that the "Cancel" button has a non-intuitive name
+3. The user really liked the design of the page as well
+4. I would add some javascript which would scroll to the bottom of the page showing the newly created entry. I would also make the "Cancel" button say "Cancel Modify" in the html
 
 
