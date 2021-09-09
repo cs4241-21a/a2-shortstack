@@ -1,1 +1,78 @@
 /*Style your own assignment! This is fun! */
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+form {
+    width: 200px;
+    height: 400px;
+    padding: 4px;
+
+    border: 1px solid red;
+}
+
+#task {
+    width: 100%;
+    margin-top: 4px;
+}
+
+#priority {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#dataList {
+    width: calc(100% - 300px);
+    height: auto;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+    border-collapse: collapse;
+    border: 1px solid red;
+}
+
+#dataContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.dataRow {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start baseline;
+    padding: 4px;
+    
+    border: 1px solid red;
+}
+
+.dataRow div, .dataRow input, .dataRow select {
+    width: 25%;
+    padding: 2px;
+    padding-left: 6px;
+    font-size: 12pt;
+    
+    border: 1px solid red;
+}
+
+.dataRow button {
+    width: 100%;
+}

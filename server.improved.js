@@ -4,12 +4,12 @@ const http = require( 'http' ),
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
       dir  = 'public/',
-      port = 3000
+      port = 3001
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let appdata = [
+  { 'task': 'read', 'priority': 'low', 'creationDate': '9/8/2021' },
+  { 'task': 'eat', 'priority': 'high', 'creationDate': '9/8/2021' },
+  { 'task': 'homework', 'priority': 'medium', 'creationDate': '9/8/2021' },
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -25,6 +25,10 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }else if( request.url === '/get' ) {
+    response.writeHead( 200, "OK", {'Content-Type': 'application/json' });
+    response.write(JSON.stringify(appdata));
+    response.end();
   }else{
     sendFile( response, filename )
   }
@@ -38,13 +42,44 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let data = JSON.parse(dataString);
+    console.log(data);
 
-    // ... do something with the data here!!!
+    switch(data.action) {
+      case "add":
+        // copying the fields manually is more secure than blindly copying the whole object
+        appdata.push({
+          task: data.payload.task,
+          priority: data.payload.priority,
+          creationDate: data.payload.creationDate,
+          deadline: calcDeadline(data.payload),
+        });
+        break;
+      case "modify":
+        appdata[data.index].task = data.payload.task;
+        appdata[data.index].priority = data.payload.priority;
+        appdata[data.index].deadline = calcDeadline(appdata[data.index]);
+        break;
+      case "delete":
+        appdata.splice(data.index, 1);
+        break;
+      default:
+        // invalid POST request
+        response.writeHead(400);
+        response.end();
+        return;
+    }
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.writeHead( 200, "OK", {'Content-Type': 'application/json' });
+    response.write(JSON.stringify(appdata));
+    response.end();
   })
+}
+
+const calcDeadline = function(data) {
+  let date = new Date(data.creationDate);
+  date.setDate(date.getDate() + { low: 10, medium: 7, high: 4 }[data.priority]);
+  return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
 }
 
 const sendFile = function( response, filename ) {
