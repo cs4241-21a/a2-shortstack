@@ -31,11 +31,11 @@ form>select, form>button{
 th, td{
     overflow: hidden;
     text-align: center;
-    height: 50px;
+    height: 70px;
 }
 
 th{
-    width: 200px;
+    width: 220px;
 }
 
 .button{
@@ -43,7 +43,7 @@ th{
 }
 
 .color-col{
-    width: 50px;
+    width: 70px;
 }
 
 .color-cell{
