@@ -42,6 +42,12 @@ section {
   margin-bottom: 10px;
 }
 
+.label {
+    font-family: 'Roboto';
+    font-size: 9pt;
+    color: black;
+    text-align:center;
+}
 
 table {
     margin-top: 10px;
