@@ -32,7 +32,8 @@ I used the flexbox for my positoning technique. To use this application, enter b
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
--Think-Aloud 1:
+Think-Aloud 1:
+
 Task 1: Enter 3 books, two of which have the same rating and all of which have different release years.
 1. Last Name:
 -Baker (Roomate)
@@ -43,4 +44,12 @@ Task 1: Enter 3 books, two of which have the same rating and all of which have d
 4. What would you change about the interface based on their feedback?
 -filler
 
--Think-Aloud 2: Venard (Roomate)
+Think-Aloud 2:
+1. Last Name:
+-Venard (Roomate)
+2. What problems did the user have with your design?
+-filler
+3. What comments did they make that surprised you?
+-filler
+4. What would you change about the interface based on their feedback?
+-filler
