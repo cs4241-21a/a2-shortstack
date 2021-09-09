@@ -13,6 +13,11 @@ const submit = function( e ) {
                    time: final_time/100 },
             body = JSON.stringify( json )
 
+    if (nickname.value === "Lora") {
+        console.log('lora')
+        document.body.style.background = "url('/Assets/usian_bolt.jpg') no-repeat center top";
+    }
+
     document.getElementById("hide_text").style.visibility = "visible"
 
     fetch( '/submit', {
@@ -86,6 +91,7 @@ const handleKeys = function ( e ) {
 
 const end = function() {
     document.getElementById("hide_game").style.visibility = "hidden"
+    document.getElementById("hide_congrats").style.visibility = "visible"
     document.getElementById("leaderboard_form").style.visibility = "visible"
     document.getElementById("hide_end").style.visibility = "visible"
     document.getElementById("total_time").innerText = "Elapsed Time: " + time/100 + " s"
@@ -113,6 +119,7 @@ window.onload = function() {
     document.getElementById("hide_end").style.visibility = "hidden"
     document.getElementById("hide_text").style.visibility = "hidden"
     document.getElementById("table_hide").style.visibility = "hidden"
+    document.getElementById("hide_congrats").style.visibility = "hidden"
 
     const start_button = document.querySelector( "#start" )
     start_button.onclick = start

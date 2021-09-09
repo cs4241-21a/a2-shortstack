@@ -3,6 +3,10 @@
 }
 
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     margin: 0 auto;
     max-width: 50em;
     line-height: 1.5;
@@ -14,10 +18,49 @@ code, pre {
     background: #eee;
 }
 
+#hide_game {
+    display: grid;
+    margin: 1em;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#start {
+    margin: 1em;
+}
+
 #timer, #prompt, #answer, #running_correct {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: row;
 }
 
+#name, #age, #region_dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: right;
+    order: 1;
+}
+
+table {
+    border: 1px solid black;
+    color: #2D51E3
+}
+
+#timer {
+    color: #AE33FD;
+    order: 0
+}
+
+#prompt {
+    color: #6B2DE3;
+    order: 1
+}
+
+#answer {
+    color: #4B3EFA;
+    order: 2
+}
+
+#running_correct {
+    color: #2D51E3;
+    order: 3
+}
