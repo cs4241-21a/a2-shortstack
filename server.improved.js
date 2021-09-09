@@ -7,10 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name': 'Ben+Robinson', 'responsibility': "equal", 'watch': "y", 'fan': "y"}
 ]
+
+
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -23,9 +23,13 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
+  console.log(request.url)
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if(request.url === '/getdata'){
+    sendData(response, 'public/index.html')
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -38,18 +42,56 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
+    console.log(dataString)
+    
+    
+    let responsible = dataString.substring(16,21)
+    let watch = dataString.substring(28,29)
+    let name = dataString.substring(39,dataString.length)
+    
+    let fan = "n";
+    if(responsible == "equal" && watch == "y"){
+      fan = "y"
+    }
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+
+    
+    console.log(name)
+    console.log(responsible)
+    console.log(watch)
+    console.log(fan)
+
+//     console.log(appdata)
+    
+    let json = { 'name': name, 'responsibility': responsible, 'watch': watch, 'fan': fan}
+    appdata.push(json)
+    
+    // console.log(appdata)
+    
+    const type = mime.getType( 'public/index.html' ) 
+   fs.readFile( 'public/index.html' , function( err, content ) {
+
+     // if the error = null, then we've loaded the file successfully
+     if( err === null ) {
+
+       // status code: https://httpstatuses.com
+       response.writeHeader( 200, { 'Content-Type': type })
+       response.end( content )
+
+     }else{
+
+       // file not found, error code 404
+       response.writeHeader( 404 )
+       response.end( '404 Error: File Not Found' )
+
+     }
+   })
   })
 }
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 
-
    fs.readFile( filename, function( err, content ) {
 
      // if the error = null, then we've loaded the file successfully
@@ -59,6 +101,27 @@ const sendFile = function( response, filename ) {
        response.writeHeader( 200, { 'Content-Type': type })
        response.end( content )
 
+     }else{
+
+       // file not found, error code 404
+       response.writeHeader( 404 )
+       response.end( '404 Error: File Not Found' )
+
+     }
+   })
+}
+
+const sendData = function( response, filename ) {
+   const type = mime.getType( filename ) 
+   fs.readFile( filename, function( err, content ) {
+
+     // if the error = null, then we've loaded the file successfully
+     if( err === null ) {
+
+       // status code: https://httpstatuses.com
+       response.writeHeader( 200, { 'Content-Type': type })
+       response.end( JSON.stringify(appdata) )
+      
      }else{
 
        // file not found, error code 404
