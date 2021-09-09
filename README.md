@@ -1,6 +1,6 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
-
+3cdihri3hcbwndrswex
 Due: September 9th, by 11:59 AM.
 
 This assignment aims to introduce you to creating a prototype two-tiered web application. 
