@@ -35,28 +35,27 @@ const handlePost = function( request, response ) {
   request.on( 'end', function() {
 
     const json = JSON.parse(dataString)
-    let advice = ''
-    hours = json.hours
+    let urgency = ''
 
-    if (hours === "0-4 hours") {
+    if (json.itemExpiration === 'expiration-long') {
 
-      advice = 'Go get some sleep'
+      urgency = 'Take Your Time'
 
-    } else if (hours === "5-7 hours") {
+    } else if (json.itemExpiration === 'expiration-med') {
 
-      advice = 'Moderate amount of hours of sleep'
+      urgency = 'Finish it Soon'
 
-    } else if (hours === "8 hours") {
+    } else if (json.itemExpiration === 'expiration-short') {
 
-      advice = 'Perfect amount of hours of sleep'
+      urgency = 'Finish it Now'
 
     } else {
 
-      advice = 'Cut back on some hours'
+      urgency = 'Finish it Soon'
 
     }
 
-    json.advice = advice
+    json.itemUrgency = urgency
     console.log("json: " + JSON.stringify(json))
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })

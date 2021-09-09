@@ -12,8 +12,8 @@ const submit = function () {
         const json = {
                 'itemName': name,
                 'itemDescription': description,
-                'itemExpiration': flag.value
-            }
+                'itemExpiration': flag
+            },
 
             body = JSON.stringify(json)
 
@@ -26,9 +26,9 @@ const submit = function () {
               })
           
               .then( function ( text ) {
-                  dataArr.push(JSON.parse(text));
-                  updateTable();
-                  console.log("dataArr: " + JSON.stringify(dataArr));
+                  item.push(JSON.parse(text));
+                  updateItem();
+                  console.log("Item: " + JSON.stringify(item));
               })
         }
     return false
@@ -81,7 +81,7 @@ const remove = function(e){
     updateItem();
 }
 //update the item table with any changes
-function updateIteam() {
+function updateItem() {
     let table = document.querySelector('tbody')
     table.innerHTML = ""
     for (let index = 0; index < item.length; index++) {
@@ -91,19 +91,19 @@ function updateIteam() {
             let newText;
            switch(unit) {
                case 0:
-                   //Creates a new unit that contains the Name value
+                   //Creates a new unit that contains the itemName value
                    newText = document.createTextNode(item[index].itemName);
                    break;
                 case 1:
-                    //Creates a new unit that contains the Major value
+                    //Creates a new unit that contains the itemDescription value
                     newText = document.createTextNode(item[index].itemDescription);
                     break;
                 case 2:
-                    //Creates a new unit that contains the Hours value
+                    //Creates a new unit that contains the Expiration value
                     newText = document.createTextNode(item[index].itemExpiration);
                     break;
                 case 3:
-                    //Creates a new unit that contains the Advice value
+                    //Creates a new unit that contains the Urgency value
                     newText = document.createTextNode(item[index].itemUrgency);
                     break;
                 case 4:
@@ -132,7 +132,7 @@ function updateIteam() {
                 newText.onclick = remove;
             }
             //Placing each text to there appropriate unit and placing each unit to a row
-            newunit.appendChild(newText)
+            newUnit.appendChild(newText)
             newRow.appendChild(newUnit)
         }
         //Placing the row in the table
@@ -141,6 +141,6 @@ function updateIteam() {
   }
 
   window.onload = function() {
-    const button = document.querySelector( '#addItem' )
-    button.onclick = submit
+    const addButton = document.querySelector( '#addItem' )
+    addButton.onclick = submit
   }
