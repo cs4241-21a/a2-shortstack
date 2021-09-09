@@ -6,10 +6,12 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+var appdata = [
+  // { 'title': 'Animal Farm', 'author': 'George Orwell', 'year': 2003, 'rating': 2 },
+  // { 'title': 'The Sun Also Rises', 'author': 'Ernest Hemingway', 'year': 1957, 'rating': 4 },
+  // { 'title': 'Title 3', 'author': 'Author 3', 'year': 2020, 'rating': 2 },
+  // { 'title': 'Title 1', 'author': 'Author 1', 'year': 2000, 'rating': 4 },
+  // { 'title': 'Title 2', 'author': 'Author 2', 'year': 1900, 'rating': 5 }
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -31,6 +33,7 @@ const handleGet = function( request, response ) {
 }
 
 const handlePost = function( request, response ) {
+   console.log(`handlePost request: ${request}`);
   let dataString = ''
 
   request.on( 'data', function( data ) {
@@ -38,12 +41,29 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    const json = JSON.parse( dataString )
+    appdata.push(json)
+    appdata.sort(function ( a, b ) {
+      if ( a.rating < b.rating ){
+        return 1;
+      }
+      if ( a.rating > b.rating ){
+        return -1;
+      }
+      if( a.year < b.year){
+        return 1;
+      }
+      if ( a.year > b.year){
+        return -1;
+      }
+      return 0;
+    })
+    for(var i = 0; i < appdata.length; i++){
+      appdata[i].rank = i+1
+    }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
