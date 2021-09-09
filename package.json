@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-akerekon-andrew-kerekon",
+  "version": "1.0",
+  "description": "A shortstack application that collects survey data regarding WPI students' favorite dorms, dining halls, and places on campus, and showcases their responses within a updating table on refresh",
+  "author": "Andrew Kerekon",
   "scripts": {
     "start": "node server.improved.js"
   },

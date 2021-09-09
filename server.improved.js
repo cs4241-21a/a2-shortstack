@@ -7,9 +7,16 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {
+    responseID: 1,
+    name: 'Andrew',
+    studentYear: 'Sophomore',
+    yearsRemaining: 3,
+    favoriteDorm: 'Morgan Hall',
+    favoriteDining: 'Campus Center',
+    favoriteSpot: 'Salisbury',
+    notes: 'Morgan 4 Best Floor!'
+  }
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -25,7 +32,11 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/getData') {
+    response.writeHeader( 200, { 'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(appdata));
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -38,13 +49,59 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    if (request.url === '/submit') {
+      appdata.push(JSON.parse(dataString));
+    } else if (request.url === '/delete') {
+      deleteItem(JSON.parse(dataString));
+    }   
+     // ... do something with the data here!!!
 
-    // ... do something with the data here!!!
+  for(let i = 0; i < appdata.length; i++) {
+      let row = appdata[i];
+      row.yearsRemaining = getYearsRemaining(row.studentYear, row.name);
+  }
+
+  console.log( appdata )
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
   })
+}
+
+const deleteItem = function(jsonData) {
+  appdata.splice(jsonData['deletingItem'], 1);
+}
+
+function getYearsRemaining(studentYear, name) {
+  let years = -1;
+  
+  console.log(name);
+  
+  switch (studentYear) {
+      case 'First-Year':
+          years = 4;
+          break;
+      case 'Sophomore':
+          years = 3;
+          break;
+      case 'Junior':
+          years = 2;
+          break;
+      case 'Senior':
+          years = 1;
+          break;
+      case 'Graduate Student':
+          years = 'N/A';
+          break;
+      default:
+          years = 'N/A';
+          break;
+  }
+  
+      if (name === 'Gompei') {
+        years = 100;
+      }
+  return years;
 }
 
 const sendFile = function( response, filename ) {
