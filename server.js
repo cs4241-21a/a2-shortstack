@@ -7,14 +7,12 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+
 ]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
+    handleGet( request, response )
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
   }
@@ -25,7 +23,9 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/database') {
+    sendAppData(response)
+  } else{
     sendFile( response, filename )
   }
 }
@@ -38,12 +38,21 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let data = JSON.parse( dataString  )
 
-    // ... do something with the data here!!!
+    let entry = {
+      name: data.name,
+      gradYear: data.gradYear,
+      major: data.major,
+      className: getClassName(data.gradYear)
+    }
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    appdata.push(entry)
+
+    console.log(entry)
+
+    response.writeHead( 200, { 'Content-Type': 'application/json' })
+    response.end(JSON.stringify(entry))
   })
 }
 
@@ -67,6 +76,23 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+function sendAppData(response) {
+  response.writeHeader( 200, { 'Content-Type': 'application/json ' })
+  response.end(JSON.stringify(appdata))
+}
+
+function getClassName(gradYear) {
+  if (gradYear === '2022') {
+    return 'Senior'
+  } else if (gradYear === '2023') {
+    return 'Junior'
+  } else if (gradYear === '2024') {
+    return 'Sophomore'
+  } else {
+    return 'Freshman'
+  }
 }
 
 server.listen( process.env.PORT || port )
