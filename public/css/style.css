@@ -27,14 +27,14 @@ input{
 }
 table, th, td {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     table-layout: auto;
     border: 1px solid white;
     border-collapse: collapse;
+    white-space: nowrap;
 }
 th, td {
     size: A3;
-    overflow: visible;
     background-color: dodgerblue;
 }
 .flex-outer li,

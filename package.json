@@ -1,7 +1,7 @@
 {
-  "name": "a2",
+  "name": "libraryofhorrors",
   "version": "0.0.1",
-  "description": "",
+  "description": "abandon all hope yea who enter here",
   "author": "Keval Ashara",
   "scripts": {
     "start": "node server.improved.js"

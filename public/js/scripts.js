@@ -11,6 +11,10 @@ const submit = function(e) {
     // prevent default form action from being carried out
     e.preventDefault();
 
+    document.getElementById('insertconf').innerHTML = '';
+    document.getElementById('remconf').innerHTML = '';
+    document.getElementById('result').innerHTML = '';
+
     const inputname = document.querySelector("#bookname"),
         inputlength = document.querySelector("#length"),
         inputauthor = document.querySelector("#author"),
@@ -33,12 +37,17 @@ const submit = function(e) {
             .then(function (json) {
                 console.log(json);
             });
-
+        document.getElementById('insertconf').innerHTML = 'Record successfully saved'
     return false;
 };
 
 const delRecord = function(e){
     e.preventDefault();
+
+    document.getElementById('insertconf').innerHTML = '';
+    document.getElementById('remconf').innerHTML = '';
+    document.getElementById('result').innerHTML = '';
+
     const body = JSON.stringify({'index' : +document.querySelector("#pointer")});
 
     fetch("/delete", {
@@ -51,19 +60,26 @@ const delRecord = function(e){
             console.log(json);
         });
 
+    document.getElementById('remconf').innerHTML = 'Record successfully deleted'
+
     return false;
 }
 
 function fixedDate(seconds) {
     const d = new Date(seconds);
     let day = d.getDate();
-    let month = d.getMonth();
+    let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    return day + '/' + month + '/' + year;
+    return month + '/' + day + '/' + year;
 }
 
 const showRecords = function(e){
     e.preventDefault();
+
+    document.getElementById('insertconf').innerHTML = '';
+    document.getElementById('remconf').innerHTML = '';
+    document.getElementById('result').innerHTML = '';
+
     fetch("/reveal", {
         method: "POST"
     }).then( function (d) {
@@ -81,14 +97,15 @@ const showRecords = function(e){
         //adding the title row for the table
         arr.forEach(fiel => {
             const el = JSON.parse(fiel)
-                document.getElementById('result').innerHTML += `<tr>
-                <td>${el.name}</td>
-                <td>By ${el.length}</td>
-                <td>${el.author} words</td>
-                <td>${el.priority}</td>
-                <td>${fixedDate(el.checktime)}</td>
-                <td>${fixedDate(el.checktime + 604800000*el.priority)}</td>
-                    </tr>`;
+                document.getElementById('result').innerHTML +=
+                    `<tr>
+                        <td>${el.name}</td>
+                        <td>${el.length} Words</td>
+                        <td>By ${el.author}</td>
+                        <td>${el.priority}</td>
+                        <td>${fixedDate(el.checktime)}</td>
+                        <td>${fixedDate(el.checktime + 604800000*el.priority)}</td>
+                     </tr>`;
         });
     })
     return false;
