@@ -20,7 +20,7 @@
 
 
             <form action='' id="num_people_container">
-                <input type="text" id = "people_input" class="people_input" value="1">
+                <input type="text" id = "people_input" class="people_input" value="1" onkeyup="formatPeople(this)" onblur="checkForValue(this)">
                 <label> people </label>
             </form>
 

@@ -343,6 +343,8 @@ function edit_mode(button){
     new_people_input.setAttribute("type", "text");
     new_people_input.setAttribute("value", num_of_people);
     new_people_input.setAttribute("class", "people_input");
+    new_people_input.setAttribute("onkeyup", "formatPeople(this)");
+    new_people_input.setAttribute("onblur", "checkForValue(this)");
 
     people_form.insertBefore(new_people_input, people_input);
 
@@ -432,6 +434,19 @@ function formatNumber(n) {
   return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
+function formatPeople(input_element){
+    let input_val = input_element.value;
+ 
+    input_element.value = formatNumber(input_val);
+}
+
+function checkForValue(input_element){
+    let input_val = input_element.value;
+
+    if (input_val === "") { 
+        input_element.value = 1;
+    }
+}
 
 function formatCurrency(input, blur) {
   // appends $ to value, validates decimal side

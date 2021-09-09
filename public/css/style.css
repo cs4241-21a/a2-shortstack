@@ -166,6 +166,10 @@ input {
     text-align: center;
 }
 
+.footer:disabled {
+    cursor: not-allowed;
+}
+
 
 /* #total {
     grid-area: total;
