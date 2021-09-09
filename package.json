@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-jmeggitt-Jasper-Meggit",
+  "version": "1.0.0",
+  "description": "Project 2 submission for CS 4241",
+  "author": "Jasper Meggitt",
   "scripts": {
     "start": "node server.improved.js"
   },
