@@ -32,24 +32,38 @@ I used the flexbox for my positoning technique. To use this application, enter b
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
-Think-Aloud 1:
+**Think-Aloud 1:**
 
-Task 1: Enter 3 books, two of which have the same rating and all of which have different release years.
+Task: Enter 3 books, two of which have the same rating and all of which have different release years.
+
 1. Last Name:
 -Baker (Roomate)
 2. What problems did the user have with your design?
--filler
+-Did not understand what was being asked on them from the task.
+-Did not enter proper years into the release years input.
 3. What comments did they make that surprised you?
--filler
+-Colors are pretty and its readable.
+-Would be cool to have "popular books" as suggestions for people to use.
 4. What would you change about the interface based on their feedback?
--filler
+-I would add some suggested books to help new users which would provide good guidelines by example.
+-I would add some more desciptive text to the page to explain it a bit more.
 
-Think-Aloud 2:
+**Think-Aloud 2:**
+
+Task: Enter 3 books, two of which have the same rating and all of which have different release years.
+
 1. Last Name:
 -Venard (Roomate)
 2. What problems did the user have with your design?
--filler
+-Also very confused about what the task is asking.
+-Forgot what the task was during the think-aloud.
 3. What comments did they make that surprised you?
--filler
+-Thought that this program would be searching for the book and not entering the book.
+-Likes the look of the page.
+-Thinks the rank and then rating should be on the left and not the right. So rank, rating, ...
+-To let the user upload pictures with the books.
+-To let users give books a rating of 0-10.
 4. What would you change about the interface based on their feedback?
--filler
+-I would change the order of the elements of the table to be rank, rating, title, author, release year.
+-I would change the rating scale to be 0-10
+-I would make the goal of the application more clear by adding more descriptive text to the page.
