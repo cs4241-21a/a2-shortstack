@@ -8,11 +8,11 @@
     <meta charset='utf-8'>
   </head>
   <body>
-    <img id = 'logo' src = 'resources/logo.jpeg' alt = 'XXXL Gym Logo' width = 25%  height = 25%> 
+    <img id = 'logo' src = 'resources/logo.jpeg' alt = 'XXXL Gym Logo'> 
 
-    <form id = 'form' action=''>
+    <form id = 'form'>
 
-      <label for='id' disabled> ID: </label><br> 
+      <label for='id'> ID: </label><br> 
       <input type='number' id = 'id' name = 'name' disabled> <br>
 
       <label for='fname'>First name:</label><br>
@@ -47,15 +47,14 @@
         <option value='Lifetime'>Lifetime</option>
       </select> <br>
       
-      <label for='expireDate' disabled>Expire Date:</label><br>
-      <input type='date' id='expireDate' name='lname'><br>
+      <label for='expireDate'>Expire Date:</label><br>
+      <input type='date' id='expireDate' name='lname' disabled><br>
     </form>
       
     <button id='primaryButton' class='staticButtons'>Add New Member</button>
     <button id='secondaryButton' class='staticButtons'>Clear Contents</button>
   
     <table id='table'>
-     <thead> 
       <colgroup>
         <col id='idCol' />
         <col id='fnameCol' />
@@ -65,8 +64,7 @@
         <col id='dateJoinedCol' />
         <col id='membershipTypeCol' />
         <col id='expireDateCol' />
-        <col id='modifyButtonCol'>
-        <col id='deleteButtonCol'>
+        
       </colgroup>
       <tr>
           <th>ID</th>
@@ -78,12 +76,10 @@
           <th>Membership Type</th>
           <th>Expire Date</th>
       </tr>
-    </thead> 
     <tbody id='oldTbody'></tbody>
     </table>
-
+    
+    <script src = "js/scripts.js">   </script>
   </body>
 
-
-  <script src = "js/scripts.js">   </script>
 </html>

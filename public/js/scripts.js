@@ -12,10 +12,7 @@ tableData = []
   const inputMembershipType = document.getElementById( 'membershipType' )
   const newExpireDate = document.getElementById( 'expireDate' )
 
-
-  document.addEventListener( 'DOMContentLoaded', retrieve ); // retrieve is the function name that will fire on page load
-  
-
+  document.addEventListener( 'DOMContentLoaded', retrieve ); // retrieve is the function name that will fire on page load  
 
   function retrieve(){
     fetch( '/retrieve')
