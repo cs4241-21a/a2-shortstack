@@ -33,3 +33,20 @@ https://a2-nickfrangie.glitch.me/
   4. **Changes**
      - Edge cases involving zeros and negative numbers should be properly handled.
      - Clarification of revenue versus profit can be acheived with a tooltip similar to that on ROI.
+
+  #### User Experience Study 2
+
+  1. **Participant**
+     - McEvoy
+  2. **Problems**
+     - Input for texboxes is uncapped, so the table width expands endlessly to fit longer investments strings.
+     - Inputting multiple zeros as a cost or revenue results in all zeros being logged to the table.
+     - Overflow for larger numeric values causes no cost/revenue to be saved.
+     - Add Entry button overwrites previously written (but not submitted) form data without confirmation.
+  3. **Comments**
+     - User noticed that my quick-and-dirty delete implementation actually refreshes the page.
+     - User discovered that special unicode characters work with the investment string.
+     - Color palette disliked.
+  4. **Changes**
+     - Capping of input values to not overflow or overexpand the table.
+     - Add number validation before saving numbers to JSON.
