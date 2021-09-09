@@ -87,7 +87,7 @@ th, td {
 }
   
 tr:hover {
-    background-color: #4CAF50;
+    background-color: #f44336;
 }
 
 tr:nth-child(even) {
@@ -95,11 +95,11 @@ tr:nth-child(even) {
 }
 
 tr:nth-child(even):hover {
-    background-color: #4CAF50;
+    background-color: #f44336;
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #f44336;
     color: black;
     text-align: center;
 }

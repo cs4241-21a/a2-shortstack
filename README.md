@@ -1,4 +1,5 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
+Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js
+website: http://a2-jingyu-xie.glitch.me/
 
 ## Fate Servant Generator
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
