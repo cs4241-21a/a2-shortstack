@@ -1,1 +1,68 @@
 /*Style your own assignment! This is fun! */
+      @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+      th {
+        font-family: "Ubuntu";
+        text-align: center;
+      }
+
+      p {
+        font-family: "Ubuntu";
+        text-align: center ;
+        line-height: 10pt;
+      }
+
+      a {
+        font-family: "Ubuntu";
+      }
+
+      td {
+        color: #3305B0;
+        text-align: center;
+        font-size: 50px;
+        background-color: #F2EA07;
+      }
+
+      tr {
+        color: #12DB37;
+        text-align: center;
+      }
+
+      input {
+        color: #078CB8;
+        text-align: center;
+      }
+
+      table {
+        color: #EB8900;
+        text-align: center;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      form {
+        text-align: right;}
+        
+      #birth {
+        color: red;
+      }
+
+      .spacious {
+        margin: 2em;
+      }   
+      
+      .spaciousLight {
+        margin: 1em;
+      }      
+      
+      .flex-container {
+        flex-wrap: wrap;
+        white-space: initial;
+        flex-grow: 1;
+      }
+      
+      .flex-container.spacious {
+          color: black;
+      }
