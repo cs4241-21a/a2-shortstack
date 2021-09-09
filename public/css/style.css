@@ -1,1 +1,212 @@
-/*Style your own assignment! This is fun! */
+/* General styling */
+
+body
+{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1
+{
+    font-family: 'Bangers', cursive;
+    font-size: 50px;
+}
+
+h3
+{
+    font-family: 'Bangers', cursive;
+    font-size: 32px;
+    font-weight: normal;
+    margin-top: 30px !important;
+}
+
+.split-panel
+{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.split-panel *
+{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+}
+
+
+
+/* Styling the form */
+
+form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+form *
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form > label
+{
+    padding-top: 20px;
+    width: 100%;
+}
+
+/* Don't put the crazy padding on the first label */
+form :first-child
+{
+    padding-top: 0px;
+}
+
+
+
+/* Styling the roster table */
+
+#roster
+{
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 75%;
+}
+  
+#roster th
+{
+    background-color: #3d2e5a;
+    color: white;
+}
+
+#roster td, #roster th
+{
+    border: 1px solid #000000;
+    text-align: center;
+    padding: 8px;
+}
+
+#roster tr:nth-child(even)
+{
+    background-color: #dddddd;
+}
+
+
+
+/* Styling the range bar */
+
+input[type=range]
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Set scaling parameters based on slider value */
+input[type=range]
+{
+    --range: calc(var(--max) - var(--min));
+    --ratio: calc((var(--value) - var(--min)) / var(--range));
+    --sx: calc(15px + var(--ratio) * (100% - 30px));
+}
+
+/* Webkit-specific styling */
+@supports selector(::-webkit-slider-runnable-track)
+{
+    @media screen and (-webkit-min-device-pixel-ratio:0)
+    {
+        input[type='range']
+        {
+            -webkit-appearance: none;
+            border-radius: 20px;
+            height: 20px;
+        }
+        
+        input[type='range']::-webkit-slider-runnable-track
+        {
+            height: 20px;
+            border-radius: 20px;
+            background: linear-gradient(#da281b,#da281b) 0 0/var(--sx) 100% no-repeat, #0c6ff0;
+            border: 1px solid #b2b2b2;
+            box-shadow: none;
+        }
+        
+        input[type='range']::-webkit-slider-thumb
+        {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e1e1e1;
+            border: none;
+            box-shadow: 0 0 2px black;
+            margin-top: -5px;
+            -webkit-appearance: none;
+        }
+    
+    }
+}
+
+/* Mozilla-specific styling */
+input[type='range']::-moz-range-progress
+{
+    background-color: #da281b;
+    border-radius: 20px;
+    height: 20px;
+}
+input[type='range']::-moz-range-track
+{  
+    height: 20px;
+    border-radius: 20px;
+    background: #0c6ff0;
+    border: 1px solid #b2b2b2;
+    box-shadow: none;
+}
+input[type='range']::-moz-range-thumb
+{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e1e1e1;
+    border: none;
+    box-shadow: 0 0 2px black;
+}
+
+/* MS-specific styling */
+input[type='range']::-ms-fill-lower
+{
+    height: 20px;
+    border-radius: 20px 0 0 20px;
+    margin: -1px 0 -1px -1px;
+    background: #da281b;
+    border: 1px solid #b2b2b2;
+    border-right-width: 0;
+}
+input[type=range]::-ms-track
+{
+    height: 20px;
+    border-radius: 20px;
+    background: #0c6ff0;
+    border: 1px solid #b2b2b2;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+input[type=range]::-ms-thumb
+{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e1e1e1;
+    border: none;
+    box-shadow: 0 0 2px black;
+    margin-top: 0;
+    box-sizing: border-box;
+}
+
+
