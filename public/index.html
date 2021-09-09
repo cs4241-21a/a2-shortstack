@@ -28,7 +28,7 @@
             <input type='text' id='playername' name="your name here">
           </li>
           <li>
-            <label for="playerscore" class="gameLabel">Score:</label>
+            <label id="playerscore" class="gameLabel">Score:</label>
             <label id="savedScore" class="gameLabel">TestValue</label>
           </li>
         </ul>
@@ -62,110 +62,110 @@
     <table id="game-leaderboard">
 
     </table>
-  </body>
-  <script type='text/javascript' src='../js/scripts.js'></script>
-  <script>
+    <script src='../js/scripts.js'></script>
+    <script>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#playername' ),
-          scoreinput = document.querySelector('#playerscore'),
-          json = { playername: input.value, playerscore: playerScore },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body //shortened version of "body": body 
-      //If there is only one word, it is taken in as the key and value
-    })
-    .then( function( response ) {
+      const submit = function( e ) {
+        // prevent default form action from being carried out
+        e.preventDefault()
+    
+        const input = document.querySelector( '#playername' ),
+              scoreinput = document.querySelector('#playerscore'),
+              json = { playername: input.value, playerscore: playerScore },
+              body = JSON.stringify( json )
+    
+        fetch( '/submit', {
+          method:'POST',
+          body //shortened version of "body": body 
+          //If there is only one word, it is taken in as the key and value
+        })
+        .then( function( response ) {
+          
+          //do something with the reponse 
+          response.text().then(function(textdata) {
+            console.log(JSON.parse(textdata));
+            let newAppdata = JSON.parse(textdata);
+    
+            makeTableFromData(newAppdata);
+          })
+          //let newResponse = JSON.parse(response)
+          //console.log(newResponse[0].name);
+        })
+    
+        return false
+      }
       
-      //do something with the reponse 
-      response.text().then(function(textdata) {
-        console.log(JSON.parse(textdata));
-        let newAppdata = JSON.parse(textdata);
-
-        makeTableFromData(newAppdata);
-      })
-      //let newResponse = JSON.parse(response)
-      //console.log(newResponse[0].name);
-    })
-
-    return false
-  }
-  
-
-  const deleteScore = function(e){
-    e.preventDefault();
-
-    const input = document.querySelector( '#deletename' ),
-          json = { playername: input.value},
-          body = JSON.stringify( json )
-
-    fetch('/deleteScore', {
-      method: 'POST',
-      body
-    })
-    .then(function( response) {
-      //do something with the reponse 
-      response.text().then(function(textdata) {
-        console.log(JSON.parse(textdata));
-        let newAppdata = JSON.parse(textdata);
-
-        makeTableFromData(newAppdata);
-      })
-      //let newResponse = JSON.parse(response)
-      //console.log(newResponse[0].name);
-
-    })
-  }
-
-  const getLeaderboard = function(e){
-    e.preventDefault();
-
-    fetch('/getLeaderboard', {
-      method: 'GET',
-      body
-    })
-    .then(function( response) {
-      //do something with the reponse 
-      response.text().then(function(textdata) {
-        console.log(JSON.parse(textdata));
-        let newAppdata = JSON.parse(textdata);
-
-        makeTableFromData(newAppdata);
-      })
-      //let newResponse = JSON.parse(response)
-      //console.log(newResponse[0].name);
-
-    })
-  }
-
-  const adminAccess = function(e){
-    e.preventDefault();
-    const secretDoc = document.getElementById("deleteScoreForm");
-    const input = document.querySelector( '#adminpassword')
-
-    if(input.value === "Enter the Konami Code"){
-      secretDoc.style.display = "block";
-    }
-
-  }
-  
-
-  window.onload = function() {
-    const button = document.getElementById( 'submit' )
-    button.onclick = submit
-
-    const deleteButton = document.getElementById('deleteButton');
-    deleteButton.onclick = deleteScore;
-
-    const adminButton = document.getElementById("adminAccessButton");
-    adminButton.onclick = adminAccess;
-  }
-
-  </script>
+    
+      const deleteScore = function(e){
+        e.preventDefault();
+    
+        const input = document.querySelector( '#deletename' ),
+              json = { playername: input.value},
+              body = JSON.stringify( json )
+    
+        fetch('/deleteScore', {
+          method: 'POST',
+          body
+        })
+        .then(function( response) {
+          //do something with the reponse 
+          response.text().then(function(textdata) {
+            console.log(JSON.parse(textdata));
+            let newAppdata = JSON.parse(textdata);
+    
+            makeTableFromData(newAppdata);
+          })
+          //let newResponse = JSON.parse(response)
+          //console.log(newResponse[0].name);
+    
+        })
+      }
+    
+      const getLeaderboard = function(e){
+        e.preventDefault();
+    
+        fetch('/getLeaderboard', {
+          method: 'GET',
+          body
+        })
+        .then(function( response) {
+          //do something with the reponse 
+          response.text().then(function(textdata) {
+            console.log(JSON.parse(textdata));
+            let newAppdata = JSON.parse(textdata);
+    
+            makeTableFromData(newAppdata);
+          })
+          //let newResponse = JSON.parse(response)
+          //console.log(newResponse[0].name);
+    
+        })
+      }
+    
+      const adminAccess = function(e){
+        e.preventDefault();
+        const secretDoc = document.getElementById("deleteScoreForm");
+        const input = document.querySelector( '#adminpassword')
+    
+        if(input.value === "Enter the Konami Code"){
+          secretDoc.style.display = "block";
+        }
+    
+      }
+      
+    
+      window.onload = function() {
+        const button = document.getElementById( 'submit' )
+        button.onclick = submit
+    
+        const deleteButton = document.getElementById('deleteButton');
+        deleteButton.onclick = deleteScore;
+    
+        const adminButton = document.getElementById("adminAccessButton");
+        adminButton.onclick = adminAccess;
+      }
+    
+      </script>
+  </body>
 </html>
 
