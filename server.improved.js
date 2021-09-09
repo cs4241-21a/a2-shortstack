@@ -6,11 +6,8 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = [];
+const faces = ["(・`ω´・)",";;w;;","owo","UwU",">w<","^w^","(･.◤)","^̮^","(>人<)","( ﾟヮﾟ)","(▰˘◡˘▰)"]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -22,9 +19,13 @@ const server = http.createServer( function( request,response ) {
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
+  console.log(filename);
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
+  }else if(request.url === '/getAppdata') {
+    response.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
+    response.end(JSON.stringify(appdata));
   }else{
     sendFile( response, filename )
   }
@@ -38,12 +39,19 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let jsonData = JSON.parse(dataString);
+    //console.log(jsonData)
+    let obj = {
+      name: jsonData.name,
+      message: jsonData.message,
+      nameowo: owoify(jsonData.name),
+      messageowo: owoify(jsonData.message)
+    }
+    appdata.push(obj);
 
-    // ... do something with the data here!!!
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.writeHead( 200, "OK", { 'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(obj));
   })
 }
 
@@ -67,6 +75,22 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+function owoify(text) {
+  //console.log(text)
+  let v = text.replace(/[lr]/g, 'w').replace(/[LR]/g, 'W').replace(/n[aeiou]/g, 'ny').replace(/N[aeiou]/g, 'Ny').replace(/N[AEIOU]/g, 'NY');
+  let numExclaimations = (v.match(/!/g)||[]).length;
+  for(let i = 0; i < numExclaimations; i++) {
+    v = v.replace('!'," " + faces[getRandomInt(0, faces.length)] + " ");
+  }
+  return v;
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 server.listen( process.env.PORT || port )
