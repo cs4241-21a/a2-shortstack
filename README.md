@@ -1,8 +1,11 @@
 ## Shortstack web application - created by William White
+
+https://a2-willwht.glitch.me
+
 Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
 This application is a demonstration of a project which makes use of both a client and a server, which has been created using CSS, HTML, and (primarily) Javascript.  This application uses the 'auto' property to have its elements automatically adjust to the screen it is being viewed on.
 
-To use the application, visit the following link, and fill in the forms at the top left of the page.  Click the submit button once all three have been filled in, and the page will populate itself with additional rows listing the data you entered.  The page will create an alert to let you know if any of the fields for data entry contain invalid data (empty strings and negative numbers), and will then let you resume entering data.
+To use the application, visit the link at the top of this README, and fill in the forms at the top left of the page.  Click the submit button once all three have been filled in, and the page will populate itself with additional rows listing the data you entered.  The page will create an alert to let you know if any of the fields for data entry contain invalid data (empty strings and negative numbers), and will then let you resume entering data.
 
 The derived field for this application is the "professional?" field.  To be a professional, one must have a score of 100 points or greater - people who are professionals have their corresponding grid value set to "true," and those who are not have theirs set to "false."
 
