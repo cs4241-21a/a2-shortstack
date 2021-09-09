@@ -1,5 +1,5 @@
 ## The Color Palette Information Getter
-This project is designed to allow users to store a collection of colors and view them along with their Hex codes, RGB representations, and HSL representations. The user can add a new color using any of the three formats, and the application will automaticall calculate the other two formats. The user can also edit and delete colors that are already in the collection.
+This project is designed to allow users to store a collection of colors and view them along with their Hex codes, RGB representations, and HSL representations. The user can add a new color using any of the three formats, and the application will automatically calculate the other two formats. The user can also edit and delete colors that are already in the collection.
 
 The elements of the page are laid out using a flexbox. This is with the exception of the "Change Theme" button, since it is meant to be at the very top-right of the page.
 
