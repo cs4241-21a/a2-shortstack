@@ -78,7 +78,7 @@ const addDataToDB = (data) => {
     let index = 0;
     for (let entry of appdata) {
         if (entry.title === title) {
-            entry[index] = data;
+            appdata[index] = data;
             return;
         }
         index++;
@@ -93,9 +93,6 @@ const handlePost = function(request, response) {
     });
 
     request.on('end', function() {
-        // console.log(JSON.parse(dataString));
-
-        // ... do something with the data here!!!
         const parsed = JSON.parse(dataString);
         const title = parsed.title;
         const text = parsed.text;
@@ -113,8 +110,8 @@ const handlePost = function(request, response) {
         // printOutData(appdata);
 
 
-        response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
-        response.end()
+        response.writeHead(200, "OK", { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify(appdata));
     })
 }
 

@@ -14,10 +14,8 @@ const submit = function(e) {
             method: 'POST',
             body
         })
-        .then(function(response) {
-            // do something with the reponse 
-            console.log(response)
-        })
+        .then(response => response.json())
+        .then(handleData);
 
     return false;
 }
@@ -28,6 +26,8 @@ async function getCurrentData() {
 }
 
 const handleData = (data) => {
+    console.log('handling data:');
+    console.log(data);
     let dataView = document.getElementById('data-view');
     dataView.innerHTML = '';
     for (let entry of data) {
