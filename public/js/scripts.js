@@ -65,7 +65,7 @@ const refreshBudget = function (body) {
 			document.getElementById('budgetNew').placeholder = json;
 
 
-			if (totalOut > budget) {
+			if (totalOut > json) {
 				alert("You are over budget!")
 			}
 		})

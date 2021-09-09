@@ -8,21 +8,21 @@ let budget = 2500;
 
 const appdata = [
 	{
-		"date": "2021-09-08",
+		"date": "2021-09-07",
 		"I": 4273.82,
 		"O": 47.32,
 		"transactions": [
-			{"isIn": false, "date": "2021-09-08", "amount": "34.99", "category": "Brunch"},
-			{"isIn": false, "date": "2021-09-08", "amount": "12.33", "category": "Uber"},
-			{"isIn": true, "date": "2021-09-08", "amount": "4273.82", "category": "Stock Sold"}
+			{"isIn": false, "date": "2021-09-07", "amount": "34.99", "category": "Brunch"},
+			{"isIn": false, "date": "2021-09-07", "amount": "12.33", "category": "Uber"},
+			{"isIn": true, "date": "2021-09-07", "amount": "4273.82", "category": "Stock Sold"}
 		]
 	}, {
-		"date": "2021-09-07",
+		"date": "2021-09-08",
 		"I": 297.64,
 		"O": 480.17,
 		"transactions": [
-			{"isIn": true, "date": "2021-09-07", "amount": "297.64", "category": "Stock Sold"},
-			{"isIn": false, "date": "2021-09-07", "amount": "480.17", "category": "Dentist"}
+			{"isIn": true, "date": "2021-09-08", "amount": "297.64", "category": "Stock Sold"},
+			{"isIn": false, "date": "2021-09-08", "amount": "480.17", "category": "Dentist"}
 		]
 	}
 ]
@@ -68,7 +68,7 @@ const handlePost = function (request, response) {
 			budget = received.budget
 			console.log(budget)
 			response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-			response.end(JSON.stringify(received.budget))
+			response.end(JSON.stringify(budget))
 		} else if ((received.type === "income" || received.type === "expense") && !isNaN(Date.parse(received.date)) && !isNaN(received.amount)) {
 			let searched = appdata.find(each => each.date === received.date)
 			if (searched !== undefined) {
