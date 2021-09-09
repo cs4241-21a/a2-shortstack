@@ -12,20 +12,20 @@ This project allows users to rate their books. They add the title, author, and r
 
 I used the flexbox for my positoning technique. To use this application, enter book information and press submit. You can add as many books as you would like, but they must be added one at a time.
 
--This application has a server which serves files and maintains a dataset with 4 given field and one dervived field.
--The entire dataset is shown at all times.
--There is a form through which users can add items (books) into the server's memory.
--I used the fields rating and year to determine my dervived field "rank".
--I created an HTML form with label and input components inside of the form (along with one button).
--The results are shown in a table and are on the same page as the form.
--All of the pages validate (I entered the glitch link to the index page into the validator clue, which says that there are no errors or warnings to show).
--I styled the application using the same colors as my previous Assignment 1.
--I used element, ID, and class selectors when applying styles.
--I used a flexbox for the positioning and styling of the primary visual elements in the apalication
--I  used the "Montserrat" Google Font for all text.
--My CSS is in an external stylesheet which is more maintainable and readable.
--I use Javascript in the script tag in the head of the index.html file.
--I have an HTTP Server that delivers all necessary files and data for the application, and also creates the required Derived Fields
+- This application has a server which serves files and maintains a dataset with 4 given field and one dervived field.
+- The entire dataset is shown at all times.
+- There is a form through which users can add items (books) into the server's memory.
+- I used the fields rating and year to determine my dervived field "rank".
+- I created an HTML form with label and input components inside of the form (along with one button).
+- The results are shown in a table and are on the same page as the form.
+- All of the pages validate (I entered the glitch link to the index page into the validator clue, which says that there are no errors or warnings to show).
+- I styled the application using the same colors as my previous Assignment 1.
+- I used element, ID, and class selectors when applying styles.
+- I used a flexbox for the positioning and styling of the primary visual elements in the apalication
+- I  used the "Montserrat" Google Font for all text.
+- My CSS is in an external stylesheet which is more maintainable and readable.
+- I use Javascript in the script tag in the head of the index.html file.
+- I have an HTTP Server that delivers all necessary files and data for the application, and also creates the required Derived Fields
 
 ## Technical Achievements
 - **Tech Achievement 1**: This is a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. The form remains on the top of the page for the entire duration of the application. There is a table on the bottom of the page which starts off empty as there is no intial data on the server side. As books as submitted and added to the server-side data, the display of the table is also updated to reflect the new books.
@@ -37,33 +37,33 @@ I used the flexbox for my positoning technique. To use this application, enter b
 Task: Enter 3 books, two of which have the same rating and all of which have different release years.
 
 1. Last Name:
--Baker (Roomate)
+- Baker (Roomate)
 2. What problems did the user have with your design?
--Did not understand what was being asked on them from the task.
--Did not enter proper years into the release years input.
+- Did not understand what was being asked on them from the task.
+- Did not enter proper years into the release years input.
 3. What comments did they make that surprised you?
--Colors are pretty and its readable.
--Would be cool to have "popular books" as suggestions for people to use.
+- Colors are pretty and its readable.
+- Would be cool to have "popular books" as suggestions for people to use.
 4. What would you change about the interface based on their feedback?
--I would add some suggested books to help new users which would provide good guidelines by example.
--I would add some more desciptive text to the page to explain it a bit more.
+- I would add some suggested books to help new users which would provide good guidelines by example.
+- I would add some more desciptive text to the page to explain it a bit more.
 
 **Think-Aloud 2:**
 
 Task: Enter 3 books, two of which have the same rating and all of which have different release years.
 
 1. Last Name:
--Venard (Roomate)
+- Venard (Roomate)
 2. What problems did the user have with your design?
--Also very confused about what the task is asking.
--Forgot what the task was during the think-aloud.
+- Also very confused about what the task is asking.
+- Forgot what the task was during the think-aloud.
 3. What comments did they make that surprised you?
--Thought that this program would be searching for the book and not entering the book.
--Likes the look of the page.
--Thinks the rank and then rating should be on the left and not the right. So rank, rating, ...
--To let the user upload pictures with the books.
--To let users give books a rating of 0-10.
+- Thought that this program would be searching for the book and not entering the book.
+- Likes the look of the page.
+- Thinks the rank and then rating should be on the left and not the right. So rank, rating, ...
+- To let the user upload pictures with the books.
+- To let users give books a rating of 0-10.
 4. What would you change about the interface based on their feedback?
--I would change the order of the elements of the table to be rank, rating, title, author, release year.
--I would change the rating scale to be 0-10
--I would make the goal of the application more clear by adding more descriptive text to the page.
+- I would change the order of the elements of the table to be rank, rating, title, author, release year.
+- I would change the rating scale to be 0-10
+- I would make the goal of the application more clear by adding more descriptive text to the page.
