@@ -1,1 +1,132 @@
 /*Style your own assignment! This is fun! */
+
+body {
+  background: #FFA17F;
+  background: linear-gradient(to top, #00223E, #FFA17F) no-repeat center center fixed;
+  font-family: 'Averia Serif Libre', cursive;
+}
+
+h1 {
+  font-family: 'Marck Script', cursive;
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+.form_grid {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.form_box {
+  position: relative;
+  height: 100%;
+  width: 32%;
+  border: 1px  solid white;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  padding-bottom: 10px;
+}
+
+#grid {
+  position: relative;
+  width: 65%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.table td, th {
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.table th {
+    background-color: #00223E;
+    color: lightgrey
+}
+
+.table tr {
+  background-color: #454450;
+  color: white;
+}
+
+input, select {
+  float: left;
+  clear: both;
+  margin-bottom: 5px;
+}
+
+.line {
+  border-left: 4px double white;
+  height: 100%;
+  top: 50%;
+}
+
+label {
+  float: left;
+  clear: both;
+}
+
+button {
+  width: 100%;
+  transition-duration: 0.4s;
+  height: 30px;
+  display: table-cell;
+  align-self: flex-end;
+}
+
+.b3 {
+  margin-bottom: 10px;
+}
+
+.buttonSpace, form {
+  width: 100%;
+}
+
+.error_box {
+  align-self: flex-end;
+  text-align: center;
+  border: 1px solid red;
+  width: 100%;
+}
+
+.b1:hover {
+  background-color: #50614d; /* Green */
+  color: white;
+}
+
+.b2:hover {
+  background-color: #540e0a; /* Red */
+  color: white;
+}
+
+.b3:hover {
+  background-color: #0a3454; /* Blue */
+  color: white;
+}
