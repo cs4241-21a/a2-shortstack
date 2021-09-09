@@ -42,8 +42,6 @@ const handlePost = function( request, response ) {
 
   request.on( 'end', function() {
     const json = JSON.parse( dataString )
-    json.rank = 4
-    // appdata = {...appdata, ...json}
     appdata.push(json)
     appdata.sort(function ( a, b ) {
       if ( a.rating < b.rating ){
@@ -64,10 +62,7 @@ const handlePost = function( request, response ) {
       appdata[i].rank = i+1
     }
 
-    // ... do something with the data here!!!
-
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    // response.write(JSON.stringify(appdata[0]));
     response.end(JSON.stringify(appdata))
   })
 }

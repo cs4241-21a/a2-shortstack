@@ -4,11 +4,77 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Rate Your Books</title>
     <meta charset="utf-8">
+    <script>
+      const submit = function( e ) {
+      // prevent default form action from being carried out
+      e.preventDefault()
+  
+      const ftitle = document.querySelector( '#ftitle' ),
+            fauthor = document.querySelector( '#fauthor' ),
+            fyear = document.querySelector( '#fyear' ),
+            frating = document.querySelector( '#frating' ),
+            json = { title: ftitle.value, author: fauthor.value, year: fyear.value, rating: frating.value },
+            body = JSON.stringify( json )
+  
+      // console.log(`submit body: ${body}`);
+      fetch( '/submit', {
+        method:'POST',
+        body 
+      })
+      .then( function( response ) {
+        // do something with the reponse 
+        // console.log( `submit response:` );
+        // console.log(response);
+        // return response;
+        return response.json()
+      })
+      .then( function( json ) {
+        console.log(json)
+  
+        // const element = document.createElement('tr')
+        // element.innerHTML = `<td>${json[0].title}</td><td>${json[0].author}</td><td>${json[0].year}</td><td>${json[0].rating}</td><td>${json[0].rank}</td>`
+        // // element.innerText = json.title
+        // // document.body.appendChild(element)
+        // document.querySelector('table').appendChild(element)
+  
+        var newTable = document.createElement('table')
+        var tableText = '<table><tr><th>Title</th><th>Author</th><th>Release Year</th><th>Rating</th><th>Rank</th></tr>'
+        var i = 0
+          while (json[i]!=undefined) {
+          tableText +='<tr><td>'
+          tableText += json[i].title
+          tableText += '</td><td>'
+          tableText += json[i].author
+          tableText += '</td><td>'
+          tableText += json[i].year
+          tableText += '</td><td>'
+          tableText += json[i].rating
+          tableText += '</td><td>'
+          tableText += json[i].rank
+          tableText += '</td></tr>'
+          i++
+        }
+        tableText += '</table>'
+        newTable.innerHTML = tableText
+        document.querySelector('table').remove()
+        document.body.appendChild(newTable)
+      })
+  
+      return false
+    }
+  
+    window.onload = function() {
+      const button = document.querySelector( 'button' )
+      button.onclick = submit
+    }
+  
+    </script>
   </head>
   <body>
     <div id="wrapper"></div>
       <h1>Rate Your Books</h1>
-      <div id="enterForm">
+      <br>
+      <div class="enterForm">
         <h2>Enter Your Book Below</h2>
         <form action="">
           <label for="ftitle">Title:</label>
@@ -24,6 +90,7 @@
       </div>
 
       <h2>All Your Ratings</h2>
+
       <table>
         <tr>
           <th>Title</th>
@@ -32,85 +99,7 @@
           <th>Rating</th>
           <th>Rank</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-          <td>5</td>
-        </tr>
       </table>
     </div>
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const ftitle = document.querySelector( '#ftitle' ),
-          fauthor = document.querySelector( '#fauthor' ),
-          fyear = document.querySelector( '#fyear' ),
-          frating = document.querySelector( '#frating' ),
-          json = { title: ftitle.value, author: fauthor.value, year: fyear.value, rating: frating.value },
-          body = JSON.stringify( json )
-
-    // console.log(`submit body: ${body}`);
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      // console.log( `submit response:` );
-      // console.log(response);
-      // return response;
-      return response.json()
-    })
-    .then( function( json ) {
-      console.log(json)
-
-      // const element = document.createElement('tr')
-      // element.innerHTML = `<td>${json[0].title}</td><td>${json[0].author}</td><td>${json[0].year}</td><td>${json[0].rating}</td><td>${json[0].rank}</td>`
-      // // element.innerText = json.title
-      // // document.body.appendChild(element)
-      // document.querySelector('table').appendChild(element)
-
-      var newTable = document.createElement('table')
-      var tableText = '<table><tr><th>Title</th><th>Author</th><th>Release Year</th><th>Rating</th><th>Rank</th></tr>'
-      var i = 0
-        while (json[i]!=undefined) {
-        tableText +='<tr><td>'
-        tableText += json[i].title
-        tableText += '</td><td>'
-        tableText += json[i].author
-        tableText += '</td><td>'
-        tableText += json[i].year
-        tableText += '</td><td>'
-        tableText += json[i].rating
-        tableText += '</td><td>'
-        tableText += json[i].rank
-        tableText += '</td></tr>'
-        i++
-      }
-      console.log(`json.entries().length: ${Object.keys(json).length}`)
-      // console.log(`json.length(): ${json.length()}`)
-      console.log(`json[5]: ${json[5]}`)
-      tableText += '</table>'
-      console.log('tableText:')
-      console.log(tableText)
-      newTable.innerHTML = tableText
-      document.querySelector('table').remove()
-      document.body.appendChild(newTable)
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>
