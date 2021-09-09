@@ -8,6 +8,7 @@ My project is a stock, ETF, or index fund financial portfolio creator. The site 
 portfolio listing. Information that the user must enter include the name of the security, its ticker symbol, its price in dollars, and the amount
 of shares that the user owns. The site produces a derived feild that denotes the total dollar amount that the user has invested in the security.
 All of the information that the user enters plus the derived feild is used to create a portfolio listing object which is appended to the page.
+The CSS positioning technique that was used is Flexbox and instructions on using the application are provided on the site.
 
 ## Technical Achievements
 
