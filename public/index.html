@@ -8,13 +8,14 @@
   </head>
   <body>
     <form method="post">
+    <h1>A simple todo list app</h1>
     <ul>
       <li>
         <label for="todo">Todo:</label>
         <textarea id="todo" name="todo"></textarea>
       </li>
       <li>
-        <label for="day">Select Day of the Week</label>
+        <label for="day">Select Day of the Week:</label>
           <select id="day" name="day">
             <option value="Sunday">Sunday</option>
             <option value="Monday">Monday</option>
@@ -26,7 +27,7 @@
         </select>
       </li>
       <li>
-        <label for="priority">Select priority</label>
+        <label for="priority">Select Task Difficulty:</label>
           <select id="priority" name="priority">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -41,14 +42,12 @@
         </select>
       </li>
       <li class="button">
-        <button type="button">SUBMIT</button>
+        <button type="button">submit</button>
       </li>     
     </ul>
     </form>
     <h1>Your Todos:</h1>
     <table style="table-layout: auto;" id="dataTable"></table>
-    <h1>Weekly Difficulty Tracker</h1>
-    <table style="table-layout: auto;" id="dificulty"></table>
   </body>
 
   <script>
@@ -114,12 +113,12 @@
 
       for (let count = 0; count < data.length; count++){
         if(data[count].day === day){
-          let item = document.createTextNode(data[count].todo)
+          let item = document.createTextNode('Todo:\n'+data[count].todo)
           let td = document.createElement('td')
           td.appendChild(item)
           tr.appendChild(td)
 
-          item = document.createTextNode(data[count].priority)
+          item = document.createTextNode('Raw Difficulty:\n'+data[count].priority)
           td = document.createElement('td')
           td.appendChild(item)
           tr.appendChild(td)
@@ -129,7 +128,7 @@
           td.appendChild(item)
           tr.appendChild(td)
 
-          item = document.createTextNode(data[count].difficulty)
+          item = document.createTextNode('Adjusted Difficulty:\n'+data[count].difficulty)
           td = document.createElement('td')
           td.appendChild(item)
           tr.appendChild(td)
