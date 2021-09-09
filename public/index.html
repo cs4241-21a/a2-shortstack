@@ -3,39 +3,245 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
+     
+<div class="flex-container">
+    <h1>SECURE-PASSWORDS.io</h1>
+</div> 
+<div class="flex-container">
+
+      <form>
+      <input type='text' id='yourname' placeholder="name">
+      <input type='text' id='password' placeholder="password">
+      <input type='text' id='age' placeholder="age">
       <button>submit</button>
     </form>
-  </body>
-  <script>
+</div>
+<div class="flex-container">
+    <table id="table">
+        <thead>
+          <tr class="formHeader">
+            <th scope="col">NAME</th>
+            <th scope="col">PASSWORD</th>
+            <th scope="col">AGE</th>
+            <th scope="col">BIRTH-YEAR</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody> </tbody>
+</table>
+</div>
 
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
+    <script>
+      let dataArr = []
+      const submit = function( e ) {
+    
+    let name = document.querySelector( '#yourname' )
+    let password = document.querySelector( '#password' )
+    let age = document.querySelector( '#age' )
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    if (name.value ==="" || password.value ==="" || age.value ==="" ) {
+        alert("Fields not filled in")
+        return false
+    } 
+
+          
+          json = { yourname: name.value, password: password.value, age:age.value }
           body = JSON.stringify( json )
-
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+      return response.text()
+    })
+
+    .then( function ( text ) {
+        console.log(text)
+        dataArr = (JSON.parse(text));
+        updateTable();
+        console.log("dataArr: " + JSON.stringify(dataArr));
     })
 
     return false
   }
 
+
+let mod=-1;
+  const modify = function (e) {
+     e.target.setAttribute('value','save')
+      mod = Number(e.target.id.substring(4))
+      console.log(mod)
+      let entry = dataArr[Number(e.target.id.substring(4))]
+
+      document.querySelector('#yourname').value = entry.yourname
+      document.querySelector('#password').value = entry.password
+      document.querySelector('#age').value = entry.age
+
+    console.log(entry,dataArr)
+    body = e.target.id.toString()
+    console.log(body)
+      updateTable();
+    }
+
+const save = function( e ) {
+    let name = document.querySelector( '#yourname' )
+    let password = document.querySelector( '#password' )
+    let age = document.querySelector( '#age' )
+
+    if (name.value ==="" || password.value ==="" || age.value ==="" ) {
+        alert("Fields not filled in")
+        return false
+    } 
+
+          
+    json = { yourname: name.value, password: password.value, age:age.value }
+    body = JSON.stringify( json ) + e.target.id.toString()
+    console.log(body)
+    fetch( '/modify', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {
+      return response.text()
+    })
+
+    .then( function ( text ) {
+        console.log(text)
+        dataArr = (JSON.parse(text));
+        updateTable();
+        console.log("dataArr: " + JSON.stringify(dataArr));
+    })
+
+
+    mod = -1
+    updateTable()
+    return false
+  }
+
+
+  const remove = function (e) {
+    e.preventDefault()
+
+    dataArr.splice(Number(e.target.id.substring(6)), 1);
+    console.log("Current dataArr after deletion: " + JSON.stringify(dataArr))
+    body = e.target.id.toString()
+    console.log(body)
+    fetch( '/remove', {
+      method:'POST',
+      body 
+    }) 
+    .then( function( response ) {
+      return response.text()
+    })
+
+    .then( function ( text ) {
+        console.log(text)
+        updateTable();
+    })
+ 
+      
+  }
+
   window.onload = function() {
     const button = document.querySelector( 'button' )
     button.onclick = submit
+ 
+    fetch( '/load', {
+      method:'POST',
+      
+    })
+    .then( function( response ) {
+      return response.text()
+    })
+
+    .then( function ( text ) {
+        console.log(text)
+        dataArr = (JSON.parse(text));
+        updateTable();
+        console.log("dataArr: " + JSON.stringify(dataArr));
+    })   
   }
 
-  </script>
+  function updateTable() {
+    let tbody = document.querySelector('tbody')
+    tbody.innerHTML = ""
+    
+    let button = document.querySelector( 'button' )
+      button.disabled = false
+      if(mod>=0){
+    button.disabled = true
+    } 
+    for (let index = 0; index < dataArr.length; index++) {
+
+        let newRow = document.createElement('tr')
+
+        for (let cell = 0; cell < 6; cell++) {
+
+            let newCell = document.createElement('td')
+            let newText;
+
+           switch(cell) {
+               case 0:
+                   //Creates a new cell that contains the Name value
+                   newText = document.createTextNode(dataArr[index].yourname);
+                   break;
+                case 1:
+                   newText = document.createTextNode(dataArr[index].password);
+                   break;
+               case 2:
+                   newText = document.createTextNode(dataArr[index].age);
+                   break;
+               case 3:
+                   newText = document.createTextNode(dataArr[index].birthyear);
+                   break;
+                case 4:
+                    //Creates a new cell that contains the Edit button
+                   
+                    newText = document.createElement('Input')
+                    newText.setAttribute('type','button')
+                    newText.setAttribute('value', 'Edit')
+                    if(mod>=0 && index!=mod){
+                    newText.disabled=true
+                    }else if(mod>=0 && index==mod){
+                    newText.setAttribute('value', 'Save')
+                    }
+                    break;
+                   
+                case 5:
+                    newText = document.createElement('Input')
+                    newText.setAttribute('type','button')
+                    newText.setAttribute('value', 'Delete')
+                    if(mod>=0){
+                    newText.disabled=true
+                    }
+                   break;
+           }
+            if (cell === 4) {
+                newText.id = "Edit" + index.toString()
+                newText.onclick = modify;
+                if(mod>=0){
+                    newText.onclick = save;
+                }
+            }
+            if (cell === 5) {
+                newText.id = "Delete" + index.toString()
+                newText.onclick = remove;
+            }
+            newCell.appendChild(newText)
+            newRow.appendChild(newCell)
+        }
+        tbody.appendChild(newRow)
+    }
+  }  </script>
+  </body>
+
 </html>
