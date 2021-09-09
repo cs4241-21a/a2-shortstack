@@ -1,5 +1,8 @@
 ## The Fridge
 
+Maxine Shi 
+https://a2-aamaxaa.glitch.me
+
 This project focuses on one of the most importnat places in our homes, the fridge. It is a table that helps keep track of the items within one's fridge. The app allows the user to submit more data in regards to the items, edit an item, or delete an item from the table.
 
 ## Technical Achievements
