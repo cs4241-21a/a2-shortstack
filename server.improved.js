@@ -38,12 +38,17 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    const colors = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple']
+    const animals = ['Monkey', 'Elephant', 'Squirrel','Panda', 'Shark', 'Bear', 'Otter']
+    const traits = ['Silly', 'Serious', 'Funny', 'Goofy', "Smart", 'Sassy', 'Happy', 'Curious']
+    const json = JSON.parse( dataString )
+    //const c = colors[(Math.floor(Math.random() * 6)] + json.yourname 
+    json.yourname += traits[Math.floor(Math.random() * traits.length)] + colors[Math.floor(Math.random() * colors.length)] + animals[Math.floor(Math.random() * animals.length)] + (Math.floor(Math.random() * 5000)).toString();
 
-    // ... do something with the data here!!!
+    //json.yourname += (Math.floor(Math.random() * 500)).toString();
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(json))
   })
 }
 
