@@ -1,3 +1,5 @@
+let count = 0;
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -6,11 +8,6 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -38,16 +35,31 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+
+    count = count + 1;
 
     const json = JSON.parse(dataString);
 
-    // ... do something with the data here!!!
+    // Here, we add the calculated price per person and add it to the json element to 
+    // be sent back to the client
+
+    let last_json_item = json[json.length - 1];
+
+    let num_of_people = parseFloat(last_json_item.num_of_people.replace(",", ""));
+    let amount_due = parseFloat(last_json_item.amount_due.replace("$","").replace(",", ""));
+    let tip = parseFloat(last_json_item.tip.replace("$","").replace(",", ""));
+
+    let price_per_person = (amount_due + tip) / num_of_people;
+
+    json[json.length - 1]['price_per_person'] = price_per_person.toString();
+    json[json.length - 1]['id'] = count.toString();
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(json))
   })
 }
+
+
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename ) 

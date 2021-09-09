@@ -1,9 +1,5 @@
 // Add some Javascript code here, to run on the front end.
 
-console.log("Welcome to assignment 2!")
-
-
-
 
 
 /*
@@ -76,16 +72,20 @@ function handle_tip(input, blur){
     }
 }
 
-function generateNewForm(delete_container){
+function generateNewForm(delete_container, id){
 
-    // console.log("delete container", delete_container);
+    
 
     let previously_saved_form = document.body.children[2];
-    // console.log("previously_saved_form:", previously_saved_form);
+    
 
     let new_saved_container = document.createElement("div");
-    new_saved_container.setAttribute("id", "box");
+    new_saved_container.setAttribute("id", id);
     new_saved_container.setAttribute("class", "saved_container");
+
+    let json = getAppropriateJSON(id);
+
+    console.log("updated json: ", json);
 
 
     //Time Stamp
@@ -132,7 +132,7 @@ function generateNewForm(delete_container){
 
     let new_num_people = document.createElement("label");
     new_num_people.setAttribute("id", "people_input");
-    new_num_people.innerHTML = "?";
+    new_num_people.innerHTML = json.num_of_people;
 
     let new_people_label = document.createElement("label");
     new_people_label.innerHTML = " people";
@@ -154,7 +154,7 @@ function generateNewForm(delete_container){
 
     let new_calculated_20 = document.createElement("p");
     new_calculated_20.setAttribute("id", "20%_value");
-    new_calculated_20.innerHTML = "$?.??";
+    new_calculated_20.innerHTML = json.calc_1;
 
     new_provided_calculation_1.appendChild(new_20_p);
     new_provided_calculation_1.appendChild(new_calculated_20);
@@ -172,7 +172,7 @@ function generateNewForm(delete_container){
 
     let new_calculated_17 = document.createElement("p");
     new_calculated_17.setAttribute("id", "17.5%_value");
-    new_calculated_17.innerHTML = "$?.??";
+    new_calculated_17.innerHTML = json.calc_2;
 
 
     new_provided_calculation_2.appendChild(new_17_p);
@@ -190,7 +190,7 @@ function generateNewForm(delete_container){
 
     let new_calculated_15 = document.createElement("p");
     new_calculated_15.setAttribute("id", "15%_value");
-    new_calculated_15.innerHTML = "$?.??";
+    new_calculated_15.innerHTML = json.calc_3;
     
     new_provided_calculation_3.appendChild(new_15_p);
     new_provided_calculation_3.appendChild(new_calculated_15);
@@ -213,7 +213,7 @@ function generateNewForm(delete_container){
 
     let new_amount_due = document.createElement("p");
     new_amount_due.setAttribute("id", "given_amount");
-    new_amount_due.innerHTML = "$200.00";
+    new_amount_due.innerHTML = json.amount_due;
     new_form_amount_due.appendChild(new_amount_due);
 
     new_saved_container.appendChild(new_form_amount_due);
@@ -223,7 +223,7 @@ function generateNewForm(delete_container){
 
     let new_tip_label = document.createElement("label");
     new_tip_label.setAttribute("id","tip");
-    new_tip_label.innerHTML = "+ Tip :";
+    new_tip_label.innerHTML = `+ Tip ${json.tip_percentage}`;
     new_saved_container.appendChild(new_tip_label);
 
 
@@ -235,7 +235,7 @@ function generateNewForm(delete_container){
     new_form_tip.setAttribute("class", "form_container");
 
     let new_tip = document.createElement("p");
-    new_tip.innerHTML = "$20.00";
+    new_tip.innerHTML = json.tip;
     new_form_tip.appendChild(new_tip);
 
     new_saved_container.appendChild(new_form_tip);
@@ -250,7 +250,7 @@ function generateNewForm(delete_container){
     
     let new_total_cost = document.createElement("p");
     new_total_cost.setAttribute("id", "final_calculation");
-    new_total_cost.innerHTML = "$?.??";
+    new_total_cost.innerHTML = json.price_per_person;
 
     new_saved_container.appendChild(new_footer);
     new_saved_container.appendChild(new_total_cost);
@@ -259,12 +259,9 @@ function generateNewForm(delete_container){
     //Adds everything to the webpage
     document.body.insertBefore(new_saved_container, previously_saved_form);
 
-    // console.log(delete_container);
+    
     if(delete_container !== undefined){
         delete_container.remove();
-        // console.log("removing");
-        
-
     }
 
     return new_saved_container;
@@ -291,8 +288,6 @@ function delete_form(delete_button){
 
 
 function edit_mode(button){
-    
-    // console.log(button);
 
     let container = button.parentElement;
 
@@ -309,34 +304,23 @@ function edit_mode(button){
 
     previous_time_stamp.remove();
 
-    // container.setAttribute("class", "container");
-    // console.log(calculation);
-    
-    // console.log(people_form);
-    // console.log(amount_form);
-    // console.log(tip_form);
-
     let people_input = people_form.children[0];
     let amount_input = amount_form.children[0];
     let tip_input = tip_form.children[0];
 
-    // console.log(people_input);
-    // console.log(amount_input);
-    // console.log(tip_input);
 
-    // console.log("people_input.innerHTML", people_input.innerHTML);
+
+
     let num_of_people = people_input.innerHTML;
     let amount_due = amount_input.innerHTML;
     let tip = tip_input.innerHTML;
 
-    // console.log(num_of_people);
-    // console.log(amount_due);
-    // console.log("tip value = ", tip);
+
 
     
     amount_input.remove();
     tip_input.remove();
-    // people_input.innerHTML = " people";
+    
 
     let new_people_input = document.createElement("input");
 
@@ -412,9 +396,6 @@ function edit_mode(button){
         }
     
         let saved_time = "Saved on " + month + " " + date + ", " + year + " at " + hours + ":" + minutes + tod;
-    
-        // console.log(saved_time);
-        
     }
 
     button.innerHTML = "delete";
@@ -456,7 +437,6 @@ function formatCurrency(input, blur) {
 
   let input_val;
 
-//   console.log("input", input.value);
 
   //If there is no input value, the placeholder value will showup again
   if(input.value !== ''){
@@ -521,7 +501,6 @@ function formatCurrency(input, blur) {
   
 
   // Updates the value that is inside of the form
-//   console.log("at the end:", input_val);
   input.value = input_val;
 
 }
@@ -583,11 +562,6 @@ function calculate_tip_percentage(input, parent_container){
 
     // Lets get the value the user actually gave for the tip
     let input_val = input.value;
-
-    console.log("parent_container.children", parent_container.children);
-    console.log("parent_container.children", parent_container.children.length);
-    console.log("input", input);
-    console.log("parent_container", parent_container);
 
     let num_of_elements = parent_container.children.length;
 
@@ -659,65 +633,101 @@ function calculate_tip_percentage(input, parent_container){
     }
 }
 
+
+
 function submit(calculate_button) {
 
-    let container = calculate_button.parentElement;
+    // This is the big white box/form being worked on
+    let parent_container = calculate_button.parentElement;
 
-    // console.log(calculate_button);
-    if(container.className === "container"){
-        // console.log("main form");
-        new_saved_container = generateNewForm();
-        
-    } 
-    else{
-        // console.log("sub form");
-        new_saved_container = generateNewForm(container);
-    }   
-
-
-    // //prevents the default form action from being executed
-    // event.preventDefault()
-
-    // console.log("total_cost_input", new_saved_container.querySelector('#given_amount'));
-    const   total_cost_input = new_saved_container.querySelector('#given_amount'),
-            total_cost_json = { given_amount: total_cost_input.value },
-            total_cost_body = JSON.stringify(total_cost_json)
 
     
-    // console.log(total_cost_json);
-    // console.log(total_cost_body);
 
-    const   tip_input = container.querySelector('#tip_amount'),
-            tip_json = { tip_amount: tip_input.value },
-            tip_body = JSON.stringify(tip_json)
+    // // console.log(calculate_button);
+    // if(container.className === "container"){
+    //     // console.log("main form");
+    //     new_saved_container = generateNewForm();
+        
+    // } 
+    // else{
+    //     // console.log("sub form");
+    //     new_saved_container = generateNewForm(container);
+    // }   
 
-        // console.log(tip_input);
-        // console.log(tip_json);
-        // console.log(tip_body);
 
-    const   people_input = container.querySelector('#people_input'),
-            people_json = { people_input: people_input.value },
-            people_body = JSON.stringify(tip_json)
 
-        // console.log(people_input);
-        // console.log(people_json);
-        // console.log(people_body);
 
+
+    let people_input = parent_container.children[0].children[0];
+    let calc_1 = parent_container.children[1].children[1];
+    let calc_2 = parent_container.children[2].children[1];
+    let calc_3 = parent_container.children[3].children[1];
+    let amount_due_input = parent_container.children[5].children[0];
+    let tip_percentage = parent_container.children[6];
+    let tip_input = parent_container.children[7].children[0];
+
+    if(parent_container.children.length === 10){
+        people_input = parent_container.children[1].children[0];
+        calc_1 = parent_container.children[2].children[1];
+        calc_2 = parent_container.children[3].children[1];
+        calc_3 = parent_container.children[4].children[1];
+        amount_due_input = parent_container.children[6].children[0];
+        tip_percentage = parent_container.children[7];
+        tip_input = parent_container.children[8].children[0];
+    }
+
+    console.log("tip_percentage", tip_percentage);
+    
+    // console.log("calc_1.value = ", calc_1.value);
+    let values = { 
+        "num_of_people": people_input.value, 
+        "amount_due": amount_due_input.value,
+        "tip": tip_input.value,
+        "calc_1": calc_1.innerHTML,
+        "calc_2": calc_2.innerHTML,
+        "calc_3": calc_3.innerHTML,
+        "tip_percentage": tip_percentage.innerHTML.substring(6)
+    };
+    
+    appdata.push(values);
+
+    let data = JSON.stringify(appdata);
+
+    // create array
+    // stringify array
 
     fetch('/submit', {
         method: 'POST',
-        "body": total_cost_body // Same thing as: "body" : body
+        "body": data // Same thing as: "body" : body
     })
     .then(function( response ){
         //do something with the response
-        // console.log( response )
+        return response.json()
+    })
+    .then(function(json) {
+        //json is the array returned by the server
+        console.log("json", json);
+        appdata = json;
+
+        generateNewForm(undefined, json[json.length - 1].id);
+        
+        
     })
 
     return false
 }
 
 
+function getAppropriateJSON(id){
+    for( i = 0; i < appdata.length; i++){
+        let json = appdata[i];
+        if(json.id === id){
+            return json;
+        }
+    }
+
+    return;
+}
 
 
-
-
+let appdata = [];
