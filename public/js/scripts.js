@@ -1,10 +1,14 @@
 let entryCount = 0;
+let formOpen = -2; // -2 = Not open, -1 = Open for add entry, 0+ = Open for edit index entry
 
 window.onload = () => {
     loadServerData();
 
     const addButton = document.querySelector("#add-button")
-    addButton.onclick = () => openForm(entryCount);
+    addButton.onclick = () => {
+        clearForm();
+        switchForm(-1, entryCount);
+    }
 
     const submitButton = document.querySelector("#submit-button");
     submitButton.onclick = submitData;
@@ -55,7 +59,7 @@ const loadServerData = () => {
     const addOptionButtons = (index) => {
         const onClickEdit = (e) => {
             setForm(index);
-            openForm(index);
+            switchForm(index, index);
         }
 
         const onClickDelete = (e) => {
@@ -93,6 +97,14 @@ const loadServerData = () => {
 //#endregion
 
 //#region Form Handling
+    const switchForm = (formType, index) => {
+        const form = document.querySelector("form");
+        if (form.hidden || formType != formOpen) {
+            openForm(index);
+            formOpen = formType;
+        } else hideForm(); 
+    }
+
     const openForm = (index) => {
         const form = document.querySelector("form");
         form["submit-button"].value = index;
@@ -102,6 +114,7 @@ const loadServerData = () => {
     const hideForm = () => {
         const form = document.querySelector("form");
         form.hidden = true;
+        formOpen = -2;
     }
 
     const setForm = (index) => {
