@@ -8,6 +8,8 @@ In order to save the data, I use SQLite3 database to store the content, and an H
 - After you click the submit button. To read the data, user can click the Read Saved Assignment button to read previous saved assignments.
 - In order to save another assignment, user can click the back button on the left corner.
 
+- If you cannot open the page, the database might be offline. Please let me know and i'll reboost it real quick. 
+
 https://a2-korbinz3.glitch.me
 
 ## Technical Achievements
