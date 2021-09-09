@@ -6,13 +6,11 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+let appdata = []
 
+// Callback
 const server = http.createServer( function( request,response ) {
+  // Checks if the request is a GET or POST or etc... Does different things based on type of request
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
@@ -25,7 +23,13 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else if (request.url === '/load') {
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    let json = {data: appdata}
+    response.end(JSON.stringify(json)) // pass strings through
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -38,12 +42,32 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let new_entry =  JSON.parse( dataString )
+    // Not sure if here, but you have to stringify your JS objects before you send them on a webserver. (JSON object).
+    // Once it gets to the other end (client or serve) you parse it to turn it back in JS object
 
     // ... do something with the data here!!!
 
+    // appdata.push(new_entry)
+    let today = new Date().toLocaleDateString()
+    let deadline = new Date(today)
+
+    if(new_entry["urgency"]) {
+      deadline.setDate(deadline.getDate() + 1)
+    }
+    else {
+      deadline.setDate(deadline.getDate() + 7); // Deadline is in a week
+    }
+
+    new_entry["creation_date"] = today;
+    new_entry["deadline"] = deadline.toLocaleDateString();
+
+    appdata.push(new_entry)
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    let json = {data: appdata}
+    response.end(JSON.stringify(json)) // pass strings through
+
   })
 }
 
@@ -57,6 +81,7 @@ const sendFile = function( response, filename ) {
 
        // status code: https://httpstatuses.com
        response.writeHeader( 200, { 'Content-Type': type })
+
        response.end( content )
 
      }else{
