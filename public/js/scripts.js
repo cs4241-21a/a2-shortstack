@@ -13,11 +13,6 @@ const submit = function( e ) {
                    time: final_time/100 },
             body = JSON.stringify( json )
 
-    if (nickname.value === "Lora") {
-        console.log('lora')
-        document.body.style.background = "url('/Assets/usian_bolt.jpg') no-repeat center top";
-    }
-
     document.getElementById("hide_text").style.visibility = "visible"
 
     fetch( '/submit', {
@@ -44,11 +39,15 @@ const timer = function() {
     document.getElementById("timer").innerText = time/100
 }
 
+let started = false
 const start = function( e ) {
-    time = 0
-    setInterval(timer, 10)
-    document.addEventListener('keydown', handleKeys)
-    makeQuiz()
+    if (!started) {
+        time = 0
+        setInterval(timer, 10)
+        document.addEventListener('keydown', handleKeys)
+        makeQuiz()
+        started = true
+    }
 }
 
 let X = 0

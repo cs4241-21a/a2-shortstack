@@ -12,7 +12,7 @@ body {
     line-height: 1.5;
     padding: 4em 1em;
     color: #555;
-  }
+}
 
 code, pre {
     background: #eee;
@@ -38,6 +38,10 @@ code, pre {
     justify-content: center;
     align-items: right;
     order: 1;
+}
+
+#hide_game {
+
 }
 
 table {
