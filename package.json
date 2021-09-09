@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "Homework Assignment #2",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "Streaming Service",
+  "author": "Lorenzo Lopez",
   "scripts": {
     "start": "node server.improved.js"
   },

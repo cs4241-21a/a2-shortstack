@@ -7,9 +7,8 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {"streamingServiceItem":"Disney+","subscriptionItem":"yes","nameOfItem":"Star Wars: The Clone Wars (2008 TV Series)",
+   "watchingAgainItem":"yes","ratingItem":"10","recommendItem":"Yes"}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,12 +37,24 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
+  //  console.log( JSON.parse( dataString ) )
     // ... do something with the data here!!!
-
+    let parsedInfo = JSON.parse(dataString);
+    let resultant1 = parsedInfo.watchAgainItem;
+    
+    
+    if(request.url == '/submit'){
+         if (resultant1 == "yes" || resultant1 == "Yes"){ 
+           parsedInfo.recommendItem = "Yes"
+        } else parsedInfo.recommendItem = "No"
+      
+      appdata.push(parsedInfo);
+    }
+    
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata)) //cahnge to app data
+    console.log(parsedInfo)
+    console.log(resultant1)
   })
 }
 
@@ -68,5 +79,8 @@ const sendFile = function( response, filename ) {
      }
    })
 }
+
+
+
 
 server.listen( process.env.PORT || port )

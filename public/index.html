@@ -1,32 +1,109 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>CS4241 Assignment #2</title>
     <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Glory&display=swap" rel="stylesheet"> 
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <div class = "box">
+       <h1>
+      Netflix, Disney+, Discovery+, and plus everything else!
+     </h1>
+    </div>
+    
+    
+    <div class = "box">    
+    <form id="streamerForm">      
+      <div class = "flex-container">
+      <input type='text' id='streamingServiceItem' placeholder="Enter Streaming Service">
+      <input type='text' id='subscriptionItem' placeholder="Enter Subscription Status">
+      <input type='text' id='nameOfItem' placeholder="Enter name of title">
+      <input type='text' id='watchAgainItem' placeholder="Enter yes/no to watch again">
+      <input type='text' id='ratingItem' placeholder="Enter your rating">
+        <div class = "alerts">
+                <input type="button" onclick="alert('Happy are your entries? Hmmmmmm? If so, click ok and: \n \t Add to Collections')" value="Master Yoda">
+        </div>
+        <button>Viewing History</button>
+      </div> 
+    
+    <div class = "box">
+          <table id = "streamingTable">
+        <tr>
+          <th>Streaming Service</th>
+          <th>Currently Subscribed (yes or no)</th>
+           <th>Name of Title</th>
+          <th>Watch Again (yes or no)?</th>
+          <th>Rating (1-10)</th>
+          <th>Recommendation?</th>
+        </tr>
+      </table>
+    </div>
+
+    <br>
+    
+    
+      
+      <p style="text-align: center;">
+        Disney+,  no,  Star Wars: The Clone Wars (2008 TV Series),  yes,  10
+      </p>
+      
+       <p style="text-align: center;">
+        Discovery+,  yes,  Gold Rush,  yes,  9
+      </p>
+      
+      <h2>
+      Streamable Movies and Shows
+     </h2>
+      
+      
+      <marquee  behavior="scroll" direction="left">    
+  <img id="poison" src="https://cdn.glitch.com/6c2181e0-cf89-4d6d-9ac0-0641ffe215dd%2Fclones.jpg?v=1631168216577">
+</marquee> 
+      
+      <marquee  behavior="scroll" direction="right">    
+  <img id="poison" src="https://cdn.glitch.com/6c2181e0-cf89-4d6d-9ac0-0641ffe215dd%2Fgold.jpg?v=1631167917015">
+</marquee> 
     </form>
-  </body>
-  <script>
+    </div>
+      <script src="js/scripts.js"></script>
+     <script>
+      
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
+    console.log("this is a twitch stream jk we only watch DrLupo on YouTube")
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
+    const sSI = document.querySelector( '#streamingServiceItem' )
+    const sII = document.querySelector('#subscriptionItem')
+    const nOII = document.querySelector('#nameOfItem')
+    const wAII = document.querySelector('#watchAgainItem')
+    const rII = document.querySelector('#ratingItem'),
+          
+          json = { 
+            streamingServiceItem: sSI.value, 
+            subscriptionItem: sII.value, 
+            nameOfItem: nOII.value, 
+            watchAgainItem: wAII.value, 
+            ratingItem: rII.value  
+          },
+          
+          body = JSON.stringify(json)
 
+    document.getElementById("streamerForm").reset();
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
       // do something with the reponse 
-      console.log( response )
+      response.text().then(function(text){
+        console.log(text)
+        updateWatchlist(text)                                              
+    })
     })
 
     return false
@@ -36,6 +113,11 @@
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
-
   </script>
+    
+    
+    
+  </body>
+  <link rel="stylesheet" href="css/style.css">
+ 
 </html>

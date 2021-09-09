@@ -1,1 +1,50 @@
 /*Style your own assignment! This is fun! */
+table, th{
+  border-style: dotted;
+  margin-left: auto;
+  margin-right: auto;
+    font-family: 'Glory', sans-serif;
+}
+
+.box {
+    background: rgba(137, 196, 244, 1);
+}
+
+h1{
+   text-align: center;
+   font-family: 'Glory', sans-serif;
+}
+
+h2{
+   text-align: center;
+   font-family: 'Glory', sans-serif;
+}
+
+input{
+    font-family: 'Glory', sans-serif;
+}
+
+body{
+  background: white;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: DodgerBlue;
+  width: 100px;
+  margin: 5px;
+  line-height: 15px;
+  font-size 20px;
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+    font-family: 'Glory', sans-serif;
+  border: 5px solid red;
+}
+
+.theaterBox{
+    border: 3px solid black;
+}
