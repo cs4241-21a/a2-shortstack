@@ -16,14 +16,14 @@ const submit = function(e) {
     document.getElementById('result').innerHTML = '';
 
     const inputname = document.querySelector("#bookname"),
-        inputlength = document.querySelector("#length"),
+        inputid = document.querySelector("#Identification"),
         inputauthor = document.querySelector("#author"),
         prior = document.querySelector("#priority"),
         letime = Date.now(),
         retime = Date.now() + 60480000*prior.value;
 
         let json = {
-            bookname: inputname.value, length: inputlength.value, author: inputauthor.value, checktime: letime,
+            bookname: inputname.value, Id: inputid.value, author: inputauthor.value, checktime: letime,
             returntime: retime, priority: prior.value
         };
         let body = JSON.stringify(json);
@@ -88,9 +88,9 @@ const showRecords = function(e){
         document.getElementById('result').innerHTML = ''
         document.getElementById('result').innerHTML += '<tr>' +
                 '<th>Name of the Book</th>' +
-                '<th>Length of the Book</th>' +
+                '<th>ID number of the Book</th>' +
                 '<th>Author</th>' +
-                '<th>Priority</th>' +
+                '<th>Weeks out</th>' +
                 '<th>Date of Checkout</th>' +
                 '<th>Date of Return</th>' +
             '</tr>'
@@ -100,7 +100,7 @@ const showRecords = function(e){
                 document.getElementById('result').innerHTML +=
                     `<tr>
                         <td>${el.name}</td>
-                        <td>${el.length} Words</td>
+                        <td>#${el.Id}</td>
                         <td>By ${el.author}</td>
                         <td>${el.priority}</td>
                         <td>${fixedDate(el.checktime)}</td>
