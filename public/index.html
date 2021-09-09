@@ -10,13 +10,13 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Permanent+Marker&display=swap" rel="stylesheet"> 
   </head>
   <body>
     <!-- Layout -->
     <div id="app">
       <div id="header">
-        <h1>Eat</h1>
+        <h1>Eat: A Boring Grid Game</h1>
       </div>
       <div class="container">
         <div id="sidebar">
@@ -26,8 +26,8 @@
               <input v-model="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="split">
-              <h4>Score: {{score}}</h4>
-              <button v-on:click="submitScore" :disabled="username.length === 0" class="btn btn-primary btn-sm ml-auto">Submit</button>
+              <h4>Score: <b>{{score}}</b></h4>
+              <button v-on:click="submitScore" :disabled="username.length === 0" class="btn btn-success btn-sm ml-auto">Submit</button>
             </div>
             <hr>
           </div>

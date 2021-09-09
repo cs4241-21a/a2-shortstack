@@ -3,7 +3,7 @@
 console.log('Welcome to assignment 2!')
 
 const USER_COLOR = '#007991'
-const FOOD_COLOR = '#7FB285'
+const FOOD_COLOR = '#198754'
 
 const MAX_X = 8
 const MAX_Y = 8
