@@ -1,29 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&family=Marck+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&family=Marck+Script&display=swap"
+      rel="stylesheet"
+    />
 
-
-    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
     <script src="js/scripts.js"></script>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <div>
     <body onload="updateOnLoad()">
-      <h1> Tyler's RPG Dice Roller </h1>
+      <h1>Tyler's RPG Dice Roller</h1>
 
       <div id="grid">
-        <div class = "form_grid">
-          <div class = "form_box" id = "add_box">
+        <div class="form_grid">
+          <div class="form_box" id="add_box">
             <form class="forms" id="add" action="">
               <h3>Add a new roll</h3>
               <label for="Character">Character</label>
-              <input type="text" id="character" required>
-              <br><br>
+              <input type="text" id="character" required />
+              <br /><br />
               <label for="Dice Type">Dice Type</label>
               <select name="dice" id="diceType">
                 <option value="4">d4 (4-sided)</option>
@@ -34,65 +36,70 @@
                 <option value="20" selected>d20 (20-sided)</option>
                 <option value="100">d100 (100-sided)</option>
               </select>
-              <br><br>
+              <br /><br />
               <label for="Quantity">Quantity</label>
-              <input type="text" id="quantity" required>
+              <input type="text" id="quantity" required />
               <!-- <br><br> -->
               <label for="Modifier">Modifier</label>
-              <input type="text" id="modifier" required>
+              <input type="text" id="modifier" required />
               <button class="b1" type="button" onclick="addRoll()">Add</button>
             </form>
           </div>
 
-          <div class=line></div>
+          <div class="line"></div>
 
-          <div class = "form_box" id = "delete_box">
+          <div class="form_box" id="delete_box">
             <form class="forms" id="delete" actions="">
               <h3>Delete an existing roll</h3>
               <label for="ID">ID</label>
-              <input type="text" id="id">
-              <br><br>
+              <input type="text" id="id" />
+              <br /><br />
               <label for="Character">Character</label>
-              <input type="text" id="character">
-              <button class="b2" type="button" onclick="deleteRoll()">Delete</button>
-              <br>
-              <p> Note: The two boxes are each individual options. Specifying a value for both will result deletion via solely ID. </p>
+              <input type="text" id="character" />
+              <button class="b2" type="button" onclick="deleteRoll()">
+                Delete
+              </button>
+              <br />
+              <p>
+                Note: The two boxes are each individual options. Specifying a
+                value for both will result deletion via solely ID.
+              </p>
             </form>
           </div>
 
-          <div class=line></div>
+          <div class="line"></div>
 
-          <div class = "form_box" id = "button_box">
+          <div class="form_box" id="button_box">
             <div class="buttonSpace">
               <h3>Other Options</h3>
-              <button class="b3" type="button" onclick="clearRolls()">Clear</button>
-              <button class="b3" type="button" onclick="sortRolls()">Sort by Name</button>
+              <button class="b3" type="button" onclick="clearRolls()">
+                Clear
+              </button>
+              <button class="b3" type="button" onclick="sortRolls()">
+                Sort by Name
+              </button>
             </div>
-            <h3> Error Messages </h3>
+            <h3>Error Messages</h3>
             <div class="error_box">
-              <p id="err"> error message </p>
+              <p id="err"></p>
             </div>
           </div>
+        </div>
+
+        <table class="table" id="table_list">
+          <thead>
+            <tr>
+              <th>ID #</th>
+              <th width="50%">Character</th>
+              <th>Dice Type</th>
+              <th>Quantity</th>
+              <th>Modifier</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
-
-
-      <table class="table" id="table_list">
-        <thead>
-          <tr>
-            <th>ID #</th>
-            <th width="50%">Character</th>
-            <th>Dice Type</th>
-            <th>Quantity</th>
-            <th>Modifier</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-
-
-    </div>
     </body>
   </div>
 </html>
