@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
   </head>
@@ -19,16 +22,55 @@
           <option>Other</option>
         </select>
       </label>
-      <button>Post That Pet!</button>
+      <button id="createPet">Post That Pet!</button>
     </form>
-    <div id="gallery">
-      <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg" alt="Cute picture of Mordecai">
-      <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg" alt="Cute picture of Pippi">
-      <img class="petTile" src="https://i.imgur.com/Db4cRax.png" alt="Cute picture of Bubba">
-    </div>
+    <ul id="gallery">
+      <li>
+        <figure>
+          <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg" alt="Cute picture of Pippi">
+          <figcaption>Pippi says WOOF</figcaption>
+        </figure>
+        <button id="1" onclick="deleteEntry(this.id)" class="delete">Delete</button>
+      </li>
+      <li>
+        <figure>
+          <img class="petTile" src="https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg" alt="Cute picture of Mordecai">
+          <figcaption>Mordecai says MEOW</figcaption>
+        </figure>
+        <button id="2" onclick="deleteEntry(this.id)" class="delete">Delete</button>
+      </li>
+      <li>
+        <figure>
+          <img class="petTile" src="https://i.imgur.com/Db4cRax.png" alt="Cute picture of Bubba">
+          <figcaption>Bubba says HI</figcaption>
+        </figure>
+        <button id="3" onclick="deleteEntry(this.id)" class="delete">Delete</button>
+      </li>
+    </ul>
   </body>
   <script>
 
+  const refreshGalleryContents = function(json) {
+    let galleryContents = '';
+    for(let i = 0; i < json.length; i++){
+      galleryContents += '<li> <figure> <img class="petTile" src="'+json[i].link+'" alt="Cute picture of '+json[i].name+'"> <figcaption>'+json[i].name+' says '+json[i].call+'</figcaption> </figure> <button id="'+json[i].id+'" onclick="deleteEntry(this.id)" class="delete">Delete</button> </li>';
+    }
+    const gallery = document.querySelector( '#gallery' )
+    gallery.innerHTML = galleryContents;
+  }
+  const deleteEntry = function (clickedId) {
+    body = JSON.stringify({"id": clickedId});
+    fetch( '/delete', {
+      method:'POST',
+      body
+    })
+    .then( function( response ) {
+      return response.json();
+    })
+    .then( function(json) {
+      refreshGalleryContents(json)
+    })
+  }
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
@@ -47,21 +89,39 @@
       return response.json();
     })
     .then( function(json) {
-      // do something with the reponse
-      let galleryContents = '';
-      for(let i = 0; i < json.length; i++){
-          galleryContents += '<img class="petTile" src="' + json[i].link + '" alt="Cute picture of ' + json[i].name + '">'
-      }
-      const gallery = document.querySelector( '#gallery' )
-      gallery.innerHTML = galleryContents;
+      refreshGalleryContents(json)
+    })
+
+    return false
+  }
+
+  const submitNoFields = function( e ) {
+
+    const json = { name: '', link: '', type: '' },
+            body = JSON.stringify( json )
+
+    fetch( '/submit', {
+      method:'POST',
+      body
+    })
+    .then( function( response ) {
+      return response.json();
+    })
+    .then( function(json) {
+      refreshGalleryContents(json)
     })
 
     return false
   }
 
   window.onload = function() {
-    const button = document.querySelector( 'button' )
+    const button = document.querySelector( '#createPet' )
     button.onclick = submit
+    submitNoFields()
+  }
+
+  window.onpageshow = function () {
+    submitNoFields()
   }
 
   </script>

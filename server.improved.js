@@ -7,10 +7,12 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'cat' },
-  { 'name': 'Mordecai', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg', 'call': 'MEOW', 'type': 'dog' },
-  { 'name': 'Bubba', 'link': 'https://i.imgur.com/Db4cRax.png', 'call': 'CUTE', 'type':'other'}
+  { 'id':1, 'name': 'Pippi', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522236025913374/image0.jpg', 'call': 'ARF', 'type': 'cat' },
+  { 'id':2, 'name': 'Mordecai', 'link': 'https://cdn.discordapp.com/attachments/428381972545404928/884522261237882910/image0.jpg', 'call': 'MEOW', 'type': 'dog' },
+  { 'id':3, 'name': 'Bubba', 'link': 'https://i.imgur.com/Db4cRax.png', 'call': 'I LOVE YOU', 'type':'other'}
 ];
+
+let currId=4;
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -38,36 +40,60 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    let obj = JSON.parse( dataString );
-    console.log(obj)
+    if(request.url === '/submit') {
+      let obj = JSON.parse(dataString);
+      console.log(obj)
 
-    if(obj.name !== '' && (obj.link.includes("https://i.imgur.com/") || obj.link.includes("https://cdn.discordapp.com/attachments/"))) {
-      let flip = Math.random();
-      let call;
-      switch (dataString.type) {
-        case "Dog":
-          call = (flip > 0.5) ? "ARF" : "WOOF";
-          break;
-        case "Cat":
-          call = (flip > 0.5) ? "MEOW" : "PURR";
-          break;
-        case "Snake":
-          call = (flip > 0.5) ? "TSSS" : "SSSWEET";
-          break;
-        case "Bird":
-          call = (flip > 0.5) ? "TWEET" : "CHIRP";
-          break;
-        default:
-          call = (flip > 0.5) ? "CUTE" : "AAAW";
+      if (obj.name !== '' && obj.link !== '' && obj.type !== '') {
+        let flip = Math.random();
+        let call;
+        switch (obj.type) {
+          case 'Dog':
+            call = (flip > 0.5) ? "ARF" : "WOOF";
+            break;
+          case 'Cat':
+            call = (flip > 0.5) ? "MEOW" : "PURR";
+            break;
+          case 'Snake':
+            call = (flip > 0.5) ? "TSSS" : "SSSWEET";
+            break;
+          case 'Bird':
+            call = (flip > 0.5) ? "TWEET" : "CHIRP";
+            break;
+          default:
+            call = (flip > 0.5) ? "HEWWO" : "I LOVE YOU";
+        }
+        obj.call = call;
+        obj.id = currId;
+        currId++;
+        appdata.push(obj)
+
+        response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+        response.end(JSON.stringify(appdata))
+      } else {
+        response.writeHead(200, "Request Had No Valid Content to Add, sending Current Unchanged State.", {'Content-Type': 'text/plain'})
+        response.end(JSON.stringify(appdata))
       }
-      obj.call = call;
-      appdata.push(obj)
-
-      response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
-      response.end(JSON.stringify(appdata))
-    } else {
-      response.writeHead(400, "Invalid Pet Request! Make sure your image is an imgur/discord link and that the name is not null", {'Content-Type': 'text/plain'})
-      response.end(JSON.stringify(appdata))
+    } else if (request.url === '/delete') {
+      let idObj = JSON.parse(dataString);
+      if(idObj.id < 0 || idObj.id > currId){
+        response.writeHead(400, "Bad Id For Deletion", {'Content-Type': 'text/plain'})
+        response.end(JSON.stringify(appdata))
+      } else {
+        console.log(idObj)
+        var index = appdata.findIndex(function(item){
+          return item.id == idObj.id // using this on purpose cause idObj stores id as string
+        });
+        console.log(index)
+        if(index < 0) {
+          response.writeHead(400, "Bad Id For Deletion", {'Content-Type': 'text/plain'})
+          response.end(JSON.stringify(appdata))
+        } else {
+          appdata.splice(index, 1)
+          response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+          response.end(JSON.stringify(appdata))
+        }
+      }
     }
   })
 }
