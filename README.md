@@ -15,8 +15,8 @@ Hello! This is basically a work database that determines if a person is a part t
 1. Andrew Kerekon
     -Problems with design: Layout is very nice, but delete button doesn't function as expected and refresh seems to bring back old values.
     -Comments that surprised me: The 'do not click' button leads to sonmething wildly unexpected!
-    -Changes based on feedback:
+    -Changes based on feedback: I would work to fix the delete button.
 2. Michael Zeolla
-    -Problems with design:
-    -Comments that surprised me:
-    -Changes based on feedback:
+    -Problems with design: The delete button doesn't function properly.
+    -Comments that surprised me: People over 18 could be a college student.
+    -Changes based on feedback: I would change the delete function and possible ask a yes/no question on if they're in school.

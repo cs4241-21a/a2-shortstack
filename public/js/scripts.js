@@ -73,7 +73,7 @@ const submit = function( e ) {
           json = { name: input.value,
             age: input2.value,
             hours: input3.value,
-            jobType: getJobType(input3.value),
+            jobType: getJobType(input3.value, input2.value),
             modifyInput: 1
          },
           body = JSON.stringify( json )
@@ -91,9 +91,12 @@ const submit = function( e ) {
               })
           }
 
-          function getJobType(hours) {
-              if(hours <= 0) {
-                  return "Not working"
+          function getJobType(hours, age) {
+              if(hours <= 0 && age < 18) {
+                  return "Student"
+              }
+              else if(hours <= 0) {
+                  return "Unemployed"
               }
               else if(hours < 40) {
                   return "Part time"
