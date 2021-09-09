@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Eater",
+  "version": "v0.1",
+  "description": "Eat food",
+  "author": "Liam Rathke",
   "scripts": {
     "start": "node server.improved.js"
   },
