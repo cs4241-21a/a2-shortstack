@@ -1,8 +1,7 @@
 {
-  "name": "",
+  "name": "Rate Your Books",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "Rate your books and view them all in one place",
   "scripts": {
     "start": "node server.improved.js"
   },

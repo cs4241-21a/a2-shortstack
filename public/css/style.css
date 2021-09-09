@@ -52,11 +52,6 @@ td {
     color: var(--purple-dark);
 }
 
-#wrapper {
-    /* display: flex; */
-    /* flex-flow: column wrap; */
-}
-
 .enterForm {
     /* flex-flow: column wrap;
     justify-content: center; */

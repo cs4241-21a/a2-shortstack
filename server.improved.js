@@ -7,11 +7,11 @@ const http = require( 'http' ),
       port = 3000
 
 var appdata = [
-  { 'title': 'Animal Farm', 'author': 'George Orwell', 'year': 2003, 'rating': 2 },
-  { 'title': 'The Sun Also Rises', 'author': 'Ernest Hemingway', 'year': 1957, 'rating': 4 },
-  { 'title': 'Title 3', 'author': 'Author 3', 'year': 2020, 'rating': 2 },
-  { 'title': 'Title 1', 'author': 'Author 1', 'year': 2000, 'rating': 4 },
-  { 'title': 'Title 2', 'author': 'Author 2', 'year': 1900, 'rating': 5 }
+  // { 'title': 'Animal Farm', 'author': 'George Orwell', 'year': 2003, 'rating': 2 },
+  // { 'title': 'The Sun Also Rises', 'author': 'Ernest Hemingway', 'year': 1957, 'rating': 4 },
+  // { 'title': 'Title 3', 'author': 'Author 3', 'year': 2020, 'rating': 2 },
+  // { 'title': 'Title 1', 'author': 'Author 1', 'year': 2000, 'rating': 4 },
+  // { 'title': 'Title 2', 'author': 'Author 2', 'year': 1900, 'rating': 5 }
 ]
 
 const server = http.createServer( function( request,response ) {
