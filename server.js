@@ -9,18 +9,18 @@ const http = require( 'http' ),
 
 // Key is corresponding to submission date (really just for uniqueness, doesn't matter for the preset values like this)
 const homeworkData = {
-  "0": { name: "a2-shortstack", priority: "High", course: "Webware", dueDate:'2021-09-09T11:59:00-0400'},
-  "1": { name: "CSS Grid Garden", priority: "High", course: "Webware", dueDate:'2021-09-09T11:59:00-0400'},
-  "2": { name: "Project 1", priority: "Low", course: "Mobile Computing", dueDate:'2021-09-09T23:59:00-0400'},
+  "0": { name: "a2-shortstack", priority: "High", course: "Webware", dueDate:'2021-09-09T11:59:00-0400', subDate: "0",},
+  "1": { name: "CSS Grid Garden", priority: "High", course: "Webware", dueDate:'2021-09-09T11:59:00-0400', subDate: "1",},
+  "2": { name: "Project 2", priority: "Low", course: "Mobile Computing", dueDate:'2021-09-17T23:59:00-0400', subDate: "2",},
 }
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
+    handleGet( request, response )
   }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+    handlePostPut( request, response ) 
   }else if( request.method === 'PUT'){
-    handlePut(request, response)
+    handlePostPut(request, response)
   }else if( request.method === 'DELETE'){
     handleDelete(request, response)
   }
@@ -64,7 +64,7 @@ const sendFile = function( response, filename ) {
   })
 }
 
-const handlePost = function( request, response ) {
+const handlePostPut = function( request, response ) {
   // Add to the homework data if it is requested
   if(request.url === hwAPIPath) {
     let dataString = ''
@@ -111,38 +111,25 @@ const handlePost = function( request, response ) {
   }
 }
 
-const handlePut = function( request, response ) {
-  let dataString = ''
-
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
-
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
-  })
-}
-
 const handleDelete = function( request, response ) {
-  let dataString = ''
+  // Delete homework data if it is requested
+  if(request.url === hwAPIPath) {
+    let dataString = ''
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
+    request.on( 'data', function( data ) {
+        dataString += data 
+    })
 
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    request.on( 'end', function() {
+      let hwData = JSON.parse(dataString)
+      console.log( hwData )
 
-    // ... do something with the data here!!!
+      delete homeworkData[hwData.subDate]
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
-  })
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end()
+    })
+  }
 }
 
 

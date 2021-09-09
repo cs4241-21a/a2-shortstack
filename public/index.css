@@ -2,8 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 
 body {
-  margin: 5rem 2rem 5rem 2rem;
-  box-sizing: border-box;
   /*
     Colors from Wheel:
     ##4C6670 - Dark blue/gray
@@ -30,32 +28,48 @@ h1 {
   font-size: 300%;
 }
 
-p,
-li,
+label,
 table {
   color: var(--h1h2-color);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-p,
-ul {
-  margin-left: auto;
-  margin-right: auto;
-  width: 40rem;
-}
-
 table {
   background-color: white;
-  margin-left: auto;
-  margin-right: auto;
   border: 0.2rem solid var(--table-color);
 }
 
 th {
   background-color: lightgrey;
-  
 }
 
-#input {
+button {
+  margin: 0.2rem;
+}
+
+.homework-list-group,
+.newHomeworkPrompt {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1 400px;
+}
+
+#overlay {
+  position: fixed;
   display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.25); /* Black background with opacity */
+}
+
+.newHomeworkPrompt {
+  background-color: white;
+  margin: 20% auto;
+  width: 35%;
+  box-shadow: 0 6px 6px 0 rgba(0,0,0,0.15);
 }
