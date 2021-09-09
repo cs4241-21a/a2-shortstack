@@ -3,6 +3,7 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 ## Book Keeper App
 My book keeper application keeps track of the books that a person has read. I used the flexbox layout to position the table of books read and the form to add a book side-by-side. The form includes the title, author, score (rating of the book 1-5), notes about the book, and the year the book was finished.
 
+## Design Achievements
 (Grasso)
 The user had problems with my table not updating
 They said that my form is very clear and obvious what to fill in for each input
