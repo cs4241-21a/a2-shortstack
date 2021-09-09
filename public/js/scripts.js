@@ -106,6 +106,10 @@ function createElement() {
     'photo' : document.querySelector( '#photo-create' ).value,
     'emailme' : loggedInUser
   }
+  if (entry.item === "" || entry.description === "" || entry.when === "" || entry.where === "") {
+    alert("Item, description, where, and when cannot be empty")
+    return;
+  }
   // Submit to server
   postRequest('/api/create', entry, (response) => {
     if (response.status === 200) {
