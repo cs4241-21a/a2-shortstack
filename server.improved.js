@@ -22,7 +22,7 @@ const server = http.createServer( function( request,response ) {
 
 function addEntry(dataString) {
     dataEntry = JSON.parse(dataString);
-    appdata.push(dataEntry;
+    appdata.push(dataEntry);
 }
 
 function deleteEntry(dataString) {
