@@ -9,5 +9,5 @@ This project focuses on one of the most importnat places in our homes, the fridg
 
 ### Design/Evaluation Achievements
 
-- **Design Achievement 1**: Shang, Her task was to orgranize her food items currently in her fridge. The only problem tshe found was the color chosen from the placeholder, it is a bit hard to read. "The indicator for choosing the expiration term, i like that design of that part." I would change the css so there is more contrast between the text and the box.
+- **Design Achievement 1**: Shang, Her task was to orgranize her food items currently in her fridge. The only problem that she found was the color chosen from the placeholder, it is a bit hard to read. "The indicator for choosing the expiration term, i like that design of that part." I would change the css so there is more contrast between the text and the box.
 - **Design Achievement 2**: Zhao, He was given the task to add his meal plan/shopping list for the next three days. He liked the color theme of the buttons and how they change color when you hover above them. He didnt like the smaller gap between the large header and the text box. I would change the spacing on the textbox to fix this issue.
