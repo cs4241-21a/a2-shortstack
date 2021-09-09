@@ -9,8 +9,8 @@ probabilty that you'll get your tupperware back based on elpased date and reliab
 
 ## Technical Achievements
 
-there is a table function that would work if this appended and it does and margaret and i sat for an hour
-trying to find out why and no luck
+there is a table function that would work if this appended correctly and it doesn't and margaret and i sat for an hour
+trying to find out why and no luck so i am sorry in advance that this only kind of works but the code should be sounds i tested it when i manually passed in the values to test
 
 ### Design/Evaluation Achievements
 
