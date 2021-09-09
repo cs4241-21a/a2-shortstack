@@ -2,6 +2,7 @@
   "name": "Rate Your Books",
   "version": "",
   "description": "Rate your books and view them all in one place",
+  "author": "Lauren Wasserman",
   "scripts": {
     "start": "node server.improved.js"
   },
