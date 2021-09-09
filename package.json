@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Ido Katz",
+  "version": "1.0",
+  "description": "This is a shopping list I created. Urgent items have a deadline one day from today. Not urgent items have a deadline of 1 week. For css, I mainly used CSS grid. The instructions are at the top and I think the app is easy to use.",
+  "author": "Ido Katz",
   "scripts": {
     "start": "node server.improved.js"
   },
