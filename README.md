@@ -3,6 +3,7 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 
 ## Work Database
 Steven Tran https://a2-stevenptran.glitch.me
+
 Hello! This is basically a work database that determines if a person is a part time or full time employee of the company.
 
 ## Technical Achievements

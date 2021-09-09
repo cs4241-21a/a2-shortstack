@@ -13,6 +13,14 @@ h1 {
     font-family: 'Roboto Mono', monospace;
 }
 
+h2 {
+    color:#F6F6F6;
+    font-family: 'Sacramento', cursive;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 hr {
     border: dotted #404EED 6px;
     border-bottom: none;
