@@ -20,3 +20,11 @@ td, th{
     color: rgb(133, 0, 0);
     font-style: italic;
 }
+
+#hex-edit{
+    width: 75px
+}
+
+#r-edit, #g-edit, #b-edit, #h-edit, #s-edit, #l-edit{
+    width: 50px
+}

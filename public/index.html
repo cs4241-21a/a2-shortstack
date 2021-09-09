@@ -16,7 +16,7 @@
         <option value="rgb">RGB</option>
         <option value="hsl">HSL</option>
       </select>
-      <button>submit</button>
+      <button>Submit</button>
     </form>
 
     <table>
@@ -68,14 +68,12 @@
     })
     .then(response => response.json())
     .then(function(json){
-      console.log(json)
-      
       try{//remove the error message if it is there
         document.getElementById("error").remove()
       }catch(e){}
 
       if(JSON.stringify(json) === "{}"){//bad input
-        const form = document.querySelector("form")
+        const form = document.getElementById("entry-fields")
         const child = document.createElement("p")
         child.setAttribute("id", "error")
         child.innerText = "Please enter a valid 3- or 6-digit hex value, starting with #"
@@ -95,7 +93,47 @@
   }
 
   const edit = function(num){
-    const body = JSON.stringify({"input": "edit", "num": num})
+    const cells = document.getElementById(`color-${num}`).childNodes
+
+    document.getElementById(`edit-${num}`).disabled = true
+    
+    cells[2].innerHTML = `<input id="hex-edit" type="text" value="${cells[2].innerText}">
+                          <button id="hex-edit-submit" onclick="submitEdit(${num},'hex')">Submit Hex</button>`
+
+    let rgb = cells[4].innerText.split(",")
+    cells[4].innerHTML = `<input id="r-edit" type="number" value="${rgb[0]}" min="0" max="255">
+                          <input id="g-edit" type="number" value="${rgb[1]}" min="0" max="255">
+                          <input id="b-edit" type="number" value="${rgb[2]}" min="0" max="255">
+                          <button id="rgb-edit-submit" onclick="submitEdit(${num},'rgb')">Submit RGB</button>`
+    
+    let hsl = cells[6].innerText.split(",")
+    cells[6].innerHTML = `<input id="h-edit" type="number" value="${hsl[0]}" min="0" max="360">
+                          <input id="s-edit" type="number" value="${hsl[1]}" min="0" max="100">
+                          <input id="l-edit" type="number" value="${hsl[2]}" min="0" max="100">
+                          <button id="hsl-edit-submit" onclick="submitEdit(${num},'hsl')">Submit HSL</button>`
+  }
+
+  const submitEdit = function(num, format){
+    const cells = document.getElementById(`color-${num}`).childNodes
+    let change = ""
+    
+    switch(format){
+      case "hex":
+        change = cells[2].childNodes[0].value
+        break
+      case "rgb":
+        change = [parseInt(cells[4].childNodes[0].value),
+                  parseInt(cells[4].childNodes[2].value),
+                  parseInt(cells[4].childNodes[4].value)]
+        break
+      case "hsl":
+        change = [parseInt(cells[6].childNodes[0].value),
+                  parseInt(cells[6].childNodes[2].value),
+                  parseInt(cells[6].childNodes[4].value)]
+        break
+    }
+
+    const body = JSON.stringify({"input": "edit", format, change, "num": num})
     
     fetch( '/submit', {
       method:'POST',
@@ -103,8 +141,10 @@
     })
     .then(response => response.json())
     .then(function(json){
-      console.log(json)
+      document.getElementById(`color-${num}`).innerHTML = createRow(json)
     })
+
+    document.getElementById(`edit-${num}`).disabled = false
   }
 
   const del = function(num){
@@ -116,7 +156,6 @@
     })
     .then(response => response.json())
     .then(function(json){
-      console.log(json)
       document.getElementById(`color-${json.num}`).remove()
     })
   }
@@ -168,10 +207,8 @@
     })
     .then(response => response.json())
     .then(function(json){
-      console.log(json)
       const table = document.querySelector("tbody")
       json.forEach(ele => {
-        console.log(ele.num)
         const child = document.createElement("tr")
         child.setAttribute("id", `color-${ele.num}`)
         child.innerHTML = createRow(ele)

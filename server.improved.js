@@ -39,7 +39,6 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( dataString )
     if(dataString === "{}"){
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
       response.end(JSON.stringify(appdata))
@@ -49,15 +48,26 @@ const handlePost = function( request, response ) {
     const inp = JSON.parse(dataString)
 
     if(inp.input === "edit"){
-      console.log("edit number " + inp.num)
+      let col = null
+      try{
+        col = color(inp.change, inp.format)
+      }catch(e){
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end(JSON.stringify(appdata[inp.num]))
+        return
+      }
+
+      appdata[inp.num] = {"hex": col.hex(), 
+                          "rgb": col.rgb().round().array(), 
+                          "hsl": col.hsl().round().array(),
+                          "num": inp.num}
+
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(inp))
+      response.end(JSON.stringify(appdata[inp.num]))
       return
     }
 
     if(inp.input === "del"){
-      console.log("delete number " + inp.num)
-
       appdata[inp.num] = null
 
       response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
@@ -74,14 +84,14 @@ const handlePost = function( request, response ) {
       return
     }
 
-    let data = {"hex": col.hex(), 
-                "rgb": col.rgb().round().array(), 
-                "hsl": col.hsl().round().array(),
-                "num": findOpen()}
-    appdata[data.num] = data
+    const num = findOpen()
+    appdata[num] = {"hex": col.hex(), 
+                          "rgb": col.rgb().round().array(), 
+                          "hsl": col.hsl().round().array(),
+                          "num": num}
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end(JSON.stringify(data))
+    response.end(JSON.stringify(appdata[num]))
   })
 }
 
