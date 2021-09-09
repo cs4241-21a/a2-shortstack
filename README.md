@@ -6,7 +6,7 @@ The elements of the page are laid out using a flexbox. This is with the exceptio
 ## Technical Achievements
 - The displayed table updates immediately upon a user submitting data
 - The npm module color was used to easily convert between different color representations. The color module allows a user to make a color object from many different types of color representations (hex, rgb, hsl, hsv, etc.). Then, the user can call various functions on the object to get various representations of that color.
-    - Side note: The original version of the color module used a numeric separator, which Glitch didn't like. So, I forked the color repo and removed the separator, which is why there is a link to a git repository in the dependencies in package.json.
+    - Side note: The original version of the color module used a numeric separator, which Glitch didn't like. So, I forked the color repo and removed the separator, which is why there is a link to [this repo](https://github.com/npelletier2/color) in the dependencies in package.json.
 
 ### Design/Evaluation Achievements
 - There is a light and dark theme that the user can switch between. This allows the user to view their color palette on different backgrounds.
