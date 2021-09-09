@@ -1,1 +1,86 @@
-/*Style your own assignment! This is fun! */
+box-sizing {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 00;
+  font-size: 20px;
+  color: #ffedd8;
+  text-align: center;
+  background-color: #435367;
+}
+
+form {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+  color: #ffedd8;
+}
+
+.header {
+  background-color: #435367;
+  padding: 30px;
+  text-align: center;
+  font-size: 25px;
+  font-family: "Urbanist", sans-serif;
+  font-weight: 200;
+  color: #ffedd8;
+}
+
+button {
+  background-color: #992128; /* Green */
+  border: none;
+  color: #ffedd8;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #ffedd8;
+  color: #992128;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+#storedTup {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#storedTup td,
+#storedTup th {
+  padding: 8px;
+}
+
+#storedTup tr:nth-child(even) {
+  background-color: #ffedd8;
+  color: #435367;
+}
+
+#storedTup tr:hover {
+  background-color: #435367;
+  color: #ffedd8;
+}
+
+#storedTup th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #992128;
+  color: #ffedd8;
+}
