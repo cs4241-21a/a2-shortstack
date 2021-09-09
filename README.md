@@ -12,16 +12,16 @@ My site is a database for TTRPG (Table Top Role Playing Game) dice rolling, the 
 - **Design Achievement 2**: Swapped sites with Maria Del Carmen Sacristan-Benjet (msacristanbenjet@wpi.edu)
 
 Task: Add these dice rolls {
-4.	A singular d20 (20 sided dice) with a modifier of 2 using any name as the Character
-5.	4 d6s (6 sided) with a modifier of 6, using a new name as the Character
-6.	A singular d100 (100 sided) with no modifier, but make character the same as the first name
+  1.	A singular d20 (20 sided dice) with a modifier of 2 using any name as the Character
+  2.	4 d6s (6 sided) with a modifier of 6, using a new name as the Character
+  3.	A singular d100 (100 sided) with no modifier, but make character the same as the first name
 
 Finally {
-1.	Delete just the second roll (the 4d6s)
-2.	Clear the table
+  1.	Delete just the second roll (the 4d6s)
+  2.	Clear the table
 
 Reflection:
-1) Del Carmen Sacristan-Benjet
-2) The only problem she had was that it was unclear whether modifier was empty for 0, or if 0 needed to be supplied. She also was confused about error message, but that wasn't working at the time of use.
-3) They liked the overall look, and enjoyed the delete by charater feature.
-4) I fixed the error messages based on their feedback, and would also (if given time) would make empty modifer box equal a modifier of zero.
+  1) Del Carmen Sacristan-Benjet
+  2) The only problem she had was that it was unclear whether modifier was empty for 0, or if 0 needed to be supplied. She also was confused about error message, but that wasn't working at the time of use.
+  3) They liked the overall look, and enjoyed the delete by charater feature.
+  4) I fixed the error messages based on their feedback, and would also (if given time) would make empty modifer box equal a modifier of zero.
