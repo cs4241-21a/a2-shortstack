@@ -2,31 +2,78 @@
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
     <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Limelight&display=swap" rel="stylesheet">  
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+    <div class = "box">
+       <h1>
+      Watchlist
+     </h1>
+    </div>
+    
+    <div class = "box">
+          <table id = "watchlist">
+        <tr>
+          <th>Title</th>
+          <th>Director</th>
+          <th>Genre</th>
+          <th>Year</th>
+          <th>In Theaters?</th>
+          <th>Leaving Soon?</th>
+        </tr>
+      </table>
+    </div>
+
+    <br>
+    
+    <div class = "box">    
+    <form id="movieForm">      
+      <div class = "flex-container">
+      <input type='text' id='titleEntry' placeholder="Enter Title">
+      <input type='text' id='directorEntry' placeholder="Enter Director">
+      <input type='text' id='genreEntry' placeholder="Enter Genre">
+      <input type='text' id='yearEntry' placeholder="Enter Year">
+      <div class = "theaterBox">
+        <input type='checkbox' id='isInTheaters'>
+        <label for="isInTheaters"> In Theaters?</label><br>
+      </div>
+        <button> Add to Watchlist </button>
+      </div>  
     </form>
-  </body>
-  <script>
+    </div>
+      <script src="js/scripts.js"></script>
+     <script>
+      
 
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
+    console.log("hello")
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const titleInput = document.querySelector( '#titleEntry' )
+    const directorInput = document.querySelector('#directorEntry')
+    const genreInput = document.querySelector('#genreEntry')
+    const yearInput = document.querySelector('#yearEntry')
+    const theaterInput = document.querySelector('#isInTheaters'),
+          
+          json = { titleEntry: titleInput.value, directorEntry: directorInput.value, genreEntry: genreInput.value, yearEntry: yearInput.value, isInTheaters:theaterInput.checked  },
           body = JSON.stringify( json )
 
+    document.getElementById("movieForm").reset();
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
       // do something with the reponse 
-      console.log( response )
+      response.text().then(function(text){
+        console.log(text)
+        updateWatchlist(text)                                              
+    })
     })
 
     return false
@@ -36,6 +83,7 @@
     const button = document.querySelector( 'button' )
     button.onclick = submit
   }
-
   </script>
+  </body>
+ 
 </html>

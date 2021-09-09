@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "Assignment 2",
   "version": "",
-  "description": "",
-  "author": "",
+  "description": "A website that adds movies to a watchlist",
+  "author": "Praise Eteng",
   "scripts": {
     "start": "node server.improved.js"
   },
