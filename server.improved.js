@@ -6,11 +6,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  // { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  // { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  // { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const history = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -25,7 +21,10 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/getHistory') {
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(history))
+  } else{
     sendFile( response, filename )
   }
 }
@@ -35,7 +34,7 @@ const handlePost = function( request, response ) {
 
   request.on( 'data', function( data ) {
     dataString += data 
-    console.log('data', dataString)
+    // console.log('data', dataString)
   })
 
   request.on( 'end', function() {
@@ -46,28 +45,32 @@ const handlePost = function( request, response ) {
     let rain_volume
     switch (json.rain_level) {
       case "light_rain":
+        // console.log('light rain')
         rain_volume = 0.8
         break;
       case "rain":
-        rain_volume = 0.4
+        // console.log('rain')
+        rain_volume = 0.5
+        break
       case "heavy_rain":
-        rain_volume = 0.8
+        // console.log('heavy rain')
+        rain_volume = 0.7
+        break
       default:
         break;
     }
     // make rain quieter if there's lofi music
     if (json.lofi === "lofi_on") {
       rain_volume -= 0.2
-      
     }
     json.rain_volume = rain_volume.toFixed(1)
-    console.log( json )
+    console.log('response', json )
 
     // console.log('json in server', json)
     
     // store json
-    appdata.push(json)
-    console.log('app data', appdata)
+    history.push(json)
+    // console.log('history', history)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(json))

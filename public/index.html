@@ -1,44 +1,60 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>lofi pitter patters to study to</title>
     <meta charset="utf-8">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Knewave">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
+    
     <script type="module" src='../js/howler.js'></script>
     <script src="../js/scripts.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
+    <link rel="icon" type="image/png" href="favicon.png"/>
   </head>
   <body id="body">
 
     <h1>lofi pitter patters to study to</h1>
-    <form action="" id="form">
-      <p>rain level</p>
-      <input type="radio" id="light_rain" name="rain_level" checked="checked">
-      <label for="light_rain">light rain</label>
-      <input type="radio" id="rain" name="rain_level">
-      <label for="rain">rain</label>
-      <input type="radio" id="heavy_rain" name="rain_level">
-      <label for="heavy_rain">heavy rain</label>
-      <p>environment</p>
-      <input type="radio" id="home" name="environment" checked="checked">
-      <label for="home">home</label>
-      <input type="radio" id="cafe" name="environment">
-      <label for="cafe">cafe</label>
-      <input type="radio" id="car" name="environment">
-      <label for="car">car</label>
-      <input type="radio" id="forest" name="environment">
-      <label for="forest">forest</label>
-      <p>lofi</p>
-      <input type="radio" id="lofi_off" name="lofi" checked="checked">
-      <label for="lofi">nah</label>
-      <input type="radio" id="lofi_on" name="lofi">
-      <label for="lofi">of course</label>
-    
-      <br>
-      <input type="text" id="mix_name" name='rain_mix_name' value="rain mix name">
-      <button id="play">play</button>
-    </form>
-    <button id="play_history">play history</button>
+    <div id="mother">
+      <form action="" id="form">
+        <p>rain level</p>
+        <input type="radio" id="light_rain" name="rain_level" checked="checked">
+        <label for="light_rain">light rain</label>
+        <input type="radio" id="rain" name="rain_level">
+        <label for="rain">rain</label>
+        <input type="radio" id="heavy_rain" name="rain_level">
+        <label for="heavy_rain">heavy rain</label>
+        <p>environment</p>
+        <input type="radio" id="home" name="environment" checked="checked">
+        <label for="home">home</label>
+        <input type="radio" id="cafe" name="environment">
+        <label for="cafe">cafe</label>
+        <input type="radio" id="car" name="environment">
+        <label for="car">car</label>
+        <input type="radio" id="forest" name="environment">
+        <label for="forest">forest</label>
+        <p>lofi</p>
+        <input type="radio" id="lofi_off" name="lofi" checked="checked">
+        <label for="lofi">nah</label>
+        <input type="radio" id="lofi_on" name="lofi">
+        <label for="lofi">of course</label>
+      
+        <br>
+        <input type="text" id="mix_name" name='rain_mix_name' value="rain mix name">
+        <button id="play">play</button>
+      </form>
+      <!--<button id="play_history">play history</button>-->
+      <table id="history_table">
+        <tr id="header-row">
+          <th>mix name</th>
+          <th>rain level</th>
+          <th>environment</th>
+          <th>lofi</th>
+          <th>volume</th>
+        </tr>
+      </table>
+    </div>
   </body>
   <script>
 

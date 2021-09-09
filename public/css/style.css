@@ -1,3 +1,7 @@
+/* @import url("https://fonts.google.com/specimen/Knewave?category=Display#standard-styles");
+@import url("https://fonts.google.com/specimen/ZCOOL+QingKe+HuangYou?category=Display&query=Zheng+Qingke");
+@import url("https://fonts.google.com/specimen/VT323?category=Monospace"); */
+
 html {
     height: 100%;
     /* margin: 0; */
@@ -6,7 +10,10 @@ html {
 } 
 body {
     background-image: url('../backgrounds/home.jpeg'); 
-    height: 100%;
+    /* font-family: "ZCOOL QingKe HuangYou", sans-serif; */
+    font-family: "VT323", monospace;
+    /* font-size:medium; */
+    /* height: 100%; */
     background-position: center;
     background-repeat:no-repeat;
     background-size:cover;
@@ -14,6 +21,45 @@ body {
     padding:0; */
 }
 
+button, input {
+  font-family: "VT323", monospace;
+}
+
   /* #background {
     position:absolute;
   } */
+
+table, th, td {
+  border:1px solid gray;
+  border-collapse: collapse;
+}
+
+#history_table {
+  max-width: 50%;
+  overflow-y:auto;
+  max-height: 500px;
+  justify-content: space-around;
+  display:block;
+}
+
+#mother {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items:flex-start;
+}
+
+h1 {
+  display: flex;
+  align-items:flex-end;
+  justify-content: center;
+  font-family: "Knewave", monospace;
+}
+
+#mix_name, #play {
+  margin-top: 20px;
+}
+
+input:checked {
+  background-color: aqua;
+}

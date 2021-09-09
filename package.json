@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "lofi_pitter_patters",
+  "version": "1.0",
+  "description": "Play rain sounds and lofi music to help you study",
+  "author": "Jyalu Wu",
   "scripts": {
     "start": "node server.improved.js"
   },
