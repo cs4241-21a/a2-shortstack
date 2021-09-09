@@ -37,13 +37,13 @@ const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 )
 
   function sendMessages(response) {
-    response.writeHead(200, "OK", {'Content-Type': 'application/json'})
+    response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
     response.end(JSON.stringify(appdata))
   }
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else if(request.url === 'messages') {
+  }else if(request.url === '/messages') {
     sendMessages(response)
   }else{
     sendFile( response, filename )
@@ -64,7 +64,8 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    JSON.parse( dataString )
+    console.log("Received datastring: " + dataString)
     // const json = JSON.parse(appdata)
     // json.yourname += " the first!"
 
