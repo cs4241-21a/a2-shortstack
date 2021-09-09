@@ -51,12 +51,15 @@ const handlePost = function (request, response) {
   request.on('end', function () {
     data = JSON.parse(dataString)
 
-    appdata.push(data)
-
-    // if the guess was close to the real answer
-    if (Math.abs(parseInt(data.guess) - values[currentImage]) < 10) {
+    // calculate how far it was
+    let diff = Math.abs(parseInt(data.guess) - values[currentImage])
+    if (diff < 10) {
       currentImage = (currentImage + 1) % images.length
       appdata = [] // clear the guesses
+    } else {
+      let out = ['HOT!', 'warm!', 'cool', 'cold!', 'super cold', 'frozen :('] 
+      data.hint = out[[15, 75, 125, 200, 450, Infinity].findIndex(e => diff < e)]
+      appdata.push(data)
     }
 
     response.writeHead(200, "OK", { 'Content-Type': 'text/plain' })
