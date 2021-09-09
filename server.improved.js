@@ -8,9 +8,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  {"hex": "#ffffff", "rgb": [255, 255, 255], "hsl": [0, 100, 100]},
-  {"hex": "#000000", "rgb": [0, 0, 0], "hsl": [0, 100, 0]},
-  {"hex": "#660066", "rgb": [102, 0, 102], "hsl": [300, 100, 20]}
+  {"hex": "#FFFFFF", "rgb": [255, 255, 255], "hsl": [0, 100, 100], "num": 0},
+  {"hex": "#000000", "rgb": [0, 0, 0], "hsl": [0, 100, 0], "num": 1},
+  {"hex": "#660066", "rgb": [102, 0, 102], "hsl": [300, 100, 20], "num": 2}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -47,12 +47,55 @@ const handlePost = function( request, response ) {
     }
 
     const inp = JSON.parse(dataString)
-    let col = color(inp.input, inp.format)
-    let data = {"hex":col.hex(), "rgb":col.rgb().round().array(), "hsl":col.hsl().round().array()}
-    appdata.push(data)
+
+    if(inp.input === "edit"){
+      console.log("edit number " + inp.num)
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(inp))
+      return
+    }
+
+    if(inp.input === "del"){
+      console.log("delete number " + inp.num)
+
+      appdata[inp.num] = null
+
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(inp))
+      return
+    }
+
+    let col = null
+    try{
+      col = color(inp.input, inp.format)
+    }catch(e){
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end("{}")
+      return
+    }
+
+    let data = {"hex": col.hex(), 
+                "rgb": col.rgb().round().array(), 
+                "hsl": col.hsl().round().array(),
+                "num": findOpen()}
+    appdata[data.num] = data
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(data))
   })
+}
+
+const findOpen = function(){
+  let i = 0
+  for(i; i < appdata.length; i++){
+    if(appdata[i] === null){
+      break
+    }
+  }
+  if(i == appdata.length){
+    appdata.push(null)
+  }
+  return i
 }
 
 const sendFile = function( response, filename ) {

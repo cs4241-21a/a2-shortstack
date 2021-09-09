@@ -1,4 +1,8 @@
 /*Style your own assignment! This is fun! */
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 table{
     table-layout: fixed;
 }
@@ -6,4 +10,13 @@ td, th{
     width: 300px;
     overflow: hidden;
     text-align: center;
+}
+
+.button{
+    width: 100px;
+}
+
+#error{
+    color: rgb(133, 0, 0);
+    font-style: italic;
 }

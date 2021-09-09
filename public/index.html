@@ -26,6 +26,8 @@
           <th>Hex</th>
           <th>RGB</th>
           <th>HSL</th>
+          <th class="button">Edit</th>
+          <th class="button">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -67,13 +69,56 @@
     .then(response => response.json())
     .then(function(json){
       console.log(json)
-      const table = document.querySelector("tbody")
-      const child = document.createElement("tr")
-      child.innerHTML = createRow(json)
-      table.appendChild(child)
+      
+      try{//remove the error message if it is there
+        document.getElementById("error").remove()
+      }catch(e){}
+
+      if(JSON.stringify(json) === "{}"){//bad input
+        const form = document.querySelector("form")
+        const child = document.createElement("p")
+        child.setAttribute("id", "error")
+        child.innerText = "Please enter a valid 3- or 6-digit hex value, starting with #"
+        form.prepend(child)
+      }else{
+        const table = document.querySelector("tbody")
+        
+        const child = document.createElement("tr")
+        child.setAttribute("id", `color-${json.num}`)
+
+        child.innerHTML = createRow(json)
+        table.appendChild(child)
+      }
     })
 
     return false
+  }
+
+  const edit = function(num){
+    const body = JSON.stringify({"input": "edit", "num": num})
+    
+    fetch( '/submit', {
+      method:'POST',
+      body
+    })
+    .then(response => response.json())
+    .then(function(json){
+      console.log(json)
+    })
+  }
+
+  const del = function(num){
+    const body = JSON.stringify({"input": "del", "num": num})
+    
+    fetch( '/submit', {
+      method:'POST',
+      body
+    })
+    .then(response => response.json())
+    .then(function(json){
+      console.log(json)
+      document.getElementById(`color-${json.num}`).remove()
+    })
   }
 
   /*
@@ -81,9 +126,10 @@
    * The object must take the form {hex: <data>, rgb: <data>, hsl: <data>}
    */
   function createRow(jsonobj){
-    let ret = `<td style=\"background-color: ${jsonobj.hex}\"></td>`
-    ret += `<td>${jsonobj.hex}</td> <td>${jsonobj.rgb}</td> <td>${jsonobj.hsl}</td>`
-    return ret
+    return `<td style=\"background-color: ${jsonobj.hex}\"></td>
+            <td>${jsonobj.hex}</td> <td>${jsonobj.rgb}</td> <td>${jsonobj.hsl}</td>
+            <td class="button"><button id="edit-${jsonobj.num}" onclick="edit(${jsonobj.num})">Edit</button></td>
+            <td class="button"><button id="delete-${jsonobj.num}" onclick="del(${jsonobj.num})">Delete</button></td>`
   }
 
   /*
@@ -98,14 +144,14 @@
         fieldDiv.innerHTML = `<input id="hex-input" type="text" value="#beeeef">`
         break
       case "rgb":
-        fieldDiv.innerHTML = `<input id="r" type="number" value="0" min="0" max="255">
-                              <input id="g" type="number" value="0" min="0" max="255">
-                              <input id="b" type="number" value="0" min="0" max="255">`
+        fieldDiv.innerHTML = `<input id="r" type="number" placeholder="Red (0-255)" min="0" max="255">
+                              <input id="g" type="number" placeholder="Blue (0-255)" min="0" max="255">
+                              <input id="b" type="number" placeholder="Green (0-255)" min="0" max="255">`
         break
       case "hsl":
-        fieldDiv.innerHTML = `<input id="h" type="number" value="0" min="0" max="360">
-                              <input id="s" type="number" value="0" min="0" max="100">
-                              <input id="l" type="number" value="0" min="0" max="100">`
+        fieldDiv.innerHTML = `<input id="h" type="number" placeholder="Hue (0-360)" min="0" max="360">
+                              <input id="s" type="number" placeholder="Saturation (0-100)" min="0" max="100">
+                              <input id="l" type="number" placeholder="Lightness (0-100)" min="0" max="100">`
         break
     }
   }
@@ -125,7 +171,9 @@
       console.log(json)
       const table = document.querySelector("tbody")
       json.forEach(ele => {
+        console.log(ele.num)
         const child = document.createElement("tr")
+        child.setAttribute("id", `color-${ele.num}`)
         child.innerHTML = createRow(ele)
         table.appendChild(child)
       })
