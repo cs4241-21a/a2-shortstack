@@ -7,14 +7,16 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {'name': "Artoria Pendragon", 'occupation': "Saber", 'strength': "B", 'endurance': "B", "agility": "B", "magic": "A", "luck": "A+", "noble": "EX"},
+  {'name': "Brynhild", 'occupation': "Lancer", 'strength': "B+", 'endurance': "A", "agility": "A", "magic": "C", "luck": "E", "noble": "A"},
+  {'name': "Gilgamesh", 'occupation': "Archer", 'strength': "B", 'endurance': "C", "agility": "C", "magic": "B", "luck": "A", "noble": "EX"},
+  {'name': "Tamamo-no-Mae", 'occupation': "Caster", 'strength': "E", 'endurance': "E", "agility": "B", "magic": "A", "luck": "D", "noble": "B"},
+  {'name': "Morgan", 'occupation': "Berserker", 'strength': "C", 'endurance': "E", "agility": "B", "magic": "A+", "luck": "B", "noble": "EX"},
 ]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
-    handleGet( request, response )    
+    handleGet( request, response )   
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
   }
@@ -25,7 +27,8 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -38,12 +41,44 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    const json = JSON.parse( dataString ) 
 
-    // ... do something with the data here!!!
+    if( request.url === '/result' ) {
+      json.tabledata = appdata;
+      json.noc = appdata.length;
+    }
+    else if ( request.url === '/submit' ) {
+      let acc = 0;
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+      for (let i = 0; i < appdata.length; i++){
+        let character_data = appdata[i];
+        if ( character_data.name === json.yourname && character_data.occupation === json.occup){
+          acc += 1;
+        }
+        else{
+          acc += 0;
+        }
+      }
+
+      if (acc === 0){
+        json.alert = 0;
+      }
+      else{
+        json.alert = 1;
+      }
+
+
+      if(checkInfoComplete(json) && json.alert === 0){
+        var generated = generateServant(json);
+        appdata.push(generated);
+      }
+
+      json.tabledata = appdata;
+      json.noc = appdata.length; // number of characters
+    }
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' }) 
+    response.end( JSON.stringify( json ) )
   })
 }
 
@@ -67,6 +102,134 @@ const sendFile = function( response, filename ) {
 
      }
    })
+}
+
+function checkInfoComplete( json ){
+  if (json.yourname === "character name" || json.yourname === "" || json.occup === "None"){
+    json.info_alert = 1;
+    return false;
+  }
+  else{
+    json.info_alert = 0;
+    return true;
+  }
+}
+
+function generateServant( json ){
+  let returndata;
+
+  if (json.occup === "Saber"){
+    let returnST = getRandomAttribute(1, 3);
+    let returnEN = getRandomAttribute(3, 7);
+    let returnAG = getRandomAttribute(1, 4);
+    let returnMG = getRandomAttribute(2, 5);
+    let returnGL = getRandomAttribute(1, 5);
+    let returnNP = getRandomAttribute(1, 4);
+    returndata = {'name': json.yourname, 'occupation': json.occup, 'strength': returnST, 'endurance': returnEN, "agility": returnAG, "magic": returnMG, "luck": returnGL, "noble": returnNP};
+  }
+  else if (json.occup === "Lancer"){
+    let returnST = getRandomAttribute(1, 5);
+    let returnEN = getRandomAttribute(3, 6);
+    let returnAG = getRandomAttribute(1, 3);
+    let returnMG = getRandomAttribute(3, 6);
+    let returnGL = getRandomAttribute(4, 5);
+    let returnNP = getRandomAttribute(1, 4);
+    returndata = {'name': json.yourname, 'occupation': json.occup, 'strength': returnST, 'endurance': returnEN, "agility": returnAG, "magic": returnMG, "luck": returnGL, "noble": returnNP};
+  }
+  else if (json.occup === "Archer"){
+    let returnST = getRandomAttribute(3, 5);
+    let returnEN = getRandomAttribute(3, 6);
+    let returnAG = getRandomAttribute(1, 3);
+    let returnMG = getRandomAttribute(3, 6);
+    let returnGL = getRandomAttribute(1, 3);
+    let returnNP = getRandomAttribute(1, 4);
+    returndata = {'name': json.yourname, 'occupation': json.occup, 'strength': returnST, 'endurance': returnEN, "agility": returnAG, "magic": returnMG, "luck": returnGL, "noble": returnNP};
+  }
+  else if (json.occup === "Caster"){
+    let returnST = getRandomAttribute(3, 6);
+    let returnEN = getRandomAttribute(3, 6);
+    let returnAG = getRandomAttribute(3, 6);
+    let returnMG = getRandomAttribute(1, 3);
+    let returnGL = getRandomAttribute(1, 5);
+    let returnNP = getRandomAttribute(1, 4);
+    returndata = {'name': json.yourname, 'occupation': json.occup, 'strength': returnST, 'endurance': returnEN, "agility": returnAG, "magic": returnMG, "luck": returnGL, "noble": returnNP};
+  }
+  else if (json.occup === "Rider"){
+    let returnST = getRandomAttribute(1, 5);
+    let returnEN = getRandomAttribute(1, 3);
+    let returnAG = getRandomAttribute(2, 5);
+    let returnMG = getRandomAttribute(3, 6);
+    let returnGL = getRandomAttribute(1, 5);
+    let returnNP = getRandomAttribute(1, 4);
+    returndata = {'name': json.yourname, 'occupation': json.occup, 'strength': returnST, 'endurance': returnEN, "agility": returnAG, "magic": returnMG, "luck": returnGL, "noble": returnNP};
+
+  }
+  else if (json.occup === "Assassin"){
+    let returnST = getRandomAttribute(1, 7);
+    let returnEN = getRandomAttribute(3, 7);
+    let returnAG = getRandomAttribute(1, 2);
+    let returnMG = getRandomAttribute(2, 6);
+    let returnGL = getRandomAttribute(4, 5);
+    let returnNP = getRandomAttribute(1, 4);
+    returndata = {'name': json.yourname, 'occupation': json.occup, 'strength': returnST, 'endurance': returnEN, "agility": returnAG, "magic": returnMG, "luck": returnGL, "noble": returnNP};
+  }
+
+  return returndata;
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //不含最大值，含最小值
+}
+
+function getRandomAttribute(min, max){
+  //range: high (EX, A), mid (A, B, C), low (C, D, E)
+  let range = getRandomInt(min, max);
+
+  if (range === 1){
+    let num = getRandomInt(1, 20);
+    if (num === 1 ){
+      return "EX";
+    }
+    else if (num === 2 || num === 3){
+      return "A++"
+    }
+    else if (num >= 4 && num <= 7){
+      return "A+"
+    }
+    else if (num >= 8 && num <= 14){
+      return "A"
+    }
+    else{
+      return "A-"
+    }
+  }
+  else if (range === 2 || range === 3){
+    let num = getRandomInt(1, 10);
+    if (num === 1 ){
+      return "A--";
+    }
+    else if (num >= 2 && num <= 5){
+      return "B";
+    }
+    else{
+      return "C";
+    }
+  }
+  else {
+    let num = getRandomInt(1, 5);
+    if (num === 1){
+      return "C";
+    }
+    else if (num >=2 && num <= 4){
+      return "D";
+    }
+    else{
+      return "E";
+    }
+  }
+
 }
 
 server.listen( process.env.PORT || port )
