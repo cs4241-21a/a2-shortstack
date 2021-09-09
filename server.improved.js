@@ -7,21 +7,30 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {'name': 'm', 'score': 1999, 'rank': 1},
 ]
+
+//get/post request that lets me get app data
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
+    if(request.url === "/submit-player-score"){
+
+    } else if(request.url === "/delete-player-score"){
+      
+    }
+    //if it's add, do add
+    //if it's delete, do delete
     handlePost( request, response ) 
   }
 })
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
+
+
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
@@ -32,18 +41,48 @@ const handleGet = function( request, response ) {
 
 const handlePost = function( request, response ) {
   let dataString = ''
+  console.log(request.url)
 
   request.on( 'data', function( data ) {
       dataString += data 
   })
 
   request.on( 'end', function() {
+    console.log("data parsed successfully")
     console.log( JSON.parse( dataString ) )
+    
+
+    console.log("Before: ");
+    for(let i = 0; i < appdata.length; i++){
+      console.log(appdata[i]);
+    }
+
+    if(request.url === "/submit"){
+      let newPlayerData = JSON.parse( dataString);
+      addData(appdata, newPlayerData.playername, newPlayerData.playerscore);
+    } else if(request.url === "/deleteScore"){
+      console.log("poggies")
+      let deleteRequest = JSON.parse(dataString);
+      removeData(appdata, deleteRequest.playername);
+    }
+    
+
+    console.log("After: " + appdata)
+    for(let i = 0; i < appdata.length; i++){
+      console.log(appdata[i]);
+    }
 
     // ... do something with the data here!!!
 
+
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    //if we submit a request that requires us to get the data
+      //response.end(appdata)
+   
+
+    console.log(JSON.stringify(appdata))
+    response.end(JSON.stringify(appdata))
   })
 }
 
@@ -70,3 +109,74 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+
+
+function addData(appdata, playerName, playerScore){
+
+  console.log("New player score: " + playerScore);
+  let addedName = playerName;
+  let addedScore = parseInt(playerScore);
+
+  let addedRank;
+  let currentScore;
+  let isRankPlaced;
+  for(let i = 0; i < appdata.length; i++){
+      if(!isRankPlaced){
+        currentScore = appdata[i].score;
+        console.log("Examining " + appdata[i].name + " in rank " + appdata[i].rank)
+
+        //Check to see if the new score exceeds the analyzed score
+        if(addedScore > currentScore){
+            console.log(addedScore + " is higher than " + currentScore + " in rank" + appdata[i].rank)
+            //If it does
+            // -give the current rank to the added rank 
+            // -lower the added rank
+            addedRank = i+1;
+            appdata[i].rank += 1;
+            isRankPlaced = true;
+        }
+      } else {
+          //Lower the rank of the other appdata 
+          appdata[i].rank += 1;
+      }
+      
+  }
+
+  //If this is the lowest score, indicate it's the last rank
+  if(!isRankPlaced){
+    addedRank = appdata.length + 1;
+  }
+
+
+  //Push the new data to appdata and then sort the appdata
+  appdata.push({name: addedName, score: addedScore, rank: addedRank});
+  appdata.sort((a, b) => {
+      return a.rank - b.rank;
+  });
+}
+
+//Removes a piece of data from the table
+function removeData(appdata, row){
+  console.log("CURRENT ROW: " + row)
+
+  //remove data
+  let isItemRemoved = false;
+  for(let element of appdata){
+    if(element.name === row){
+      appdata.splice(element.rank-1, 1);
+      isItemRemoved = true;
+      break;
+    }
+  }
+  if(!isItemRemoved){
+    console.log("Something fishy is happening...");
+  } else {
+    //Reassign item ranks
+    for(let i = 0; i < appdata.length; i++){
+      appdata[i].rank = i+1;
+    }
+  }
+}
+
+
+
