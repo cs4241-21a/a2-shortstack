@@ -1,1 +1,44 @@
 /*Style your own assignment! This is fun! */
+table, th{
+  border: 3px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Josefin Sans', sans-serif;
+  
+}
+
+.box {
+    background: gold;
+}
+
+h1{
+   text-align: center;
+  font-family: 'Limelight', cursive;
+}
+
+input{
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+  background: black;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  font-family: 'Josefin Sans', sans-serif;
+  background: white;
+  border: 2px solid black;
+
+}
+
+.theaterBox{
+    border: 1px solid black;
+}
+
