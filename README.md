@@ -1,4 +1,4 @@
-Renee Sawka https://a2-rcsawka-renee-sawka.glitch.me
+Renee Sawka https://a2-rcsawka.glitch.me
 
 ## Homework Agenda Application
 This web application functions as a homework agenda, where people can input their assignments, which course they are for, how much each assignment is worth (percentage of grade), and the agenda will output the priority level of the assignment. Users can then edit these entries or mark them as complete once they 'finish' an assignment.
