@@ -1,7 +1,7 @@
 {
-  "name": "suki_travelLog",
-  "version": "1.0",
-  "description": "A website that allows people to record their travel log",
+  "name": "suki_flightReminder",
+  "version": "",
+  "description": "A website that allows people to record their flight information",
   "author": "Qingbei Shang",
   "scripts": {
     "start": "node app.js"
@@ -9,6 +9,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "mime": "^2.5.2"
+    "mime": "^2.5.2",
+    "uuid": "^8.3.2"
   }
 }

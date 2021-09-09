@@ -8,7 +8,6 @@
       href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap"
       rel="stylesheet"
     />
-    <script src="js/scripts.js"></script>
   </head>
 
   <body>
@@ -25,17 +24,17 @@
           <h2>Add New Flight</h2>
 
           <label for="flightNum">Flight Number: </label>
-          <input type="text" id="flightNum" placeholder="Flight Number" />
+          <input type="text" id="flightNum" placeholder="Flight Number" required />
 
           <label for="depAirport">Departure Airprot: </label>
           <input
             type="text"
             id="depAirport"
-            placeholder="City or specific location"
+            placeholder="Airport name" required 
           />
 
           <label for="arrAirport">Arrival Airport: </label>
-          <input type="text" id="arrAirport" placeholder="Airport name" />
+          <input type="text" id="arrAirport" placeholder="Airport name" required />
 
           <label for="date">Date: </label>
           <input type="date" id="date" name="date" required />
@@ -54,13 +53,14 @@
               <th>Departure Airport</th>
               <th>Arrival Airport</th>
               <th>Date</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody id="upcomingData"></tbody>
         </table>
       </div>
     </div>
-    <button onclick="clearUpcomingData()">Delect trips</button>
+
 
 
     <h2>Past Travel</h2>
@@ -73,12 +73,15 @@
               <th>Departure Airport</th>
               <th>Arrival Airport</th>
               <th>Date</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody id="pastData"></tbody>
         </table>
       </div>
     </div>
-    <button onclick="clearPastData()">Delect trips</button>
+
+    <script src="js/scripts.js"></script>
+
   </body>
 </html>
