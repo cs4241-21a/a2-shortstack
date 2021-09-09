@@ -60,7 +60,7 @@ button.remove:hover {
     background-color: #96222A;
 }
 
-div.gray-box {
+div.container {
     display: flex;
     flex-direction: column;
     background-color: #E3E3E3;
@@ -68,6 +68,6 @@ div.gray-box {
     padding: 1em;
 }
 
-div.gray-box h2 {
+div.container h2 {
     margin: 0;
 }
