@@ -1,1 +1,56 @@
 /*Style your own assignment! This is fun! */
+* {
+    box-sizing: border-box;
+}
+html, body, div, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+h1, form, li{
+    text-align: center;
+}
+body {
+    line-height: 1;
+    margin: 0 auto;
+    max-width: 60em;
+}
+ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+img {
+    width: 150px;
+    height:200px;
+    object-fit: cover;
+}
+
+
+body, select, button, input {
+    font-family: 'Fredoka One', cursive;
+}
+button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 5px 7px;
+}
+select {
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 5px 7px;
+}
