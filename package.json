@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-denver-blake",
+  "version": "1.0",
+  "description": "List of locations to travel to",
+  "author": "Denver Blake",
   "scripts": {
     "start": "node server.improved.js"
   },
