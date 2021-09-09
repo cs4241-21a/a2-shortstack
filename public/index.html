@@ -3,39 +3,123 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel='stylesheet' href='css/style.css'>
+    <script src='js/scripts.js'></script>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+
+    <header class='autoMargin'>
+      <img id='logo' src="https://cdn.glitch.com/5786a749-abf3-443b-8bab-466af4fe7d5a%2FWPI_Logo.png?v=1631079433391" alt="WPI Logo" />
+      <h1>WPI Student Preferences</h1> 
+    </header>
+
+    <div id='info' class='centerText autoMargin'>
+      <h2 class='smallMargin'>Welcome to WPI's <i>unofficial</i> dorm, dining hall, and campus location comparison tool!</h2>
+      <h2 class='smallMargin'>Check how students have rated your favorite spots on campus and add your own ratings!</h2>
+
+      <div id='infoButtons'>
+        <a href='#ratings' class='button centerText'>See Current Ratings</a>
+        <a href='#info' onclick='stepOnSeal()' class='button centerText'>|| Step On The Seal ||</a>
+        <a href='#addRating' class='button centerText'>Add A Rating</a>
+      </div>
+    </div>
+
+    <h3 class='centerText'>Ratings So Far:</h3>
+
+    <table id='ratings' class="centerText autoMargin">
+      <tr>
+        <th>Response ID</th>
+        <th>Name</th>
+        <th>Academic Year</th>
+        <th>Years Till Graduation</th>
+        <th>Best Dorm?</th>
+        <th>Best Dining Hall?</th>
+        <th>Favorite Spot?</th>
+        <th>Additional Notes</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Andrew</td>
+        <td>Sophomore</td>
+        <td>3</td>
+        <td>Morgan Hall</td>
+        <td>Campus Center</td>
+        <td>Higgins Garden</td>
+        <td>Morgan 4 best floor!</td>
+      </tr>
+    </table>
+
+    <h3 class='centerText'>Add A Rating:</h3>
+
+    <div id='addRating' class='addRating centerText autoMargin'>
+      <form action="">
+        <label for='name'>What is your name?</label>
+        <input type='text' id='name' value="">
+      </form>
+
+      <label for='studentYear'>Which year are you?</label>
+      <select id='studentYear'>
+        <option value='First-Year'>First-Year</option>
+        <option value='Sophomore'>Sophomore</option>
+        <option value='Junior'>Junior</option>
+        <option value='Senior'>Senior</option>
+        <option value='Graduate'>Graduate Student</option>
+      </select>
+
+      <br>
+
+      <label for='favoriteDorm'>What is your favorite dorm?</label>
+      <select id='favoriteDorm'>
+        <option value='Daniels Hall'>Daniels Hall</option>
+        <option value='East Hall'>East Hall</option>
+        <option value='Ellsworth Apartments'>Ellsworth Apartments</option>
+        <option value='Faraday Hall'>Faraday Hall</option>
+        <option value='Founders Hall'>Founders Hall</option>
+        <option value='Fuller Apartments'>Fuller Apartments</option>
+        <option value='Hampton Inn'>Hampton Inn</option>
+        <option value='Institute Hall'>Institute Hall</option>
+        <option value='Messenger Hall'>Messenger Hall</option>
+        <option value='Morgan Hall'>Morgan Hall</option>
+        <option value='Riley Hall'>Riley Hall</option>
+        <option value='Stoddard Complex'>Stoddard Complex</option>
+        <option value='WPI Townhouses'>WPI Townhouses</option>
+        <option value='Other Housing'>Other Housing</option>
+      </select>
+
+      <br>
+
+      <label for='favoriteDining'>What is your favorite dining hall?</label>
+      <select id='favoriteDining'>
+        <option value='Campus Center'>Campus Center</option>
+        <option value='DAKA (Morgan)'>DAKA (Morgan)</option>
+        <option value='Dunkin Donuts'>Dunkin Donuts</option>
+        <option value="Goat's Head">Goat's Head</option>
+        <option value='Starbucks'>Starbucks</option>
+      </select>
+
+      <br>
+
+      <form action="">
+        <label for='favoriteSpot'>What is your favorite spot on campus?</label>
+        <input type='text' id='favoriteSpot' value="">
+      </form>
+
+      <form action="">
+        <label for='notes'>Do you have any additional notes?</label>
+        <input type='text' id='notes' value="">
+      </form>
+
+      <button class='ratingButtonClicked' onclick='updateTable()'>Add This Rating!</button>
+
+      <p class='centerText'>
+        WPI Logo Used With Permission -- https://www.wpi.edu/sites/default/files/docs/Offices/Marketing-Communications/WPI_Institutional_9-4-12.pdf
+        <br />
+        WPI Quadrangle Used With Permission Under Creative Commons License -- https://en.wikipedia.org/wiki/File:WPI_Quad.jpeg
+      </p> 
+    </div>
+  </div>
+
   </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
 </html>

@@ -1,1 +1,82 @@
 /*Style your own assignment! This is fun! */
+body {
+    background-color: #A9B0B7;
+    font-family: Lato, sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    color: #A9B0B7;
+    width: 1024px;
+    height: 150px;
+    background: #c41230;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid black;
+    letter-spacing: 1px;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.button {
+    background-color: #c41230;
+    color: #A9B0B7;
+    font-weight: bold;
+    text-decoration: none;
+
+    margin-left: 10px;
+    margin-right: 50px;
+    padding: 10px;
+    height: 30px;
+    width: 150px;
+}
+
+.button:hover {
+    background-color: #e0415c;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.smallMargin {
+    margin: 10px;
+}
+
+.autoMargin {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo {
+    height: 80px;
+    margin-bottom: -20px;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: #444444;
+    width: 1024px;
+    height: 506px;
+    background-image: url('https://cdn.glitch.com/5786a749-abf3-443b-8bab-466af4fe7d5a%2FWPI_Quad.jpeg?v=1631079961919');
+}
+
+#infoButtons {
+    margin-top: 350px;
+    color: #A9B0B7;
+}
