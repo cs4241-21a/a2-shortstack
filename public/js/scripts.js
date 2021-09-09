@@ -15,7 +15,7 @@ const submit = function(e) {
     purchase_price: purchase_price.value,
     purchase_year: purchase_year.value,
     repairs: repairs.value,
-    miles: miles.value,
+    miles: miles.value
   };
 
   body = JSON.stringify(json);
@@ -23,13 +23,15 @@ const submit = function(e) {
   fetch("/submit", {
     method: "POST",
     body
-  }).then(function(response) {
-    return response.json();
-  }).then(function(json){
-    tableEntries = [];
-    tableEntries.push(json);
-    renderTable();
   })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      tableEntries = [];
+      tableEntries.push(json);
+      renderTable();
+    });
   return false;
 };
 
@@ -38,7 +40,7 @@ const deleteEntry = function(e) {
   e.preventDefault();
 
   // acquire the table entrys that are selected.
-  let table = document.getElementById("car_table")
+  let table = document.getElementById("car_table");
   json = getCheckedBox(table);
   body = JSON.stringify(json);
   fetch("/deleteEntry" + 0, {
@@ -48,22 +50,22 @@ const deleteEntry = function(e) {
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     body
-  }).then(function(response) {
-    return response.json();
-  }).then(function(json){
-
-    tableEntries[0] = json;
-    renderTable();
-  });
+  })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      tableEntries[0] = json;
+      renderTable();
+    });
 
   return false;
 };
 window.onload = function() {
-  if(document.getElementById("car_table").rows.length === 1){
-    document.getElementById("deleteButton").style.visibility = "hidden"
-  }
-  else{
-    document.getElementById("deleteButton").style.visibility = "visible"
+  if (document.getElementById("car_table").rows.length === 1) {
+    document.getElementById("deleteButton").style.visibility = "hidden";
+  } else {
+    document.getElementById("deleteButton").style.visibility = "visible";
   }
 
   const button = document.querySelector("button");
@@ -87,7 +89,7 @@ function clearTable() {
 const renderTable = function() {
   let tableIndexCount = 0;
   clearTable();
-  for(let i = 0; i < tableEntries[0].length; i++){
+  for (let i = 0; i < tableEntries[0].length; i++) {
     let element = tableEntries[0][i];
     let car_name = element.car_name;
     let purchase_price = element.purchase_price;
@@ -139,11 +141,10 @@ const renderTable = function() {
     newTest_cell.appendChild(newTest_text);
 
     tableIndexCount++;
-    if(document.getElementById("car_table").rows.length === 1){
-      document.getElementById("deleteButton").style.visibility = "hidden"
-    }
-    else{
-      document.getElementById("deleteButton").style.visibility = "visible"
+    if (document.getElementById("car_table").rows.length === 1) {
+      document.getElementById("deleteButton").style.visibility = "hidden";
+    } else {
+      document.getElementById("deleteButton").style.visibility = "visible";
     }
   }
 };
