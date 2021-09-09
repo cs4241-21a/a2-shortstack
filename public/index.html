@@ -70,11 +70,38 @@
     .then( function( json ) {
       console.log(json)
 
-      const element = document.createElement('tr')
-      element.innerHTML = `<td>${json.title}</td><td>${json.author}</td><td>${json.year}</td><td>${json.rating}</td><td>${json.rank}</td>`
-      // element.innerText = json.title
-      // document.body.appendChild(element)
-      document.querySelector('table').appendChild(element)
+      // const element = document.createElement('tr')
+      // element.innerHTML = `<td>${json[0].title}</td><td>${json[0].author}</td><td>${json[0].year}</td><td>${json[0].rating}</td><td>${json[0].rank}</td>`
+      // // element.innerText = json.title
+      // // document.body.appendChild(element)
+      // document.querySelector('table').appendChild(element)
+
+      var newTable = document.createElement('table')
+      var tableText = '<table><tr><th>Title</th><th>Author</th><th>Release Year</th><th>Rating</th><th>Rank</th></tr>'
+      var i = 0
+        while (json[i]!=undefined) {
+        tableText +='<tr><td>'
+        tableText += json[i].title
+        tableText += '</td><td>'
+        tableText += json[i].author
+        tableText += '</td><td>'
+        tableText += json[i].year
+        tableText += '</td><td>'
+        tableText += json[i].rating
+        tableText += '</td><td>'
+        tableText += json[i].rank
+        tableText += '</td></tr>'
+        i++
+      }
+      console.log(`json.entries().length: ${Object.keys(json).length}`)
+      // console.log(`json.length(): ${json.length()}`)
+      console.log(`json[5]: ${json[5]}`)
+      tableText += '</table>'
+      console.log('tableText:')
+      console.log(tableText)
+      newTable.innerHTML = tableText
+      document.querySelector('table').remove()
+      document.body.appendChild(newTable)
     })
 
     return false
