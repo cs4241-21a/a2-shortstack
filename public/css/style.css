@@ -8,7 +8,9 @@ body {
     flex-flow: column wrap;
     height: 50vw;
     align-content: flex-start;
+    background-color: #690086;
 }
+/*TODO: change font*/
 
 /**
  * Header form styles (message input form)
@@ -26,9 +28,19 @@ form {
     color: white;
 }
 
+input {
+    background-color: #9c71db;
+    border-radius: 5px;
+    border-color: #804ec8 ;
+}
+
+
 textarea {
     width: 100%;
     height: 60px;
+    background-color: #9c71db;
+    border-radius: 5px;
+    border-color: #804ec8 ;
 }
 
 .header-btn{
@@ -36,6 +48,10 @@ textarea {
     background-color: #7e47ca;
     color: white;
     border-color: blueviolet;
+}
+
+::placeholder{
+    color: #4f0064;
 }
 
 
@@ -55,4 +71,5 @@ message{
 message p{
     margin: 0;
     background-color: #9c71db;
+    word-wrap: break-word
 }
