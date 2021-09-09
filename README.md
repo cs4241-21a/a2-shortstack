@@ -1,5 +1,7 @@
 Adam Grabowski
 
+https://a2-argrabowski.glitch.me/
+
 ## Securities Portfolio
 
 My project is a stock, ETF, or index fund financial portfolio creator. The site gathers information from the user about a security to produce a
@@ -29,14 +31,14 @@ two portfolio listings.
 
 - **Evaluation Achievement 1**:
 
-1.
-2.
-3.
-4.
+1. Nicholas Markou provided feedback.
+2. He suggested a confirmation alert for edit and not all green background.
+3. He said buttons, highlighting, and general layout made sense.
+4. I would add edit confirmation and improve background style.
 
 - **Evaluation Achievement 2**:
 
-1.
-2.
-3.
-4.
+1. Liam Rathke provided feedback.
+2. He didn't expect the edit button to apply to feilds which were on its row.
+3. He said functionality for adding and removing entries made sense.
+4. I would make edit button more clear in directions and interface.
