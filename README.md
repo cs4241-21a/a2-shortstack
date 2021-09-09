@@ -1,97 +1,34 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
-===
-
-Due: September 9th, by 11:59 AM.
-
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
-
-Baseline Requirements
 ---
 
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
+## Contact Log
+Link: https://a2-mjzeolla.glitch.me/   
+The web application acts as a user contact log for the desired individual. When you run the server the user is prompted with some default data. Then the user can ADD data by using the left-most grid column. The user must enter in a Name, Email, Number, Age, and Notes about the Contact. Failure to enter in the required fields will result in an alert to the user prompting them to enter in all the information. Then one submitted, the Live Data table will update with the new Contact. If a user wants to MODIFY a contact they can hover over a row in the Data Table and click. This will display a pop-up window, which will auto-fill in all the existing contact information. The user can then change that information and choose to update the contact. If a user wishes to REMOVE a contact then they must click on the contact's row in the table, and choose the delete button. When the user refreshes the page all the information PERSISTS, and the data table keeps the contacts. 
 
-Your application is required to implement the following functionalities:
+The derived field of AGE GROUP is created when a user ADDs a new contact to the log. This field is calculated by checking if the entered contact AGE is within a specific margin of age group. A contact can be a "Child", "Teenager", "Adult", or "Senior". Another Derived Field is the EDUCATION LEVEL field. This field is derived from both the age and current occupation of a contact. If a contact is currently a Student then they will be grouped according to the typical education level for that age. If a contact is working and is above the age of 19, then they are Graduates. else they Never Attended school. Lastly, if someone is unemployed then they are automatically considered to have Never Attended school. Furthermore, the contact number and contact-counter parts of the webpage are derived by counting the total number of contact entries in the webpage database.
 
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
-
-Your application is required to demonstrate the use of the following concepts:
-
-HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.
-- All pages should [validate](https://validator.w3.org)
-
-CSS:
-- CSS styling of the primary visual elements in the application
-- Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
-- CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
-
-- CSS defined in a maintainable, readable form, in external stylesheets 
-
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
-
-Deliverables
----
-
-Do the following to complete this assignment and acheive a base grade of 85%:
-
-1. Fork the starting project code (make sure to fork the 2021 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
-*Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
-
-1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
-2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
-
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+For CSS, a grid layout was used to create vertical sections of the website. The Left section is the location of the data table, which stores all the contacts. The Middle section is just a vertical line, used to separate the left and right grid sections. The Right section is where a user enters information to add a contact. A pop-up menu is simulated in the project by creating a Div element to store the content. Everywhere that is not the pop-up menu has its color set to a light grey, and the user can only interact with the pop-up window. Lastly, CSS is used to customize the various fonts, colors, and data tables that occur on the webpage. For example, the fonts Sofia, Trirong, and Roboto are imported from Google Fonts and are used to stylize the data. CSS was also used to create an overhead navigation bar and the hovering effect for the table rows. When a user hovers over a specific row, that row's CSS background-color trait gets changed. 
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+- **Tech Achievement 1**: Using a combination of CSS, HTML, and JS, I created a single webpage, where users can submit data, edit data and delete data. The data is stored in the form of contact, which has seven specific fields. When the user submits data the data table is updated immediately with the new data from the user. The current state of the server data is always displayed in real-time. The derived fields of Age Group and Education Level are calculated by the program and stored in the database. All data persists on the webpage, even when refreshed until the Node.js server is reset. To accomplish deletion the splice method was used on the data object in the node server. For modifying information the specific index in the database is updated with the new JSON data.
+
+- **Tech Achievement 2**: Using a combination of CSS, HTML, and JS, the user can now modify and delete data from the table. This can be done by clicking on an object in the table and selecting either update or delete. To update an object you can enter new fields about the contact. When you delete the contact a confirmation alert is displayed to the user.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design Achievement 1**: Using CSS, JS, and HTML, I implemented a pop-up box for users to enter data into when adding to the Contact Log. This was done via CSS, by creating a div that contains the content and the background sections of the screen. With JS when a user clicks on a table entry in the database the pop-up has the class active added to its class list, causing it to appear. Then once an action is taken the pop-up disappears.
+
+- **Design Achievement 2**: Using CSS, JS, and HTML, I implemented a counter to the textarea input when adding a contact. This was done via CSS, by creating a div that has the innerHTML set to the number of characters. With JS when a user edits the notes textarea the div is incremented by the length in the textarea. This was done using an onEventListener of type 'input' for the textarea.
+
+- **Design Achievement 3**:  
+   
+**Evaluation 1**:
+ 1. Name: Steven Tran
+ 2. Problems with the design: Too bright, green isn't a great color. The counter is not shown for editing notes. Cannot enter Contact without specifying notes.
+ 3. Comments that surprised me: The website was inaccurate when entering unemployed as an occupation. If unemployed then Education Level is "Never Attended" 
+ 4. Changes to make: Implement some type of Dark mode for users. + Add the notes counter for editing notes + Create some default behavior for when users don't enter a specific field. For example, if no notes are entered then show an empty string in the table.
+  
+  
+**Evaluation 2**:
+ 1. Name: Andrew Kerekon
+ 2. Problems with the design: The table should be able to be sorted by age, number, occupation, etc. There is no input for values, aka you can have a negative age, and put a string of any length. There is no user login, so all the data can be seen by all users. 
+ 3. Comments that surprised me: The table should be able to be sorted by age, number, occupation, etc. This comment was surprising because I did not even consider this as an option for design elements, and it could be easy to implement. 
+ 4. Changes to make: Implement some type of user login by creating a log-in screen and storing all the user login info in a map or array. Also, I can implement some bounds on the inputs, similar to the 200 character limit on the notes field. 

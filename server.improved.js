@@ -7,9 +7,10 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {'name': 'Mike', 'email': 'mike@wpi.edu', 'number': '718-654-980', 'age': 10, 'occupation': 'Student', 'age_group': 'Child', 'education_level': 'Preschool', 'notes': 'Likes to steal cookies'},
+  {'name': 'Emma', 'email': 'eemma@wpi.edu', 'number': '718-634-980',  'age': 19, 'occupation': 'Working', 'age_group': "Adult", 'education_level': 'Highschool Graduate', 'notes': 'Loves to eat shrimp'},
+  {'name': 'Steven', 'email': 'steven@wpi.edu', 'number': '713-654-980', 'age': 67, 'occupation': 'Student', 'age_group': "Senior", 'education_level': 'Graduate Program', 'notes': 'This guy is mean'},
+  {'name': 'Cooper', 'email': 'b@j.com', 'number': '743-234-5678', 'age': 17, 'occupation': 'Unemployed', 'age_group': "Teenager", 'education_level': 'Never Attended', 'notes': 'This person is the best'}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -23,11 +24,22 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
+  if(request.url === '/getData') { 
+    getData(response, appdata) 
+  }
+  else if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else{
     sendFile( response, filename )
   }
+}
+
+const getData = function(response, data) { 
+  console.log('got data')
+  const type = mime.getType(data);
+  response.writeHead(200, {'Content-Type': type});
+  response.end(JSON.stringify(data))
 }
 
 const handlePost = function( request, response ) {
@@ -38,13 +50,39 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    console.log(JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    if(request.url === '/submit') { appdata.push(JSON.parse(dataString)) }
+    else if(request.url === '/update') { updateItemInDatabase(JSON.parse(dataString)) }
+    else if(request.url === '/delete') { deleteItemInDatabase(JSON.parse(dataString)) }
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
   })
+}
+
+
+const updateItemInDatabase = function(json) {
+  console.log("in server update")
+  for(let i =0; i < appdata.length; i++){
+    if(i == json['modifyInput']){
+      let item = appdata[i];
+      item['name'] = json['name']
+      item['email'] = json['email']
+      item['number'] = json['number']
+      item['age'] = json['age']
+      item['occupation'] = json['occupation']
+      item['age_group'] = json['age_group']
+      item['education_level'] = json['education_level']
+      item['notes'] = json['notes']
+    }
+  }
+}
+
+const deleteItemInDatabase = function(json) {
+  console.log("in server delete")
+  appdata.splice(json['modifyInput'],1)
 }
 
 const sendFile = function( response, filename ) {
