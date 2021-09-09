@@ -3,13 +3,14 @@ const http = require( 'http' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
+      color = require('color'),
       dir  = 'public/',
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  {"hex": "#FFFFFF", "rgb": [255, 255, 255], "hsl": [0, 100, 100], "num": 0},
+  {"hex": "#000000", "rgb": [0, 0, 0], "hsl": [0, 100, 0], "num": 1},
+  {"hex": "#660066", "rgb": [102, 0, 102], "hsl": [300, 100, 20], "num": 2}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,13 +39,73 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    if(dataString === "{}"){
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(appdata))
+      return
+    }
 
-    // ... do something with the data here!!!
+    const inp = JSON.parse(dataString)
+
+    if(inp.input === "edit"){
+      let col = null
+      try{
+        col = color(inp.change, inp.format)
+      }catch(e){
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end(JSON.stringify(appdata[inp.num]))
+        return
+      }
+
+      appdata[inp.num] = {"hex": col.hex(), 
+                          "rgb": col.rgb().round().array(), 
+                          "hsl": col.hsl().round().array(),
+                          "num": inp.num}
+
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(appdata[inp.num]))
+      return
+    }
+
+    if(inp.input === "del"){
+      appdata[inp.num] = null
+
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(inp))
+      return
+    }
+
+    let col = null
+    try{
+      col = color(inp.input, inp.format)
+    }catch(e){
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end("{}")
+      return
+    }
+
+    const num = findOpen()
+    appdata[num] = {"hex": col.hex(), 
+                          "rgb": col.rgb().round().array(), 
+                          "hsl": col.hsl().round().array(),
+                          "num": num}
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata[num]))
   })
+}
+
+const findOpen = function(){
+  let i = 0
+  for(i; i < appdata.length; i++){
+    if(appdata[i] === null){
+      break
+    }
+  }
+  if(i == appdata.length){
+    appdata.push(null)
+  }
+  return i
 }
 
 const sendFile = function( response, filename ) {

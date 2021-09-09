@@ -1,0 +1,30 @@
+:root{
+    --background: #fff;
+    --text-color: #000;
+    --button-bg: #ddd;
+    --button-hover: #bbb;
+}
+
+.dark{
+    --background: #000;
+    --text-color: #fff;
+    --button-bg: #333;
+    --button-hover: #555;
+}
+
+body{
+    background-color: var(--background);
+    color: var(--text-color);
+}
+
+button, select, input{
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+    padding: 5px;
+    margin: 2px;
+}
+
+button:hover, select:hover{
+    background-color: var(--button-hover);
+}
