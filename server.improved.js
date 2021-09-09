@@ -36,9 +36,7 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-    console.log( "recieved" )
-
+    
      dataObj = JSON.parse(dataString)
 
     if(dataObj.id == -1){ //indicates add
@@ -47,21 +45,26 @@ const handlePost = function( request, response ) {
     }
     else if(dataObj.load == -1) //indicates deletion
     {
+      
+      
       newappdata = []
       for(let i = 0; i < dataObj.id; i++){
         newappdata.push(appdata[i])
         
       }
-
-      for(let i = dataObj.id + 1; i < appdata.length; i++){
-          let aline = JSON.parse(appdata[i])
+      
+      for(let j = (dataObj.id+1); j < appdata.length; j++){
+        
+          let aline = JSON.parse(appdata[j])
           aline.id = aline.id - 1
+
           newappdata.push(JSON.stringify(aline))
       }
-
+     
+      appdata = newappdata
     }
     else{ // indicates modify
-      appdata[i].dataString
+      appdata[dataObj.id] = dataString
     }
 
     //load re-calculation
@@ -90,7 +93,7 @@ const handlePost = function( request, response ) {
       }
     }
 
-    console.log(namescount)
+   
 
     for (let i = 0; i < appdata.length; i++){
       let aline = JSON.parse(appdata[i])
@@ -101,10 +104,11 @@ const handlePost = function( request, response ) {
     }
 
     // ... do something with the data here!!!
+
     console.log( appdata)
 
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.writeHead( 200, "OK", {'appdata': appdata })
     response.end()
   })
 }

@@ -7,12 +7,21 @@
 
 
   <body>
-    table
-    <form action="">
+    <table id='table'>
+      <tr id='headers'>
+        <th>Item #</th>
+        <th>Assigned To</th>
+        <th>Task</th>
+        <th>Status</th>
+        <th>Tasks Assigned</th>
+      </tr>
+  </table>
+
+    <form>
       <input type='text' id='name' value="name here">
       <input type='text' id='chore' value="chore here">
       <input type='text' id='complete' value="complete or not">
-      <button id = 'submit' onclick = 'submit()'>add</button>
+      <button id = 'submit' >add</button>
       <input type='text' id='modDel' value="0"> 
       <button id = 'modify'>modify</button>
       <button id = 'delete'>delete</button>
@@ -21,10 +30,10 @@
 
   <script>
 
-  function submit() {
-  //const submit = function( e ) {
-    // prevent default form action from being carried out
-    //e.preventDefault()
+  //function submit(e) {
+  const submit = function( e ) {
+    // prevent default form action from being carried out*/
+    e.preventDefault()
 
     console.log( "response" )
 
@@ -40,19 +49,9 @@
     })
     .then( function( response ) {
       // do something with the reponse 
-
-      console.log( response )
-      fetch( '/submit', {
-      method:'GET',
-      body 
-      })
-      .then( function( response ) {
-        // do something with the reponse 
-      
+      console.log( "response" )
         console.log( response )
-        console.log( "response" )
-      })
-  
+      
     })
 
     return false
@@ -101,11 +100,8 @@
 
     console.log( "response" )
 
-    const inputName = document.querySelector( '#name' )
-    const inputChore = document.querySelector( '#chore' )
-    const inputComplete = document.querySelector( '#complete' )
     const inputId = document.querySelector( '#modDel' )
-          json = {name: inputName.value, chore: inputChore.value , complete:inputComplete.value, load:-1, id:inputId.value}
+          json = {name: "n/a", chore: "n/a" , complete:"n/a", load:-1, id:parseInt(inputId.value)}
           body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -114,18 +110,8 @@
     })
     .then( function( response ) {
       // do something with the reponse 
-
+      console.log( "response hit" )
       console.log( response )
-      fetch( '/submit', {
-      method:'GET',
-      body 
-      })
-      .then( function( response ) {
-        // do something with the reponse 
-      
-        console.log( response )
-  
-      })
   
     })
 
@@ -133,12 +119,14 @@
   }
 
   window.onload = function() {
-    /*const subbutton = document.querySelector( '#submit' )
+    console.log("ver0.0.1")
+    
+    const subbutton = document.querySelector( '#submit' )
     subbutton.onclick = submit
-    const subbutton = document.querySelector( '#modify' )
-    subbutton.onclick = modify
-    const subbutton = document.querySelector( '#delete' )//delete not allowed
-    subbutton.onclick = deleteing*/
+    const modbutton = document.querySelector( '#modify' )
+    modbutton.onclick = modify
+    const delbutton = document.querySelector( '#delete' )//delete not allowed
+    delbutton.onclick = deleting
   }
 
   </script>
