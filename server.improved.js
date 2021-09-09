@@ -85,6 +85,17 @@ const addDataToDB = (data) => {
     }
     appdata.push(data);
 }
+
+const removeFromDB = (title) => {
+    let index = 0;
+    for (let entry of appdata) {
+        if (entry.title === title) {
+            appdata.splice(index, 1);
+            return;
+        }
+        index++;
+    }
+}
 const handlePost = function(request, response) {
     let dataString = '';
 
@@ -96,19 +107,22 @@ const handlePost = function(request, response) {
         const parsed = JSON.parse(dataString);
         const title = parsed.title;
         const text = parsed.text;
-        const words = getWords(title + ' ' + text);
-        const data = { title, text, words };
-        fs.writeFile('words.json', JSON.stringify(data), 'utf-8', (err) => {
-            if (err) {
-                console.log(err)
-            }
-            console.log('write words.json');
+        const action = parsed.action;
+        if (action === "delete") {
+            removeFromDB(title);
+        } else {
+            const words = getWords(title + ' ' + text);
+            const data = { title, text, words };
+            fs.writeFile('words.json', JSON.stringify(data), 'utf-8', (err) => {
+                if (err) {
+                    console.log(err)
+                }
+                console.log('write words.json');
 
-        });
+            });
 
-        addDataToDB(data);
-        // printOutData(appdata);
-
+            addDataToDB(data);
+        }
 
         response.writeHead(200, "OK", { 'Content-Type': 'application/json' });
         response.end(JSON.stringify(appdata));

@@ -13,21 +13,28 @@
 </head>
 
 <body>
-    <div class="enter-data">
-        <h1>Enter/Modify Existing Data</h1>
-        <form action="" form="document-form">
-            <input type='text' id='doc-title' value="Document Title">
-            <button>submit</button>
-        </form>
-        <textarea rows="4" cols="50" name="document-text" form="document-form" id="doc-text"> Enter document text... </textarea>
-    </div>
+    <div class="content">
+        <div class="enter-data">
+            <h1>Enter/Modify Documents</h1>
+            <p>If the title already exists, that document will be modified to have the new text. If the title does not already exist, it will be added.</p>
+            <form action="" form="document-form">
+                <input type='text' id='doc-title' value="Document Title">
+                <button>submit</button>
+            </form>
+            <textarea rows="4" cols="50" name="document-text" form="document-form" id="doc-text">Enter document text... </textarea>
+        </div>
 
-    <h1>Data</h1>
+        <h1>Data</h1>
+        <p>
+            Mouse over a word to see all the occurances of that word in that document highlighted. At the bottom you can see information about that word in the document, including its occurances and frequency.
+        </p>
+
+        <div id="data-view">
+
+        </div>
+    </div>
 
     <div id="word-info">
-
-    </div>
-    <div id="data-view">
 
     </div>
 </body>

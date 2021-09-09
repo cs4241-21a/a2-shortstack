@@ -1,24 +1,37 @@
+const handleData = (data) => {
+    let dataView = document.getElementById('data-view');
+    dataView.innerHTML = '';
+    for (let entry of data) {
+        console.log(entry.title);
+        const dataEntry = new DataEntry(entry);
+        dataView.appendChild(dataEntry);
+    }
+}
+
 class DataEntry extends HTMLDivElement {
     constructor(entry) {
         super();
 
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'data-header';
         const header = document.createElement('h2');
+
+
         const dataDiv = document.createElement('div');
         dataDiv.className = 'data-div';
 
-        const body = document.createElement('p');
-        const bodyDiv = document.createElement('div');
+        this.bodyDiv = document.createElement('div');
+        this.bodyDiv.style.display = "none"; // start hidden
+
         const idTitle = entry.title.replace(/[^a-zA-Z]/g, '');
 
         const wordInfo = document.getElementById('word-info');
-        // wordInfo.className = 'word-info';
 
         let wordSpans = Object.keys(entry.words)
             .flatMap(word => entry.words[word].positions
                 .map(pos => [pos, pos + word.length]))
             .sort((a, b) => a[0] < b[0]);
-        // console.log('word spans:');
-        // console.log(wordSpans);
+
         let newText = entry.text;
         let newTitle = entry.title;
         const titleLength = entry.title.length + 1;
@@ -49,8 +62,8 @@ class DataEntry extends HTMLDivElement {
 
         header.innerHTML = newTitle;
 
-        bodyDiv.innerHTML = newText.replace(/\n/g, `<br>`); //spannedText;
-        const bodyWords = bodyDiv.childNodes;
+        this.bodyDiv.innerHTML = newText.replace(/\n/g, `<br>`);
+        const bodyWords = this.bodyDiv.childNodes;
 
         for (let word of bodyWords) {
             handleWordEvents(idTitle, word, wordInfo, entry.words, entry.title);
@@ -61,21 +74,46 @@ class DataEntry extends HTMLDivElement {
             handleWordEvents(idTitle, word, wordInfo, entry.words, entry.title);
         }
 
-        dataDiv.append(bodyDiv);
-        this.append(header, dataDiv);
+        dataDiv.append(this.makeShowHideButton(), this.bodyDiv);
+        headerDiv.append(header, this.makeDeleteButton(entry.title));
+        this.append(headerDiv, dataDiv);
     }
 
-    getWordsTable() {
-        const table = document.createElement('table');
-        const headerRow = document.createElement('tr');
-        const HEADERS = ['Word', 'Positions'];
-        for (let header of HEADERS) {
-            const tableHeader = document.createElement('th');
-            tableHeader.innerText = header;
-            headerRow.appendChild(tableHeader);
-        }
-        table.appendChild(headerRow);
-        return table;
+    makeShowHideButton() {
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = "Show";
+        deleteButton.addEventListener('click', event => {
+            const btn = event.target;
+
+            if (btn.innerText === "Show") {
+                this.bodyDiv.style.display = "block";
+                btn.innerText = "Hide";
+            } else {
+                this.bodyDiv.style.display = "none";
+                btn.innerText = "Show";
+            }
+        });
+        return deleteButton;
+    }
+    makeDeleteButton(title) {
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = "Delete";
+        deleteButton.addEventListener('click', event => {
+            const json = {
+                action: "delete",
+                title,
+            };
+            const body = JSON.stringify(json);
+
+            fetch('/submit', {
+                    method: 'POST',
+                    body
+                })
+                .then(response => response.json())
+                .then(handleData);
+        });
+
+        return deleteButton;
     }
 }
 

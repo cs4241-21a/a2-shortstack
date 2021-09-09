@@ -25,17 +25,6 @@ async function getCurrentData() {
     return res.json();
 }
 
-const handleData = (data) => {
-    console.log('handling data:');
-    console.log(data);
-    let dataView = document.getElementById('data-view');
-    dataView.innerHTML = '';
-    for (let entry of data) {
-        console.log(entry.title);
-        const dataEntry = new DataEntry(entry);
-        dataView.appendChild(dataEntry);
-    }
-}
 
 window.addEventListener('load', event => {
     const button = document.querySelector('button');
