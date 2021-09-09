@@ -4,7 +4,7 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 Due: September 9th, by 11:59 AM.
 
 ## Glitch Code
-
+https://a2-carlosavp23.glitch.me/
 
 ## Job Application Log
 This simple web page that keeps track of your Job Applications. It takes in user input, stores the input in the server, then displays it in a table, processing the data and creating new fields.  
