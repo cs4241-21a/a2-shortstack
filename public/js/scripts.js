@@ -4,13 +4,13 @@ let modifyID = -1;
 // Updates the local appdata file
 function updateJSON() {
     fetch('/update', {
-        method: 'GET'
+        method: 'POST'
     }).then(function(response) {
         return response.json();
     }).then(function(data) {
         appdata = data;
+        console.log(data)
     });
-    console.log(appdata);
 }
 
 // Takes an entry and places it in the form
@@ -55,17 +55,18 @@ const makeJSONString = function () {
     const gameSelect = document.getElementById('gameForm');
     let game = gameSelect.options[gameSelect.selectedIndex];
     const score = document.getElementById('scoreForm');
-
+    var id = 0;
+	
     if(modifyID != -1 && containsID(modifyID)) { // We are modifying an ID that exists
-        const id = modifyID;
+        id = modifyID;
     } else { // We are adding an ID or the ID no longer exists
-        const id = getNextAvailableID();
+        id = getNextAvailableID();
     }
     
     const json = {
         name: name.value,
         game: game.value,
-        score: parse.Int(score.value),
+        score: +score.value,
         highscore: false,
         id: id
     };
@@ -101,76 +102,81 @@ function containsID(id) {
 
 // Updates the form
 function updateForm() {
-    console.log("Update Form Called");
-    updateJSON();
-    console.log("Update JSON Called");
-    const table = document.getElementById("scoreTable");
-    table.innerHTML = "";
+    fetch('/update', {
+        method: 'POST'
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        console.log(data)
+        console.log("Table Update");
+        let table = document.getElementById("scoreTable");
+        table.innerHTML = "";
 
-    // Create table header/titles
-    let tableHeader = document.createElement('tr');
-    let h1 = document.createElement('th');
-    let h2 = document.createElement('th');
-    let h3 = document.createElement('th');
-    let h4 = document.createElement('th');
+        // Create table header/titles
+        let tableHeader = document.createElement('tr');
+        let h1 = document.createElement('th');
+        let h2 = document.createElement('th');
+        let h3 = document.createElement('th');
+        let h4 = document.createElement('th');
 
-    h1.innerHTML = "Name";
-    h2.innerHTML = "Game";
-    h3.innerHTML = "Score";
-    h4.innerHTML = "High Score?";
+        h1.innerHTML = "Name";
+        h2.innerHTML = "Game";
+        h3.innerHTML = "Score";
+        h4.innerHTML = "High Score?";
 
-    tableHeader.appendChild(h1);
-    tableHeader.appendChild(h2);
-    tableHeader.appendChild(h3);
-    tableHeader.appendChild(h4);
+        tableHeader.appendChild(h1);
+        tableHeader.appendChild(h2);
+        tableHeader.appendChild(h3);
+        tableHeader.appendChild(h4);
 
-    table.appendChild(tableHeader);
+        table.appendChild(tableHeader);
 
-    for(let i = 0; i < appdata.length; i++) {
-        let scoreEntry = appdata[i];
+        console.log(data.length);
+        for(let i = 0; i < data.length; i++) {
+            let scoreEntry = data[i];
 
-        let newRow = document.createElement('tr');
-        let nameData = document.createElement('td');
-        let gameData = document.createElement('td');
-        let scoreData = document.createElement('td');
-        let highscoreData = document.createElement('td');
+            let newRow = document.createElement('tr');
+            let nameData = document.createElement('td');
+            let gameData = document.createElement('td');
+            let scoreData = document.createElement('td');
+            let highscoreData = document.createElement('td');
 
-        nameData.innerHTML = scoreEntry['name'];
-        gameData.innerHTML = scoreEntry['game'];
-        scoreData.innerHTML = scoreEntry['score'];
-        highscoreData.innerHTML = scoreEntry['highscore'];
+            nameData.innerHTML = scoreEntry['name'];
+            gameData.innerHTML = scoreEntry['game'];
+            scoreData.innerHTML = scoreEntry['score'];
+            highscoreData.innerHTML = scoreEntry['highscore'];
 
-        newRow.appendChild(nameData);
-        newRow.appendChild(gameData);
-        newRow.appendChild(scoreData);
-        newRow.appendChild(highscoreData);
+            newRow.appendChild(nameData);
+            newRow.appendChild(gameData);
+            newRow.appendChild(scoreData);
+            newRow.appendChild(highscoreData);
 
-        let editIcon = document.createElement('td');
-        editIcon.innerHTML = '<span class="material-icons-outlined iconButton">edit</span>'
-        editIcon.onclick = function(e) {
-            e.preventDefault();
-            editEntry(scoreEntry['name'], scoreEntry['game'], scoreEntry['score'], scoreEntry['id']);
+            let editIcon = document.createElement('td');
+            editIcon.innerHTML = '<span class="material-icons-outlined iconButton">edit</span>'
+            editIcon.onclick = function(e) {
+                e.preventDefault();
+                editEntry(scoreEntry['name'], scoreEntry['game'], scoreEntry['score'], scoreEntry['id']);
+            }
+
+            let deleteIcon = document.createElement('td');
+            deleteIcon.innerHTML = '<span class="material-icons-outlined iconButton">delete_forever</span>'
+            deleteIcon.onclick = function(e) {
+                e.preventDefault();
+                deleteEntry(scoreEntry['id']);
+            }
+
+            newRow.appendChild(editIcon);
+            newRow.appendChild(deleteIcon);
+
+            table.appendChild(newRow);
         }
-
-        let deleteIcon = document.createElement('td');
-        deleteIcon.innerHTML = '<span class="material-icons-outlined iconButton">delete_forever</span>'
-        deleteIcon.onclick = function(e) {
-            e.preventDefault();
-            deleteEntry(scoreEntry['id']);
-        }
-
-        newRow.appendChild(editIcon);
-        newRow.appendChild(deleteIcon);
-
-        table.appendChild(newRow);
-    }
+    });
 }
 
 const submitEntry = function(e) {
     // Prevent default form action from being carried out
     e.preventDefault();
 
-    updateJSON();
     let body = makeJSONString();
     let json = JSON.parse(body);
 
@@ -190,8 +196,11 @@ const submitEntry = function(e) {
             document.getElementById('gameForm').value = "";
             let scoreSelect = document.getElementById('scoreForm');
             scoreSelect.selectedIndex = 0;
-            console.log(response);
-        });
+            return response.json()
+        }).then(function(json){
+			//It's only here you can call update form 
+			console.log(json);
+		});
     } else { // Modify
         fetch( '/modify', {
             method:'POST',

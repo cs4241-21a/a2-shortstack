@@ -10,7 +10,7 @@ For the technical side of the project, it shows that I can design an application
 
 As for instructions on how to use the application, I've already put them in the site itself.
 
-NOTE: There's an error that's stating the receiving end does not exist, which in turn causes the whole application not to work. From debugging, it seems to be a server side error when it tries to unsuccessfully load the site in node.js. I've looked through my code and but I can't see what's causing this. I'm fairly certain that the rest of the code works (if the client can connect properly).
+NOTE: There's an error that's stating the receiving end does not exist, which in turn causes the whole application not to work. From debugging, it seems to be a server side error when it tries to unsuccessfully load the site in node.js (try node ./server.improved.js in console, go to the localhost on port 3000, and loading the local.html file; it won't work). I've looked through my code and but I can't see what's causing this. I'm fairly certain that the rest of the code works (if the client can connect properly).
 
 The server should also be calculating the highscore as the derived data, but with the server connection bug, nothing can be seen.
 
