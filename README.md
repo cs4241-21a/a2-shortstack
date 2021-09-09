@@ -6,5 +6,5 @@ My application allows users to store the names, codes, professors, and grades fo
 ## Technical Achievements
 - **Tech Achievement 1**: Using a combination of CSS, JS, and HTML, I created a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data.  Any data that the user adds to the dataset can be immediately seen on the page, and the GPA calculation is adjusted automatically as well.
 
-### Design/Evaluation Achievements
+## Design/Evaluation Achievements
 - **Design Achievement 1**: Using a combination of CSS, JS, and HTML, I added a graphical element that displays the calculated GPA.  The graphic responds to data being added in real time and adds a new layer of functionality to the program; rather than just being a way to keep previous classes, teachers, and grades organized, it also functions as a GPA calculator.
