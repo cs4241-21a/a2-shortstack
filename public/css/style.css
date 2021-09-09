@@ -4,6 +4,13 @@ body {
     font-family: 'Lato', sans-serif;
     text-align: center;
 }
+
+.explanation {
+    width: 5in;
+    margin: auto;
+    padding: 1em;
+}
+
 form {
     display: grid;
     width: 3in;
@@ -11,12 +18,19 @@ form {
 }
 
 table {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    margin:auto;
+    width: 10in;
 }
+
 th, td {
     background-color: white;
     border: solid black 1px;
-    padding:1em
+    width: 2in;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#addFoodButton, #removeFoodButton {
+    padding: 0.5em;
 }
