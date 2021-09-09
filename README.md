@@ -1,7 +1,7 @@
 ### Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 
-## A Random Survey About Destiny (The Game)
+## A Board for Arcade Highscores
 Michael Lai http://a2-azinxtheonix.glitch.me
 
 With this assignment, I've created a scoreboard for people to record their highscores to. This scoreboard also keeps track who has the highscore in each game.
@@ -10,9 +10,13 @@ For the technical side of the project, it shows that I can design an application
 
 As for instructions on how to use the application, I've already put them in the site itself.
 
+NOTE: There's an error that's stating the receiving end does not exist, which in turn causes the whole application not to work. From debugging, it seems to be a server side error when it tries to unsuccessfully load the site in node.js. I've looked through my code and but I can't see what's causing this. I'm fairly certain that the rest of the code works (if the client can connect properly).
+
+The server should also be calculating the highscore as the derived data, but with the server connection bug, nothing can be seen.
+
 ## Technical Achievements
 **1 - Updating Data:**
-There's a few 
+The code here should work if it weren't for the weird server connection bug that's going on right now. Essentially what the code should be doing is every time a delete, submit, or modify action is taken, it will beforehand update the client side data to make sure the data the action working with is up to date. After the action is complete, then the table is updated (with another call to the server for the JSON data).
 
 ## Design/Evaluation Achievements
 N/A

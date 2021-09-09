@@ -1,13 +1,13 @@
-let appdata;
+const appdata = [];
 let modifyID = -1;
 
 // Updates the local appdata file
 function updateJSON() {
     fetch('/update', {
         method: 'GET'
-    }).then(function (response) {
-        return response.json()
-    }).then(function (data) {
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
         appdata = data;
     });
     console.log(appdata);
@@ -101,7 +101,9 @@ function containsID(id) {
 
 // Updates the form
 function updateForm() {
+    console.log("Update Form Called");
     updateJSON();
+    console.log("Update JSON Called");
     const table = document.getElementById("scoreTable");
     table.innerHTML = "";
 
@@ -219,7 +221,6 @@ const newEntry = function(e) {
 }
 
 window.onload = function() {
-    console.log("Called");
     const submitButton = document.getElementById("submitButton");
     submitButton.onclick = submitEntry;
     const newButton = document.getElementById("newButton");
