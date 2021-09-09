@@ -1,7 +1,7 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 
 Jared Poulos
-## Your Web Application Title
+## Chore Log
 The application is meant to store a list of chores to be done at my appartment. In order to add or modify a row, it must contain a name, chore name, and status (done, waiting to sunday, not done, etc.) A field for workload is derived from the number of tasks assigned to the person with that row's name in the table. In addition to modify or delete a row, there must be a valid ID in the text box near the modify button. Functionality exists to add, modify, and delete rows from this table. This app uses the CSS flexbox to allign its items, and fonts are Times New Roman and Papyrus.
 
 ## Technical Achievements
