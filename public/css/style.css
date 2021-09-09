@@ -1,1 +1,36 @@
 /*Style your own assignment! This is fun! */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#data-view div h2 {
+    color: #444444;
+}
+
+#data-view div p {
+    font-size: 12pt;
+}
+
+.data-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.data-div div {
+    flex: 450px;
+}
+
+#word-info {
+    position: fixed;
+    margin: 40px;
+    padding: 10px;
+    background-color: white;
+    right: 0px;
+    top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: large;
+}
