@@ -1,8 +1,8 @@
 {
   "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "version": "0.1",
+  "description": "Simple blackjack game",
+  "author": "Loren DiLoreto",
   "scripts": {
     "start": "node server.improved.js"
   },

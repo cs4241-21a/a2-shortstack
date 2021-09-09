@@ -36,9 +36,10 @@ const submit = function( e ) {
     let newJson = sortByBalance(json)
     deleteTable()
     createTable(newJson)
-    if (loggedIn && currentUser === user) {
+    if (loggedIn && currentUser.username === user) {
       updateWallet(parseInt(parseInt(bal)))
     }
+    console.log(currentUser.username + " " + user)
   })
 
   return false
@@ -132,6 +133,7 @@ function initialize() {
   currentHand = 0
   currentDealerHand = 0
   previousCards = ""
+  playingState = "Waiting"
   invisibleButtons()
   document.getElementById("curValue").style.color = "black"
   document.getElementById("dealerHand").style.color = "black"
@@ -287,7 +289,7 @@ function loginUser(user) {
   document.getElementById("signOutButton").style.visibility = "visible"
   initialize()
   loggedIn = true
-  currentUser = user.username
+  currentUser = user
 }
 
 function logoutUser() {
@@ -334,8 +336,6 @@ function deleteTable() {
   while (tableBody.firstChild) {
     tableBody.removeChild(tableBody.lastChild)
   }
-  // let newLogins = sortByBalance(fakeLogins)
-  // createTable(newLogins)
 }
 
 function sortByBalance(json) {
