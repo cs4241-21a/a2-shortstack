@@ -22,15 +22,16 @@ const submit = function (e) {
       return response.json();
     })
 
-    .then(function (json) {
+    .then(function (jason) {
+      let json = JSON.parse( jason );
       document.querySelector("form").reset();
-      
+
       let row = document.querySelector("#table").insertRow();
-      row.insertCell(0).innerHTML = json.title;
-      row.insertCell(1).innerHTML = json.author;
-      row.insertCell(2).innerHTML = json.score;
-      row.insertCell(3).innerHTML = json.notes;
-      row.insertCell(4).innerHTML = json.year;
+      row.insertCell(0).innerHTML = json[indx].title;
+      row.insertCell(1).innerHTML = json[indx].author;
+      row.insertCell(2).innerHTML = json[indx].score;
+      row.insertCell(3).innerHTML = json[indx].notes;
+      row.insertCell(4).innerHTML = json[indx].year;
     });
 
   return false;

@@ -51,10 +51,10 @@ const handlePost = function( request, response ) {
 
     appdata[appdata.length] = jsonDS
 
-    console.log(appdata)
+    console.log(JSON.stringify(appdata))
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     console.log(JSON.stringify(jsonDS))
-    response.end(JSON.stringify(jsonDS))
+    response.end(JSON.stringify(appdata))
   })
 }
 
