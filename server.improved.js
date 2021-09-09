@@ -7,9 +7,8 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name': 'Michael', 'age': 19, 'hours': 23 ,'jobType': 'Part Time'},
+  { 'name': 'Jenny', 'age': 30, 'hours': 45, 'jobType': 'Full Time'}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -23,7 +22,9 @@ const server = http.createServer( function( request,response ) {
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
+  if( request.url === '/getData' ) {
+    response.end(JSON.stringify(appdata))
+  }else if(request.url === '/'){
     sendFile( response, 'public/index.html' )
   }else{
     sendFile( response, filename )
@@ -41,6 +42,8 @@ const handlePost = function( request, response ) {
     console.log( JSON.parse( dataString ) )
 
     // ... do something with the data here!!!
+    if(request.url === '/submit') {appdata.push(JSON.parse(dataString))}
+    else if(request.url === '/delete') {appdata.splice(json['modifyInput'], 1)}
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()
