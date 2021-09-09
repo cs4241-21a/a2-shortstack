@@ -22,6 +22,7 @@ const server = http.createServer( function( request,response ) {
 })
 
 const handleGet = function( request, response ) {
+  console.log(request.url);
   const filename = dir + request.url.slice( 1 );
 
   if( request.url === '/' ) {
@@ -125,10 +126,9 @@ const handlePost = function( request, response ) {
         }
       }
     }
-    console.log(appdata);
+
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-	//Return data to the client here
-    response.end(JSON.stringify(appdata))
+    response.end()
   })
 }
 
@@ -155,4 +155,3 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
-
