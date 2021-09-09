@@ -1,23 +1,103 @@
 /*Style your own assignment! This is fun! */
 
-#scoreboard {
-  font-size: 2em;
+body {
+  font-size: 14pt;
+  font-family: "Open Sans", sans-serif;
+  background-color: #d4d3e3;
+}
+
+p {
+  margin-top: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+li::before {
+  content: "\2023";
+  color: #2665ae;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+  transform: scale(2);
+}
+
+.app {
   display: flex;
-  justify-content: space-between;
+  align-content: space-around;
+  max-width: 75vw;
+  margin: 5% auto 0 auto;
+}
+
+.app > * {
+  margin-right: 20px;
 }
 
 .game {
+  position: relative;
+}
+
+.game #playerForm {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #033e8c;
+  padding: 20px 30px 20px 30px;
+}
+
+.game #playerForm form {
   display: flex;
-  width: 50vw;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.game #scoreboard {
-  min-width: 50%;
+#playerName {
+  height: 40px;
+  width: 230px;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#onsubmit {
+  font-size: 1.2em;
+  font-family: "Open Sans", sans-serif;
+  background-color: #d4d3e3;
+  padding-left: 15%;
+  padding-right: 15%;
+  border-radius: 17px;
+}
+
+.app .game #tetris {
   margin-left: auto;
   margin-right: auto;
 }
 
-.game #tetris {
+#scoreboard {
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-around;
+  min-width: 30%;
+  max-width: 50%;
   margin-left: auto;
   margin-right: auto;
+}
+
+#scoreboard #scores {
+  text-align: right;
+}
+
+.seperator-left {
+  margin-right: -100%;
+}
+
+.seperator-right {
+  margin-left: -100%;
+}
+
+#instructions {
+  font-size: 1em;
 }

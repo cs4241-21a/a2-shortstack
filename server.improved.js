@@ -31,11 +31,10 @@ const handleGet = function (request, response) {
 
 const handlePost = function (request, response) {
 
-
   request.on('data', function (data) {
     console.log(JSON.parse(data));
     let parsed = JSON.parse(data)
-    appdata.push({ 'name': parsed['playerName'], 'score': 0 });
+    appdata.push({ 'name': parsed['playerName'], 'score': parsed['score'] });
   })
 
   request.on('end', function () {

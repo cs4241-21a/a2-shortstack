@@ -1,3 +1,5 @@
+let paused = true;
+
 const allShapes = 'OISZLJT';
 const colors = [
     null,
@@ -9,8 +11,6 @@ const colors = [
     '#D9A036',
     '#188FD9'
 ]
-
-let paused = false;
 
 const canvas = document.getElementById("tetris");
 const context = canvas.getContext('2d');
@@ -33,15 +33,15 @@ function createShape(type) {
             ];
         case 'S':
             return [
-                [0, 0, 0],
                 [0, 3, 3],
-                [3, 3, 0]
+                [3, 3, 0],
+                [0, 0, 0]
             ];
         case 'Z':
             return [
-                [0, 0, 0],
                 [4, 4, 0],
-                [0, 4, 4]
+                [0, 4, 4],
+                [0, 0, 0]
             ];
         case 'L':
             return [
@@ -83,7 +83,7 @@ function drawShape(aShape, offset) {
 }
 
 function draw() {
-    context.fillStyle = "#222";
+    context.fillStyle = "#202020";
     context.fillRect(0, 0, canvas.width, canvas.height);
     drawShape(arena, { x: 0, y: 0 });
     drawShape(player.currentShape, player.pos);
@@ -114,7 +114,7 @@ function update(time = 0) {
         shapeDrop();
     }
     draw();
-    if (paused) {
+    if (!paused) {
         requestAnimationFrame(update);
     }
 }
@@ -184,6 +184,15 @@ function playerReset() {
     player.pos.x =
         (arena[0].length / 2 | 0) -
         (player.currentShape[0].length / 2 | 0);
+    if (shapeCollide(arena, player)) {
+        paused = true;
+        submit();
+        arena.forEach(row => row.fill(0));
+        player.name = 'Player1';
+        player.score = 0;
+        updateScore();
+        document.getElementById('playerForm').style.display = 'block';
+    }
 }
 
 function playerRotate(dir) {
@@ -237,33 +246,36 @@ let player = {
 const arena = createArena(15, 25);
 
 document.addEventListener('keydown', e => {
-    switch (e.key) {
-        case 'a':
-        case 'A':
-        case 'ArrowLeft':
-            playerMove(-1);
-            break;
-        case 'd':
-        case 'D':
-        case 'ArrowRight':
-            playerMove(1);
-            break;
-        case 's':
-        case 'S':
-        case 'ArrowDown':
-            shapeDrop();
-            break;
-        case 'ArrowUp':
-            break;
-        case 'e':
-        case 'E':
-            playerRotate(1);
-            break;
-        case 'q':
-        case 'Q':
-            playerRotate(-1);
-        default:
-            break;
+    if (!paused) {
+        switch (e.key) {
+            case 'a':
+            case 'A':
+            case 'ArrowLeft':
+                playerMove(-1);
+                break;
+            case 'd':
+            case 'D':
+            case 'ArrowRight':
+                playerMove(1);
+                break;
+            case 's':
+            case 'S':
+            case 'ArrowDown':
+                shapeDrop();
+                shapeDrop();
+                break;
+            case 'ArrowUp':
+                break;
+            case 'e':
+            case 'E':
+                playerRotate(1);
+                break;
+            case 'q':
+            case 'Q':
+                playerRotate(-1);
+            default:
+                break;
+        }
     }
 });
 

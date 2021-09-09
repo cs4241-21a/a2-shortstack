@@ -5,26 +5,45 @@
   <title>CS4241 Assignment 2</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div id="playerForm">
-    <form action="">
-      <input type='text' id='playerName' value="" placeholder="Enter Your Player Name">
-      <button id="onsubmit">Let's Game</button>
-    </form>
-  </div>
-  <div class="game">
-    <canvas id="tetris" width="300" height="500"></canvas>
+  <div class="app">
+    <div class="game">
+      <canvas id="tetris" width="300" height="500"></canvas>
+      <div id="playerForm">
+        <form action="">
+          <input type='text' id='playerName' value="" placeholder="Enter Your Player Name">
+          <button id="onsubmit">Let's Game</button>
+        </form>
+      </div>
+    </div>
     <div id="scoreboard">
       <div id="names">
         <div id="currentPlayer"></div>
+        <hr class="seperator-left">
         <div id="otherPlayers"></div>
       </div>
       <div id="scores">
         <div id="currentScore"></div>
+        <hr class="seperator-right">
         <div id="otherScores"></div>
       </div>
+    </div>
+    <div id="instructions">
+      <p>
+        Enter your name and press "Let's Game" to start the game.
+        <br>
+        The game controls are as follows:
+      </p>
+      <ul>
+        <li>S - move Tetris piece down faster</li>
+        <li>A - move Tetris piece left</li>
+        <li>D - move Tetris piece right</li>
+        <li>Q - rotate Tetris piece counter-clockwise</li>
+        <li>E - rotate Tetris piece clockwise</li>
+      </ul>
     </div>
   </div>
   <script src="js/tetris.js"></script>
