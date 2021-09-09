@@ -1,3 +1,5 @@
+const { count } = require('console')
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -6,10 +8,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let appdata = [ 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -31,6 +30,7 @@ const handleGet = function( request, response ) {
 }
 
 const handlePost = function( request, response ) {
+  console.log(request.url)
   let dataString = ''
 
   request.on( 'data', function( data ) {
@@ -38,11 +38,43 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    dataString = JSON.parse( dataString )
+    console.log( dataString )
 
-    // ... do something with the data here!!!
+    appdata.push(dataString)
+
+
+
+
+    for(let count = 0; count < appdata.length; count++){
+      
+      if(appdata[count].day === 'Sunday'){
+        appdata[count].difficulty = appdata[count].priority * 5
+      }
+      else if(appdata[count].day === 'Monday'){
+        appdata[count].difficulty = appdata[count].priority * 10
+      }
+      else if(appdata[count].day === 'Tuesday'){
+        appdata[count].difficulty = appdata[count].priority * 7
+      }
+      else if(appdata[count].day === 'Wednesday'){
+        appdata[count].difficulty = appdata[count].priority * 6
+      }
+      else if(appdata[count].day === 'Thursday'){
+        appdata[count].difficulty = appdata[count].priority * 10
+      }
+      else if(appdata[count].day === 'Friday'){
+        appdata[count].difficulty = appdata[count].priority * 6
+      }
+      else if(appdata[count].day === 'Saturday'){
+        appdata[count].difficulty = appdata[count].priority * 5
+      }
+    }
+
+  console.log(appdata)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.write(JSON.stringify(appdata))
     response.end()
   })
 }
