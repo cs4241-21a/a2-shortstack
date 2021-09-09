@@ -3,39 +3,53 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    
+    <!---I used bootstrap with a custom css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet">
+    <script src = "js/scripts.js"></script>
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
-  </body>
-  <script>
-
-  const submit = function( e ) {
-    // prevent default form action from being carried out
-    e.preventDefault()
-
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
-          body = JSON.stringify( json )
-
-    fetch( '/submit', {
-      method:'POST',
-      body 
-    })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-    })
-
-    return false
-  }
-
-  window.onload = function() {
-    const button = document.querySelector( 'button' )
-    button.onclick = submit
-  }
-
-  </script>
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-sm " >
+          <div class="row tall">
+            <div class="col-sm">
+              <h1>The Fridge</h1>
+              <h2>What's going in?</h2>
+              <input type="text" class="form" id="itemName" placeholder="Item"><br /><br />
+              <textarea class="form" id="itemDescription" rows="5" placeholder="Item Description" ></textarea><br /><br />
+              <button type="button" class="btn btn-outline-success" id="expiration-long" onclick="Javascript:longFlag()">Long Expiration</button>&nbsp
+              <button type="button" class="btn btn-outline-warning" id="expiration-med" onclick="Javascript:medFlag()">Medium Expiration</button>&nbsp
+              <button type="button" class="btn btn-outline-danger" id="expiration-short" onclick="Javascript:shortFlag()">Short Expiration</button>&nbsp
+              <button type="button" class="btn btn-primary" id="addItem" >Add Item</button>
+              <div id="error">**Please fill out the name of the item**</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm">
+         <table id = "items">
+         <thead>
+          <tr>
+            <th scope="col">Item Name</th>
+            <th scope="col">Item Description</th>
+            <th scope="col">Item Expiration</th>
+            <th scope="col">Item Urgency</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+        </div>
+      </div>
+    </div>
+  
+  
+</body>
 </html>
