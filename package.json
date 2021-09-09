@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-shortstack",
+  "version": "0.1.0",
+  "description": "WPI CS 4241 Second Assignment",
+  "author": "Renee Sawka",
   "scripts": {
     "start": "node server.improved.js"
   },
