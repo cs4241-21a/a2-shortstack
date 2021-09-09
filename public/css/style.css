@@ -1,1 +1,73 @@
-/*Style your own assignment! This is fun! */
+body {
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 0;
+}
+
+table {
+    margin-top: 1em;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: #E3E3E3;
+}
+
+th {
+    background-color: #4ECDC4;
+}
+
+td, th {
+    padding: 8px;
+}
+
+/* Rounded Table Corners https://stackoverflow.com/a/47318412/5987669 */
+th:first-of-type {
+    border-top-left-radius: 1em;
+}
+th:last-of-type {
+    border-top-right-radius: 1em;
+}
+tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 1em;
+}
+tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 1em;
+}
+
+button {
+    border-radius: 0.5em;
+    border: 0;
+    transition-duration: 0.3s;
+}
+
+button.edit {
+    background-color: #4A8FE7;
+}
+
+button.edit:hover {
+    background-color: #175CB5;
+}
+
+button.remove {
+    background-color: #D33F49;
+}
+
+button.remove:hover {
+    background-color: #96222A;
+}
+
+div.gray-box {
+    display: flex;
+    flex-direction: column;
+    background-color: #E3E3E3;
+    border-radius: 1em;
+    padding: 1em;
+}
+
+div.gray-box h2 {
+    margin: 0;
+}
