@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "usernamegenerator",
+  "version": "1.0",
+  "description": "Output a list of potential social media usernames",
+  "author": "Kate Sincaglia",
   "scripts": {
     "start": "node server.improved.js"
   },

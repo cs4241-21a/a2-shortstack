@@ -5,10 +5,14 @@
     <meta charset="utf-8">
   </head>
   <body>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <h1>Social Media Username Generator</h1>
+    <p>Having trouble finding a new username? Insert your name below and generate some ideas!</p>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
+      <input type='text' id='yourname' value="your first name here">
+      <button>Generate Username</button>
     </form>
+    <img src="socialmedia.jpeg" alt="SocialMedia" width="500" height="333">
   </body>
   <script>
 
@@ -20,13 +24,21 @@
           json = { yourname: input.value },
           body = JSON.stringify( json )
 
+
     fetch( '/submit', {
       method:'POST',
       body 
     })
     .then( function( response ) {
       // do something with the reponse 
-      console.log( response )
+      return response.json()
+    })
+
+    .then(function(json) {
+      console.log(json)
+      const element = document.createElement('p')
+      element.innerText = json.yourname
+      document.body.appendChild(element)
     })
 
     return false
