@@ -1,7 +1,7 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 
-Glitch is not working for me for this project so I captured a video of me using the local site (there were no errors in my repository in vs code or anything). It is attached in the repo.
+Glitch is not working for me for this project so I captured a video of me using the local site (there were no errors in my repository in vs code or anything). It is attached in the repo. It is called a2-katesincaglia-video.zip.
 
 https://a2-katesincaglia.glitch.me
 
