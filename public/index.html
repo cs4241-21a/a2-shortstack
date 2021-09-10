@@ -44,8 +44,7 @@
                 'task': taskInput.value,
                 'time': timeInput.value,
                 'date': dateInput.value,
-                'done': 'false',
-                'urgency': 0
+                'done': 'false'
             },
             body = JSON.stringify(json)
 
@@ -59,7 +58,7 @@
             })
             .then(response => response.json())
             .then(function(json) {
-                console.log(json)
+                //console.log(json)
                 refresh(json)
             })
 
@@ -69,7 +68,7 @@
     function del(e) {
         const toDoItemID = e.target.parentNode.id
         const idNum = toDoItemID.slice(4)
-        console.log(idNum)
+            //console.log(idNum)
         const toDoItem = document.getElementById(toDoItemID)
 
         body = "delete " + idNum
@@ -81,12 +80,12 @@
             .then(response => response.json())
             .then(function(json) {
                 document.getElementById(toDoItemID).remove()
-                console.log(json)
+                    //console.log(json)
                 for (let i = parseInt(idNum) + 1; i <= json.length; i++) {
-                    console.log("current id: " + i)
+                    //console.log("current id: " + i)
                     let curItem = document.getElementById("task" + i)
                     curItem.id = "task" + (i - 1)
-                    console.log("new id: " + curItem.id)
+                        //console.log("new id: " + curItem.id)
                 }
             })
         return false
@@ -132,7 +131,7 @@
     }
 
     function saveTask(e) {
-        console.log('button clicked')
+        //console.log('button clicked')
         e.preventDefault()
 
         const toDoItem = e.target.parentNode
@@ -170,38 +169,9 @@
         return false
     }
 
-    function urgency(t, d) {
-        let urgent = 0; // 0 is least urgent, 5 most urgent 
-
-        if (d === '' && t !== '') {
-            urgent = 5
-        } else {
-            let cur = new Date(),
-                dd = cur.getDate(),
-                mm = cur.getMonth() + 1,
-                yy = cur.getFullYear(),
-                today = new Date(mm + '/' + dd + '/' + yy),
-                temp = Date.parse(d), //d.slice(5, 7) + '/' + d.slice(8, 10) + '/' + d.slice(0, 4),
-                tempDate = new Date(temp)
-
-            console.log('today ' + today + "temp " + tempDate)
-
-            let difference = Math.ceil((tempDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-            console.log("dif" + (tempDate.getTime() - today.getTime()))
-            if (difference === 1) urgent = 5
-            else if (difference <= 3 && difference > 1) urgent = 4
-            else if (difference <= 7) urgent = 3
-            else if (difference <= 14) urgent = 2
-            else if (difference <= 30) urgent = 1
-
-        }
-
-        return urgent
-    }
-
     function refresh(json) {
         const toDoList = document.getElementById('toDoList')
-        console.log(json)
+            //console.log(json)
 
         while (toDoList.firstChild) {
             toDoList.removeChild(toDoList.firstChild)
@@ -213,7 +183,7 @@
                     time = input.time,
                     date = input.date,
                     done = input.done,
-                    u = urgency(time, date)
+                    u = input.urgent
 
                 const toDoItem = document.createElement('li')
                 toDoItem.id = 'task' + index
@@ -251,14 +221,14 @@
                 dateEdit.className = 'dateItem'
 
                 // making urgency tag
-                const urgent = document.createElement('p')
+                const urg = document.createElement('p')
                 let str = ""
-                console.log(u)
-                urgent.className = 'urgItem'
+                    //console.log(u)
+                urg.className = 'urgItem'
                 for (let i = 0; i < u; i++) {
                     str += '!'
                 }
-                urgent.innerHTML = str
+                urg.innerHTML = str
 
                 // making buttons -----------------------------------
                 const editB = document.createElement('button'),
@@ -289,7 +259,7 @@
 
                 // append to to-do item
                 toDoItem.appendChild(check)
-                toDoItem.appendChild(urgent)
+                toDoItem.appendChild(urg)
                 toDoItem.appendChild(taskEdit)
                 toDoItem.appendChild(deleteB)
                 toDoItem.appendChild(editB)
@@ -308,7 +278,14 @@
         const button = document.querySelector('button')
         button.onclick = submit
 
-        console.log(time)
+        // fetch('/submit', {
+        //         method: 'GET',
+        //         body: null
+        //     })
+        //     .then(response => response.json())
+        //     .then(function(json) {
+        //         refresh(json)
+        //     })
     }
 </script>
 

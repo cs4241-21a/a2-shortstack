@@ -19,6 +19,7 @@ const server = http.createServer(function(request, response) {
 const handleGet = function(request, response) {
     const filename = dir + request.url.slice(1)
 
+
     if (request.url === '/') {
         sendFile(response, 'public/index.html')
     } else {
@@ -38,7 +39,6 @@ const handlePost = function(request, response) {
 
             const index = parseInt(dataString.slice(1))
             appdata.splice(index, 1)
-                //console.log("updated: " + JSON.stringify(appdata))
 
         } else if (dataString.startsWith('e')) {
 
@@ -49,6 +49,7 @@ const handlePost = function(request, response) {
             curItem.task = json.task
             curItem.time = json.time
             curItem.date = json.date
+            curItem.urgent = urgency(json.time, json.date)
 
             //console.log(appdata)
 
@@ -62,8 +63,10 @@ const handlePost = function(request, response) {
             //console.log(appdata)
 
         } else {
-
             const json = JSON.parse(dataString)
+
+            json.urgent = urgency(json.time, json.date)
+
             appdata.push(json)
 
         }
@@ -92,6 +95,35 @@ const sendFile = function(response, filename) {
 
         }
     })
+}
+
+function urgency(t, d) {
+    let urgent = 0; // 0 is least urgent, 5 most urgent 
+
+    if (d === '' && t !== '') {
+        urgent = 5
+    } else {
+        let cur = new Date(),
+            dd = cur.getDate(),
+            mm = cur.getMonth() + 1,
+            yy = cur.getFullYear(),
+            today = new Date(mm + '/' + dd + '/' + yy),
+            temp = Date.parse(d), //d.slice(5, 7) + '/' + d.slice(8, 10) + '/' + d.slice(0, 4),
+            tempDate = new Date(temp)
+
+        //console.log('today ' + today + "temp " + tempDate)
+
+        let difference = Math.ceil((tempDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+            //console.log("dif" + (tempDate.getTime() - today.getTime()))
+        if (difference === 1) urgent = 5
+        else if (difference <= 3 && difference > 1) urgent = 4
+        else if (difference <= 7) urgent = 3
+        else if (difference <= 14) urgent = 2
+        else if (difference <= 30) urgent = 1
+
+    }
+
+    return urgent
 }
 
 server.listen(process.env.PORT || port)
