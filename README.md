@@ -1,6 +1,7 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 [Link to my site](https://a2-evelyntrvn.glitch.me/)
+
 I got permission from Prof. Roberts for an extension on this assignment!
 
 ## To-Do List
