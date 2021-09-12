@@ -3,22 +3,45 @@ const http = require( 'http' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
+      { v4: uuidv4 } = require("uuid"),
       dir  = 'public/',
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
+
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
   }else if( request.method === 'POST' ){
     handlePost( request, response ) 
+  }else if (request.method === 'DELETE'){
+    handleDelete (request, response)
   }
 })
+
+const handleDelete = function( request, response ){
+
+let dataString = ''
+
+request.on( 'data', function( data ) {
+  dataString += data 
+})
+
+request.on( 'end', function() {
+let deleteMe = JSON.parse( dataString );
+
+appdata.forEach((entry) => {
+  if (entry.id === deleteMe.id) {
+    appdata.splice(appdata.indexOf(entry), 1);
+  }
+});
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(appdata))
+})
+}
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
@@ -38,12 +61,28 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    incomingData = JSON.parse( dataString );
 
-    // ... do something with the data here!!!
+    //add unique ID for deletion purposes
+    uid = uuidv4();
+    incomingData.id = uid;
+    console.log( incomingData )
+
+    //add/change rarity status
+    incomingData.rare = false;
+    let repeats = appdata.filter(e => e.family === incomingData.family);
+    if (repeats.length > 0){
+      for (let i = 0; i<repeats.length; i++){
+        repeats[i].rare = false;
+      }
+    }else{
+      incomingData.rare = true;
+    }
+
+    appdata.push(incomingData)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 
