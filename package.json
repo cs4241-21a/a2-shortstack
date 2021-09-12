@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Tracker",
+  "version": "2",
+  "description": "A To Do list application",
+  "author": "Matthew Nagy",
   "scripts": {
     "start": "node server.improved.js"
   },

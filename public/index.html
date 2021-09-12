@@ -2,12 +2,27 @@
 <html lang="en">
   <head>
     <title>CS4241 Assignment 2</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <meta charset="utf-8">
   </head>
   <body>
+    <h></h>
     <form action="">
-      <input type='text' id='yourname' value="your name here">
+      <label for="taskname">Task Name</label><br>
+      <input type='text' id='taskname' value="Task Name Here"><br>
+      <label for="taskdesc">Task Description</label><br>
+      <input type='text' id='taskdesc' value="Task Description Here"><br>
+      <label for="duedate">Due Date</label><br>
+      <input type='text' id='duedate' value="Task Due Date Here"><br>
       <button>submit</button>
+      <table>
+        <tr>
+          <th>Task Name</th>
+          <th>Task Description</th>
+          <th>Due Date</th>
+          <th></th>
+        </tr>
+      </table>
     </form>
   </body>
   <script>
@@ -16,10 +31,17 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const name = document.querySelector( '#taskname' ),
+          json = { taskname: name.value },
           body = JSON.stringify( json )
 
+    /*const desc = document.querySelector( '#taskdesc' ),
+          json = { taskname: input.value },
+          body = JSON.stringify( json )
+    const due = document.querySelector( '#duedate' ),
+          json = { taskname: input.value },
+          body = JSON.stringify( json )
+    */
     fetch( '/submit', {
       method:'POST',
       body 
