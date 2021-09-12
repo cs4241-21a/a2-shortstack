@@ -6,10 +6,10 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+let appdata = [
+  { 'totP': 90, 'slicePer': 2, 'gfP': 0, 'large': 18, 'medium': 0, 'small': 0, 'largeGf': 0, 'mediumGf': 0, 'smallGf': 0},
+  { 'totP': 20, 'slicePer': 1, 'gfP': 0,  'large': 4, 'medium': 0, 'small': 0, 'largeGf': 0, 'mediumGf': 0, 'smallGf': 0},
+  { 'totP': 18, 'slicePer': 2, 'gfP': 0,  'large': 1, 'medium': 1, 'small': 0, 'largeGf': 0, 'mediumGf': 0, 'smallGf': 0}
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,12 +38,75 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    
+    const dataSet = JSON.parse(dataString);
 
-    // ... do something with the data here!!!
+    var totalP = parseInt(dataSet.totP);
+    var slicesEa = parseInt(dataSet.slicePer);
+    var gfPeople = parseInt(dataSet.gfP);
+
+    //Initialize vars
+    var pNoGf = totalP - gfPeople; //people that aren't gf
+    var totalSl = slicesEa * pNoGf; //total slices needed 
+    var totalGf = slicesEa * gfPeople; //total slices for gf
+    var large = 0;
+    var medium = 0;
+    var small = 0;
+    var largeGf = 0;
+    var mediumGf = 0;
+    var smallGf = 0;
+
+    //Time to be greedy, Boys
+    while(totalSl > 6){
+      if((totalSl - 10) >= 0){
+        large++;
+        totalSl -= 10;
+      } else if((totalSl - 8) >= 0){
+          medium++;
+          totalSl -= 8;
+      } else {
+        small++;
+        totalSl -= 6;
+      }
+    }
+
+    if(totalSl > 0 && totalSl <= 6){
+      small++;
+    }
+
+    while(totalGf > 6){
+      if((totalGf - 10) >= 0){
+        largeGf++;
+        totalGf -= 10;
+      } else if((totalGf - 8) >= 0){
+          mediumGf++;
+          totalGf -= 8;
+      } else {
+        smallGf++;
+        totalGf -= 6;
+      }
+    }
+
+    if(totalGf > 0 && totalGf <= 6){
+      small++;
+    }
+
+    //Add new fields to object
+    dataSet.large = large;
+    dataSet.medium = medium;
+    dataSet.small = small;
+    dataSet.largeGf = largeGf;
+    dataSet.mediumGf = mediumGf;
+    dataSet.smallGf = smallGf;
+
+    //Add data to array
+    appdata.push(dataSet);
+
+    //Make it a string to return
+    var finalPass = JSON.stringify(dataSet);
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(finalPass) //sending that string over
   })
 }
 
