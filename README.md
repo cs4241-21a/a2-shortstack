@@ -1,11 +1,7 @@
 Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
 ===
 
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+## HORG Logger
+A friend of mine collects bread clips, aka "occlupanids". This is a whole area of study, under the Holotypic Occlupanid Research Group. (Give it a google.) This is a tool that could be used to log one's collection and sort them by family, acquisition date, and identifying features.
 
-## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
-
-### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+This project has a submit (add) button and delete (x) buttons for each individual entry. On submitting or deleting, the collection (which is sorted by date, descending) updates, as well as a graph at the top which shows the breakdown of specimens by family. The graph involves color bars specifically designed to be [colorblind-friendly](https://davidmathlogic.com/colorblind), and displays the name and percentage on mouseover.
