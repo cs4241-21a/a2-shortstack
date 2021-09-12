@@ -3,12 +3,69 @@
   <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/style.css">
   </head>
   <body>
-    <form action="">
-      <input type='text' id='yourname' value="your name here">
-      <button>submit</button>
-    </form>
+    <div class="bigBox">
+      <div class="header">
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a04e27ec-0ad8-4e52-b6ab-9760765a8395/ddq30v6-81e6c598-bf0d-4dd9-add6-0659283a8cc0.png/v1/fill/w_891,h_897,strp/pizza_time__by_spinosaurusking875_ddq30v6-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTkzNCIsInBhdGgiOiJcL2ZcL2EwNGUyN2VjLTBhZDgtNGU1Mi1iNmFiLTk3NjA3NjVhODM5NVwvZGRxMzB2Ni04MWU2YzU5OC1iZjBkLTRkZDktYWRkNi0wNjU5MjgzYThjYzAucG5nIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.MjDDtR4rWhZ9llSE-kA86Z_-3s0tYuTps2FF2g20Xuo" alt="Spider-Man holding pizza.">
+        <h1>It's Pizza Time!</h1>
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a04e27ec-0ad8-4e52-b6ab-9760765a8395/ddq30v6-81e6c598-bf0d-4dd9-add6-0659283a8cc0.png/v1/fill/w_891,h_897,strp/pizza_time__by_spinosaurusking875_ddq30v6-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTkzNCIsInBhdGgiOiJcL2ZcL2EwNGUyN2VjLTBhZDgtNGU1Mi1iNmFiLTk3NjA3NjVhODM5NVwvZGRxMzB2Ni04MWU2YzU5OC1iZjBkLTRkZDktYWRkNi0wNjU5MjgzYThjYzAucG5nIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.MjDDtR4rWhZ9llSE-kA86Z_-3s0tYuTps2FF2g20Xuo" alt="Spider-Man holding pizza.">
+      </div>
+
+      <div class="intro">
+        <p>
+          Welcome to the Post-COVID Pizza Party Planner (PCPPP for short)! COVD-19 has taken parties away
+          for 2 years now leading to people <strong>forgetting</strong> how to throw an awesome pizza party.
+        </p>
+        <img src="https://imageproxy.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/43fd1dc5b3fdf0144a444ebb077dcb550809906ee6ca5b28e964ae5dc7bcfefd_1.jpg" alt="Cowabummer!">
+        <p>
+          This website was designed so you don't have to stress about your lost knowledge! Just follow the instructions
+          below and you'll be on your way to pizza party success!
+        </p>
+      </div>
+
+      <div class="formAndInst">
+        <form action="" id='form1'>
+          <div class="formBoxes">
+            <input type='Text' id='totP' value="People">
+            <input type='Text' id='slicePer' value="Slices Each">
+            <input type='Text' id='gfP' value="GF People">
+            <button>submit</button>
+          </div>
+        </form>
+
+        <p class="instructions">
+          All we need from you is how many people are coming, how many of those people are gluten free,
+          and how many slices you want each person to have! From there we'll let you know how many small, 
+          mediums, and larges you'll need<span>&#42;</span> (including how many gf options you'll need available).
+        </p>
+      </div>
+
+      <h2>Pizza Party Log:</h2>
+    <table id = "t1">
+      <tr>
+        <th>Total People</th>
+        <th>Slices Per Person</th>
+        <th>Total gf People</th>
+        <th>Total Large</th>
+        <th>Total Meduim</th>
+        <th>Total Small</th>
+        <th>Total gf Large</th>
+        <th>Total gf Meduim</th>
+        <th>Total gf Small</th>
+      </tr>
+    </table>
+
+      <div class="footer">
+        <p><span>&#42;</span>This goes off the assumption that where you order from has 8-10" smalls, 
+          12" mediums, and 14" larges. The PCPPP is not responsible for any pizza party mishaps that come from 
+          ordering different sized pizzas.</p>
+      </div>
+
+    </div>
+
+
   </body>
   <script>
 
@@ -16,8 +73,8 @@
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const input = document.querySelector( '#yourname' ),
-          json = { yourname: input.value },
+    const form1 = document.querySelector( '#form1' ),
+          json = { totP: form1.totP.value, slicePer: form1.slicePer.value, gfP: form1.gfP.value, large: 0, medium: 0, small: 0, largeGf: 0, mediumGf: 0, smallGf: 0},
           body = JSON.stringify( json )
 
     fetch( '/submit', {
@@ -25,8 +82,24 @@
       body 
     })
     .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
+      //comes through as a repsonse object so we have to return here and make another .then
+      console.log(response)
+      return response.JSON;
+    })
+    .then( function( json ){
+      //create table
+      document.querySelector('#form1').reset();
+      let row = document.querySelector('#t1').insertRow();
+      row.insertCell(0).innerHTML = json.totP;
+      row.insertCell(1).innerHTML = json.slicePer;
+      row.insertCell(2).innerHTML = json.gfP;
+      row.insertCell(3).innerHTML = json.large;
+      row.insertCell(4).innerHTML = json.medium;
+      row.insertCell(5).innerHTML = json.small;
+      row.insertCell(6).innerHTML = json.largeGF;
+      row.insertCell(7).innerHTML = json.mediumGf;
+      row.insertCell(8).innerHTML = json.smallGf;
+      
     })
 
     return false
