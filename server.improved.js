@@ -4,12 +4,10 @@ const http = require( 'http' ),
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
       dir  = 'public/',
-      port = 3000
+      port = 3001
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+var appdata = [
+  
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,12 +36,25 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    let parsed = JSON.parse( dataString )
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+    
+    var realToday = new Date(today)
 
-    // ... do something with the data here!!!
+    let dueDate = new Date(parsed.duedate)
 
+    var diffTime = dueDate - realToday
+    var diffDays = Math.floor(diffTime / (1000 * 3600 * 24));
+    parsed = { ...parsed, daysuntil: diffDays}
+    console.log( parsed )
+    appdata.push(parsed)
+    let table = JSON.stringify(appdata)
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(table)
   })
 }
 
