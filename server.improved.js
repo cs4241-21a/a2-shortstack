@@ -1,3 +1,5 @@
+const { stringify } = require('querystring')
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -7,9 +9,9 @@ const http = require( 'http' ),
       port = 3000
 
 const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+  { 'name' : 'Geoffrey Garsson', year: 2023, major1: 'IMGD-Tech', major2: 'None', minors: ['Computer Science'], hobbies: ['Game Development', 'Singing'] },
+  { 'name' : 'Ballar McMadlad', year: 2025, major1: 'Computer Science', major2: 'IMGD-Art', minors: ['Physics'], hobbies: ['Football'] },
+  { 'name' : 'Trumbus', year: 9999, major1: 'IMGD-Tech', major2: 'IMGD-Art', minors: ['IMGD', 'Computer Science'], hobbies: ['Memes', 'Game Development'] } 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -38,12 +40,13 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
+    console.log("server recieved data: ")
     console.log( JSON.parse( dataString ) )
 
-    // ... do something with the data here!!!
-
+    appdata.unshift(JSON.parse(dataString)) //add to beginning of array
+    //console.log(appdata)
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    response.end(JSON.stringify(appdata))
   })
 }
 

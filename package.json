@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "a2-shortstack",
+  "version": "1.0",
+  "description": "Assignment 2 for CS4241 Webware",
+  "author": "Geoffrey Garsson",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.5.2"
   }
 }
