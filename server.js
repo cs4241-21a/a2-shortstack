@@ -21,22 +21,22 @@ server.get('*', (req, res) => res.sendFile(`${dir}/index.html`)); // default ind
 // POST
 server.post('/add', async (req, res) => {
   const response = await addMessage(req.body.username, req.body.content, req.body.hash);
-  respond(res, JSON.stringify(response));
+  respond(res, response);
 });
 
-server.post('/update', async (req, res) => {
+server.put('/update', async (req, res) => {
   const response = await updateMessage(req.body.id, req.body.content, req.body.hash);
-  respond(res, JSON.stringify(response));
+  respond(res, response);
 });
 
-server.post('/delete', async (req, res) => {
+server.delete('/delete', async (req, res) => {
   const response = await deleteMessage(req.body.id, req.body.hash);
-  respond(res, JSON.stringify(response));
+  respond(res, response);
 });
 
 server.post('/authenticate', async (req, res) => {
   const response = await authenticateUser(req.body.username, req.body.secret);
-  respond(res, JSON.stringify(response));
+  respond(res, response);
 });
 
 // LISTEN
@@ -45,7 +45,7 @@ server.listen(process.env.PORT || port);
 // responds to request with code and response.body data
 const respond = (res, data = null) => {
   if (data) {
-    res.send(data);
+    res.send(JSON.stringify(data));
   } else {
     res.send(401);
   }

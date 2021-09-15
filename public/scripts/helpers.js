@@ -31,21 +31,21 @@ const getTimeString = (submitted) => {
 }
 
 const addMessage = (username, content, hash) => {
-    return postDataUpdate({ username, content, hash }, '/add');
+    return updateMessageData('POST', { username, content, hash }, '/add');
 }
 
 const deleteMessage = (id, hash) => {
-    return postDataUpdate({ id, hash }, '/delete', false);
+    return updateMessageData('DELETE', { id, hash }, '/delete', false);
 }
 
 const updateMessage = (id, content, hash) => {
-    return postDataUpdate({ id, content, hash }, '/update', false);
+    return updateMessageData('PUT', { id, content, hash }, '/update', false);
 }
 
-const postDataUpdate = (data, endpoint, scrollAllowed = true) => {
+const updateMessageData = (method, data, endpoint, scrollAllowed = true) => {
     return new Promise(() => {
         const body = JSON.stringify(data);
-        fetch(endpoint, { method:'POST', body,
+        fetch(endpoint, { method: method, body,
             headers: new Headers({'content-type': 'application/json'})}).then(async response => {
             if (response.ok) {
                 renderChat(await response.json(), scrollAllowed).then();
@@ -60,7 +60,7 @@ const postDataUpdate = (data, endpoint, scrollAllowed = true) => {
 const authenticateUser = (username, secret) => {
     return new Promise(resolve => {
         const body = JSON.stringify({ username, secret });
-        fetch('/authenticate', { method:'POST', body, headers: new Headers({'content-type': 'application/json'})})
+        fetch('/authenticate', { method: 'POST', body, headers: new Headers({'content-type': 'application/json'})})
             .then(async response => resolve(response.ok ? await response.json() : null));
     });
 }
