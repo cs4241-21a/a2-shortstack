@@ -12,6 +12,7 @@ const port = 3000;
 
 const server = express()
 server.use(express.static('public')); // serve all public files
+server.use(express.json()); // parses HTTP request body
 
 // GET
 server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
@@ -19,31 +20,36 @@ server.get('*', (req, res) => res.sendFile(`${dir}/index.html`)); // default ind
 
 // POST
 server.post('/add', async (req, res) => {
-  const data = JSON.parse(req.body.toString());
-  const response = await addMessage(data.username, data.content, data.hash);
-  respond(res, response ? 200 : 401, JSON.stringify(response));
+  const response = await addMessage(req.body.username, req.body.content, req.body.hash);
+  respond(res, JSON.stringify(response));
 });
 
 server.post('/update', async (req, res) => {
-  const data = JSON.parse(req.body.toString());
-  const response = await updateMessage(data.id, data.content, data.hash);
-  respond(res, response ? 200 : 401, JSON.stringify(response));
+  const response = await updateMessage(req.body.id, req.body.content, req.body.hash);
+  respond(res, JSON.stringify(response));
 });
 
 server.post('/delete', async (req, res) => {
-  const data = JSON.parse(req.body.toString());
-  const response = await deleteMessage(data.id, data.hash);
-  respond(res, response ? 200 : 401, JSON.stringify(response));
+  const response = await deleteMessage(req.body.id, req.body.hash);
+  respond(res, JSON.stringify(response));
 });
 
 server.post('/authenticate', async (req, res) => {
-  const data = JSON.parse(req.body.toString());
-  const response = await authenticateUser(data.username, data.secret);
-  respond(res, response ? 200 : 401, JSON.stringify(response));
+  const response = await authenticateUser(req.body.username, req.body.secret);
+  respond(res, JSON.stringify(response));
 });
 
 // LISTEN
 server.listen(process.env.PORT || port);
+
+// responds to request with code and response.body data
+const respond = (res, data = null) => {
+  if (data) {
+    res.send(data);
+  } else {
+    res.send(401);
+  }
+};
 
 // adds new message to data, returns updated data
 const addMessage = async (username, content, hash) => {
@@ -86,12 +92,6 @@ const updateMessage = async (id, content, hash) => {
   } else {
     return null;
   }
-};
-
-// responds to request with code and response.body data
-const respond = (res, code, data = null) => {
-  res.sendStatus(code);
-  res.send(data);
 };
 
 const authenticateUser = async (username, secret) => {

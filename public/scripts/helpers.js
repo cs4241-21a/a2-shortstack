@@ -45,7 +45,8 @@ const updateMessage = (id, content, hash) => {
 const postDataUpdate = (data, endpoint, scrollAllowed = true) => {
     return new Promise(() => {
         const body = JSON.stringify(data);
-        fetch(endpoint, { method:'POST', body }).then(async response => {
+        fetch(endpoint, { method:'POST', body,
+            headers: new Headers({'content-type': 'application/json'})}).then(async response => {
             if (response.ok) {
                 renderChat(await response.json(), scrollAllowed).then();
             } else {
@@ -59,7 +60,7 @@ const postDataUpdate = (data, endpoint, scrollAllowed = true) => {
 const authenticateUser = (username, secret) => {
     return new Promise(resolve => {
         const body = JSON.stringify({ username, secret });
-        fetch('/authenticate', { method:'POST', body })
+        fetch('/authenticate', { method:'POST', body, headers: new Headers({'content-type': 'application/json'})})
             .then(async response => resolve(response.ok ? await response.json() : null));
     });
 }
