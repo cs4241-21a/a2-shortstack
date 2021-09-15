@@ -4,7 +4,7 @@
   "description": "WPI CS4241 Assignment 2",
   "author": "Nathan Klingensmith",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

@@ -1,20 +1,23 @@
-Rconst fs = require('fs');
+const fs = require('fs');
 const bcrypt = require('bcrypt');
 const express = require('express')
 const { DateTime } = require('luxon');
 const { v4: uuid } = require('uuid');
 
 // paths
-const dir = './public';
+const dir = `${__dirname}/public`;
 const dataPath = `${dir}/data.json`;
 const hashesPath = './hashes.json';
+const port = 3000;
 
-const server = express().listen(process.env.PORT || 3000)
+const server = express()
 server.use(express.static('public')); // serve all public files
 
-server.get('/results', (req, res) => res.sendFile(`{dir}/data.json`));
-server.get('*', (req, res) => res.sendFile(`{dir}/index.html`)); // default index.html route
+// GET
+server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
+server.get('*', (req, res) => res.sendFile(`${dir}/index.html`)); // default index.html route
 
+// POST
 server.post('/add', async (req, res) => {
   const data = JSON.parse(req.body.toString());
   const response = await addMessage(data.username, data.content, data.hash);
@@ -32,11 +35,15 @@ server.post('/delete', async (req, res) => {
   const response = await deleteMessage(data.id, data.hash);
   respond(res, response ? 200 : 401, JSON.stringify(response));
 });
+
 server.post('/authenticate', async (req, res) => {
   const data = JSON.parse(req.body.toString());
   const response = await authenticateUser(data.username, data.secret);
   respond(res, response ? 200 : 401, JSON.stringify(response));
 });
+
+// LISTEN
+server.listen(process.env.PORT || port);
 
 // adds new message to data, returns updated data
 const addMessage = async (username, content, hash) => {
