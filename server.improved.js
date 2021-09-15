@@ -1,57 +1,42 @@
-const http = require('http');
-const fs = require('fs');
-const { DateTime } = require('luxon');
+Rconst fs = require('fs');
 const bcrypt = require('bcrypt');
+const express = require('express')
+const { DateTime } = require('luxon');
 const { v4: uuid } = require('uuid');
 
+// paths
 const dir = './public';
 const dataPath = `${dir}/data.json`;
 const hashesPath = './hashes.json';
-const port = 3000;
-const routes = {
-  '/': '/index.html',
-  '/chat': '/index.html',
-  '/results': '/data.json'
-};
 
-http.createServer((req, res) => {
-  if (req.method === 'GET') {
-    GET(req, res);
-  } else if (req.method === 'POST') {
-    POST(req, res);
-  }
-}).listen(process.env.PORT || port);
+const server = express().listen(process.env.PORT || 3000)
+server.use(express.static('public')); // serve all public files
 
-const GET = (req, res) => {
-  const url = req.url.split('?')[0];
-  sendFile(res, dir + (routes[url] || url));
-};
+server.get('/results', (req, res) => res.sendFile(`{dir}/data.json`));
+server.get('*', (req, res) => res.sendFile(`{dir}/index.html`)); // default index.html route
 
-const POST = (req, res) => {
-  let responseData;
+server.post('/add', async (req, res) => {
+  const data = JSON.parse(req.body.toString());
+  const response = await addMessage(data.username, data.content, data.hash);
+  respond(res, response ? 200 : 401, JSON.stringify(response));
+});
 
-  req.on('data', async data => {
-    data = JSON.parse(data.toString());
-    if (req.url === '/add') {
-      responseData = await addMessage(data.username, data.content, data.hash);
-    } else if (req.url === '/delete') {
-      responseData = await deleteMessage(data.id, data.hash);
-    } else if (req.url === '/update') {
-        responseData = await updateMessage(data.id, data.content, data.hash);
-    } else if (req.url === '/authenticate') {
-      responseData = await authenticateUser(data.username, data.secret);
-    }
-  });
+server.post('/update', async (req, res) => {
+  const data = JSON.parse(req.body.toString());
+  const response = await updateMessage(data.id, data.content, data.hash);
+  respond(res, response ? 200 : 401, JSON.stringify(response));
+});
 
-  req.on('end', () => {
-    respond(res, responseData ? 200 : 401, JSON.stringify(responseData));
-  });
-};
-
-const sendFile = (res, path) => {
-  fs.readFile(path, (err, data) =>
-      respond(res, err ? 404 : 200, err ? "File not found:" : data));
-};
+server.post('/delete', async (req, res) => {
+  const data = JSON.parse(req.body.toString());
+  const response = await deleteMessage(data.id, data.hash);
+  respond(res, response ? 200 : 401, JSON.stringify(response));
+});
+server.post('/authenticate', async (req, res) => {
+  const data = JSON.parse(req.body.toString());
+  const response = await authenticateUser(data.username, data.secret);
+  respond(res, response ? 200 : 401, JSON.stringify(response));
+});
 
 // adds new message to data, returns updated data
 const addMessage = async (username, content, hash) => {
@@ -98,8 +83,8 @@ const updateMessage = async (id, content, hash) => {
 
 // responds to request with code and response.body data
 const respond = (res, code, data = null) => {
-  res.writeHead(code);
-  res.end(data);
+  res.sendStatus(code);
+  res.send(data);
 };
 
 const authenticateUser = async (username, secret) => {
