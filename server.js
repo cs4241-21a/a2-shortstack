@@ -1,6 +1,6 @@
 const fs = require('fs');
 const bcrypt = require('bcrypt');
-const express = require('express')
+const express = require('express');
 const { DateTime } = require('luxon');
 const { v4: uuid } = require('uuid');
 
@@ -10,7 +10,11 @@ const dataPath = `${dir}/data.json`;
 const hashesPath = './hashes.json';
 const port = 3000;
 
+// server
 const server = express()
+server.listen(process.env.PORT || port);
+
+// middleware
 server.use(express.static('public')); // serve all public files
 server.use(express.json()); // parses HTTP request body
 
@@ -38,9 +42,6 @@ server.post('/authenticate', async (req, res) => {
   const response = await authenticateUser(req.body.username, req.body.secret);
   respond(res, response);
 });
-
-// LISTEN
-server.listen(process.env.PORT || port);
 
 // responds to request with code and response.body data
 const respond = (res, data = null) => {
