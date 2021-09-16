@@ -14,11 +14,9 @@ const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
 // paths
 const dir = `${__dirname}/public`;
 const dataPath = `${dir}/data.json`;
-const hashesPath = './hashes.json';
-const tokensPath = './tokens.json';
 
 // server
-const server = express()
+const server = express();
 server.listen(process.env.PORT || port);
 
 // middleware
@@ -34,9 +32,23 @@ server.use(cookieSession({
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@pogchat.kzrfm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const mongoClient = new MongoClient(uri);
 
-// files
-server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
-server.get(['/'], (req, res) => res.sendFile(`${dir}/index.html`)); // default index.html route
+// default index.html route
+server.get(['/'], (req, res) => res.sendFile(`${dir}/index.html`));
+
+// results
+server.get('/results', (req, res) => {
+  mongoClient.connect(async err => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+    } else {
+      const messageCollection = mongoClient.db("chat").collection("room1");
+      const messages = await messageCollection.find().toArray();
+      await mongoClient.close();
+      res.send(messages);
+    }
+  });
+});
 
 // messaging
 server.post('/add', async (req, res) => {
@@ -96,15 +108,24 @@ server.get('/session', async (req, res) => {
 // adds new message to data, returns updated data
 const addMessage = async (content, username, token) => {
   if (await authenticateToken(username, token)) {
-    const data = JSON.parse(fs.readFileSync(dataPath));
-    data.push({
-      id: uuid(),
-      username,
-      content,
-      submitted: DateTime.utc(),
-      admin: username === 'Paradoxdotexe'})
-    fs.writeFile(dataPath, JSON.stringify(data), () => null);
-    return data;
+    return new Promise(resolve => {
+      mongoClient.connect(async err => {
+        if (err) {
+          console.error(err);
+          resolve(null);
+        } else {
+          const messageCollection = mongoClient.db("chat").collection("room1");
+          await messageCollection.insertOne({
+            username,
+            content,
+            submitted: DateTime.utc(),
+            admin: username === 'Paradoxdotexe'});
+          const messages = await messageCollection.find().toArray();
+          await mongoClient.close();
+          resolve(messages);
+        }
+      });
+    });
   } else {
     return null;
   }
