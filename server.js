@@ -61,7 +61,7 @@ server.put('/update', async (req, res) => {
 });
 
 server.delete('/delete', async (req, res) => {
-  const response = await deleteMessage(req.body.id, req.session.token);
+  const response = await deleteMessage(req.body.id, req.session.username, req.session.token);
   res.status(response ? 200 : 401).send(response);
 });
 
@@ -131,7 +131,28 @@ const addMessage = async (content, username, token) => {
 };
 
 // deletes specified message from data
-const deleteMessage = async (id, token) => {
+const deleteMessage = async (id, username, token) => {
+  if (await authenticateToken(username, token)) {
+    return new Promise(resolve => {
+      mongoClient.connect(async err => {
+        if (err) {
+          console.error(err);
+          resolve(null);
+        } else {
+          const messageCollection = mongoClient.db("chat").collection("room1");
+          const message = await messageCollection.findOne({ '_id': ObjectId(id) });
+          if (message && message['username'] === username) {
+            await messageCollection.deleteOne({ '_id': ObjectId(id) })
+          }
+          const messages = await messageCollection.find().toArray();
+          await mongoClient.close();
+          resolve(messages);
+        }
+      });
+    });
+  } else {
+    return null;
+  }
   return new Promise(resolve => {
     mongoClient.connect(async err => {
       if (err) {
