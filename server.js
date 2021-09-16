@@ -67,8 +67,18 @@ server.post('/login', async (req, res) => {
 });
 
 server.post('/logout', async (req, res) => {
-  req.session = null;
-  res.sendStatus(200);
+  mongoClient.connect(async err => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+    } else {
+      const sessionsCollection = mongoClient.db("auth").collection("sessions");
+      await sessionsCollection.deleteOne({ username: req.session.username });
+      await mongoClient.close();
+      req.session = null;
+      res.sendStatus(200);
+    }
+  });
 });
 
 // returns active session details (if they exist)
@@ -128,14 +138,25 @@ const updateMessage = async (id, content, token) => {
 
 // authenticates user secret against hash
 const authenticateUser = async (username, secret) => {
-  const hashes = JSON.parse(fs.readFileSync(hashesPath).toString());
-  if (hashes[username]) {
-    return bcrypt.compareSync(secret, hashes[username]) ? { token: await generateToken(username), newAccount: false } : null;
-  } else {
-    hashes[username] = bcrypt.hashSync(secret, 10);
-    fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
-    return { token: await generateToken(username), newAccount: true };
-  }
+  return new Promise(resolve => {
+    mongoClient.connect(async err => {
+      if (err) {
+        console.error(err);
+        resolve(null);
+      } else {
+        const hashesCollection = mongoClient.db("auth").collection("hashes");
+        const hashDocument = await hashesCollection.findOne({ username });
+        if (hashDocument) {
+          resolve(bcrypt.compareSync(secret, hashDocument['hash']) ? { token: await generateToken(username), newAccount: false } : null);
+        } else {
+          const hash = bcrypt.hashSync(secret, 10);
+          await hashesCollection.insertOne({ username, hash });
+          resolve({ token: await generateToken(username), newAccount: true });
+        }
+        await mongoClient.close();
+      }
+    });
+  });
 }
 
 // authenticates user session token
@@ -145,14 +166,14 @@ const authenticateToken = async (username, token) => {
       if (err) {
         console.error(err);
       } else {
-        const sessions = mongoClient.db("auth").collection("sessions");
-        const session = await sessions.findOne({ username });
-        if (session) {
-          if (DateTime.utc().toMillis() > session['expiry']) {
-            await sessions.deleteOne({ username });
+        const sessionsCollection = mongoClient.db("auth").collection("sessions");
+        const sessionDocument = await sessionsCollection.findOne({ username });
+        if (sessionDocument) {
+          if (DateTime.utc().toMillis() > sessionDocument['expiry']) {
+            await sessionsCollection.deleteOne({ username });
             resolve(false);
           } else {
-            resolve(session['token'] === token);
+            resolve(sessionDocument['token'] === token);
           }
         }
         await mongoClient.close();
@@ -175,7 +196,6 @@ const generateToken = async (username) => {
         const expiry = DateTime.utc().plus(sessionMaxAge).toMillis();
         await sessions.updateOne({ username }, { $set: { token, expiry } }, { upsert: true });
         await mongoClient.close();
-        console.log(token);
         resolve(token);
       }
     });
