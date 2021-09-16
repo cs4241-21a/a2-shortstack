@@ -65,7 +65,7 @@ server.post('/logout', async (req, res) => {
 
 // returns active session details (if they exist)
 server.get('/session', async (req, res) => {
-  if (req.session.token) {
+  if (await authenticateToken(req.session.username, req.session.token)) {
     res.send({
       username: req.session.username
     });
@@ -134,7 +134,7 @@ const authenticateUser = async (username, secret) => {
 const authenticateToken = async (username, token) => {
   const tokens = JSON.parse(fs.readFileSync(tokensPath).toString());
   if (tokens[username]) {
-    if (tokens[username]['expiry'] > DateTime.utc()) {
+    if (DateTime.utc().toMillis() > tokens[username]['expiry']) {
       delete tokens[username];
       return false;
     } else {
@@ -151,7 +151,7 @@ const generateToken = (username) => {
   const token = crypto.randomBytes(48).toString('hex');
   tokens[username] = {
     token,
-    expiry: DateTime.utc().plus(sessionMaxAge)
+    expiry: DateTime.utc().plus(sessionMaxAge).toMillis()
   };
   fs.writeFile(tokensPath, JSON.stringify(tokens), () => null);
   return token;
