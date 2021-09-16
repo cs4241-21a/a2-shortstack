@@ -4,12 +4,12 @@ function beginEdit(id) {
     updateEditing(true, id);
 }
 
-function confirmEdit(e, id, hash) {
+function confirmEdit(e, id) {
     if (e) {
         e.preventDefault();
     }
     updateEditing(false, id);
-    updateMessage(id, document.getElementById(`contentInput#${id}`).value, hash).then();
+    updateMessage(id, document.getElementById(`contentInput#${id}`).value).then();
     return false;
 }
 

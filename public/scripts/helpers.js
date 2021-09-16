@@ -30,16 +30,16 @@ const getTimeString = (submitted) => {
     }
 }
 
-const addMessage = (username, content, hash) => {
-    return updateMessageData('POST', { username, content, hash }, '/add');
+const addMessage = (username, content) => {
+    return updateMessageData('POST', { username, content }, '/add');
 }
 
-const deleteMessage = (id, hash) => {
-    return updateMessageData('DELETE', { id, hash }, '/delete', false);
+const deleteMessage = (id) => {
+    return updateMessageData('DELETE', { id }, '/delete', false);
 }
 
-const updateMessage = (id, content, hash) => {
-    return updateMessageData('PUT', { id, content, hash }, '/update', false);
+const updateMessage = (id, content) => {
+    return updateMessageData('PUT', { id, content }, '/update', false);
 }
 
 const updateMessageData = (method, data, endpoint, scrollAllowed = true) => {
@@ -57,12 +57,16 @@ const updateMessageData = (method, data, endpoint, scrollAllowed = true) => {
     });
 }
 
-const authenticateUser = (username, secret) => {
+const login = (username, secret) => {
     return new Promise(resolve => {
         const body = JSON.stringify({ username, secret });
-        fetch('/authenticate', { method: 'POST', body, headers: new Headers({'content-type': 'application/json'})})
-            .then(async response => resolve(response.ok ? await response.json() : null));
+        fetch('/login', { method: 'POST', body, headers: new Headers({'content-type': 'application/json'})})
+            .then(async response => resolve(response.ok));
     });
+}
+
+const logout = () => {
+    fetch('/logout', { method: 'POST' }).then();
 }
 
 const shadowRoute = (route) => {

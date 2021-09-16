@@ -1,6 +1,9 @@
+require('dotenv').config();
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const express = require('express');
+const cookieSession = require('cookie-session')
 const { DateTime } = require('luxon');
 const { v4: uuid } = require('uuid');
 
@@ -8,7 +11,9 @@ const { v4: uuid } = require('uuid');
 const dir = `${__dirname}/public`;
 const dataPath = `${dir}/data.json`;
 const hashesPath = './hashes.json';
+const tokensPath = './tokens.json';
 const port = 3000;
+const sessionMaxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 // server
 const server = express()
@@ -17,6 +22,11 @@ server.listen(process.env.PORT || port);
 // middleware
 server.use(express.static('public')); // serve all public files
 server.use(express.json()); // parses HTTP request body
+server.use(cookieSession({
+  name: 'session:pogchat',
+  keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2],
+  maxAge: sessionMaxAge
+}));
 
 // GET
 server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
@@ -24,38 +34,37 @@ server.get('*', (req, res) => res.sendFile(`${dir}/index.html`)); // default ind
 
 // POST
 server.post('/add', async (req, res) => {
-  const response = await addMessage(req.body.username, req.body.content, req.body.hash);
-  respond(res, response);
+  const response = await addMessage(req.body.username, req.body.content, req.session.token);
+  res.status(response ? 200 : 401).send(response);
 });
 
 server.put('/update', async (req, res) => {
-  const response = await updateMessage(req.body.id, req.body.content, req.body.hash);
-  respond(res, response);
+  const response = await updateMessage(req.body.id, req.body.content, req.session.token);
+  res.status(response ? 200 : 401).send(response);
 });
 
 server.delete('/delete', async (req, res) => {
-  const response = await deleteMessage(req.body.id, req.body.hash);
-  respond(res, response);
+  const response = await deleteMessage(req.body.id, req.session.token);
+  res.status(response ? 200 : 401).send(response);
 });
 
-server.post('/authenticate', async (req, res) => {
-  const response = await authenticateUser(req.body.username, req.body.secret);
-  respond(res, response);
-});
-
-// responds to request with code and response.body data
-const respond = (res, data = null) => {
-  if (data) {
-    res.send(JSON.stringify(data));
-  } else {
-    res.send(401);
+server.post('/login', async (req, res) => {
+  const token = await authenticateUser(req.body.username, req.body.secret);
+  if (token) {
+    req.session.token = token;
   }
-};
+  res.status(token ? 200 : 401).send();
+});
+
+server.post('/logout', async (req, res) => {
+  req.session = null;
+  res.status(200).send();
+});
 
 // adds new message to data, returns updated data
-const addMessage = async (username, content, hash) => {
+const addMessage = async (username, content, token) => {
   const data = JSON.parse(fs.readFileSync(dataPath));
-  if (await authenticateHash(username, hash)) {
+  if (await authenticateToken(username, token)) {
     data.push({
       id: uuid(),
       username,
@@ -70,10 +79,10 @@ const addMessage = async (username, content, hash) => {
 };
 
 // deletes specified message from data
-const deleteMessage = async (id, hash) => {
+const deleteMessage = async (id, token) => {
   const data = JSON.parse(fs.readFileSync(dataPath));
   const i = data.findIndex(d => d.id === id);
-  if (i > -1 && await authenticateHash(data[i].username, hash)) {
+  if (i > -1 && await authenticateToken(data[i].username, token)) {
     data.splice(i, 1);
     fs.writeFile(dataPath, JSON.stringify(data), () => null);
     return data;
@@ -83,10 +92,10 @@ const deleteMessage = async (id, hash) => {
 };
 
 // updates specified message from data
-const updateMessage = async (id, content, hash) => {
+const updateMessage = async (id, content, token) => {
   const data = JSON.parse(fs.readFileSync(dataPath));
   const i = data.findIndex(d => d.id === id);
-  if (i > -1 && await authenticateHash(data[i].username, hash)) {
+  if (i > -1 && await authenticateToken(data[i].username, token)) {
     data[i].content = content;
     fs.writeFile(dataPath, JSON.stringify(data), () => null);
     return data;
@@ -95,18 +104,41 @@ const updateMessage = async (id, content, hash) => {
   }
 };
 
+// authenticates user secret against hash
 const authenticateUser = async (username, secret) => {
   const hashes = JSON.parse(fs.readFileSync(hashesPath).toString());
   if (hashes[username]) {
-    return bcrypt.compareSync(secret, hashes[username]) ? hashes[username] : null;
+    return bcrypt.compareSync(secret, hashes[username]) ? generateToken(username) : null;
   } else {
     hashes[username] = bcrypt.hashSync(secret, 10);
     fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
-    return hashes[username];
+    return generateToken(username);
   }
 }
 
-const authenticateHash = async (username, hash) => {
-  const hashes = JSON.parse(fs.readFileSync(hashesPath).toString());
-  return hashes[username] ? hash === hashes[username] : false;
+// authenticates user session token
+const authenticateToken = async (username, token) => {
+  const tokens = JSON.parse(fs.readFileSync(tokensPath).toString());
+  if (tokens[username]) {
+    if (tokens[username]['expiry'] > DateTime.utc()) {
+      delete tokens[username];
+      return false;
+    } else {
+      return tokens[username]['token'] === token;
+    }
+  } else {
+    return false;
+  }
+}
+
+// creates a new session token and returns it
+const generateToken = (username) => {
+  const tokens = JSON.parse(fs.readFileSync(tokensPath).toString());
+  const token = crypto.randomBytes(48).toString('hex');
+  tokens[username] = {
+    token,
+    expiry: DateTime.utc().plus(sessionMaxAge)
+  };
+  fs.writeFile(tokensPath, JSON.stringify(tokens), () => null);
+  return token;
 }
