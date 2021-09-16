@@ -31,7 +31,7 @@ const getTimeString = (submitted) => {
 }
 
 const addMessage = (username, content) => {
-    return updateMessageData('POST', { username, content }, '/add');
+    return updateMessageData('POST', { content }, '/add');
 }
 
 const deleteMessage = (id) => {

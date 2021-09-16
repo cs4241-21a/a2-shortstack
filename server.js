@@ -13,7 +13,7 @@ const dataPath = `${dir}/data.json`;
 const hashesPath = './hashes.json';
 const tokensPath = './tokens.json';
 const port = 3000;
-const sessionMaxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
+const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 // server
 const server = express()
@@ -32,9 +32,9 @@ server.use(cookieSession({
 server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
 server.get('*', (req, res) => res.sendFile(`${dir}/index.html`)); // default index.html route
 
-// POST
+// messaging
 server.post('/add', async (req, res) => {
-  const response = await addMessage(req.body.username, req.body.content, req.session.token);
+  const response = await addMessage(req.body.content, req.session.username, req.session.token);
   res.status(response ? 200 : 401).send(response);
 });
 
@@ -48,9 +48,11 @@ server.delete('/delete', async (req, res) => {
   res.status(response ? 200 : 401).send(response);
 });
 
+// authentication
 server.post('/login', async (req, res) => {
   const token = await authenticateUser(req.body.username, req.body.secret);
   if (token) {
+    req.session.username = req.body.username;
     req.session.token = token;
   }
   res.status(token ? 200 : 401).send();
@@ -62,7 +64,7 @@ server.post('/logout', async (req, res) => {
 });
 
 // adds new message to data, returns updated data
-const addMessage = async (username, content, token) => {
+const addMessage = async (content, username, token) => {
   const data = JSON.parse(fs.readFileSync(dataPath));
   if (await authenticateToken(username, token)) {
     data.push({
