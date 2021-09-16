@@ -153,35 +153,6 @@ const deleteMessage = async (id, username, token) => {
   } else {
     return null;
   }
-  return new Promise(resolve => {
-    mongoClient.connect(async err => {
-      if (err) {
-        console.error(err);
-        resolve(null);
-      } else {
-        const messageCollection = mongoClient.db("chat").collection("room1");
-        const message = await messageCollection.findOne({ '_id': ObjectId(id) });
-        // TODO: Add authentication of the user token and make sure the message belongs to them
-        if (message) {
-          await messageCollection.deleteOne({ '_id': ObjectId(id) })
-        }
-        const messages = await messageCollection.find().toArray();
-        await mongoClient.close();
-        resolve(messages);
-      }
-    });
-  });
-
-
-  const data = JSON.parse(fs.readFileSync(dataPath));
-  const i = data.findIndex(d => d.id === id);
-  if (i > -1 && await authenticateToken(data[i].username, token)) {
-    data.splice(i, 1);
-    fs.writeFile(dataPath, JSON.stringify(data), () => null);
-    return data;
-  } else {
-    return null;
-  }
 };
 
 // updates specified message from data
