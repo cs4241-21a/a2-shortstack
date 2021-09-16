@@ -56,7 +56,7 @@ server.post('/add', async (req, res) => {
 });
 
 server.put('/update', async (req, res) => {
-  const response = await updateMessage(req.body.id, req.body.content, req.session.token);
+  const response = await updateMessage(req.body.id, req.body.content, req.session.username, req.session.token);
   res.status(response ? 200 : 401).send(response);
 });
 
@@ -156,15 +156,25 @@ const deleteMessage = async (id, username, token) => {
 };
 
 // updates specified message from data
-const updateMessage = async (id, content, token) => {
-  const data = JSON.parse(fs.readFileSync(dataPath));
-  const i = data.findIndex(d => d.id === id);
-  if (i > -1 && await authenticateToken(data[i].username, token)) {
-    data[i].content = content;
-    fs.writeFile(dataPath, JSON.stringify(data), () => null);
-    return data;
-  } else {
-    return null;
+const updateMessage = async (id, content, username, token) => {
+  if (await authenticateToken(username, token)) {
+    return new Promise(resolve => {
+      mongoClient.connect(async err => {
+        if (err) {
+          console.error(err);
+          resolve(null);
+        } else {
+          const messageCollection = mongoClient.db("chat").collection("room1");
+          const message = await messageCollection.findOne({'_id': ObjectId(id)});
+          if (message && message['username'] === username) {
+            await messageCollection.updateOne({'_id': ObjectId(id)}, { $set: {content} })
+          }
+          const messages = await messageCollection.find().toArray();
+          await mongoClient.close();
+          resolve(messages);
+        }
+      });
+    });
   }
 };
 
@@ -189,7 +199,7 @@ const authenticateUser = async (username, secret) => {
       }
     });
   });
-}
+};
 
 // authenticates user session token
 const authenticateToken = async (username, token) => {
@@ -213,7 +223,7 @@ const authenticateToken = async (username, token) => {
       resolve(false);
     });
   });
-}
+};
 
 // creates a new session token and returns it
 const generateToken = async (username) => {
@@ -232,4 +242,4 @@ const generateToken = async (username) => {
       }
     });
   });
-}
+};
