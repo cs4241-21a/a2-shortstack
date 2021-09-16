@@ -3,10 +3,9 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const express = require('express');
-const cookieSession = require('cookie-session')
-const { MongoClient } = require('mongodb');
+const cookieSession = require('cookie-session');
+const { MongoClient, ObjectId } = require('mongodb');
 const { DateTime } = require('luxon');
-const { v4: uuid } = require('uuid');
 
 const port = 3000;
 const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
@@ -133,6 +132,26 @@ const addMessage = async (content, username, token) => {
 
 // deletes specified message from data
 const deleteMessage = async (id, token) => {
+  return new Promise(resolve => {
+    mongoClient.connect(async err => {
+      if (err) {
+        console.error(err);
+        resolve(null);
+      } else {
+        const messageCollection = mongoClient.db("chat").collection("room1");
+        const message = await messageCollection.findOne({ '_id': ObjectId(id) });
+        // TODO: Add authentication of the user token and make sure the message belongs to them
+        if (message) {
+          await messageCollection.deleteOne({ '_id': ObjectId(id) })
+        }
+        const messages = await messageCollection.find().toArray();
+        await mongoClient.close();
+        resolve(messages);
+      }
+    });
+  });
+
+
   const data = JSON.parse(fs.readFileSync(dataPath));
   const i = data.findIndex(d => d.id === id);
   if (i > -1 && await authenticateToken(data[i].username, token)) {
