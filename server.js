@@ -50,12 +50,14 @@ server.delete('/delete', async (req, res) => {
 
 // authentication
 server.post('/login', async (req, res) => {
-  const token = await authenticateUser(req.body.username, req.body.secret);
-  if (token) {
+  const auth = await authenticateUser(req.body.username, req.body.secret);
+  if (auth) {
     req.session.username = req.body.username;
-    req.session.token = token;
+    req.session.token = auth.token;
+    res.send({ newAccount: auth.newAccount })
+  } else {
+    res.sendStatus(401);
   }
-  res.sendStatus(token ? 200 : 401);
 });
 
 server.post('/logout', async (req, res) => {
@@ -122,11 +124,11 @@ const updateMessage = async (id, content, token) => {
 const authenticateUser = async (username, secret) => {
   const hashes = JSON.parse(fs.readFileSync(hashesPath).toString());
   if (hashes[username]) {
-    return bcrypt.compareSync(secret, hashes[username]) ? generateToken(username) : null;
+    return bcrypt.compareSync(secret, hashes[username]) ? { token: generateToken(username), newAccount: false } : null;
   } else {
     hashes[username] = bcrypt.hashSync(secret, 10);
     fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
-    return generateToken(username);
+    return { token: generateToken(username), newAccount: true };
   }
 }
 

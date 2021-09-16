@@ -61,7 +61,17 @@ const login = (username, secret) => {
     return new Promise(resolve => {
         const body = JSON.stringify({ username, secret });
         fetch('/login', { method: 'POST', body, headers: new Headers({'content-type': 'application/json'})})
-            .then(response => resolve(response.ok));
+            .then(async response => {
+                console.log(response);
+                if (response.ok) {
+                    response.json().then(data => {
+                        if (data['newAccount']) {
+                            window.alert(`New account "${username}" created!`);
+                        }
+                    });
+                }
+                resolve(response.ok)
+            });
     });
 }
 
