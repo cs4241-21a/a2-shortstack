@@ -4,16 +4,18 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const express = require('express');
 const cookieSession = require('cookie-session')
+const { MongoClient } = require('mongodb');
 const { DateTime } = require('luxon');
 const { v4: uuid } = require('uuid');
+
+const port = 3000;
+const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 // paths
 const dir = `${__dirname}/public`;
 const dataPath = `${dir}/data.json`;
 const hashesPath = './hashes.json';
 const tokensPath = './tokens.json';
-const port = 3000;
-const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 // server
 const server = express()
@@ -27,6 +29,19 @@ server.use(cookieSession({
   keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2],
   maxAge: sessionMaxAge
 }));
+
+// database
+const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@pogchat.kzrfm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const client = new MongoClient(uri);
+client.connect(async err => {
+  if (err) {
+    console.error(err);
+  } else {
+    const collection = client.db("Messages").collection("Room1");
+    console.log(await collection.countDocuments());
+    await client.close();
+  }
+});
 
 // files
 server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
