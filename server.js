@@ -32,16 +32,7 @@ server.use(cookieSession({
 
 // database
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@pogchat.kzrfm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(uri);
-client.connect(async err => {
-  if (err) {
-    console.error(err);
-  } else {
-    const collection = client.db("Messages").collection("Room1");
-    console.log(await collection.countDocuments());
-    await client.close();
-  }
-});
+const mongoClient = new MongoClient(uri);
 
 // files
 server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
@@ -139,37 +130,54 @@ const updateMessage = async (id, content, token) => {
 const authenticateUser = async (username, secret) => {
   const hashes = JSON.parse(fs.readFileSync(hashesPath).toString());
   if (hashes[username]) {
-    return bcrypt.compareSync(secret, hashes[username]) ? { token: generateToken(username), newAccount: false } : null;
+    return bcrypt.compareSync(secret, hashes[username]) ? { token: await generateToken(username), newAccount: false } : null;
   } else {
     hashes[username] = bcrypt.hashSync(secret, 10);
     fs.writeFile(hashesPath, JSON.stringify(hashes), () => null);
-    return { token: generateToken(username), newAccount: true };
+    return { token: await generateToken(username), newAccount: true };
   }
 }
 
 // authenticates user session token
 const authenticateToken = async (username, token) => {
-  const tokens = JSON.parse(fs.readFileSync(tokensPath).toString());
-  if (tokens[username]) {
-    if (DateTime.utc().toMillis() > tokens[username]['expiry']) {
-      delete tokens[username];
-      return false;
-    } else {
-      return tokens[username]['token'] === token;
-    }
-  } else {
-    return false;
-  }
+  return new Promise(resolve => {
+    mongoClient.connect(async err => {
+      if (err) {
+        console.error(err);
+      } else {
+        const sessions = mongoClient.db("auth").collection("sessions");
+        const session = await sessions.findOne({ username });
+        if (session) {
+          if (DateTime.utc().toMillis() > session['expiry']) {
+            await sessions.deleteOne({ username });
+            resolve(false);
+          } else {
+            resolve(session['token'] === token);
+          }
+        }
+        await mongoClient.close();
+      }
+      resolve(false);
+    });
+  });
 }
 
 // creates a new session token and returns it
-const generateToken = (username) => {
-  const tokens = JSON.parse(fs.readFileSync(tokensPath).toString());
-  const token = crypto.randomBytes(48).toString('hex');
-  tokens[username] = {
-    token,
-    expiry: DateTime.utc().plus(sessionMaxAge).toMillis()
-  };
-  fs.writeFile(tokensPath, JSON.stringify(tokens), () => null);
-  return token;
+const generateToken = async (username) => {
+  return new Promise(resolve => {
+    mongoClient.connect(async err => {
+      if (err) {
+        console.error(err);
+        resolve(null);
+      } else {
+        const sessions = mongoClient.db("auth").collection("sessions");
+        const token = crypto.randomBytes(48).toString('hex');
+        const expiry = DateTime.utc().plus(sessionMaxAge).toMillis();
+        await sessions.updateOne({ username }, { $set: { token, expiry } }, { upsert: true });
+        await mongoClient.close();
+        console.log(token);
+        resolve(token);
+      }
+    });
+  });
 }

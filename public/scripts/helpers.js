@@ -62,7 +62,6 @@ const login = (username, secret) => {
         const body = JSON.stringify({ username, secret });
         fetch('/login', { method: 'POST', body, headers: new Headers({'content-type': 'application/json'})})
             .then(async response => {
-                console.log(response);
                 if (response.ok) {
                     response.json().then(data => {
                         if (data['newAccount']) {

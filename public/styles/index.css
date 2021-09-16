@@ -56,9 +56,6 @@ h2 {
     margin-left: -10rem;
     display: flex;
     flex-direction: column;
-}
-
-.loaded #actions {
     transition: margin-left var(--transition-duration) var(--transition-timing-function);
 }
 
@@ -199,6 +196,6 @@ h2 {
 }
 
 /* TRANSITIONS */
-.loaded #texture, .loaded h1, .loaded h2, .loaded #join .join__card, .loaded #chat {
+#texture, h1, h2, #join .join__card, #chat {
     transition: all var(--transition-duration) var(--transition-timing-function);
 }

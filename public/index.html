@@ -19,9 +19,7 @@
 
     // get username of current session
     getSession().then(session => {
-      if (session) {
-        updateUser(session.username);
-      }
+      updateUser(session?.username);
       setTimeout(() => document.body.classList.add('loaded'), duration);
     });
 
