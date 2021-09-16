@@ -16,6 +16,15 @@
 
   <script>
     //<![CDATA[
+
+    // get username of current session
+    getSession().then(session => {
+      if (session) {
+        updateUser(session.username);
+      }
+      setTimeout(() => document.body.classList.add('loaded'), duration);
+    });
+
     let username = null;
     let template = null;
     let dataCache = null;

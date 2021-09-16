@@ -28,9 +28,9 @@ server.use(cookieSession({
   maxAge: sessionMaxAge
 }));
 
-// GET
+// files
 server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
-server.get('*', (req, res) => res.sendFile(`${dir}/index.html`)); // default index.html route
+server.get(['/', '/chat'], (req, res) => res.sendFile(`${dir}/index.html`)); // default index.html route
 
 // messaging
 server.post('/add', async (req, res) => {
@@ -55,13 +55,25 @@ server.post('/login', async (req, res) => {
     req.session.username = req.body.username;
     req.session.token = token;
   }
-  res.status(token ? 200 : 401).send();
+  res.sendStatus(token ? 200 : 401);
 });
 
 server.post('/logout', async (req, res) => {
   req.session = null;
-  res.status(200).send();
+  res.sendStatus(200);
 });
+
+// returns active session details (if they exist)
+server.get('/session', async (req, res) => {
+  if (req.session.token) {
+    res.send({
+      username: req.session.username
+    });
+  } else {
+    res.sendStatus(404);
+  }
+});
+
 
 // adds new message to data, returns updated data
 const addMessage = async (content, username, token) => {

@@ -61,12 +61,18 @@ const login = (username, secret) => {
     return new Promise(resolve => {
         const body = JSON.stringify({ username, secret });
         fetch('/login', { method: 'POST', body, headers: new Headers({'content-type': 'application/json'})})
-            .then(async response => resolve(response.ok));
+            .then(response => resolve(response.ok));
     });
 }
 
 const logout = () => {
     fetch('/logout', { method: 'POST' }).then();
+}
+
+const getSession = () => {
+    return new Promise(resolve => {
+        fetch('/session', { method: 'GET' }).then(async response => resolve(response.ok ? await response.json() : null));
+    });
 }
 
 const shadowRoute = (route) => {
