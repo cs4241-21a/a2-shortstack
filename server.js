@@ -30,7 +30,7 @@ server.use(cookieSession({
 
 // files
 server.get('/results', (req, res) => res.sendFile(`${dir}/data.json`));
-server.get(['/', '/chat'], (req, res) => res.sendFile(`${dir}/index.html`)); // default index.html route
+server.get(['/'], (req, res) => res.sendFile(`${dir}/index.html`)); // default index.html route
 
 // messaging
 server.post('/add', async (req, res) => {
@@ -77,8 +77,8 @@ server.get('/session', async (req, res) => {
 
 // adds new message to data, returns updated data
 const addMessage = async (content, username, token) => {
-  const data = JSON.parse(fs.readFileSync(dataPath));
   if (await authenticateToken(username, token)) {
+    const data = JSON.parse(fs.readFileSync(dataPath));
     data.push({
       id: uuid(),
       username,

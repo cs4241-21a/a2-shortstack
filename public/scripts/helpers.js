@@ -74,8 +74,3 @@ const getSession = () => {
         fetch('/session', { method: 'GET' }).then(async response => resolve(response.ok ? await response.json() : null));
     });
 }
-
-const shadowRoute = (route) => {
-    const path = `/${route}`;
-    window.history.pushState({ path }, '', path);
-}

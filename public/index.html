@@ -38,13 +38,11 @@
         setTimeout(() => document.body.classList.add('joined'), 50);
         setTimeout(() => document.getElementById('join').style.display = 'none', duration);
         renderChat();
-        shadowRoute('chat');
       } else {
         document.getElementById('join').style.display = ''
         setTimeout(() => document.body.classList.remove('joined'), 50);
         setTimeout(() => document.getElementById('actions').style.display = 'none', duration);
         setTimeout(() => document.getElementById('chat').style.display = 'none', duration);
-        shadowRoute('');
       }
     }
 
