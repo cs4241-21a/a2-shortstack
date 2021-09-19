@@ -1,33 +1,102 @@
+const { getEnvironmentData } = require('worker_threads')
+
 const http = require( 'http' ),
       fs   = require( 'fs' ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library used in the following line of code
       mime = require( 'mime' ),
+      DateTime = require("luxon");
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+// Derived importance (lower is more important):
+// days away from due date * priority
+const todolist = [
+  {"name": "Example task", "duedate": "2021-09-05", "priority": 1, "importance": 1, "category": "Work"},
+  {"name": "Example task 2", "duedate": "2021-09-09", "priority": 4, "importance": 1, "category": "School"}
 ]
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
-  }else if( request.method === 'POST' ){
+  } else if( request.method === 'POST' ) {
     handlePost( request, response ) 
+  } else if (request.method === 'DELETE') {
+    handleDelete(request, response)
+  } else if (request.method === 'PATCH') {
+    handlePatch(request, response)
   }
 })
+
+const handleDelete = function(request, response) {
+  dataString = ''
+
+  request.on( 'data', function( data ) {
+    dataString += data 
+  })
+
+  request.on( 'end', function() {
+    // Data string is just the indice to remove.
+    todolist.splice(dataString, 1)
+
+    // ... do something with the data here!!!
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end()
+  })
+}
+
+const handlePatch = function(request, response) {
+  dataString = ''
+
+  request.on( 'data', function( data ) {
+    dataString += data 
+  })
+
+  request.on('end', function() {
+    data = JSON.parse(dataString)
+    var index = parseInt(data["index"])
+    todolist[index]["name"] = data["name"]
+    todolist[index]["priority"] = data["priority"]
+    todolist[index]["duedate"] = data["duedate"]
+
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end()
+  })
+}
 
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
-  if( request.url === '/' ) {
+  if ( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/getData') {
+    getTodoData(request, response)
+  } else{
     sendFile( response, filename )
   }
+}
+
+const getTodoData = function(request, response) {
+    // Deriving the importance of an item. Lowest it can be is zero (that means do now)
+    for (let item of todolist) {
+      DateTime.DateTime.now()
+      var nowdate = DateTime.DateTime.now()
+      var tododate = DateTime.DateTime.fromFormat(item.duedate, "yyyy-LL-dd")
+      var diffDays = tododate.diff(nowdate, 'days')
+      item.importance = 100 - Math.ceil(item.priority * diffDays.toObject().days)
+      if (item.importance > 100) {
+        item.importance = 100
+      }
+
+      if (item.importance < 0) {
+        item.importance = 0
+      }
+      //item.duedate = tododate.toFormat("L/d/yyyy")
+    }
+
+    response.writeHead(200, "OK", {'Content-Type': 'text/plain'})
+    response.end(JSON.stringify(todolist))
 }
 
 const handlePost = function( request, response ) {
@@ -38,9 +107,8 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
+    var data = JSON.parse(dataString)
+    todolist.push(data)
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end()

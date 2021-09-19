@@ -1,1 +1,55 @@
 /*Style your own assignment! This is fun! */
+html {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+table {
+    margin-top: 30px
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-header {
+    margin-bottom: 0px
+}
+
+#main-table {
+    width: 75%;
+}
+
+#aboutarea {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 30px;
+}
+
+#inputform {
+    width: 50%
+}
+
+#about {
+    width: 50%
+}
