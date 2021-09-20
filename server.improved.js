@@ -12,6 +12,15 @@ const appdata = [
   { 'model': 'ford', 'year': 1987, 'mpg': 14} 
 ]
 
+let logins = [
+  { "username": "loren", "balance": 5000, "wins": 20, "losses": 15, "netProfit": 500, "initialBalance": 4500},
+  { "username": "harrison", "balance": 5500, "wins": 10, "losses": 1, "netProfit": 5000, "initialBalance": 500 },
+  { "username": "jake", "balance": 2000, "wins": 3, "losses": 3, "netProfit": 0, "initialBalance": 2000 },
+  { "username": "gas", "balance": 1340, "wins": 200, "losses": 235, "netProfit": -150, "initialBalance": 1490 },
+  { "username": "professor", "balance": 6450, "wins": 1340, "losses": 3, "netProfit": 6250, "initialBalance": 200 },
+  { "username": "patriot", "balance": 1202, "wins": 47, "losses": 49, "netProfit": -48, "initialBalance": 1250 },
+]
+
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
     handleGet( request, response )    
@@ -25,8 +34,11 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+  }else if (request.url === "/?") {
+
+  }
+    else {
+      sendFile( response, filename )
   }
 }
 
@@ -38,12 +50,96 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
+    const json = JSON.parse(dataString)
 
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.end()
+    if (request.url === "/submit") {
+      let userIndex = 0, userFound = false
+      for (let i = 0; i < logins.length; i++) {
+        if (json.username === logins[i].username) {
+          userFound = true
+          userIndex = i
+          break
+        }
+      }
+      if (userFound) {
+        if (json.balance != "none") { logins[userIndex].balance = parseInt(json.balance) }
+        if (json.wins != "none") { logins[userIndex].wins = parseInt(json.wins) }
+        if (json.losses != "none") { logins[userIndex].losses = parseInt(json.losses) }
+        if (json.initialBalance != "none") { logins[userIndex].initialBalance = parseInt(json.initialBalance) }
+        let netProfit = logins[userIndex].balance - logins[userIndex].initialBalance
+        logins[userIndex].netProfit = netProfit
+      }
+      else {
+        let balance, wins, losses, initialBalance, netProfit
+        if (json.username === "none") {}
+        else {
+          if (json.balance === "none") { balance = 1000}
+          else { balance = parseInt(json.balance) }
+          if (json.wins === "none") { wins = 0}
+          else { wins = parseInt(json.wins) }
+          if (json.losses === "none") { losses = 0}
+          else { losses = parseInt(json.losses) }
+          if (json.initialBalance === "none") { initialBalance = balance}
+          else { initialBalance = parseInt(json.initialBalance) }
+          netProfit = balance - initialBalance
+          logins.push({ "username": json.username, "balance": balance, "wins": wins, "losses": losses,
+        "netProfit": netProfit, "initialBalance": initialBalance})
+        }
+      }
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end( JSON.stringify(logins))
+    }
+    else if (request.url === "/signIn") {
+      let userFound = false
+      let user
+      for (let i = 0; i < logins.length; i++) {
+        if (logins[i].username === json.yourname) {
+          console.log("Logged in as " + json.yourname)
+          user = logins[i]
+          userFound = true
+          break
+        }
+      }
+      if (userFound) {
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end( JSON.stringify(user))
+      }
+      else {
+        json.username = "error"
+        response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+        response.end( JSON.stringify(json))
+      }
+      
+    }
+    else if (request.url === "/updateAccount") {
+      let targetUser
+      for (let i = 0; i < logins.length; i++) {
+        if (logins[i].username === json.username) {
+          targetUser = logins[i]
+          if (json.win) { 
+            targetUser.balance += parseInt(json.bet) 
+            targetUser.netProfit += parseInt(json.bet)
+          }
+          else { 
+            targetUser.balance -= parseInt(json.bet) 
+            targetUser.netProfit -= parseInt(json.bet)
+          }
+          if (json.win) {
+            targetUser.wins++
+          }
+          else {
+            targetUser.losses++
+          }
+          break
+        }
+      }
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end( JSON.stringify(logins))
+    }
+    else if (request.url === "/refreshTable") {
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end( JSON.stringify(logins))
+    }
   })
 }
 
