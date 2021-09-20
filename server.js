@@ -61,6 +61,12 @@ server.delete('/message/delete', async (req, res) => {
   res.status(response ? 200 : 401).send(response);
 });
 
+// polling
+server.post('/poll/add', async (req, res) => {
+  const response = await addPoll(req.body.question, req.body.choices, req.session.username, req.session.token);
+  res.status(response ? 200 : 401).send(response);
+});
+
 // authentication
 server.post('/login', async (req, res) => {
   const auth = await authenticateUser(req.body.username, req.body.secret);
@@ -142,6 +148,26 @@ const updateMessage = async (id, content, username, token) => {
     }
     await mongoClient.close();
     return messages;
+  }).catch(() => null);
+};
+
+// adds new poll to data, returns updated data
+const addPoll = async (question, choices, username, token) => {
+  return getMongoClient().then(async client => {
+    let chat = null;
+    if (await authenticateToken(username, token, client)) {
+      const chatCollection = client.db("chat").collection("room1");
+      await chatCollection.insertOne({
+        username,
+        question,
+        choices: choices,
+        votes: new Array(choices.length).fill(0),
+        submitted: DateTime.utc(),
+        admin: username === 'Paradoxdotexe'});
+      chat = await chatCollection.find().toArray();
+    }
+    await mongoClient.close();
+    return chat;
   }).catch(() => null);
 };
 
