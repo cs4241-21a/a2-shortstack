@@ -12,6 +12,7 @@ body {
 /* BUTTONS */
 button {
     width: fit-content;
+    min-height: 40px;
     background: var(--accent-primary);
     box-shadow: var(--box-shadow-down);
     border-radius: var(--border-radius);
@@ -25,8 +26,17 @@ button.icon {
     padding: 0.5rem;
 }
 
+button.secondary {
+    box-shadow: 0 0 0 2px var(--accent-primary) inset;
+    background: none;
+}
+
 button:focus {
     background: var(--accent-secondary);
+}
+
+button.secondary:focus {
+    background: rgba(255, 255, 255, 0.05)
 }
 
 button:disabled {
@@ -35,15 +45,28 @@ button:disabled {
 }
 
 /* INPUT */
-input {
+input, textarea {
     background: var(--background-tertiary);
     border-radius: var(--border-radius);
     padding: 0.5rem 1rem;
     transition: box-shadow 150ms var(--transition-timing-function);
 }
 
-input:focus {
+input:focus, textarea:focus {
     box-shadow: 0 3px var(--accent-primary);
+}
+
+textarea {
+    resize: none;
+    padding: 10px 1rem;
+}
+
+textarea::-webkit-scrollbar-track {
+    background: var(--background-tertiary);
+}
+
+textarea::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb:hover {
+    background: var(--background-primary);
 }
 
 /* CARD */

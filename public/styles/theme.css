@@ -50,7 +50,7 @@ body, h1, h2, h3, pre {
     font-weight: normal;
 }
 
-button, input {
+button, input, textarea {
     color: var(--color-primary);
     fill: var(--color-primary);
     font-family: var(--font-family-primary);
