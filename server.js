@@ -1,18 +1,14 @@
-require('dotenv').config();
-const fs = require('fs');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const express = require('express');
 const cookieSession = require('cookie-session');
 const { MongoClient, ObjectId } = require('mongodb');
 const { DateTime } = require('luxon');
+require('dotenv').config();
 
 const port = 3000;
-const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-
-// paths
 const dir = `${__dirname}/public`;
-const dataPath = `${dir}/data.json`;
+const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 // server
 const server = express();
@@ -78,26 +74,19 @@ server.post('/login', async (req, res) => {
 });
 
 server.post('/logout', async (req, res) => {
-  mongoClient.connect(async err => {
-    if (err) {
-      console.error(err);
-      res.sendStatus(500);
-    } else {
-      const sessionsCollection = mongoClient.db("auth").collection("sessions");
-      await sessionsCollection.deleteOne({ username: req.session.username });
-      await mongoClient.close();
-      req.session = null;
-      res.sendStatus(200);
-    }
-  });
+  res.sendStatus(await getMongoClient().then(async client => {
+    const sessionsCollection = client.db("auth").collection("sessions");
+    await sessionsCollection.deleteOne({ username: req.session.username });
+    await mongoClient.close();
+    req.session = null;
+    return 200;
+  }).catch(() => 500));
 });
 
 // returns active session details (if they exist)
 server.get('/session', async (req, res) => {
-  if (await authenticateToken(req.session.username, req.session.token)) {
-    res.send({
-      username: req.session.username
-    });
+  if (await authenticateSession(req.session.username, req.session.token)) {
+    res.send({ username: req.session.username });
   } else {
     res.sendStatus(404);
   }
@@ -106,140 +95,117 @@ server.get('/session', async (req, res) => {
 
 // adds new message to data, returns updated data
 const addMessage = async (content, username, token) => {
-  if (await authenticateToken(username, token)) {
-    return new Promise(resolve => {
-      mongoClient.connect(async err => {
-        if (err) {
-          console.error(err);
-          resolve(null);
-        } else {
-          const messageCollection = mongoClient.db("chat").collection("room1");
-          await messageCollection.insertOne({
-            username,
-            content,
-            submitted: DateTime.utc(),
-            admin: username === 'Paradoxdotexe'});
-          const messages = await messageCollection.find().toArray();
-          await mongoClient.close();
-          resolve(messages);
-        }
-      });
-    });
-  } else {
-    return null;
-  }
+  return getMongoClient().then(async client => {
+    let messages = null;
+    if (await authenticateToken(username, token, client)) {
+      const messageCollection = client.db("chat").collection("room1");
+      await messageCollection.insertOne({
+        username,
+        content,
+        submitted: DateTime.utc(),
+        admin: username === 'Paradoxdotexe'});
+      messages = await messageCollection.find().toArray();
+    }
+    await mongoClient.close();
+    return messages;
+  }).catch(() => null);
 };
 
 // deletes specified message from data
 const deleteMessage = async (id, username, token) => {
-  if (await authenticateToken(username, token)) {
-    return new Promise(resolve => {
-      mongoClient.connect(async err => {
-        if (err) {
-          console.error(err);
-          resolve(null);
-        } else {
-          const messageCollection = mongoClient.db("chat").collection("room1");
-          const message = await messageCollection.findOne({ '_id': ObjectId(id) });
-          if (message && message['username'] === username) {
-            await messageCollection.deleteOne({ '_id': ObjectId(id) })
-          }
-          const messages = await messageCollection.find().toArray();
-          await mongoClient.close();
-          resolve(messages);
-        }
-      });
-    });
-  } else {
-    return null;
-  }
+  return getMongoClient().then(async client => {
+    let messages = null;
+    if (await authenticateToken(username, token, client)) {
+      const messageCollection = client.db("chat").collection("room1");
+      const message = await messageCollection.findOne({ '_id': ObjectId(id) });
+      if (message && message['username'] === username) {
+        await messageCollection.deleteOne({ '_id': ObjectId(id) })
+      }
+      messages = await messageCollection.find().toArray();
+    }
+    await mongoClient.close();
+    return messages;
+  }).catch(() => null);
 };
 
 // updates specified message from data
 const updateMessage = async (id, content, username, token) => {
-  if (await authenticateToken(username, token)) {
-    return new Promise(resolve => {
-      mongoClient.connect(async err => {
-        if (err) {
-          console.error(err);
-          resolve(null);
-        } else {
-          const messageCollection = mongoClient.db("chat").collection("room1");
-          const message = await messageCollection.findOne({'_id': ObjectId(id)});
-          if (message && message['username'] === username) {
-            await messageCollection.updateOne({'_id': ObjectId(id)}, { $set: {content} })
-          }
-          const messages = await messageCollection.find().toArray();
-          await mongoClient.close();
-          resolve(messages);
-        }
-      });
-    });
-  }
+  return getMongoClient().then(async client => {
+    let messages = null;
+    if (await authenticateToken(username, token, client)) {
+      const messageCollection = client.db("chat").collection("room1");
+      const message = await messageCollection.findOne({'_id': ObjectId(id)});
+      if (message && message['username'] === username) {
+        await messageCollection.updateOne({'_id': ObjectId(id)}, { $set: {content} })
+      }
+      messages = await messageCollection.find().toArray();
+    }
+    await mongoClient.close();
+    return messages;
+  }).catch(() => null);
 };
 
 // authenticates user secret against hash
 const authenticateUser = async (username, secret) => {
-  return new Promise(resolve => {
-    mongoClient.connect(async err => {
-      if (err) {
-        console.error(err);
-        resolve(null);
-      } else {
-        const hashesCollection = mongoClient.db("auth").collection("hashes");
-        const hashDocument = await hashesCollection.findOne({ username });
-        if (hashDocument) {
-          resolve(bcrypt.compareSync(secret, hashDocument['hash']) ? { token: await generateToken(username), newAccount: false } : null);
-        } else {
-          const hash = bcrypt.hashSync(secret, 10);
-          await hashesCollection.insertOne({ username, hash });
-          resolve({ token: await generateToken(username), newAccount: true });
-        }
-        await mongoClient.close();
-      }
-    });
-  });
-};
-
-// authenticates user session token
-const authenticateToken = async (username, token) => {
-  return new Promise(resolve => {
-    mongoClient.connect(async err => {
-      if (err) {
-        console.error(err);
-      } else {
-        const sessionsCollection = mongoClient.db("auth").collection("sessions");
-        const sessionDocument = await sessionsCollection.findOne({ username });
-        if (sessionDocument) {
-          if (DateTime.utc().toMillis() > sessionDocument['expiry']) {
-            await sessionsCollection.deleteOne({ username });
-            resolve(false);
-          } else {
-            resolve(sessionDocument['token'] === token);
-          }
-        }
-        await mongoClient.close();
-      }
-      resolve(false);
-    });
+  return getMongoClient().then(async client => {
+    let auth;
+    const hashesCollection = client.db("auth").collection("hashes");
+    const hashDocument = await hashesCollection.findOne({ username });
+    if (hashDocument) {
+      auth = bcrypt.compareSync(secret, hashDocument['hash']) ? { token: await generateToken(username, client), newAccount: false } : null;
+    } else {
+      const hash = bcrypt.hashSync(secret, 10);
+      await hashesCollection.insertOne({ username, hash });
+      auth = { token: await generateToken(username, client), newAccount: true };
+    }
+    await mongoClient.close();
+    return auth;
   });
 };
 
 // creates a new session token and returns it
-const generateToken = async (username) => {
-  return new Promise(resolve => {
+const generateToken = async (username, client) => {
+  const sessions = client.db("auth").collection("sessions");
+  const token = crypto.randomBytes(48).toString('hex');
+  const expiry = DateTime.utc().plus(sessionMaxAge).toMillis();
+  await sessions.updateOne({ username }, { $set: { token, expiry } }, { upsert: true });
+  await mongoClient.close();
+  return token;
+};
+
+// spawn a mongo client
+const getMongoClient = () => {
+  return new Promise((resolve, reject) => {
     mongoClient.connect(async err => {
       if (err) {
         console.error(err);
-        resolve(null);
+        reject()
       } else {
-        const sessions = mongoClient.db("auth").collection("sessions");
-        const token = crypto.randomBytes(48).toString('hex');
-        const expiry = DateTime.utc().plus(sessionMaxAge).toMillis();
-        await sessions.updateOne({ username }, { $set: { token, expiry } }, { upsert: true });
-        await mongoClient.close();
-        resolve(token);
+        resolve(mongoClient);
       }
     });
   });
+}
+
+// authenticates user session token
+const authenticateToken = async (username, token, client) => {
+  const sessionsCollection = client.db("auth").collection("sessions");
+  const sessionDocument = await sessionsCollection.findOne({ username });
+  if (sessionDocument) {
+    if (DateTime.utc().toMillis() > sessionDocument['expiry']) {
+      await sessionsCollection.deleteOne({ username });
+      return false;
+    }
+    return sessionDocument['token'] === token;
+  }
+  return false;
 };
+
+// spawns mongo client and authenticates token
+const authenticateSession = async (username, token) => {
+  return getMongoClient().then(async client => {
+    const authenticated = await authenticateToken(username, token, client);
+    await mongoClient.close();
+    return authenticated;
+  }).catch(() => false);
+}
