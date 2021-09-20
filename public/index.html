@@ -73,8 +73,8 @@
       if (message.value.length > 0) {
         addMessage(username, message.value);
         message.value = null;
-        return false;
       }
+      return false;
     }
 
     const refresh = async () => {
@@ -91,18 +91,25 @@
     }
 
     const cancelPoll = (e) => {
-      e.preventDefault();
+      if (e) {
+        e.preventDefault();
+      }
       document.getElementsByClassName('chat__input default')[0].classList.remove('disabled');
       document.getElementsByClassName('chat__input poll')[0].classList.remove('enabled');
     }
 
     const createPoll = (e) => {
       e.preventDefault();
-      const question = document.getElementById('questionInput').value;
-      const choice1 = document.getElementById('choiceOneInput').value;
-      const choice2 = document.getElementById('choiceTwoInput').value;
-      const choice3 = document.getElementById('choiceThreeInput').value;
-      console.log({ question, choice1, choice2, choice3 });
+      const question = document.getElementById('questionInput');
+      const choices = [document.getElementById('choiceOneInput'), document.getElementById('choiceTwoInput'),
+        document.getElementById('choiceThreeInput')].filter(c => c.value.length > 0);
+      if (question.value.length > 0 && choices.length >= 2) {
+        addPoll(question.value, choices.map(c => c.value));
+        question.value = null;
+        choices.forEach(c => c.value = null);
+        cancelPoll(null);
+      }
+      return false;
     }
     //]]>
   </script>

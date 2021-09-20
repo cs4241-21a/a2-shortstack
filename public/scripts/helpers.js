@@ -31,18 +31,22 @@ const getTimeString = (submitted) => {
 }
 
 const addMessage = (username, content) => {
-    return updateMessageData('POST', { content }, '/message/add');
+    return postChatData('POST', { content }, '/message/add');
 }
 
 const deleteMessage = (id) => {
-    return updateMessageData('DELETE', { id }, '/message/delete', false);
+    return postChatData('DELETE', { id }, '/message/delete', false);
 }
 
 const updateMessage = (id, content) => {
-    return updateMessageData('PUT', { id, content }, '/message/update', false);
+    return postChatData('PUT', { id, content }, '/message/update', false);
 }
 
-const updateMessageData = (method, data, endpoint, scrollAllowed = true) => {
+const addPoll = (question, choices) => {
+    return postChatData('POST', { question, choices }, '/poll/add');
+}
+
+const postChatData = (method, data, endpoint, scrollAllowed = true) => {
     return new Promise(() => {
         const body = JSON.stringify(data);
         fetch(endpoint, { method: method, body,
