@@ -160,7 +160,7 @@ const authenticateUser = async (username, secret) => {
     }
     await mongoClient.close();
     return auth;
-  });
+  }).catch(() => null);
 };
 
 // creates a new session token and returns it
