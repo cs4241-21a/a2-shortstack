@@ -46,17 +46,17 @@ server.get('/results', (req, res) => {
 });
 
 // messaging
-server.post('/add', async (req, res) => {
+server.post('/message/add', async (req, res) => {
   const response = await addMessage(req.body.content, req.session.username, req.session.token);
   res.status(response ? 200 : 401).send(response);
 });
 
-server.put('/update', async (req, res) => {
+server.put('/message/update', async (req, res) => {
   const response = await updateMessage(req.body.id, req.body.content, req.session.username, req.session.token);
   res.status(response ? 200 : 401).send(response);
 });
 
-server.delete('/delete', async (req, res) => {
+server.delete('/message/delete', async (req, res) => {
   const response = await deleteMessage(req.body.id, req.session.username, req.session.token);
   res.status(response ? 200 : 401).send(response);
 });

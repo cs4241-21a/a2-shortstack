@@ -31,15 +31,15 @@ const getTimeString = (submitted) => {
 }
 
 const addMessage = (username, content) => {
-    return updateMessageData('POST', { content }, '/add');
+    return updateMessageData('POST', { content }, '/message/add');
 }
 
 const deleteMessage = (id) => {
-    return updateMessageData('DELETE', { id }, '/delete', false);
+    return updateMessageData('DELETE', { id }, '/message/delete', false);
 }
 
 const updateMessage = (id, content) => {
-    return updateMessageData('PUT', { id, content }, '/update', false);
+    return updateMessageData('PUT', { id, content }, '/message/update', false);
 }
 
 const updateMessageData = (method, data, endpoint, scrollAllowed = true) => {
