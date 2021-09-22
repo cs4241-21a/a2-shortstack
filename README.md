@@ -1,5 +1,5 @@
 Aidan Pecorale
-https://a1-alpecorale.glitch.me/
+https://a2-alpecorale.glitch.me/
 ## Flappy Block
 My application is a small game where users can compete to enter their name and score on the leaderboard. To play the game press start game and use the "Flap" button or your 'Space bar' to increase the Y position of the block. Navagate through the green elements to raise your score and submit your name and score to the leaderboard.
 
