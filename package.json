@@ -1,12 +1,12 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Flappy Block",
+  "version": "1.0",
+  "description": "Simple game with leaderboard showing database",
+  "author": "alpecorale",
   "scripts": {
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.5.2"
   }
 }
