@@ -179,8 +179,8 @@
     const scroll = scrollAllowed ? JSON.stringify(data) !== JSON.stringify(dataCache) : false;
     dataCache = data; // update data cache for updating time strings
     data.forEach(d => {
-      d.class = d.username === username ? 'owned ': '';
-      d.class += d.admin ? 'admin': '';
+      const classes = [d.username === username ? 'owned ': '', d.admin ? 'admin': '', d.question ? 'poll': ''];
+      d.class = classes.join(' ');
       d.timeString = getTimeString(d.submitted);
     });
 
