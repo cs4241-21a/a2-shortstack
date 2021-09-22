@@ -30,19 +30,14 @@ const mongoClient = new MongoClient(uri);
 // default index.html route
 server.get(['/'], (req, res) => res.sendFile(`${dir}/index.html`));
 
-// results
-server.get('/results', (req, res) => {
-  mongoClient.connect(async err => {
-    if (err) {
-      console.error(err);
-      res.sendStatus(500);
-    } else {
-      const messageCollection = mongoClient.db("chat").collection("room1");
-      const messages = await messageCollection.find().toArray();
-      await mongoClient.close();
-      res.send(messages);
-    }
-  });
+// all chat messages
+server.get('/chat', async (req, res) => {
+  await getMongoClient().then(async client => {
+    const messageCollection = client.db("chat").collection("room1");
+    const messages = await messageCollection.find().toArray();
+    await mongoClient.close();
+    res.send(messages);
+  }).catch(() => res.sendStatus(500));
 });
 
 // messaging

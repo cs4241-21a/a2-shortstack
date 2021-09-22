@@ -2,8 +2,9 @@ const renderTemplate = (template, id, data) =>
     document.getElementById(id).innerHTML = Mustache.render(template, { data });
 
 const fetchData = async () => {
-    return await fetch('results').then(async response => {
+    return await fetch('chat').then(async response => {
         const data = await response.json();
+        console.log('All chat data:');
         console.log(JSON.parse(JSON.stringify(data)));
         return data;
     });

@@ -141,6 +141,7 @@
     .message.voted .message__poll .poll__choice {
         height: 32px;
         padding-left: 0.75rem;
+        z-index: 1;
     }
 
     .message .message__poll .poll__choice .choice__background {
@@ -148,8 +149,9 @@
         left: 0;
         top: 0;
         height: 100%;
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(0, 0, 0, 0.2);
         border-radius: var(--border-radius);
+        z-index: -1;
     }
 
     .message .message__poll .poll__choice .choice__percentage {
