@@ -46,6 +46,10 @@ const addPoll = (question, choices) => {
     return postChatData('POST', { question, choices }, '/poll/add');
 }
 
+const voteForPoll = (id, choice) => {
+    return postChatData('POST', { id, choice }, '/poll/vote');
+}
+
 const postChatData = (method, data, endpoint, scrollAllowed = true) => {
     return new Promise(() => {
         const body = JSON.stringify(data);

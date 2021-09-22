@@ -17,6 +17,15 @@ function cancelEdit(id) {
     updateEditing(false, id);
 }
 
+function vote(e, id) {
+    e.preventDefault();
+    const selectedInput = document.getElementById(`pollVotingForm#${id}`).querySelector('input[name=choice]:checked');
+    if (selectedInput) {
+        voteForPoll(id, selectedInput.value).then();
+    }
+    return false;
+}
+
 function updateEditing(e, id) {
     editing = e;
     if (editing) {
