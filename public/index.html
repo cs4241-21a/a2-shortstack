@@ -182,6 +182,10 @@
       const classes = [d.username === username ? 'owned ': '', d.admin ? 'admin': '', d.question ? 'poll': ''];
       d.class = classes.join(' ');
       d.timeString = getTimeString(d.submitted);
+      d.totalVotes = d.votes ? d.votes.length : 0;
+      d.choice1 = d.choices ? d.choices[0] : '';
+      d.choice2 = d.choices ? d.choices[1] : '';
+      d.choice3 = d.choices ? d.choices[2] : '';
     });
 
     if (template) {
