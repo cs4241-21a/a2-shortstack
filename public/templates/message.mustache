@@ -39,7 +39,7 @@
                     <div class="choice__percentage">{{ choice2Percentage }}</div>
                     {{ choice2 }}
                 </div>
-                <div class="poll__choice">
+                <div class="poll__choice" style="display: {{ choice3Display }}">
                     <div class="choice__background" style="width: {{ choice3Percentage }}"></div>
                     <input id="radioChoice3#{{ _id }}" type="radio" name="choice" value="{{ choice3 }}" />
                     <label for="radioChoice3#{{ _id }}"><div></div></label>

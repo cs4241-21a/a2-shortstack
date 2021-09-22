@@ -187,6 +187,7 @@
         d.choice1 = d.choices ? d.choices[0] : '';
         d.choice2 = d.choices ? d.choices[1] : '';
         d.choice3 = d.choices ? d.choices[2] : '';
+        d.choice3Display = d.choices.length > 2 ? 'flex' : 'none';
         if (d.votes[username]) {
           classes.push('voted');
           d.choice1Percentage = `${(Object.values(d.votes).filter(v => v === d.choices[0]).length / d.totalVotes) * 100}%`;
