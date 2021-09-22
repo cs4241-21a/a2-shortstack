@@ -179,13 +179,17 @@
     const scroll = scrollAllowed ? JSON.stringify(data) !== JSON.stringify(dataCache) : false;
     dataCache = data; // update data cache for updating time strings
     data.forEach(d => {
-      const classes = [d.username === username ? 'owned ': '', d.admin ? 'admin': '', d.question ? 'poll': ''];
-      d.class = classes.join(' ');
+      const classes = [d.username === username ? 'owned ': '', d.admin ? 'admin': ''];
       d.timeString = getTimeString(d.submitted);
-      d.totalVotes = d.votes ? d.votes.length : 0;
-      d.choice1 = d.choices ? d.choices[0] : '';
-      d.choice2 = d.choices ? d.choices[1] : '';
-      d.choice3 = d.choices ? d.choices[2] : '';
+      if (d.question) {
+        classes.push('poll');
+        d.totalVotes = Object.keys(d.votes).length;
+        d.voted = !!d.votes[username];
+        d.choice1 = d.choices ? d.choices[0] : '';
+        d.choice2 = d.choices ? d.choices[1] : '';
+        d.choice3 = d.choices ? d.choices[2] : '';
+      }
+      d.class = classes.join(' ');
     });
 
     if (template) {

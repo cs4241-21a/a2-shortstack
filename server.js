@@ -67,6 +67,11 @@ server.post('/poll/add', async (req, res) => {
   res.status(response ? 200 : 401).send(response);
 });
 
+server.post('/poll/vote', async (req, res) => {
+  const response = await voteForPoll(req.body.id, req.body.choice, req.session.username, req.session.token);
+  res.status(response ? 200 : 401).send(response);
+});
+
 // authentication
 server.post('/login', async (req, res) => {
   const auth = await authenticateUser(req.body.username, req.body.secret);
@@ -161,9 +166,27 @@ const addPoll = async (question, choices, username, token) => {
         username,
         question,
         choices: choices,
-        votes: new Array(choices.length).fill(0),
+        votes: {},
         submitted: DateTime.utc(),
         admin: username === 'Paradoxdotexe'});
+      chat = await chatCollection.find().toArray();
+    }
+    await mongoClient.close();
+    return chat;
+  }).catch(() => null);
+};
+
+// votes for a poll, returns updated data
+const voteForPoll = async (id, choice, username, token) => {
+  return getMongoClient().then(async client => {
+    let chat = null;
+    if (await authenticateToken(username, token, client)) {
+      const chatCollection = client.db("chat").collection("room1");
+      const poll = await chatCollection.findOne({'_id': ObjectId(id)});
+      if (poll) {
+        poll.votes[username] = choice;
+        await chatCollection.updateOne({'_id': ObjectId(id)}, { $set: { votes: poll.votes } })
+      }
       chat = await chatCollection.find().toArray();
     }
     await mongoClient.close();
