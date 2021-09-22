@@ -3,7 +3,9 @@ const renderTemplate = (template, id, data) =>
 
 const fetchData = async () => {
     return await fetch('results').then(async response => {
-        return await response.json()
+        const data = await response.json();
+        console.log(JSON.parse(JSON.stringify(data)));
+        return data;
     });
 }
 

@@ -174,7 +174,6 @@
   async function renderChat(data = null, scrollAllowed = true) {
     if (!data) {
       data = await fetchData();
-      console.log(data);
     }
     const scroll = scrollAllowed ? JSON.stringify(data) !== JSON.stringify(dataCache) : false;
     dataCache = data; // update data cache for updating time strings

@@ -130,7 +130,7 @@ const deleteMessage = async (id, username, token) => {
       const messageCollection = client.db("chat").collection("room1");
       const message = await messageCollection.findOne({ '_id': ObjectId(id) });
       if (message && message['username'] === username) {
-        await messageCollection.deleteOne({ '_id': ObjectId(id) })
+        await messageCollection.deleteOne({ '_id': ObjectId(id) });
       }
       messages = await messageCollection.find().toArray();
     }
