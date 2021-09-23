@@ -25,7 +25,7 @@ server.use(cookieSession({
   keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2],
   maxAge: sessionMaxAge
 })); // enables cookie-based sessions
-server.use(helpers('pogchat'));
+server.use(helpers('pogchat')); // adds helper functions like req.isMobile
 
 // database
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@pogchat.kzrfm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
@@ -113,6 +113,7 @@ const addMessage = async (content, username, token) => {
   return getMongoClient().then(async client => {
     let messages = null;
     if (await authenticateToken(username, token, client)) {
+      console.log(`[ADD MESSAGE] ${ username } sent a message.`);
       const messageCollection = client.db("chat").collection("room1");
       await messageCollection.insertOne({
         username,
@@ -131,6 +132,7 @@ const deleteMessage = async (id, username, token) => {
   return getMongoClient().then(async client => {
     let messages = null;
     if (await authenticateToken(username, token, client)) {
+      console.log(`[DELETE MESSAGE] ${ username } deleted a message.`);
       const messageCollection = client.db("chat").collection("room1");
       const message = await messageCollection.findOne({ '_id': ObjectId(id) });
       if (message && message['username'] === username) {
@@ -148,6 +150,7 @@ const updateMessage = async (id, content, username, token) => {
   return getMongoClient().then(async client => {
     let messages = null;
     if (await authenticateToken(username, token, client)) {
+      console.log(`[UPDATE MESSAGE] ${ username } updated a message.`);
       const messageCollection = client.db("chat").collection("room1");
       const message = await messageCollection.findOne({'_id': ObjectId(id)});
       if (message && message['username'] === username) {
@@ -165,6 +168,7 @@ const addPoll = async (question, choices, username, token) => {
   return getMongoClient().then(async client => {
     let chat = null;
     if (await authenticateToken(username, token, client)) {
+      console.log(`[ADD POLL] ${ username } started a poll.`);
       const chatCollection = client.db("chat").collection("room1");
       await chatCollection.insertOne({
         username,
@@ -185,6 +189,7 @@ const voteForPoll = async (id, choice, username, token) => {
   return getMongoClient().then(async client => {
     let chat = null;
     if (await authenticateToken(username, token, client)) {
+      console.log(`[VOTE FOR POLL] ${ username } voted for a poll.`);
       const chatCollection = client.db("chat").collection("room1");
       const poll = await chatCollection.findOne({'_id': ObjectId(id)});
       if (poll) {
