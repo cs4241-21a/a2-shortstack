@@ -18,7 +18,6 @@
 
             <div class="message__username">{{ username }}</div>
             <div class="message__content">{{ content }}</div>
-            <i class="message__content">{{ question }}</i>
 
             <form id="contentInputForm#{{ _id }}" class="message__content-input" onsubmit="return confirmEdit(event, '{{ _id }}')">
                 <input id="contentInput#{{ _id }}" type="text" value="{{ content }}" />
@@ -97,7 +96,7 @@
 
     .message .message__actions .actions__confirm, .message .message__actions .actions__cancel,
     .message.editing .message__actions .actions__edit, .message.editing .message__actions .actions__delete,
-    .message .message__content-input input, .message.editing .message__content, .message.poll .message__actions .actions__edit,
+    .message .message__content-input input, .message.editing .message__content,
     .message.voted .message__poll .poll__submit button, .message.voted .message__poll .poll__choice label,
     .message.voted .message__poll .poll__choice input {
         display: none;

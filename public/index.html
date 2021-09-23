@@ -16,6 +16,14 @@
 
   <script>
     //<![CDATA[
+    let username = null;
+    let room = 'Public';
+    let template = null;
+    const duration = 500;
+    let dataCache = {
+      Public: null,
+      Private: null
+    };
 
     // get username of current session
     getSession().then(session => {
@@ -23,15 +31,6 @@
       updateRoom('Public');
       setTimeout(() => document.body.classList.add('loaded'), duration);
     });
-
-    let username = null;
-    let room = 'Public';
-    let template = null;
-    let dataCache = {
-      Public: null,
-      Private: null
-    };
-    const duration = 500;
 
     const updateUser = (newUsername) => {
       username = newUsername;
@@ -212,7 +211,7 @@
     data.forEach(d => {
       const classes = [d.username === username ? 'owned ': '', d.admin ? 'admin': ''];
       d.timeString = getTimeString(d.submitted);
-      if (d.question) {
+      if (d.votes) {
         classes.push('poll');
         d.totalVotes = Object.keys(d.votes).length;
         d.choice1 = d.choices ? d.choices[0] : '';

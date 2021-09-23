@@ -35,23 +35,23 @@ const getTimeString = (submitted) => {
 }
 
 const addMessage = (username, content, room) => {
-    return postChatData('POST', { content, room }, '/message/add');
+    return postChatData('POST', { content, room }, '/chat/message/add');
 }
 
-const deleteMessage = (id, room) => {
-    return postChatData('DELETE', { id, room }, '/message/delete', false);
-}
-
-const updateMessage = (id, content, room) => {
-    return postChatData('PUT', { id, content, room }, '/message/update', false);
-}
-
-const addPoll = (question, choices, room) => {
-    return postChatData('POST', { question, choices, room }, '/poll/add');
+const addPoll = (content, choices, room) => {
+    return postChatData('POST', { content, choices, room }, '/chat/poll/add');
 }
 
 const voteForPoll = (id, choice, room) => {
-    return postChatData('POST', { id, choice, room }, '/poll/vote');
+    return postChatData('POST', { id, choice, room }, '/chat/poll/vote');
+}
+
+const deleteChat = (id, room) => {
+    return postChatData('DELETE', { id, room }, '/chat/delete', false);
+}
+
+const updateChat = (id, content, room) => {
+    return postChatData('PUT', { id, content, room }, '/chat/update', false);
 }
 
 const postChatData = (method, data, endpoint, scrollAllowed = true) => {
