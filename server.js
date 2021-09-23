@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const express = require('express');
 const cookieSession = require('cookie-session');
 const compression = require('compression');
+const helpers = require('view-helpers');
 const { MongoClient, ObjectId } = require('mongodb');
 const { DateTime } = require('luxon');
 require('dotenv').config();
@@ -16,21 +17,24 @@ const server = express();
 server.listen(process.env.PORT || port);
 
 // middleware
-server.use(express.static('public')); // serve all public files
-server.use(express.json()); // parses HTTP request body
 server.use(compression({ level: 6 }));
+server.use(express.static(dir)); // serve all public files
+server.use(express.json()); // parses HTTP request body
 server.use(cookieSession({
   name: 'session:pogchat',
   keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2],
   maxAge: sessionMaxAge
 })); // enables cookie-based sessions
+server.use(helpers('pogchat'));
 
 // database
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@pogchat.kzrfm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const mongoClient = new MongoClient(uri);
 
 // default index.html route
-server.get(['/'], (req, res) => res.sendFile(`${dir}/index.html`));
+server.get(['/'], (req, res) => {
+  res.sendFile(`${dir}/index.html`);
+});
 
 // all chat messages
 server.get('/chat', async (req, res) => {
@@ -73,6 +77,7 @@ server.post('/poll/vote', async (req, res) => {
 server.post('/login', async (req, res) => {
   const auth = await authenticateUser(req.body.username, req.body.secret);
   if (auth) {
+    console.log(`[LOGIN] ${ req.body.username } logged in from a ${ req.isMobile ? 'mobile' : 'desktop' } device.`);
     req.session.username = req.body.username;
     req.session.token = auth.token;
     res.send({ newAccount: auth.newAccount })
@@ -83,6 +88,7 @@ server.post('/login', async (req, res) => {
 
 server.post('/logout', async (req, res) => {
   res.sendStatus(await getMongoClient().then(async client => {
+    console.log(`[LOGOUT] ${ req.session.username } logged out from a ${ req.isMobile ? 'mobile' : 'desktop' } device.`);
     const sessionsCollection = client.db("auth").collection("sessions");
     await sessionsCollection.deleteOne({ username: req.session.username });
     await mongoClient.close();
@@ -93,7 +99,8 @@ server.post('/logout', async (req, res) => {
 
 // returns active session details (if they exist)
 server.get('/session', async (req, res) => {
-  if (await authenticateSession(req.session.username, req.session.token)) {
+  if (req.session.username && await authenticateSession(req.session.username, req.session.token)) {
+    console.log(`[SESSION] ${ req.session.username } retrieved session from a ${ req.isMobile ? 'mobile' : 'desktop' } device.`);
     res.send({ username: req.session.username });
   } else {
     res.sendStatus(404);
