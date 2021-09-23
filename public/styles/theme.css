@@ -16,6 +16,12 @@
     --primary: var(--accent-primary);
     --primary-hover: var(--accent-secondary);
     --primary-focus: var(--accent-tertiary);
+    --secondary: var(--color-primary);
+    --secondary-hover: var(--color-secondary);
+    --secondary-inverse: var(--accent-primary);
+    --contrast: none;
+    --contrast-hover: rgba(255, 255, 255, 0.1);
+    --contrast-inverse: var(--color-primary);
     --background-color: var(--background-primary);
     --card-background-color: var(--background-secondary);
     --form-element-focus-color: var(--accent-primary);
@@ -113,8 +119,14 @@ input:focus {
 
 button {
     width: fit-content;
+    display: flex;
+    align-items: center;
 }
 
 input, button {
     padding: 0.5rem 1rem !important;
+}
+
+button.contrast {
+    border: 2px solid var(--color-primary);
 }
