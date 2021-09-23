@@ -1,51 +1,46 @@
 ## pogchat.io
-Nathan Klingensmith https://a2-iamparadoxdotexe.glitch.me/
+Nathan Klingensmith https://a3-iamparadoxdotexe.glitch.me/
 
-My website is a simple chatroom app that supports account authentication, non-live messaging, message editing, and message deletion.
+My website is a chatroom app that supports sending messages and polls in both a public and private chatroom.
 
 ##### *Instructions* 
 To enter that chat, create an account with a username and password. Passwords are made secure using [bcrypt's](https://www.npmjs.com/package/bcrypt) salting and hashing algorithm.
 
-Once logged in, you should see all current messages in the database. You can add a new message with the input box at the bottom. Once you have sent message, you can edit it's content or delete it entirely using the icon buttons located on the message. *\*You can only edit and delete your own messages.*\*
+Once logged in, you should see the **Public** chatroom with public chat messages from all users.
+You can add a new message with the input box at the bottom or create a poll by clicking the poll icon. 
+Once you have sent a message or poll, you can edit their content or delete it entirely using the icon buttons located at the top right of the message.
+*Note: You can only edit and delete your own messages.*
+By using the tabs at the top of the chat box, you can switch to the **Private** chatroom; any messages here can only be seen by you.
 
-##### *Layout Method*
-Chat messages pulled from the server are organized using a flex-box. If there are too many messages to display on-screen, the flex-box becomes scrollable.
-```
-display: flex;
-flex-direction: column;
-gap: 0.75rem;
-height: 100%;
-overflow-y: auto;
-```
+##### *Challenges* 
+The biggest challenge in realizing this application was adding a private chat where each user could securely access their own MongoDB collection for chat messages and polls.
+To make this work, I had to add a `room` variable to each chat-related POST request to identify what room to manipulate data for.
+In the case of a "Private" room, the chat collection for the specific user was retrieved via their username.
+
+##### *Authentication*
+For authentication, I implemented a username and password form that authenticates user credentials using a hash table stored in MongoDB.
+This was the simplest authentication method and what I used in Assignment 2. I also implemented a cookie session to support persistent sessions.
+
+* Utilized [bcrypt](https://www.npmjs.com/package/bcrypt) to salt and hash plaintext passwords for secure storage in MongoDB.
+* Added a `/login` POST endpoint for creating a new account or logging into an existing one. A cookie is added to the user's browser to store their username and authentication token.
+* Added a `/logout` POST endpoint for clearing the active session.
+* Added a `/session` GET endpoint for retrieving the active session.
+
+##### *CSS Framework*
+Coming soon...
+
+##### *Express Middleware*
+I utilize five different middlewares to improve my Express server:
+* `compression` was utilized to compress response data sent to the client.
+* `express.static` was implemented to serve static image files from the `/public` folder.
+* `express.json` was used to parse JSON request bodies in my POST endpoints.
+* `cookie-session` was implemented to store a cookie in the user's browser for persistent authentication.
+* `view-helpers` was used to log information on whether my users are using the app from desktop or mobile.
 
 ## Technical Achievements
-* **Mustache Templating**:  Implemented [Mustache.js](https://www.npmjs.com/package/mustache) for component templating. 
-    - I used **Mustache** to programmatically add message card components to the website. Server data is provided to each message to display the correct information and ensure each message's buttons point to the correct message based on its `id`.
-- **Message Data**:  Utilized a JSON file to persistently store an array of message objects.
-    - Each message object contains five fields: `id`, `username`, `admin`, `content`, and `submitted`.
-        ```
-        id: "b608c34b-f150-4235-bd92-e092a05f9fe8"
-        username: "Paradoxdotexe"
-        admin: true
-        content: "Welcome to pogchat.io!"
-        submitted: "2021-09-02T15:57:01.040Z"
-      ```
-    - To create a message, a user provides their username and the message content. The server automatically assigns a UUIDv4 id (via [uuid](https://www.npmjs.com/package/uuid)) and submission time (via [luxon](https://www.npmjs.com/package/luxon)) to the object. Lastly, the `admin` field is derived based on if the username equals "Paradoxdotexe" or not (my username).
-    - Message data is stored in `data.json` and can be easily retrieved through the `/results` GET endpoint. The website displays each message's username and content along with the submitted time converted to a human-readable format. If the message is from an admin, it is colored purple to indicate so.
-* **Account Authentication**: Implemented [bcrypt](https://www.npmjs.com/package/bcrypt) for creating a hash table for account password verification.
-    - I used **bcrypt** to salt and hash plaintext passwords for secure storage in a hash table located at `hashes.json`.
-    - I added a `/authenticate` POST endpoint that can be used to create a new account or login to an existing one. In both cases, success returns the user's hash and failure returns a *401 Unauthorized Error*.
-    - For persistent authentication against messaging endpoints, the user's returned hash is used to re-verify the user's identity.
-- **Messaging Endpoints**: Added `/add`, `/delete`, and `/update` POST endpoints for modifying the message database.
-    - The `/add` endpoint takes a username, content, and a hash and adds a new message to the database if the hash matches the hash table entry.
-    - The `/update` endpoint takes a message id, new content, and a hash and updates the specified message's content if the hash matches the hash table entry.
-    - The `/delete` endpoint takes a message id and a hash and deletes the specified message if the hash matches the hash table entry.
+* **Achievement**:  Sentence about achievement...
+    - I did this...
 
 ### Design Achievements
-* **Page Styles**: Many style rules were added throughout the application.
-    - Style rules are split up amongst `styles/global.css`, `styles/index.css`, `styles/theme.css`, and `templates/mustache.css`.
-    - Many dynamic rules were added to react to the classes `joined` and `rendered` being programmatically added to the document body after different events.
-- **Transition Effect**: Added styles to create a smooth transition effect between the login and chat pages.
-    - Style rules were added based on the dynamic `joined` class to detect once the user has joined the chatroom, updating styles accordingly to transition components to and from the page.
-* **Focus Accessibility**: Focus styles were added to all inputs and buttons to support keyboard accessibility.
-    - The `:focus` selector was used to add visible style changes to focused inputs and buttons, making it easy to navigate the page using only a keyboard.
+* **Achievement**:  Sentence about achievement...
+  - I did this...
