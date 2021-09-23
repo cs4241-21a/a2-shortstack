@@ -10,6 +10,7 @@ body {
 }
 
 /* BUTTONS */
+/*
 button {
     width: fit-content;
     min-height: 40px;
@@ -44,7 +45,10 @@ button:disabled {
     opacity: 0.5;
 }
 
+ */
+
 /* INPUT */
+/*
 input, textarea {
     background: var(--background-tertiary);
     border-radius: var(--border-radius);
@@ -55,6 +59,8 @@ input, textarea {
 input:focus, textarea:focus {
     box-shadow: 0 3px var(--accent-primary);
 }
+
+ */
 
 textarea {
     resize: none;

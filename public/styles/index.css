@@ -6,7 +6,6 @@
     width: 45%;
     height: 100%;
     background: var(--accent-primary);
-    z-index: -1;
 }
 
 #texture img {
@@ -25,13 +24,6 @@
 }
 
 /* HEADINGS */
-h1 {
-    font-family: var(--font-family-secondary);
-    text-align: center;
-    font-size: var(--font-size-xxxl);
-    margin-bottom: 1rem;
-}
-
 .joined h1 {
     font-size: var(--font-size-xxl);
     margin: 0;
@@ -43,11 +35,6 @@ h1 {
     }
 }
 
-h2 {
-    text-align: center;
-    font-size: var(--font-size-md);
-    margin-bottom: var(--font-size-xxxl);
-}
 
 .joined h2 {
     font-size: calc(var(--font-size-md) * 0.33);
@@ -274,4 +261,43 @@ h2 {
 /* TRANSITIONS */
 #texture, h1, h2, #join .join__card, #chat {
     transition: all var(--transition-duration) var(--transition-timing-function);
+}
+
+
+.banner {
+    z-index: 50;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: var(--font-size-xxl);
+    margin-bottom: 1rem;
+}
+
+.banner h2 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-md);
+    margin-bottom: var(--font-size-xxxl);
+}
+
+.login {
+    width: 400px;
+    max-width: calc(100% - 40px);
+    z-index: 100;
+    overflow: visible;
+}
+
+.login div {
+    margin-bottom: 2rem;
+}
+
+.login a {
+    font-family: var(--font-family-primary);
+    float: right;
+}
+
+@media (min-width: 576px) {
+    .banner h1 {
+        font-size: var(--font-size-xxxl);
+    }
 }

@@ -10,7 +10,14 @@
     --background-secondary: #282828;
     --background-tertiary: #3A3A3A;
     --accent-primary: #651AC3;
-    --accent-secondary: #531b9d;
+    --accent-secondary: #4f1b94;
+
+    --primary: var(--accent-primary);
+    --primary-hover: var(--accent-secondary);
+    --background-color: var(--background-primary);
+    --card-background-color: var(--background-secondary);
+    --form-element-focus-color: var(--accent-primary);
+    --form-element-border-color: #4b4b4b;
 
     --font-size-sm: 0.875rem;
     --font-size-md: 1rem;
@@ -35,8 +42,11 @@
 
     --border-radius: var(--gap-sm);
     --framework-width: 1000px;
+
+    font-size: 100%;
 }
 
+/*
 body {
     font-family: var(--font-family-primary);
     font-size: 100%;
@@ -50,6 +60,9 @@ body, h1, h2, h3, pre {
     font-weight: normal;
 }
 
+ */
+
+/*
 button, input, textarea {
     color: var(--color-primary);
     fill: var(--color-primary);
@@ -60,7 +73,43 @@ button, input, textarea {
     outline: none;
     cursor: pointer;
 }
+ */
 
+
+
+/*
 * {
     box-sizing: border-box;
+}
+
+ */
+
+* {
+    line-height: 135%;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    font-weight: normal;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-family-secondary);
+    font-weight: normal;
+    margin: 0 0 0.5rem;
+}
+
+input {
+    background: var(--background-tertiary);
+    padding: 0.5rem 1rem !important;
+    height: unset !important;
+}
+
+input:focus {
+    box-shadow: 0 2px var(--accent-primary);
+    border-color: var(--form-element-border-color);
+}
+
+button, a[role=button] {
+    padding: 0.5rem 1rem !important;
 }
