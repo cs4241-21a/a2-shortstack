@@ -11,9 +11,11 @@
     --background-tertiary: #3A3A3A;
     --accent-primary: #651AC3;
     --accent-secondary: #4f1b94;
+    --accent-tertiary: #7632ce;
 
     --primary: var(--accent-primary);
     --primary-hover: var(--accent-secondary);
+    --primary-focus: var(--accent-tertiary);
     --background-color: var(--background-primary);
     --card-background-color: var(--background-secondary);
     --form-element-focus-color: var(--accent-primary);
@@ -101,15 +103,18 @@ h1, h2, h3 {
 
 input {
     background: var(--background-tertiary);
-    padding: 0.5rem 1rem !important;
     height: unset !important;
 }
 
 input:focus {
-    box-shadow: 0 2px var(--accent-primary);
+    box-shadow: 0 2px var(--accent-tertiary);
     border-color: var(--form-element-border-color);
 }
 
-button, a[role=button] {
+button {
+    width: fit-content;
+}
+
+input, button {
     padding: 0.5rem 1rem !important;
 }

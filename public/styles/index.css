@@ -263,7 +263,7 @@
     transition: all var(--transition-duration) var(--transition-timing-function);
 }
 
-
+/* BANNER */
 .banner {
     z-index: 50;
     text-align: center;
@@ -280,6 +280,7 @@
     margin-bottom: var(--font-size-xxxl);
 }
 
+/* LOGIN */
 .login {
     width: 400px;
     max-width: calc(100% - 40px);
@@ -287,11 +288,15 @@
     overflow: visible;
 }
 
+.joined .login {
+    display: none;
+}
+
 .login div {
     margin-bottom: 2rem;
 }
 
-.login a {
+.login button {
     font-family: var(--font-family-primary);
     float: right;
 }
