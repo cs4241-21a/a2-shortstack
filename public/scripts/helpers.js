@@ -3,11 +3,15 @@ const renderTemplate = (template, id, data) => {
 }
 
 const fetchData = async (room) => {
-    console.log(`Fetching ${room} chat data...`);
+    console.log(`Getting ${room} chat data...`);
     return await fetch(`/chat/${ room.toLowerCase() }`).then(async response => {
-        const data = await response.json();
-        console.log(JSON.parse(JSON.stringify(data)));
-        return data;
+        if (response.ok) {
+            const data = await response.json();
+            console.log(JSON.parse(JSON.stringify(data)));
+            return data;
+        }
+        console.log('Failed to get chat data.');
+        return [];
     });
 }
 
@@ -92,6 +96,8 @@ const logout = () => {
 
 const getSession = () => {
     return new Promise(resolve => {
-        fetch('/session', { method: 'GET' }).then(async response => resolve(response.ok ? await response.json() : null));
+        fetch('/session', { method: 'GET' }).then(async response => {
+            resolve(response.ok ? await response.json() : null)
+        });
     });
 }

@@ -37,6 +37,12 @@ h1 {
     margin: 0;
 }
 
+@media (max-width: 556px) {
+    :not(.joined) h1 {
+        font-size: calc(var(--font-size-xxxl) * 0.75);
+    }
+}
+
 h2 {
     text-align: center;
     font-size: var(--font-size-md);
@@ -94,6 +100,16 @@ h2 {
     margin-left: 0;
 }
 
+@media (max-width: 556px) {
+    #actions button span {
+        display: none;
+    }
+
+    #actions button svg {
+        margin: 0;
+    }
+}
+
 /* JOIN */
 #join {
     position: relative;
@@ -148,9 +164,16 @@ h2 {
     margin-left: auto;
 }
 
+@media (max-width: 556px) {
+    #join .join__card {
+        max-width: calc(100vw - 40px);
+    }
+}
+
 /* CHAT */
 #chat {
-    min-width: 480px;
+    width: 480px;
+    max-width: calc(100% - 40px);
     opacity: 0;
     height: 100%;
     overflow: hidden;
@@ -174,7 +197,6 @@ h2 {
 
 #chat .chat__rooms .chat__room {
     min-width: calc((480px - var(--border-radius) * 2) / 4);
-    box-sizing: border-box;
     padding: 0.75rem 1rem calc(0.75rem + var(--border-radius));
     font-family: var(--font-family-secondary);
     font-size: var(--font-size-lg);

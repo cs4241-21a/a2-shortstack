@@ -60,3 +60,7 @@ button, input, textarea {
     outline: none;
     cursor: pointer;
 }
+
+* {
+    box-sizing: border-box;
+}
