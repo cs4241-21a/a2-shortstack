@@ -1,8 +1,8 @@
 const renderTemplate = (template, id, data) =>
     document.getElementById(id).innerHTML = Mustache.render(template, { data });
 
-const fetchData = async () => {
-    return await fetch('chat').then(async response => {
+const fetchData = async (_public = true) => {
+    return await fetch(`/chat/${_public ? 'public' : 'private'}`).then(async response => {
         const data = await response.json();
         console.log('All chat data:');
         console.log(JSON.parse(JSON.stringify(data)));

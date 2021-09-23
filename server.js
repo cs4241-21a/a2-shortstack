@@ -11,7 +11,7 @@ require('dotenv').config();
 const port = 3000;
 const dir = `${__dirname}/public`;
 const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-const defaultRoom = 'General';
+const defaultRoom = 'Public';
 
 // server
 const server = express();
@@ -38,9 +38,18 @@ server.get(['/'], (req, res) => {
 });
 
 // all chat messages
-server.get('/chat', async (req, res) => {
+server.get('/chat/public', async (req, res) => {
   await getMongoClient().then(async client => {
-    const messageCollection = client.db("chat").collection(req.body.room || defaultRoom);
+    const messageCollection = client.db("chat").collection(defaultRoom);
+    const messages = await messageCollection.find().toArray();
+    await mongoClient.close();
+    res.send(messages);
+  }).catch(() => res.sendStatus(500));
+});
+
+server.get('/chat/private', async (req, res) => {
+  await getMongoClient().then(async client => {
+    const messageCollection = client.db("chat").collection(req.body.room);
     const messages = await messageCollection.find().toArray();
     await mongoClient.close();
     res.send(messages);
