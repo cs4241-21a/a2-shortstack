@@ -17,7 +17,7 @@ function cancelEdit(id) {
     updateEditing(false, id);
 }
 
-function beginDelete(id) {
+function _delete(id) {
     deleteMessage(id, room).then();
 }
 
@@ -25,7 +25,7 @@ function vote(e, id) {
     e.preventDefault();
     const selectedInput = document.getElementById(`pollVotingForm#${id}`).querySelector('input[name=choice]:checked');
     if (selectedInput) {
-        voteForPoll(id, selectedInput.value).then();
+        voteForPoll(id, selectedInput.value, room).then();
     }
     return false;
 }
