@@ -250,7 +250,11 @@
     }
   }
 
-  setInterval(() => renderChat(dataCache[room]), 30000);
+  setInterval(() => {
+    if (username) {
+      renderChat(dataCache[room]);
+    }
+  }, 3000);
 </script>
 </body>
 </html>
