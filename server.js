@@ -11,6 +11,7 @@ require('dotenv').config();
 const port = 3000;
 const dir = `${__dirname}/public`;
 const sessionMaxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+const defaultRoom = 'General';
 
 // server
 const server = express();
@@ -39,7 +40,7 @@ server.get(['/'], (req, res) => {
 // all chat messages
 server.get('/chat', async (req, res) => {
   await getMongoClient().then(async client => {
-    const messageCollection = client.db("chat").collection("room1");
+    const messageCollection = client.db("chat").collection(req.body.room || defaultRoom);
     const messages = await messageCollection.find().toArray();
     await mongoClient.close();
     res.send(messages);
@@ -48,28 +49,28 @@ server.get('/chat', async (req, res) => {
 
 // messaging
 server.post('/message/add', async (req, res) => {
-  const response = await addMessage(req.body.content, req.session.username, req.session.token);
+  const response = await addMessage(req.body.content, req.session.username, req.session.token, req.body.room || defaultRoom);
   res.status(response ? 200 : 401).send(response);
 });
 
 server.put('/message/update', async (req, res) => {
-  const response = await updateMessage(req.body.id, req.body.content, req.session.username, req.session.token);
+  const response = await updateMessage(req.body.id, req.body.content, req.session.username, req.session.token, req.body.room || defaultRoom);
   res.status(response ? 200 : 401).send(response);
 });
 
 server.delete('/message/delete', async (req, res) => {
-  const response = await deleteMessage(req.body.id, req.session.username, req.session.token);
+  const response = await deleteMessage(req.body.id, req.session.username, req.session.token, req.body.room || defaultRoom);
   res.status(response ? 200 : 401).send(response);
 });
 
 // polling
 server.post('/poll/add', async (req, res) => {
-  const response = await addPoll(req.body.question, req.body.choices, req.session.username, req.session.token);
+  const response = await addPoll(req.body.question, req.body.choices, req.session.username, req.session.token, req.body.room || defaultRoom);
   res.status(response ? 200 : 401).send(response);
 });
 
 server.post('/poll/vote', async (req, res) => {
-  const response = await voteForPoll(req.body.id, req.body.choice, req.session.username, req.session.token);
+  const response = await voteForPoll(req.body.id, req.body.choice, req.session.username, req.session.token, req.body.room || defaultRoom);
   res.status(response ? 200 : 401).send(response);
 });
 
@@ -109,12 +110,12 @@ server.get('/session', async (req, res) => {
 
 
 // adds new message to data, returns updated data
-const addMessage = async (content, username, token) => {
+const addMessage = async (content, username, token, room) => {
   return getMongoClient().then(async client => {
     let messages = null;
     if (await authenticateToken(username, token, client)) {
       console.log(`[ADD MESSAGE] ${ username } sent a message.`);
-      const messageCollection = client.db("chat").collection("room1");
+      const messageCollection = client.db("chat").collection(room);
       await messageCollection.insertOne({
         username,
         content,
@@ -128,12 +129,12 @@ const addMessage = async (content, username, token) => {
 };
 
 // deletes specified message from data
-const deleteMessage = async (id, username, token) => {
+const deleteMessage = async (id, username, token, room) => {
   return getMongoClient().then(async client => {
     let messages = null;
     if (await authenticateToken(username, token, client)) {
       console.log(`[DELETE MESSAGE] ${ username } deleted a message.`);
-      const messageCollection = client.db("chat").collection("room1");
+      const messageCollection = client.db("chat").collection(room);
       const message = await messageCollection.findOne({ '_id': ObjectId(id) });
       if (message && message['username'] === username) {
         await messageCollection.deleteOne({ '_id': ObjectId(id) });
@@ -146,12 +147,12 @@ const deleteMessage = async (id, username, token) => {
 };
 
 // updates specified message from data
-const updateMessage = async (id, content, username, token) => {
+const updateMessage = async (id, content, username, token, room) => {
   return getMongoClient().then(async client => {
     let messages = null;
     if (await authenticateToken(username, token, client)) {
       console.log(`[UPDATE MESSAGE] ${ username } updated a message.`);
-      const messageCollection = client.db("chat").collection("room1");
+      const messageCollection = client.db("chat").collection(room);
       const message = await messageCollection.findOne({'_id': ObjectId(id)});
       if (message && message['username'] === username) {
         await messageCollection.updateOne({'_id': ObjectId(id)}, { $set: {content} })
@@ -164,12 +165,12 @@ const updateMessage = async (id, content, username, token) => {
 };
 
 // adds new poll to data, returns updated data
-const addPoll = async (question, choices, username, token) => {
+const addPoll = async (question, choices, username, token, room) => {
   return getMongoClient().then(async client => {
     let chat = null;
     if (await authenticateToken(username, token, client)) {
       console.log(`[ADD POLL] ${ username } started a poll.`);
-      const chatCollection = client.db("chat").collection("room1");
+      const chatCollection = client.db("chat").collection(room);
       await chatCollection.insertOne({
         username,
         question,
@@ -185,12 +186,12 @@ const addPoll = async (question, choices, username, token) => {
 };
 
 // votes for a poll, returns updated data
-const voteForPoll = async (id, choice, username, token) => {
+const voteForPoll = async (id, choice, username, token, room) => {
   return getMongoClient().then(async client => {
     let chat = null;
     if (await authenticateToken(username, token, client)) {
       console.log(`[VOTE FOR POLL] ${ username } voted for a poll.`);
-      const chatCollection = client.db("chat").collection("room1");
+      const chatCollection = client.db("chat").collection(room);
       const poll = await chatCollection.findOne({'_id': ObjectId(id)});
       if (poll) {
         poll.votes[username] = choice;
