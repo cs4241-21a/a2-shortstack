@@ -187,7 +187,8 @@ h2 {
 }
 
 #chat .chat__rooms .chat__room:not(.active) {
-    opacity: 0.25;
+    opacity: 0.5;
+    background: var(--background-secondary);
 }
 
 #chat .chat__messages {

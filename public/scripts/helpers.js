@@ -1,10 +1,11 @@
-const renderTemplate = (template, id, data) =>
+const renderTemplate = (template, id, data) => {
     document.getElementById(id).innerHTML = Mustache.render(template, { data });
+}
 
-const fetchData = async (_public = true) => {
-    return await fetch(`/chat/${_public ? 'public' : 'private'}`).then(async response => {
+const fetchData = async (room) => {
+    console.log(`Fetching ${room} chat data...`);
+    return await fetch(`/chat/${ room.toLowerCase() }`).then(async response => {
         const data = await response.json();
-        console.log('All chat data:');
         console.log(JSON.parse(JSON.stringify(data)));
         return data;
     });
@@ -33,24 +34,24 @@ const getTimeString = (submitted) => {
     }
 }
 
-const addMessage = (username, content) => {
-    return postChatData('POST', { content }, '/message/add');
+const addMessage = (username, content, room) => {
+    return postChatData('POST', { content, room }, '/message/add');
 }
 
-const deleteMessage = (id) => {
-    return postChatData('DELETE', { id }, '/message/delete', false);
+const deleteMessage = (id, room) => {
+    return postChatData('DELETE', { id, room }, '/message/delete', false);
 }
 
-const updateMessage = (id, content) => {
-    return postChatData('PUT', { id, content }, '/message/update', false);
+const updateMessage = (id, content, room) => {
+    return postChatData('PUT', { id, content, room }, '/message/update', false);
 }
 
-const addPoll = (question, choices) => {
-    return postChatData('POST', { question, choices }, '/poll/add');
+const addPoll = (question, choices, room) => {
+    return postChatData('POST', { question, choices, room }, '/poll/add');
 }
 
-const voteForPoll = (id, choice) => {
-    return postChatData('POST', { id, choice }, '/poll/vote');
+const voteForPoll = (id, choice, room) => {
+    return postChatData('POST', { id, choice, room }, '/poll/vote');
 }
 
 const postChatData = (method, data, endpoint, scrollAllowed = true) => {

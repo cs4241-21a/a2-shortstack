@@ -20,28 +20,44 @@
     // get username of current session
     getSession().then(session => {
       updateUser(session?.username);
+      updateRoom('Public');
       setTimeout(() => document.body.classList.add('loaded'), duration);
     });
 
     let username = null;
+    let room = 'Public';
     let template = null;
-    let dataCache = null;
+    let dataCache = {
+      Public: null,
+      Private: null
+    };
     const duration = 500;
 
-    const updateUser = (u) => {
-      username = u;
+    const updateUser = (newUsername) => {
+      username = newUsername;
       if (username) {
         document.getElementById('actions').style.display = '';
         document.getElementById('chat').style.display = '';
         setTimeout(() => document.body.classList.add('joined'), 50);
         setTimeout(() => document.getElementById('join').style.display = 'none', duration);
-        renderChat();
       } else {
         document.getElementById('join').style.display = ''
         setTimeout(() => document.body.classList.remove('joined'), 50);
         setTimeout(() => document.getElementById('actions').style.display = 'none', duration);
         setTimeout(() => document.getElementById('chat').style.display = 'none', duration);
       }
+    }
+
+    const updateRoom = (newRoom) => {
+      room = newRoom;
+      if (room === 'Public') {
+        document.getElementById('chatroomPublic').classList.add('active');
+        document.getElementById('chatroomPrivate').classList.remove('active');
+      } else {
+        document.getElementById('chatroomPrivate').classList.add('active');
+        document.getElementById('chatroomPublic').classList.remove('active');
+      }
+      renderChat(dataCache[room], true, true);
     }
 
     const join = async (e) => {
@@ -52,6 +68,7 @@
         login(usernameInput.value, secretInput.value).then(authenticated => {
           if (authenticated) {
             updateUser(usernameInput.value);
+            renderChat();
             usernameInput.value = null;
           } else {
             window.alert('Account password incorrect.');
@@ -65,13 +82,18 @@
     const quit = () => {
       logout();
       updateUser(null);
+      dataCache = {
+        Public: null,
+        Private: null
+      };
+      renderTemplate(template, 'messages', []);
     }
 
     const sendMessage = (e) => {
       e.preventDefault();
       const message = document.getElementById('messageInput');
       if (message.value.length > 0) {
-        addMessage(username, message.value);
+        addMessage(username, message.value, room);
         message.value = null;
       }
       return false;
@@ -80,7 +102,7 @@
     const refresh = async () => {
       const refreshButton = document.getElementById('refreshButton');
       refreshButton.disabled = true;
-      await renderChat(await fetchData());
+      await renderChat(await fetchData(room));
       refreshButton.disabled = false;
     }
 
@@ -104,7 +126,7 @@
       const choices = [document.getElementById('choiceOneInput'), document.getElementById('choiceTwoInput'),
         document.getElementById('choiceThreeInput')].filter(c => c.value.length > 0);
       if (question.value.length > 0 && choices.length >= 2) {
-        addPoll(question.value, choices.map(c => c.value));
+        addPoll(question.value, choices.map(c => c.value), room);
         question.value = null;
         choices.forEach(c => c.value = null);
         cancelPoll(null);
@@ -147,8 +169,8 @@
 
 <div id="chat">
   <div class="chat__rooms">
-    <button class="chat__room active">Public</button>
-    <button class="chat__room">Private</button>
+    <button id="chatroomPublic" class="chat__room" onclick="updateRoom('Public')">Public</button>
+    <button id="chatroomPrivate" class="chat__room" onclick="updateRoom('Private')">Private</button>
   </div>
   <div class="chat__messages" id="messages"></div>
   <form class="chat__input default" onsubmit="return sendMessage(event)">
@@ -175,12 +197,18 @@
 </div>
 
 <script>
-  async function renderChat(data = null, scrollAllowed = true) {
-    if (!data) {
-      data = await fetchData();
+  async function renderChat(data = null, scrollAllowed = true, clearChat = false) {
+    if (clearChat) {
+      const messages = document.getElementById('messages');
+      while (messages.firstChild) {
+        messages.removeChild(messages.firstChild);
+      }
     }
-    const scroll = scrollAllowed ? JSON.stringify(data) !== JSON.stringify(dataCache) : false;
-    dataCache = data; // update data cache for updating time strings
+    if (!data) {
+      data = await fetchData(room);
+    }
+    const scroll = scrollAllowed ? JSON.stringify(data) !== JSON.stringify(dataCache[room]) : false; // auto scroll if data has changed
+    dataCache[room] = data; // update data cache for updating time strings
     data.forEach(d => {
       const classes = [d.username === username ? 'owned ': '', d.admin ? 'admin': ''];
       d.timeString = getTimeString(d.submitted);
@@ -219,7 +247,7 @@
     }
   }
 
-  setInterval(() => renderChat(dataCache), 30000);
+  setInterval(() => renderChat(dataCache[room]), 30000);
 </script>
 </body>
 </html>

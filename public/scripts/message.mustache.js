@@ -9,12 +9,16 @@ function confirmEdit(e, id) {
         e.preventDefault();
     }
     updateEditing(false, id);
-    updateMessage(id, document.getElementById(`contentInput#${id}`).value).then();
+    updateMessage(id, document.getElementById(`contentInput#${id}`).value, room).then();
     return false;
 }
 
 function cancelEdit(id) {
     updateEditing(false, id);
+}
+
+function beginDelete(id) {
+    deleteMessage(id, room).then();
 }
 
 function vote(e, id) {

@@ -37,49 +37,41 @@ server.get(['/'], (req, res) => {
   res.sendFile(`${dir}/index.html`);
 });
 
-// all chat messages
+// chat data
 server.get('/chat/public', async (req, res) => {
-  await getMongoClient().then(async client => {
-    const messageCollection = client.db("chat").collection(defaultRoom);
-    const messages = await messageCollection.find().toArray();
-    await mongoClient.close();
-    res.send(messages);
-  }).catch(() => res.sendStatus(500));
+  const response = await getChat(req.session.username, req.session.token, defaultRoom);
+  res.status(response ? 200 : 401).send(response);
 });
 
 server.get('/chat/private', async (req, res) => {
-  await getMongoClient().then(async client => {
-    const messageCollection = client.db("chat").collection(req.body.room);
-    const messages = await messageCollection.find().toArray();
-    await mongoClient.close();
-    res.send(messages);
-  }).catch(() => res.sendStatus(500));
+  const response = await getChat(req.session.username, req.session.token, req.session.username);
+  res.status(response ? 200 : 401).send(response);
 });
 
 // messaging
 server.post('/message/add', async (req, res) => {
-  const response = await addMessage(req.body.content, req.session.username, req.session.token, req.body.room || defaultRoom);
+  const response = await addMessage(req.body.content, req.session.username, req.session.token, req.body.room === defaultRoom ? defaultRoom : req.session.username);
   res.status(response ? 200 : 401).send(response);
 });
 
 server.put('/message/update', async (req, res) => {
-  const response = await updateMessage(req.body.id, req.body.content, req.session.username, req.session.token, req.body.room || defaultRoom);
+  const response = await updateMessage(req.body.id, req.body.content, req.session.username, req.session.token, req.body.room === defaultRoom ? defaultRoom : req.session.username);
   res.status(response ? 200 : 401).send(response);
 });
 
 server.delete('/message/delete', async (req, res) => {
-  const response = await deleteMessage(req.body.id, req.session.username, req.session.token, req.body.room || defaultRoom);
+  const response = await deleteMessage(req.body.id, req.session.username, req.session.token, req.body.room === defaultRoom ? defaultRoom : req.session.username);
   res.status(response ? 200 : 401).send(response);
 });
 
 // polling
 server.post('/poll/add', async (req, res) => {
-  const response = await addPoll(req.body.question, req.body.choices, req.session.username, req.session.token, req.body.room || defaultRoom);
+  const response = await addPoll(req.body.question, req.body.choices, req.session.username, req.session.token, req.body.room === defaultRoom ? defaultRoom : req.session.username);
   res.status(response ? 200 : 401).send(response);
 });
 
 server.post('/poll/vote', async (req, res) => {
-  const response = await voteForPoll(req.body.id, req.body.choice, req.session.username, req.session.token, req.body.room || defaultRoom);
+  const response = await voteForPoll(req.body.id, req.body.choice, req.session.username, req.session.token, req.body.room === defaultRoom ? defaultRoom : req.session.username);
   res.status(response ? 200 : 401).send(response);
 });
 
@@ -117,6 +109,19 @@ server.get('/session', async (req, res) => {
   }
 });
 
+// get chat data
+const getChat = async (username, token, room) => {
+  return getMongoClient().then(async client => {
+    let messages = null;
+    if (await authenticateToken(username, token, client)) {
+      console.log(`[GET CHAT] ${ username } retrieved the chatroom "${ room }".`);
+      const messageCollection = client.db("chat").collection(room);
+      messages = await messageCollection.find().toArray();
+    }
+    await mongoClient.close();
+    return messages;
+  }).catch(() => null);
+};
 
 // adds new message to data, returns updated data
 const addMessage = async (content, username, token, room) => {
@@ -224,6 +229,7 @@ const authenticateUser = async (username, secret) => {
     } else {
       const hash = bcrypt.hashSync(secret, 10);
       await hashesCollection.insertOne({ username, hash });
+      await client.db("chat").createCollection(username); // create private chatroom for new user
       auth = { token: await generateToken(username, client), newAccount: true };
     }
     await mongoClient.close();
