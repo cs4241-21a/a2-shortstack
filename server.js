@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const express = require('express');
 const cookieSession = require('cookie-session');
+const compression = require('compression');
 const { MongoClient, ObjectId } = require('mongodb');
 const { DateTime } = require('luxon');
 require('dotenv').config();
@@ -17,11 +18,12 @@ server.listen(process.env.PORT || port);
 // middleware
 server.use(express.static('public')); // serve all public files
 server.use(express.json()); // parses HTTP request body
+server.use(compression({ level: 6 }));
 server.use(cookieSession({
   name: 'session:pogchat',
   keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2],
   maxAge: sessionMaxAge
-}));
+})); // enables cookie-based sessions
 
 // database
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@pogchat.kzrfm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
