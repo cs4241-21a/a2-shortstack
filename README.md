@@ -27,7 +27,14 @@ This was the simplest authentication method and what I used in Assignment 2. I a
 * Added a `/session` GET endpoint for retrieving the active session.
 
 ##### *CSS Framework*
-Coming soon...
+I used [Pico.css](https://picocss.com/) as my chosen CSS framework to revamp my website with better, more uniform styles.
+
+I modified parts of this framework to give my website the exact aesthetic I sought to achieve:
+* I restyled radio buttons for polls.
+* I reduced padding on input boxes.
+* I modified the colors of `secondary` and `contrast` buttons to fit the theme better.
+* I reduced margin in places to maintain relational proximity.
+* I customized Pico colors and other root variables in `theme.css`.
 
 ##### *Express Middleware*
 I utilize five different middlewares to improve my Express server:

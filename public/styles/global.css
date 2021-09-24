@@ -16,7 +16,6 @@ body {
     width: 45%;
     height: 100%;
     background: var(--accent-primary);
-    transition: all var(--transition-duration) var(--transition-timing-function);
 }
 
 .texture img {
@@ -28,10 +27,6 @@ body {
     opacity: 0.2;
     object-fit: cover;
     object-position: right;
-}
-
-.joined .texture {
-    width: 30%
 }
 
 /* BANNER */

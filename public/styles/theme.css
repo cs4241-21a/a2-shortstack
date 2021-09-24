@@ -43,47 +43,11 @@
     --box-shadow-down: 0 var(--shadow-offset) var(--shadow-blur) rgb(0, 0, 0, var(--shadow-intensity));
     --box-shadow-up: 0 calc(var(--shadow-offset) * -1) var(--shadow-blur) rgb(0, 0, 0, var(--shadow-intensity));
 
-    --gap-xs: 4px;
-    --gap-sm: 8px;
-    --gap-md: 16px;
-
     --transition-duration: 500ms;
     --transition-timing-function: ease;
-    --transition-delay: 250ms;
-
-    --framework-width: 1000px;
 
     font-size: 100%;
 }
-
-/*
-body {
-    font-family: var(--font-family-primary);
-    font-size: 100%;
-    background: var(--background-primary);
-    color: var(--color-primary);
-}
-
-body, h1, h2, h3, pre {
-    margin: 0;
-    line-height: 135%;
-    font-weight: normal;
-}
-
- */
-
-/*
-button, input, textarea {
-    color: var(--color-primary);
-    fill: var(--color-primary);
-    font-family: var(--font-family-primary);
-    font-size: 100%;
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
- */
 
 * {
     line-height: 135%;
