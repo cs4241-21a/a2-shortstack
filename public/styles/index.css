@@ -1,169 +1,3 @@
-/* JOIN */
-#join {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    z-index: 1;
-}
-
-#join .join__card {
-    position: absolute;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-}
-
-.joined #join .join__card {
-    opacity: 0;
-    margin-top: 100vh;
-    transform: scale(0.33);
-}
-
-#join .join__card .title {
-    font-family: var(--font-family-secondary);
-    font-size: var(--font-size-xxl);
-    margin-bottom: 1rem;
-}
-
-#join .join__card .subtitle {
-    margin-bottom: 1.5rem;
-}
-
-#join .join__card .subtitle strong {
-    font-weight: 500;
-}
-
-#join .join__card form {
-    display: flex;
-    flex-direction: column;
-}
-
-#join .join__card small {
-    font-size: var(--font-size-sm);
-    margin-bottom: 0.25rem;
-}
-
-#join .join__card input {
-    margin-bottom: 0.75rem;
-}
-
-#join .join__card button {
-    margin-top: 0.75rem;
-    margin-left: auto;
-}
-
-@media (max-width: 556px) {
-    #join .join__card {
-        max-width: calc(100vw - 40px);
-    }
-}
-
-/* CHAT */
-#chat {
-    width: 480px;
-    max-width: calc(100% - 40px);
-    opacity: 0;
-    height: 100%;
-    overflow: hidden;
-    transform: translateY(100vh);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 100;
-}
-
-.joined #chat {
-    opacity: 1;
-    transform: none;
-}
-
-#chat .chat__rooms {
-    margin: 0 var(--border-radius) calc(-1 * var(--border-radius));
-    display: flex;
-    z-index: 101;
-}
-
-#chat .chat__rooms .chat__room {
-    min-width: calc((480px - var(--border-radius) * 2) / 4);
-    padding: 0.75rem 1rem calc(0.75rem + var(--border-radius));
-    font-family: var(--font-family-secondary);
-    font-size: var(--font-size-lg);
-    box-shadow: var(--box-shadow-down);
-    background: var(--accent-primary);
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-    display: flex;
-    justify-content: center;
-}
-
-#chat .chat__rooms .chat__room:not(.active) {
-    opacity: 0.5;
-    background: var(--background-secondary);
-}
-
-#chat .chat__messages {
-    height: 100%;
-    overflow-y: auto;
-    padding: 1rem;
-    box-shadow: var(--box-shadow-down);
-    background: var(--background-secondary);
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    z-index: 102;
-}
-
-.rendered #chat .chat__messages {
-    scroll-behavior: smooth;
-}
-
-#chat .chat__input {
-    padding: 1rem;
-    background: var(--background-secondary);
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
-    box-shadow: var(--box-shadow-up);
-    transition: margin-bottom var(--transition-duration) var(--transition-timing-function);
-    z-index: 103;
-}
-
-#chat .chat__input.poll {
-    margin-bottom: -275px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-#chat .chat__input .input__bottom {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-}
-
-
-#chat .chat__input.poll .input__bottom {
-    margin-top: 8px;
-}
-
-#chat .chat__input.default input {
-    width: 100%;
-}
-
-#chat .chat__input.default.disabled {
-    margin-bottom: -72px;
-}
-
-#chat .chat__input.poll.enabled {
-    margin-bottom: 0;
-}
-
-/* TRANSITIONS */
-#texture, h1, h2, #join .join__card, #chat {
-    transition: all var(--transition-duration) var(--transition-timing-function);
-}
-
 /* TEXTURE */
 .texture {
     position: absolute;
@@ -197,14 +31,24 @@
 }
 
 .banner h1 {
-    font-size: calc(var(--font-size-xxxl) * 0.75);
+    font-size: var(--font-size-xxxl);
     margin-bottom: 1rem;
+}
+
+.joined .banner h1 {
+    font-size: var(--font-size-xxl);
+    margin: 0;
 }
 
 .banner h2 {
     font-family: var(--font-family-primary);
     font-size: var(--font-size-md);
     margin-bottom: var(--font-size-xxxl);
+}
+
+.joined .banner h2 {
+    font-size: calc(var(--font-size-md) * 0.33);
+    opacity: 0;
 }
 
 /* LOGIN */
@@ -244,18 +88,111 @@
 }
 
 .actions button span {
-    display: none;
+    margin-left: 0.5rem;
 }
 
+/* CHAT */
+.chat {
+    width: 480px;
+    max-width: calc(100% - 40px);
+    height: 100%;
+    z-index: 100;
+    overflow: hidden;
+    padding-top: var(--outline-width);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat .chat__rooms {
+    padding: 0 var(--border-radius);
+    display: flex;
+}
+
+.chat .chat__rooms button {
+    margin: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.chat .chat__rooms button.active {
+    z-index: 101;
+}
+
+.chat .chat__rooms button:not(.active) {
+    opacity: 0.5;
+}
+
+.chat > article {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 110;
+}
+
+.chat .chat__messages {
+    overflow-y: auto;
+    height: 100%;
+    padding: var(--block-spacing-vertical) var(--block-spacing-horizontal);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.chat.rendered .chat__messages {
+    scroll-behavior: smooth;
+}
+
+.chat .chat__input {
+    padding: 1rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    z-index: 120;
+    transition: margin-bottom var(--transition-duration) var(--transition-timing-function);
+}
+
+.chat .chat__input.message {
+    min-height: 74px;
+}
+
+.chat .chat__input.poll {
+    min-height: 338px;
+    margin-bottom: -338px;
+}
+
+.chat .chat__input .input__row {
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.chat .chat__input .input__row input, .chat .chat__input .input__row button {
+    margin: 0;
+}
+
+.chat .chat__input.poll form {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat .chat__input.message.disabled {
+    margin-bottom: -74px;
+}
+
+.chat .chat__input.poll.enabled {
+    margin-bottom: 0;
+}
 
 /* MEDIA QUERIES */
-@media (min-width: 576px) {
+@media (max-width: 576px) {
     :not(.joined) .banner h1 {
-        font-size: var(--font-size-xxxl);
+        font-size: calc(var(--font-size-xxxl) * 0.75);
     }
 
     .actions button span {
-        display: inline;
-        margin-left: 0.5rem;
+        display: none;
     }
 }
