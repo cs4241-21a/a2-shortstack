@@ -45,8 +45,13 @@ I utilize five different middlewares to improve my Express server:
 * `view-helpers` was used to log information on whether my users are using the app from desktop or mobile.
 
 ## Technical Achievements
+* **Public and Private Data**: Added endpoints for both public data and private, user-specific data.
+  - The endpoint `/chat/public` was added to get all chat data for the public chatroom.
+  - The endpoint `/chat/private` was added to get all chat data that a user sent in their own, private chatroom.
+  - User data was clearly divided in MongoDB through the use of separate collections. For example, a user named "Guest1" would have their own collection created in MongoDB named "Guest1" for storing their private chatroom data. This data can only be retrieved through authentication from the respective endpoint.
 * **100% Lighthouse Scores**: Achieved 100% on all four lighthouse tests.
     - I debugged problems with my code until I achieved 100% in all four Lighthouse testing areas: Performance, Accessibility, Best Practices, and SEO. This was confirmed on both `index.html` and `chat.html` (logged out and logged in).
+    - Image of inspection: https://gyazo.com/ce13530c51c8a3575bcc19d45eb57ad0
 
 ### Design Achievements
 * **W3C Accessibility Tips**:  Implemented 12 tips from W3C to improve my website's accessibility.
