@@ -1,253 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" data-theme="dark">
 <head>
   <title>pogchat.io</title>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="A simple chat app for messaging with your friends and running polls." />
   <link rel="icon" href="assets/favicon.png">
 
+    <!-- styles -->
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
   <link rel="stylesheet" href="styles/theme.css" />
   <link rel="stylesheet" href="styles/global.css" />
   <link rel="stylesheet" href="styles/index.css" />
 
+  <!-- scripts -->
   <script src="https://unpkg.com/mustache@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
-  <script src="scripts/message.mustache.js"></script>
-  <script src="scripts/helpers.js"></script>
-
-  <script>
-    //<![CDATA[
-
-    // get username of current session
-    getSession().then(session => {
-      updateUser(session?.username);
-      updateRoom('Public');
-      setTimeout(() => document.body.classList.add('loaded'), duration);
-    });
-
-    let username = null;
-    let room = 'Public';
-    let template = null;
-    let dataCache = {
-      Public: null,
-      Private: null
-    };
-    const duration = 500;
-
-    const updateUser = (newUsername) => {
-      username = newUsername;
-      if (username) {
-        document.getElementById('actions').style.display = '';
-        document.getElementById('chat').style.display = '';
-        setTimeout(() => document.body.classList.add('joined'), 50);
-        setTimeout(() => document.getElementById('join').style.display = 'none', duration);
-      } else {
-        document.getElementById('join').style.display = ''
-        setTimeout(() => document.body.classList.remove('joined'), 50);
-        setTimeout(() => document.getElementById('actions').style.display = 'none', duration);
-        setTimeout(() => document.getElementById('chat').style.display = 'none', duration);
-      }
-    }
-
-    const updateRoom = (newRoom) => {
-      room = newRoom;
-      if (room === 'Public') {
-        document.getElementById('chatroomPublic').classList.add('active');
-        document.getElementById('chatroomPrivate').classList.remove('active');
-      } else {
-        document.getElementById('chatroomPrivate').classList.add('active');
-        document.getElementById('chatroomPublic').classList.remove('active');
-      }
-      renderChat(dataCache[room], true, true);
-    }
-
-    const join = async (e) => {
-      e.preventDefault();
-      const usernameInput = document.getElementById('usernameInput');
-      const secretInput = document.getElementById('secretInput');
-      if (usernameInput.value && secretInput.value) {
-        login(usernameInput.value, secretInput.value).then(authenticated => {
-          if (authenticated) {
-            updateUser(usernameInput.value);
-            renderChat();
-            usernameInput.value = null;
-          } else {
-            window.alert('Account password incorrect.');
-          }
-          secretInput.value = null;
-        });
-      }
-      return false;
-    }
-
-    const quit = () => {
-      logout();
-      updateUser(null);
-      dataCache = {
-        Public: null,
-        Private: null
-      };
-      renderTemplate(template, 'messages', []);
-    }
-
-    const sendMessage = (e) => {
-      e.preventDefault();
-      const message = document.getElementById('messageInput');
-      if (message.value.length > 0) {
-        addMessage(username, message.value, room);
-        message.value = null;
-      }
-      return false;
-    }
-
-    const refresh = async () => {
-      const refreshButton = document.getElementById('refreshButton');
-      refreshButton.disabled = true;
-      await renderChat(await fetchData(room));
-      refreshButton.disabled = false;
-    }
-
-    const startPoll = (e) => {
-      e.preventDefault();
-      document.getElementsByClassName('chat__input default')[0].classList.add('disabled');
-      document.getElementsByClassName('chat__input poll')[0].classList.add('enabled');
-    }
-
-    const cancelPoll = (e) => {
-      if (e) {
-        e.preventDefault();
-      }
-      document.getElementsByClassName('chat__input default')[0].classList.remove('disabled');
-      document.getElementsByClassName('chat__input poll')[0].classList.remove('enabled');
-    }
-
-    const createPoll = (e) => {
-      e.preventDefault();
-      const question = document.getElementById('questionInput');
-      const choices = [document.getElementById('choiceOneInput'), document.getElementById('choiceTwoInput'),
-        document.getElementById('choiceThreeInput')].filter(c => c.value.length > 0);
-      if (question.value.length > 0 && choices.length >= 2) {
-        addPoll(question.value, choices.map(c => c.value), room);
-        question.value = null;
-        choices.forEach(c => c.value = null);
-        cancelPoll(null);
-      }
-      return false;
-    }
-    //]]>
-  </script>
+  <script src="scripts/ApiService.js"></script>
+  <script src="scripts/ClientService.js"></script>
+  <script src="scripts/HelperService.js"></script>
 </head>
 
 <body>
-<div id="texture"><img src="assets/texture.jpg" alt="" /></div>
-<h1>pogchat.io</h1>
-<h2>a chat for all my pogchamps</h2>
-
-<div id="actions">
-  <button class="actions__logout" onclick="quit()">
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><g><path d="M5,5h6c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h6c0.55,0,1-0.45,1-1v0 c0-0.55-0.45-1-1-1H5V5z"/><path d="M20.65,11.65l-2.79-2.79C17.54,8.54,17,8.76,17,9.21V11h-7c-0.55,0-1,0.45-1,1v0c0,0.55,0.45,1,1,1h7v1.79 c0,0.45,0.54,0.67,0.85,0.35l2.79-2.79C20.84,12.16,20.84,11.84,20.65,11.65z"/></g></g></svg>
-    Log out
-  </button>
-  <button id="refreshButton" class="actions__refresh" onclick="refresh()">
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.65 6.35c-1.63-1.63-3.94-2.57-6.48-2.31-3.67.37-6.69 3.35-7.1 7.02C3.52 15.91 7.27 20 12 20c3.19 0 5.93-1.87 7.21-4.56.32-.67-.16-1.44-.9-1.44-.37 0-.72.2-.88.53-1.13 2.43-3.84 3.97-6.8 3.31-2.22-.49-4.01-2.3-4.48-4.52C5.31 9.44 8.26 6 12 6c1.66 0 3.14.69 4.22 1.78l-1.51 1.51c-.63.63-.19 1.71.7 1.71H19c.55 0 1-.45 1-1V6.41c0-.89-1.08-1.34-1.71-.71l-.64.65z"/></svg>
-    Refresh
-  </button>
+<div class="texture">
+  <img src="assets/texture.jpg" alt="" />
 </div>
 
-<div id="join">
-  <div class="join__card card">
-    <div class="title">Join the chatroom</div>
-    <div class="subtitle">Login to an existing account or create a new one to begin chatting!</div>
-    <form onsubmit="return join(event)">
-      <small>Username</small>
-      <input type="text" id="usernameInput" placeholder="Enter username" />
-      <small>Password</small>
-      <input type="password" id="secretInput" placeholder="Enter password" />
-      <button id="joinButton">Join</button>
-    </form>
-  </div>
+<div class="banner">
+  <h1>pogchat.io</h1>
+  <h2>a chat for all my pogchamps</h2>
 </div>
 
-<div id="chat">
-  <div class="chat__rooms">
-    <button id="chatroomPublic" class="chat__room" onclick="updateRoom('Public')">Public</button>
-    <button id="chatroomPrivate" class="chat__room" onclick="updateRoom('Private')">Private</button>
-  </div>
-  <div class="chat__messages" id="messages"></div>
-  <form class="chat__input default" onsubmit="return sendMessage(event)">
-    <div class="input__bottom">
-      <input type="text" id="messageInput" placeholder="Write a reply" />
-      <button type="submit" id="sendButton">Send</button>
-      <button id="startPollButton" class="icon" onclick="startPoll(event)">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18.5 4c.83 0 1.5.67 1.5 1.5v13c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5v-13c0-.83.67-1.5 1.5-1.5zm-12 10c.83 0 1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5S5 19.33 5 18.5v-3c0-.83.67-1.5 1.5-1.5zm6-5c.83 0 1.5.67 1.5 1.5v8c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5v-8c0-.83.67-1.5 1.5-1.5z"/></svg>
-      </button>
-    </div>
+<article id="login" class="login">
+  <h2>Join the chatroom</h2>
+  <div>Login to an existing account or create a new one to begin chatting!</div>
+  <form onsubmit="return ClientService.login(event)">
+    <label for="usernameInput">
+      Username
+      <input type="text" id="usernameInput" placeholder="Enter username" required>
+    </label>
+    <label for="secretInput">
+      Password
+      <input type="password" id="secretInput" placeholder="Enter password" required>
+    </label>
+    <button type="submit">Join</button>
   </form>
-  <form class="chat__input poll" onsubmit="return createPoll(event)">
-    <textarea id="questionInput" placeholder="Ask a question"></textarea>
-    <input type="text" id="choiceOneInput" placeholder="Choice 1" />
-    <input type="text" id="choiceTwoInput" placeholder="Choice 2" />
-    <input type="text" id="choiceThreeInput" placeholder="Choice 3" />
-    <div class="input__bottom">
-      <button type="submit" id="createPollButton">Create poll</button>
-      <button id="cancelPollButton" class="secondary icon" onclick="cancelPoll(event)">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg>
-      </button>
-    </div>
-  </form>
-</div>
-
-<script>
-  async function renderChat(data = null, scrollAllowed = true, clearChat = false) {
-    if (clearChat) {
-      const messages = document.getElementById('messages');
-      while (messages.firstChild) {
-        messages.removeChild(messages.firstChild);
-      }
-    }
-    if (!data) {
-      data = await fetchData(room);
-    }
-    const scroll = scrollAllowed ? JSON.stringify(data) !== JSON.stringify(dataCache[room]) : false; // auto scroll if data has changed
-    dataCache[room] = data; // update data cache for updating time strings
-    data.forEach(d => {
-      const classes = [d.username === username ? 'owned ': '', d.admin ? 'admin': ''];
-      d.timeString = getTimeString(d.submitted);
-      if (d.question) {
-        classes.push('poll');
-        d.totalVotes = Object.keys(d.votes).length;
-        d.choice1 = d.choices ? d.choices[0] : '';
-        d.choice2 = d.choices ? d.choices[1] : '';
-        d.choice3 = d.choices ? d.choices[2] : '';
-        d.choice3Display = d.choices.length > 2 ? 'flex' : 'none';
-        if (d.votes[username]) {
-          classes.push('voted');
-          d.choice1Percentage = `${(Object.values(d.votes).filter(v => v === d.choices[0]).length / d.totalVotes) * 100}%`;
-          d.choice2Percentage = `${(Object.values(d.votes).filter(v => v === d.choices[1]).length / d.totalVotes) * 100}%`;
-          d.choice3Percentage = `${(Object.values(d.votes).filter(v => v === d.choices[2]).length / d.totalVotes) * 100}%`;
-        }
-      }
-      d.class = classes.join(' ');
-    });
-
-    if (template) {
-      _renderChat(data, scroll);
-    } else {
-      fetch('templates/message.mustache').then(response => response.text()).then(t => {
-        template = t;
-        _renderChat(data, scroll);
-        document.body.classList.add('rendered');
-      });
-    }
-  }
-
-  function _renderChat(data, scroll) {
-    renderTemplate(template, 'messages', data);
-    if (scroll) {
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-    }
-  }
-
-  setInterval(() => renderChat(dataCache[room]), 30000);
-</script>
+</article>
 </body>
 </html>
