@@ -45,9 +45,20 @@ I utilize five different middlewares to improve my Express server:
 * `view-helpers` was used to log information on whether my users are using the app from desktop or mobile.
 
 ## Technical Achievements
-* **Achievement**:  Sentence about achievement...
-    - I did this...
+* **100% Lighthouse Scores**: Achieved 100% on all four lighthouse tests.
+    - I debugged problems with my code until I achieved 100% in all four Lighthouse testing areas: Performance, Accessibility, Best Practices, and SEO. This was confirmed on both `index.html` and `chat.html` (logged out and logged in).
 
 ### Design Achievements
-* **Achievement**:  Sentence about achievement...
-  - I did this...
+* **W3C Accessibility Tips**:  Implemented 12 tips from W3C to improve my website's accessibility.
+  - `Provide sufficient contrast between foreground and background` I used white text on a dark purple background to reach a contrast ratio of 8.43:1--surpassing WCAG's recommended contrast ratio of 7:1.
+  - `Ensure that form elements include clearly associated labels` To label all form fields, I used descriptive placeholder text like "Write a reply" and "Ask a question" to clearly show the expected behavior of each input. This works well for an interactive chat app like pogchat.io.
+  - `Provide clear instructions` In the "Join the chatroom" box, I provide a clear notice that you can either "login to an existing account" or "create a new one" with the same form.
+  - `Keep content clear and concise` On all pages, I reduced the content to only what is needed to be as concise as possible. For chat messages, this included showing the user's name, what they said, and when they said it--the three essential pieces of communication.
+  - `Provide easily identifiable feedback` In the cases where I need to notify the user of specific events like creating an account or entering a wrong password, I used alert boxes to provide clear, identifiable feedback.
+  - `Create designs for different viewport sizes` To ensure users on mobile would have the same functionality as those on desktop, I tested the app at varying mobile screen sizes. Adjustments were made to the CSS using media queries to ensure compatibility.
+  - `Include alternative text for images` For the one image on my site that is used to add texture to the background, I actually removed the alternative text to improve accessibility. Since the image provides no new content, but just an aesthetic difference, an alt attribute was not used.
+  - `Identify page language and language changes` I specified the English language using `lang="en"` on both of my HTML pages.
+  - `Reflect the reading order in the code order` I ensured all of my code follows the natural reading order that is  displayed on the site. For example, messages have a username, content, and then timestamp in that order.
+  - `Write code that adapts to the user’s technology` I used media queries to reduce the "pogchat.io" font size and reduce the menu buttons to just icons at small screen sizes.
+  - `Ensure that all interactive elements are keyboard accessible` I ensured all elements have a clearly identifiable `:focus` state to support keyboard accessibility on all interactive elements.
+  - `Provide meaning for non-standard interactive elements` For all icon buttons, I specified an `aria-label` to provide further meaning. This improved the accessibility for the buttons to add a poll and to edit or delete a message.
