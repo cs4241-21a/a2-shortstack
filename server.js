@@ -19,7 +19,6 @@ server.listen(process.env.PORT || port);
 
 // middleware
 server.use(compression({ level: 6 }));
-server.use(express.static(dir)); // serve all public files
 server.use(express.json()); // parses HTTP request body
 server.use(cookieSession({
   name: 'session:pogchat',
@@ -28,14 +27,21 @@ server.use(cookieSession({
 })); // enables cookie-based sessions
 server.use(helpers('pogchat')); // adds helper functions like req.isMobile
 
+// default index.html route
+server.get('/', async (req, res) => {
+  if (req.session.username && await authenticateSession(req.session.username, req.session.token)) {
+    res.sendFile(`${dir}/chat.html`);
+  } else {
+    res.sendFile(`${dir}/index.html`);
+  }
+});
+
+// middleware
+server.use(express.static(dir)); // serve all public files
+
 // database
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@pogchat.kzrfm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const mongoClient = new MongoClient(uri);
-
-// default index.html route
-server.get(['/'], (req, res) => {
-  res.sendFile(`${dir}/index.html`);
-});
 
 // chat data
 server.get('/chat/public', async (req, res) => {

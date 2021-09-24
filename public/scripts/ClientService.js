@@ -1,17 +1,6 @@
 class ClientService {
     static updateUser = (newUsername) => {
         username = newUsername;
-        if (username) {
-            document.getElementById('actions').style.display = '';
-            document.getElementById('chat').style.display = '';
-            setTimeout(() => document.body.classList.add('joined'), 50);
-            setTimeout(() => document.getElementById('login').style.display = 'none', duration);
-        } else {
-            document.getElementById('login').style.display = ''
-            setTimeout(() => document.body.classList.remove('joined'), 50);
-            setTimeout(() => document.getElementById('actions').style.display = 'none', duration);
-            setTimeout(() => document.getElementById('chat').style.display = 'none', duration);
-        }
     }
 
     static updateRoom = (newRoom) => {
@@ -33,9 +22,7 @@ class ClientService {
         if (usernameInput.value && secretInput.value) {
             ApiService.login(usernameInput.value, secretInput.value).then(authenticated => {
                 if (authenticated) {
-                    ClientService.updateUser(usernameInput.value);
-                    ClientService.updateRoom('Public');
-                    usernameInput.value = null;
+                    window.location.href = "/";
                 } else {
                     window.alert('Account password incorrect.');
                 }
@@ -45,14 +32,9 @@ class ClientService {
         return false;
     }
 
-    static logout = () => {
-        ApiService.logout();
-        ClientService.updateUser(null);
-        dataCache = {
-            Public: null,
-            Private: null
-        };
-        HelperService.renderTemplate(template, 'messages', []);
+    static logout = async () => {
+        await ApiService.logout();
+        window.location.href = '/';
     }
 
     static refresh = async () => {

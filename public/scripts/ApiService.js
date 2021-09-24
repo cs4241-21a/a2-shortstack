@@ -65,7 +65,7 @@ class ApiService {
   }
 
   static logout = () => {
-    fetch('/logout', { method: 'POST' }).then();
+    return fetch('/logout', { method: 'POST' });
   }
 
   static getSession = () => {

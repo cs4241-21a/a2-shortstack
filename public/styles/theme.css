@@ -111,12 +111,13 @@ input:not([type=radio]):focus, textarea:focus {
     box-shadow: 0 0.2rem var(--accent-tertiary);
 }
 
-input:not([type=radio]).accent {
-    background: var(--accent-secondary);
+input:not([type=radio]).dark {
+    background: var(--background-secondary);
 }
 
 input[type=radio] {
     border-color: var(--background-tertiary);
+    background-color: var(--background-tertiary);
     box-shadow: 0 0 0 1px white;
     transition: background-color 0s;
     width: 1rem;
@@ -131,6 +132,7 @@ button {
     width: fit-content;
     display: flex;
     align-items: center;
+    margin: 0;
 }
 
 input:not([type=radio]), button {

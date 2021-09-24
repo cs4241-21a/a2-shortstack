@@ -1,66 +1,9 @@
-/* TEXTURE */
-.texture {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 45%;
-    height: 100%;
-    background: var(--accent-primary);
-    transition: all var(--transition-duration) var(--transition-timing-function);
-}
-
-.texture img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.2;
-    object-fit: cover;
-    object-position: right;
-}
-
-.joined .texture {
-    width: 30%
-}
-
-/* BANNER */
-.banner {
-    z-index: 50;
-    text-align: center;
-}
-
-.banner h1 {
-    font-size: var(--font-size-xxxl);
-    margin-bottom: 1rem;
-}
-
-.joined .banner h1 {
-    font-size: var(--font-size-xxl);
-    margin: 0;
-}
-
-.banner h2 {
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-md);
-    margin-bottom: var(--font-size-xxxl);
-}
-
-.joined .banner h2 {
-    font-size: calc(var(--font-size-md) * 0.33);
-    opacity: 0;
-}
-
 /* LOGIN */
 .login {
     width: 400px;
     max-width: calc(100% - 40px);
     z-index: 100;
     overflow: visible;
-}
-
-.joined .login {
-    display: none;
 }
 
 .login div {
@@ -72,127 +15,9 @@
     float: right;
 }
 
-/* ACTIONS */
-.actions {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    margin-left: -10rem;
-    display: flex;
-    flex-direction: column;
-    transition: margin-left var(--transition-duration) var(--transition-timing-function);
-}
-
-.joined .actions {
-    margin-left: 0;
-}
-
-.actions button span {
-    margin-left: 0.5rem;
-}
-
-/* CHAT */
-.chat {
-    width: 480px;
-    max-width: calc(100% - 40px);
-    height: 100%;
-    z-index: 100;
-    overflow: hidden;
-    padding-top: var(--outline-width);
-    display: flex;
-    flex-direction: column;
-}
-
-.chat .chat__rooms {
-    padding: 0 var(--border-radius);
-    display: flex;
-}
-
-.chat .chat__rooms button {
-    margin: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.chat .chat__rooms button.active {
-    z-index: 101;
-}
-
-.chat .chat__rooms button:not(.active) {
-    opacity: 0.5;
-}
-
-.chat > article {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    z-index: 110;
-}
-
-.chat .chat__messages {
-    overflow-y: auto;
-    height: 100%;
-    padding: var(--block-spacing-vertical) var(--block-spacing-horizontal);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.chat.rendered .chat__messages {
-    scroll-behavior: smooth;
-}
-
-.chat .chat__input {
-    padding: 1rem;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    z-index: 120;
-    transition: margin-bottom var(--transition-duration) var(--transition-timing-function);
-}
-
-.chat .chat__input.message {
-    min-height: 74px;
-}
-
-.chat .chat__input.poll {
-    min-height: 338px;
-    margin-bottom: -338px;
-}
-
-.chat .chat__input .input__row {
-    margin: 0;
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-}
-
-.chat .chat__input .input__row input, .chat .chat__input .input__row button {
-    margin: 0;
-}
-
-.chat .chat__input.poll form {
-    display: flex;
-    flex-direction: column;
-}
-
-.chat .chat__input.message.disabled {
-    margin-bottom: -74px;
-}
-
-.chat .chat__input.poll.enabled {
-    margin-bottom: 0;
-}
-
 /* MEDIA QUERIES */
 @media (max-width: 576px) {
-    :not(.joined) .banner h1 {
+    .banner h1 {
         font-size: calc(var(--font-size-xxxl) * 0.75);
-    }
-
-    .actions button span {
-        display: none;
     }
 }
