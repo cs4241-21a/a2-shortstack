@@ -133,7 +133,7 @@ button {
     align-items: center;
 }
 
-input[type=text], button {
+input:not([type=radio]), button {
     padding: 0.5rem 1rem !important;
 }
 
