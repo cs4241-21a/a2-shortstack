@@ -1,97 +1,69 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
-===
+## pogchat.io
+Nathan Klingensmith https://a3-iamparadoxdotexe.glitch.me/
 
-Due: September 9th, by 11:59 AM.
+My website is a chatroom app that supports sending messages and polls in both a public and private chatroom.
 
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
+##### *Instructions* 
+To enter that chat, create an account with a username and password. Passwords are made secure using [bcrypt's](https://www.npmjs.com/package/bcrypt) salting and hashing algorithm.
 
-Baseline Requirements
----
+Once logged in, you should see the **Public** chatroom with public chat messages from all users.
+You can add a new message with the input box at the bottom or create a poll by clicking the poll icon. 
+Once you have sent a message or poll, you can edit their content or delete it entirely using the icon buttons located at the top right of the message.
+*Note: You can only edit and delete your own messages.*
+By using the tabs at the top of the chat box, you can switch to the **Private** chatroom; any messages here can only be seen by you.
 
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
+##### *Challenges* 
+The biggest challenge in realizing this application was adding a private chat where each user could securely access their own MongoDB collection for chat messages and polls.
+To make this work, I had to add a `room` variable to each chat-related POST request to identify what room to manipulate data for.
+In the case of a "Private" room, the chat collection for the specific user was retrieved via their username.
 
-Your application is required to implement the following functionalities:
+##### *Authentication*
+For authentication, I implemented a username and password form that authenticates user credentials using a hash table stored in MongoDB.
+This was the simplest authentication method and what I used in Assignment 2. I also implemented a cookie session to support persistent sessions.
 
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add, modify, or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
+* Utilized [bcrypt](https://www.npmjs.com/package/bcrypt) to salt and hash plaintext passwords for secure storage in MongoDB.
+* Added a `/login` POST endpoint for creating a new account or logging into an existing one. A cookie is added to the user's browser to store their username and authentication token.
+* Added a `/logout` POST endpoint for clearing the active session.
+* Added a `/session` GET endpoint for retrieving the active session.
 
-Your application is required to demonstrate the use of the following concepts:
+##### *CSS Framework*
+I used [Pico.css](https://picocss.com/) as my chosen CSS framework to revamp my website with better, more uniform styles.
 
-HTML:
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with.
-- All pages should [validate](https://validator.w3.org)
+I modified parts of this framework to give my website the exact aesthetic I sought to achieve:
+* I restyled radio buttons for polls.
+* I reduced padding on input boxes.
+* I modified the colors of `secondary` and `contrast` buttons to fit the theme better.
+* I reduced margin in places to maintain relational proximity.
+* I customized Pico colors and other root variables in `theme.css`.
 
-CSS:
-- CSS styling of the primary visual elements in the application
-- Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
-- CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
-
-- CSS defined in a maintainable, readable form, in external stylesheets 
-
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js:
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
-
-Deliverables
----
-
-Do the following to complete this assignment and acheive a base grade of 85%:
-
-1. Fork the starting project code (make sure to fork the 2021 repo!). This repo contains some starter code that may be used or discarded as needed.
-2. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
-*Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also find). Important considerations when designing your study:
-
-1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
-2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
-
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
+##### *Express Middleware*
+I utilize five different middlewares to improve my Express server:
+* `compression` was utilized to compress response data sent to the client.
+* `express.static` was implemented to serve static image files from the `/public` folder.
+* `express.json` was used to parse JSON request bodies in my POST endpoints.
+* `cookie-session` was implemented to store a cookie in the user's browser for persistent authentication.
+* `view-helpers` was used to log information on whether my users are using the app from desktop or mobile.
 
 ## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
+* **Public and Private Data**: Added endpoints for both public data and private, user-specific data.
+  - The endpoint `/chat/public` was added to get all chat data for the public chatroom.
+  - The endpoint `/chat/private` was added to get all chat data that a user sent in their own, private chatroom.
+  - User data was clearly divided in MongoDB through the use of separate collections. For example, a user named "Guest1" would have their own collection created in MongoDB named "Guest1" for storing their private chatroom data. This data can only be retrieved through authentication from the respective endpoint.
+* **100% Lighthouse Scores**: Achieved 100% on all four lighthouse tests.
+    - I debugged problems with my code until I achieved 100% in all four Lighthouse testing areas: Performance, Accessibility, Best Practices, and SEO. This was confirmed on both `index.html` and `chat.html` (logged out and logged in).
+    - Image of inspection: https://gyazo.com/ce13530c51c8a3575bcc19d45eb57ad0
 
-### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+### Design Achievements
+* **W3C Accessibility Tips**:  Implemented 12 tips from W3C to improve my website's accessibility.
+  - `Provide sufficient contrast between foreground and background` I used white text on a dark purple background to reach a contrast ratio of 8.43:1--surpassing WCAG's recommended contrast ratio of 7:1.
+  - `Ensure that form elements include clearly associated labels` To label all form fields, I used descriptive placeholder text like "Write a reply" and "Ask a question" to clearly show the expected behavior of each input. This works well for an interactive chat app like pogchat.io.
+  - `Provide clear instructions` In the "Join the chatroom" box, I provide a clear notice that you can either "login to an existing account" or "create a new one" with the same form.
+  - `Keep content clear and concise` On all pages, I reduced the content to only what is needed to be as concise as possible. For chat messages, this included showing the user's name, what they said, and when they said it--the three essential pieces of communication.
+  - `Provide easily identifiable feedback` In the cases where I need to notify the user of specific events like creating an account or entering a wrong password, I used alert boxes to provide clear, identifiable feedback.
+  - `Create designs for different viewport sizes` To ensure users on mobile would have the same functionality as those on desktop, I tested the app at varying mobile screen sizes. Adjustments were made to the CSS using media queries to ensure compatibility.
+  - `Include alternative text for images` For the one image on my site that is used to add texture to the background, I actually removed the alternative text to improve accessibility. Since the image provides no new content, but just an aesthetic difference, an alt attribute was not used.
+  - `Identify page language and language changes` I specified the English language using `lang="en"` on both of my HTML pages.
+  - `Reflect the reading order in the code order` I ensured all of my code follows the natural reading order that is  displayed on the site. For example, messages have a username, content, and then timestamp in that order.
+  - `Write code that adapts to the user’s technology` I used media queries to reduce the "pogchat.io" font size and reduce the menu buttons to just icons at small screen sizes.
+  - `Ensure that all interactive elements are keyboard accessible` I ensured all elements have a clearly identifiable `:focus` state to support keyboard accessibility on all interactive elements.
+  - `Provide meaning for non-standard interactive elements` For all icon buttons, I specified an `aria-label` to provide further meaning. This improved the accessibility for the buttons to add a poll and to edit or delete a message.
