@@ -46,15 +46,15 @@ const handlePost = function( request, response ) {
       author: jsonDS.value,
       score: jsonDS.value,
       notes: jsonDS.value,
-      year: jsonDS.value,
     }
 
-    appdata[appdata.length] = jsonDS
+    jsonDS.year = new Date().getFullYear();
+    
+    appdata.push(jsonDS)
 
     console.log(JSON.stringify(appdata))
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    console.log(JSON.stringify(jsonDS))
-    response.end(JSON.stringify(appdata))
+    response.end(JSON.stringify(jsonDS))
   })
 }
 
