@@ -287,6 +287,7 @@ function addRow(json) {
     gpa = gpa/len
     document.getElementById("gpa").innerText = 'GPA: ' + gpa.toFixed(2)
 }
+<<<<<<< HEAD
 
 function newUser() {
     if (len === 0){
@@ -321,3 +322,5 @@ function newUser() {
         }))))
     }
 }
+=======
+>>>>>>> 3d3494035f5a989eab3283a3b7e61e9cfd743eb7
