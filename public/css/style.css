@@ -3,11 +3,10 @@ Table {
     background-color: white;
     border: solid black 5px;
     border-collapse: collapse;
-    margin-top: 50px;
-    
+    margin-top: 50px;   
 }
 
-#grid{
+.grid{
     margin-top: 50px;
     display: grid;
     grid-template-columns: 30% 70%;
@@ -83,6 +82,7 @@ input {
 
 #initButton {
     margin-top: 20px;
+    line-height: 0;
     font-size: larger;
 }
 
@@ -97,7 +97,58 @@ input {
 
 .title {
     text-align: center;
+    height: 100px;
+    font-size: xx-large;
+    line-height: 90px;
+    margin-top: -30px;
+    margin-bottom: 20px;
     background-color: rgb(165, 164, 164);
     border: solid black 2px;
     border-radius: 20px;
+}
+
+.round {
+    border-radius: 30px;
+    background-color: rgb(130, 74, 74);
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+    color: black;
+    font-size: larger;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.box {
+    background-color: white;
+    width: 375px;
+    border-radius: 8px;
+}
+
+#signup {
+    grid-column: 1;
+}
+
+#login {
+    grid-column: 2;
+}
+
+#logingrid {
+    margin-top: 10px;
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.spread {
+    margin: 0px;
+}
+
+.buttons {
+    margin: 30px;
+    font-size: medium;
+    line-height: 0px;
 }
