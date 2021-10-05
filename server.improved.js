@@ -1,72 +1,121 @@
-const http = require( 'http' ),
-      fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
-      mime = require( 'mime' ),
-      dir  = 'public/',
-      port = 3000
+const express     = require('express'),
+      app         = express(),
+      bodyparser  = require('body-parser'),
+      mongodb     = require('mongodb'),
+      helmet      = require('helmet'),
+      compression = require('compression'),
+      favicon     = require('serve-favicon'),
+      port = 3003
+require('dotenv').config()
+app.use( compression( { level: 6, threshold: 0}) )
+app.use( express.static( 'public' ) )
+app.use( bodyparser.json() )
+app.use( helmet() )
+app.use( favicon( __dirname + '/public/assets/WPI.ico'))
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const uri = 'mongodb+srv://'+process.env.DBUSER+':'+process.env.DBPASS+'@'+process.env.DBHOST
 
-const server = http.createServer( function( request,response ) {
-  if( request.method === 'GET' ) {
-    handleGet( request, response )    
-  }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
-  }
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+let collection = null
+
+client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'a3' ).collection( 'Webware' )
+  })
+  .then( __collection => {
+    // store reference to collection
+    collection = __collection
+    // blank query returns all documents
+    return collection.find({ }).toArray()
+  })
+
+const userclient = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+let usercollection = null
+
+userclient.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return userclient.db( 'a3' ).collection( 'Users' )
+  })
+  .then( __usercollection => {
+    // store reference to collection
+    usercollection = __usercollection
+    // blank query returns all documents
+    return usercollection.find({ }).toArray()
+  })
+
+app.get( '/', function( request, response) {
+  response.sendFile('/index.html')
 })
 
-const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
+app.post( '/init', function( request, response ) {
+  collection.find({ }).toArray().then( result => response.json( result ) )
+})
 
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
+app.post( '/submit', function( request, response ) {
+  collection.insertOne(request.body).then(collection.find({ }).toArray()).then(result => response.json(result))
+})
+
+app.post( '/delete', function( request, response ) {
+  collection.deleteOne({ _id:mongodb.ObjectId( request.body.id ) }).then(collection.find({ }).toArray()).then(result => response.json(result))
+})
+
+app.post( '/modify', function( request, response ) {
+  collection.updateOne(
+    { _id:mongodb.ObjectId( request.body.id ) }, 
+    { $set:{ name:request.body.name } }
+  ).then(collection.find({ }).toArray()).then(result => response.json(result))
+})
+
+app.post( '/signup', function( request, response ) {
+  usercollection.find({user: request.body.user}).toArray().then(array => finishsignup(response, array, request.body))
+})
+
+const finishsignup = function (response, array, body) {
+  if (array.length === 0){
+    usercollection.insertOne(body).then(usercollection.find({ }).toArray()).then(result => response.json(result))
+  }
+  else{
+    response.writeHeader(201, { 'Content-Type': 'application/json' })
+    response.end()
   }
 }
 
-const handlePost = function( request, response ) {
-  let dataString = ''
+app.post( '/login', function( request, response ) {
+  usercollection.find({user: request.body.user}).toArray().then(array => finishlogin(response, array, request.body))
+})
 
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
-
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+const finishlogin = function (response, array, body) {
+  if (array.length !== 0 && body.pass === array[0].pass){
+    response.writeHeader(202)
     response.end()
+  }
+  else{
+    response.writeHeader(201)
+    response.end()
+  }
+}
+
+const sendFile = function (response, filename) {
+
+  fs.readFile(filename, function (err, content) {
+
+    // if the error = null, then we've loaded the file successfully
+    if (err === null) {
+
+      // status code: https://httpstatuses.com
+      response.writeHeader(200, { 'Content-Type': 'application/json' })
+      response.end(content)
+
+    } else {
+
+      // file not found, error code 404
+      response.writeHeader(404)
+      response.end('404 Error: File Not Found')
+
+    }
   })
 }
 
-const sendFile = function( response, filename ) {
-   const type = mime.getType( filename ) 
-
-   fs.readFile( filename, function( err, content ) {
-
-     // if the error = null, then we've loaded the file successfully
-     if( err === null ) {
-
-       // status code: https://httpstatuses.com
-       response.writeHeader( 200, { 'Content-Type': type })
-       response.end( content )
-
-     }else{
-
-       // file not found, error code 404
-       response.writeHeader( 404 )
-       response.end( '404 Error: File Not Found' )
-
-     }
-   })
-}
-
-server.listen( process.env.PORT || port )
+app.listen( process.env.PORT || port)
