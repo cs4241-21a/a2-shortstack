@@ -8,6 +8,47 @@ let itemIndex = 2;
 window.onload = function() {
   const btnAdd = document.getElementById("addRow")   
   btnAdd.onclick = add_row;
+  getDatabaseData();
+}
+
+function getDatabaseData() {
+  fetch("/getdata", {
+    method: "GET",
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      buildTable(data);
+    });
+}
+
+function buildTable(appdata) {
+ 
+  console.log("\nRestored Data" + JSON.stringify(appdata))
+
+  // no data from last session
+  if (appdata.length === 0) {
+    return;
+  }
+
+  let no = 0;
+  for (let i = 0; i < appdata.length; i++) {
+    no = i+1;
+   // document.getElementById("hwTable").deleteRow(no);
+
+    let table=document.getElementById('hwTable');
+    let row = table.insertRow(no).outerHTML=
+    "<tr id='row"+no+"'><td id='assignment_row"+no+"'>"+appdata[i].assignment
+    +"</td><td id='course_row"+no+"'>"+appdata[i].course+"</td><td id='percentage_row"+no+"'>"+appdata[i].percentage+"</td><td id='priority_row"+no
+    +"'>"+appdata[i].priority+"</td><td><input type='button' id='edit_button" +no+"' value='Edit' class='edit' onclick='edit_row("+no+")'> <input type='button' id='save_button"+no
+    +"' value='Save' class='save' disabled=false onclick='save_row("+no+")'> <input type='button' value='Mark Completed' class='complete' onclick='mark_completed("+no+")'></td></tr>";
+  }
+
+  for (let i = 0; i < appdata.length; i++) {
+    itemIndex = appdata[i].itemIndex
+  }
+  itemIndex++;
 }
 
 function mark_completed( no ) {
