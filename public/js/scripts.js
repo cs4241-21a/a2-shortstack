@@ -12,7 +12,7 @@ window.onload = function() {
 }
 
 function getDatabaseData() {
-  fetch("/getdata", {
+  fetch("/data", {
     method: "GET",
   })
     .then(function (response) {
@@ -50,6 +50,7 @@ function buildTable(appdata) {
   }
   itemIndex++;
 }
+
 
 function mark_completed( no ) {
   let assignment = document.getElementById("assignment_row"+no);
