@@ -40,8 +40,8 @@ const handleGet = function( request, response ) {
   else if( request.url === '/complete' ) {
     passClientData(response, appdata);
   } 
-  else if( request.url === '/getdata' ) {
-  passClientData(response, appdata);
+  else if( request.url === '/data' ) {
+    passClientData(response, appdata);
   } 
   else {
     sendFile( response, filename )
